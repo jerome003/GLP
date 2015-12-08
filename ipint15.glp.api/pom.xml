@@ -1,39 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>ipint15.glp.domain</groupId>
-  <artifactId>ipint15.glp.domain</artifactId>
+  <groupId>ipint.glp.api</groupId>
+  <artifactId>ipint.glp.api</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
-  		<dependency>
-			<groupId>ipint15.glp.api</groupId>
-			<artifactId>ipint15.glp.api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
   <dependency>
     <groupId>javax</groupId>
     <artifactId>javaee-api</artifactId>
     <version>7.0</version>
 </dependency>
 </dependencies>
-  <packaging>ejb</packaging>
   <build>
-    <sourceDirectory>ejbModule</sourceDirectory>
-    <resources>
-      <resource>
-        <directory>ejbModule</directory>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </resource>
-    </resources>
+    <sourceDirectory>src</sourceDirectory>
     <plugins>
-      <plugin>
-        <artifactId>maven-ejb-plugin</artifactId>
-        <version>2.5</version>
-        <configuration>
-          <ejbVersion>3.2</ejbVersion>
-        </configuration>
-      </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.3</version>

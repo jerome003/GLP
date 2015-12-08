@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="ipint.ejb.personbean"
 		transaction-type="JTA">	
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>jdbc/newResource</jta-data-source>
 		<class>ipint15.glp.domain.entities.Person</class>
 		<properties>
