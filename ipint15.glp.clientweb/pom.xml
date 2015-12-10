@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ipint15.glp</groupId>
 	<artifactId>glp</artifactId>
-	<name>ipint14.springetejb.ejbspringweb</name>
+	<name>ipint15.glp.clientweb</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
