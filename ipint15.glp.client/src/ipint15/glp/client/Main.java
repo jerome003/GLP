@@ -1,12 +1,16 @@
 package ipint15.glp.client;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import ipint15.glp.api.remote.PersonCatalogRemote;
-import ipint15.glp.api.dto.PersonDTO;
+import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.remote.EtudiantCatalogRemote;
+
+
 
 
 public class Main {
@@ -16,9 +20,9 @@ public class Main {
 			// création du "contexte initial" = de la connexion à l'annuaire du serveur
 						InitialContext context = new InitialContext();
 						// requête sur le nom de la ressource que l'on veut, ici notre EJB
-						PersonCatalogRemote catalog =(PersonCatalogRemote)context.lookup("ipint.ejb.util.personbean.PersonCatalogRemote");
-						catalog.createPerson("Maxime", "Delporte");
-						List<PersonDTO> myPersons = catalog.listPerson();
+						EtudiantCatalogRemote catalog =(EtudiantCatalogRemote)context.lookup("ipint15.glp.api.remote.EtudiantCatalogRemote");
+						catalog.createEtudiant("Maxime", "Delporte","maximus@gmail.com","toto", Calendar.getInstance());
+						List<EtudiantDTO> myPersons = catalog.listEtudiant();
 						Iterator it = myPersons.iterator();
 						while(it.hasNext()) {
 							System.out.println(it.next().toString());

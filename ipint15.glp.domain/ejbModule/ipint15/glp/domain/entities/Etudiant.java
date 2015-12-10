@@ -1,6 +1,7 @@
 package ipint15.glp.domain.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -8,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+
+import javax.persistence.TemporalType;
 
 
 @Entity
@@ -23,10 +27,10 @@ public class Etudiant implements Serializable {
 	private int id;
 	private String prenom;
 	private String nom;
-	private String login;
 	private String password;
 	private String email;
-	private Date naissance;
+	@Temporal(TemporalType.TIME)
+	private Calendar naissance;
 	public int getId() {
 		return id;
 	}
@@ -45,12 +49,6 @@ public class Etudiant implements Serializable {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public String getLogin() {
-		return login;
-	}
-	public void setLogin(String login) {
-		this.login = login;
-	}
 	public String getPassword() {
 		return password;
 	}
@@ -63,15 +61,15 @@ public class Etudiant implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getNaissance() {
+	public Calendar getNaissance() {
 		return naissance;
 	}
-	public void setNaissance(Date naissance) {
+	public void setNaissance(Calendar naissance) {
 		this.naissance = naissance;
 	}
 	@Override
 	public String toString() {
-		return "Etudiant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", login=" + login + ", password="
+		return "Etudiant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", password="
 				+ password + ", email=" + email + ", naissance=" + naissance + "]";
 	}
 	

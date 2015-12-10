@@ -22,7 +22,7 @@ import ipint15.glp.api.remote.EtudiantCatalogRemote;
 public class HomeController {
 	
 	@Inject
-	protected EtudiantCatalogRemote Etudiantbean;
+	protected EtudiantCatalogRemote etudiantbean;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -31,12 +31,12 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-	if( Etudiantbean == null ) {
+	if( etudiantbean == null ) {
 	logger.info("The bean is not injected !.");
 	return "error";
 	}
 	// Injection works !
-	model.addAttribute("myInjectedBean", Etudiantbean );
+	model.addAttribute("myInjectedBean", etudiantbean );
 	return "home";
 	}
 	

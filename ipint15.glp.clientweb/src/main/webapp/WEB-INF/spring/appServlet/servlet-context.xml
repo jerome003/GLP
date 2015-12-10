@@ -41,8 +41,8 @@
 
 
 	<jee:remote-slsb id="personbean"
-		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/PersonCatalogImpl"
-		business-interface="ipint15.glp.api.remote.PersonCatalogRemote">
+		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl"
+		business-interface="ipint15.glp.api.remote.EtudiantCatalogRemote">
 	</jee:remote-slsb>
 
 	<context:component-scan base-package="ipint15.glp.webclient.controller" />
