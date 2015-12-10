@@ -1,7 +1,5 @@
 package ipint15.glp.webclient.controller;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -26,9 +24,7 @@ public class ConnexionController {
 
 	@RequestMapping(value = "/connexion", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
-
 		return new ModelAndView("connexion", "command", new EtudiantDTO());
-		
 		//return "inscription";
 	}
 
@@ -36,7 +32,7 @@ public class ConnexionController {
 	public String connexion(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
 		if(etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())){
 			// pour le test je renvoie vers la page inscription, il faudra renvoyer vers la page de profil lorsqu'elle sera implentee.
-			return "inscription";
+			return "profil";
 		} else {
 			return "connexion";
 		}

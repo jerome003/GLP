@@ -27,25 +27,18 @@ public class InscriptionController {
 
 	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
-
 		return new ModelAndView("inscription", "command", new EtudiantDTO());
-		
-		//return "inscription";
 	}
 
 	@RequestMapping(value = "/addEtudiant", method = RequestMethod.POST)
 	public String addEtudiant(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
-
 		etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getEmail(),
 				etudiant.getPassword(), etudiant.getNaissance());
-		
-		
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
 		Iterator it = myPersons.iterator();
 		while(it.hasNext()) {
 			System.out.println(it.next().toString());
 		}
-
 		return "inscription";
 	}
 
