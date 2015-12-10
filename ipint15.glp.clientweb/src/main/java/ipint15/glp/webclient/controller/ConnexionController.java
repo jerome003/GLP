@@ -32,19 +32,13 @@ public class ConnexionController {
 		//return "inscription";
 	}
 
-	@RequestMapping(value = "/signInEtudiant", method = RequestMethod.POST)
-	public String addEtudiant(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
-
-		etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getEmail(),
-				etudiant.getPassword(), etudiant.getNaissance());
-		
-		
-		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
-		Iterator it = myPersons.iterator();
-		while(it.hasNext()) {
-			System.out.println(it.next().toString());
+	@RequestMapping(value = "/connexionProfil", method = RequestMethod.POST)
+	public String connexion(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
+		if(etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())){
+			// pour le test je renvoie vers la page inscription, il faudra renvoyer vers la page de profil lorsqu'elle sera implentee.
+			return "inscription";
+		} else {
+			return "connexion";
 		}
-
-		return "connexion";
 	}
 }

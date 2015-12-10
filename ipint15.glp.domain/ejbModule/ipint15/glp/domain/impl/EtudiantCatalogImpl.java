@@ -4,14 +4,13 @@ package ipint15.glp.domain.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.omg.Messaging.SyncScopeHelper;
 
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
@@ -66,6 +65,22 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			psDTO.add(pDTO);
 		}
 		return psDTO;
+	}
+	
+	
+	@Override
+	public boolean connexion(String email, String password){
+		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
+		System.out.println(email);
+		System.out.println(password);
+		for(Etudiant p: ps){
+			if(p.getEmail().equals(email)&&(p.getPassword().equals(password))){
+				System.out.println("connexion etablie");
+				return true;
+			}
+		}
+		System.out.println("connexion refusee");
+		return false;
 	}
 	
 	public String toString() {
