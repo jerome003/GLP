@@ -18,18 +18,32 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-		
-		<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-	<beans:bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
+	<beans:bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles.xml</beans:value>
+			</beans:list>
+		</beans:property>
 	</beans:bean>
 
-	 <jee:remote-slsb id ="personbean" jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/PersonCatalogImpl" 
-	business-interface="ipint15.glp.api.remote.PersonCatalogRemote">
-</jee:remote-slsb>
+	<beans:bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="viewClass">
+			<beans:value>
+				org.springframework.web.servlet.view.tiles3.TilesView
+			</beans:value>
+		</beans:property>
+		<beans:property name="order" value="0" />
+	</beans:bean>
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+
+
+	<jee:remote-slsb id="personbean"
+		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/PersonCatalogImpl"
+		business-interface="ipint15.glp.api.remote.PersonCatalogRemote">
+	</jee:remote-slsb>
 
 	<context:component-scan base-package="ipint15.glp.webclient.controller" />
 	<context:component-scan base-package="ipint14.springetejb.domain" />
