@@ -4,8 +4,6 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,31 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ipint15.glp.api.remote.PersonCatalogRemote;
 
-
-
-/**
- * Handles requests for the application home page.
- */
 @Controller
-public class HomeController {
+public class InscriptionController {
 	
 	@Inject
 	protected PersonCatalogRemote personbean;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-	if( personbean == null ) {
-	logger.info("The bean is not injected !.");
-	return "error";
-	}
-	// Injection works !
+		
 	model.addAttribute("myInjectedBean", personbean );
-	return "home";
+	return "inscription";
 	}
-	
+
 }
