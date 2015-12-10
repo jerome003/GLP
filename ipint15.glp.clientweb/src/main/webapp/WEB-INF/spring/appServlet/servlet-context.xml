@@ -46,6 +46,6 @@
 	</jee:remote-slsb>
 
 	<context:component-scan base-package="ipint15.glp.webclient.controller" />
-	<context:component-scan base-package="ipint14.springetejb.domain" />
+	<context:component-scan base-package="ipint15.glp.domain" />
 
 </beans:beans>

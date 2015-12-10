@@ -6,7 +6,7 @@
 		transaction-type="JTA">	
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>jdbc/newResource</jta-data-source>
-		<class>ipint15.glp.domain.entities.Person</class>
+		<class>ipint15.glp.domain.entities.Etudiant</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value = "drop-and-create"/>
 			<property name="javax.persistence.schema-generation.create-database-schemas" value = "true"/>			
