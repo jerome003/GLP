@@ -31,7 +31,6 @@ public class ConnexionController {
 	@RequestMapping(value = "/connexionProfil", method = RequestMethod.POST)
 	public String connexion(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
 		if(etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())){
-			// pour le test je renvoie vers la page inscription, il faudra renvoyer vers la page de profil lorsqu'elle sera implentee.
 			return "profil";
 		} else {
 			return "connexion";
