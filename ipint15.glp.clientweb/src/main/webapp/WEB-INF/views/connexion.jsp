@@ -18,7 +18,7 @@
 							<form:label  path="password"  class="control-label">Mot de passe</form:label>
 						</div>
 						<div class="col-sm-10">
-							<form:input path="password" type="text" class="form-control"/>
+							<form:input path="password" type="password" class="form-control"/>
 						</div>
 					</div>
 
