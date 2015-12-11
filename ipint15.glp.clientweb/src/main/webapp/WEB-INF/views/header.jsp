@@ -22,7 +22,7 @@
               <a href="#">Accueil</a>
             </li>
             <li>
-              <a href="#">Connexion<br></a>
+              <a href="${pageContext.request.contextPath}/connexion">Connexion<br></a>
             </li>
             <li>
               <a href="${pageContext.request.contextPath}/inscription">Inscription<br></a>
