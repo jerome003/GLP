@@ -19,42 +19,37 @@
 					</div> 
 					<div class="form-group">
 						<div class="col-sm-2">
-							<form:label  path="prenom"  class="control-label">Prénom</form:label>
-						</div>
-						<div class="col-sm-10">
-							<form:input path="prenom" type="text" class="form-control"/>
-							<form:errors path="prenom"/>	
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-2">
 							<form:label path="nom" class="control-label">Nom</form:label>
 						</div>
 						<div class="col-sm-10">
 							<form:input path="nom" type="text" class="form-control"/>
-							<form:errors path="nom"/>	
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-2">
+							<form:label  path="prenom"  class="control-label">Prénom</form:label>
+						</div>
+						<div class="col-sm-10">
+							<form:input path="prenom" type="text" class="form-control"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-2">
 							<form:label path="email" for="inputEmail" class="control-label">Email</form:label>
-							
 						</div>
 						<div class="col-sm-10">
 							<form:input path="email" type="email" class="form-control" id="inputEmail"
 								placeholder="Email"/>
-							<form:errors path="email"/>	
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-2">
-							<form:label path="naissance" class="control-label">Date de naissance</form:label>
+							<form:label path="naissance" class="control-label">Date d'anniversaire</form:label>
 						</div>
 						<div class="col-sm-10">
 							<div class="form-inline">
-									<input type="date" name="bday">
+									<form:input path="naissance" type="date" pattern="yyyy-MM-dd" name="bday" />
 							</div>
-							<form:errors path="naissance"/>	
 						</div>
 					</div>
 

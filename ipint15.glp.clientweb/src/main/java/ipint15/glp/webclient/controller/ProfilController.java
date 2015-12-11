@@ -1,7 +1,5 @@
 package ipint15.glp.webclient.controller;
 
-import java.util.Locale;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;

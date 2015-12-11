@@ -33,8 +33,9 @@ public class ConnexionController {
 	}
 
 	@RequestMapping(value = "/connexionProfil", method = RequestMethod.POST)
-	public String connexion(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result,HttpServletRequest request) {
-		if(etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())){
+	public String connexion(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result,
+			HttpServletRequest request) {
+		if (etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())) {
 			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
 			HttpSession sessionObj = request.getSession();
 			sessionObj.setAttribute("etudiant", etu);
@@ -42,5 +43,21 @@ public class ConnexionController {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Deconnection d'un utilisateur.
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/deconnection", method = RequestMethod.GET)
+	public String deconnection(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("etudiant", null);
+		request.setAttribute("deco", "deco");
+		return "home";
 	}
 }
