@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,13 +32,16 @@ public class InscriptionController {
 	}
 
 	@RequestMapping(value = "/addEtudiant", method = RequestMethod.POST)
-	public String addEtudiant(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
+	public String addEtudiant(@Valid @ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
 		etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getEmail(),
 				etudiant.getPassword(), etudiant.getNaissance());
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
 		Iterator it = myPersons.iterator();
 		while(it.hasNext()) {
 			System.out.println(it.next().toString());
+		}
+		if (result.hasErrors()) {
+			return "inscription";
 		}
 		return "inscription";
 	}
