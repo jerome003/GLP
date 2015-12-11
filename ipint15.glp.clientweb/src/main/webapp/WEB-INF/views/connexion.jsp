@@ -6,10 +6,10 @@
 				<form:form class="form-horizontal" role="form" method="post" commandName="command" action="connexionProfil">
 					<div class="form-group">
 						<div class="col-sm-2">
-							<form:label path="email" for="inputEmail" class="control-label">Email</form:label>
+							<form:label path="email" for="inputEmail3" class="control-label">Email</form:label>
 						</div>
 						<div class="col-sm-10">
-							<form:input path="email" type="email" class="form-control" id="inputEmail"
+							<form:input path="email" type="email" class="form-control" id="inputEmail" name="inputEmail"
 								placeholder="Email"/>
 						</div>
 					</div>
