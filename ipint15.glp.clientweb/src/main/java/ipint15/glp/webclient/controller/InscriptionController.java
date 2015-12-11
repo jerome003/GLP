@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -36,13 +37,18 @@ public class InscriptionController {
 	}
 
 	@RequestMapping(value = "/addEtudiant", method = RequestMethod.POST)
-	public String addEtudiant(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
+
+	public String addEtudiant(@Valid @ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
 		etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),
 				etudiant.getPassword(), etudiant.getNaissance());
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
 		Iterator it = myPersons.iterator();
 		while(it.hasNext()) {
 			System.out.println(it.next().toString());
+		}
+
+		if (result.hasErrors()) {
+			return "inscription";
 		}
 		return "inscriptionOK";
 	}
@@ -52,6 +58,7 @@ public class InscriptionController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.setLenient(true);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+
 	}
 
 }
