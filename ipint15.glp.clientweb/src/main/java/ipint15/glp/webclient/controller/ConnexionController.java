@@ -3,7 +3,10 @@ package ipint15.glp.webclient.controller;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.eclipse.persistence.sessions.server.ServerSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.sun.xml.ws.runtime.dev.Session;
 
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
@@ -25,17 +30,15 @@ public class ConnexionController {
 	@RequestMapping(value = "/connexion", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
 		return new ModelAndView("connexion", "command", new EtudiantDTO());
-		//return "inscription";
 	}
 
 	@RequestMapping(value = "/connexionProfil", method = RequestMethod.POST)
-	public ModelAndView connexion(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
+	public String connexion(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result,HttpServletRequest request) {
 		if(etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())){
 			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
-			ModelAndView model = new ModelAndView();
-			model.addObject("etudiant",etu);
-	        model.setViewName("profil");
-			return model;
+			HttpSession sessionObj = request.getSession();
+			sessionObj.setAttribute("etudiant", etu);
+			return "profil";
 		} else {
 			return null;
 		}
