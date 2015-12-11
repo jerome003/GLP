@@ -7,6 +7,7 @@ import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
@@ -21,7 +22,7 @@ public class Main {
 						InitialContext context = new InitialContext();
 						// requête sur le nom de la ressource que l'on veut, ici notre EJB
 						EtudiantCatalogRemote catalog =(EtudiantCatalogRemote)context.lookup("ipint15.glp.api.remote.EtudiantCatalogRemote");
-						catalog.createEtudiant("Maxime", "Delporte","maximus@gmail.com","toto", new Date());
+						catalog.createEtudiant("Maxime", "Delporte", Civilite.M, "maximus@gmail.com","toto", new Date());
 						List<EtudiantDTO> myPersons = catalog.listEtudiant();
 						Iterator it = myPersons.iterator();
 						while(it.hasNext()) {

@@ -37,7 +37,7 @@ public class InscriptionController {
 
 	@RequestMapping(value = "/addEtudiant", method = RequestMethod.POST)
 	public String addEtudiant(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
-		etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getEmail(),
+		etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),
 				etudiant.getPassword(), etudiant.getNaissance());
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
 		Iterator it = myPersons.iterator();

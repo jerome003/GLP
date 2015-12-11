@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import org.omg.Messaging.SyncScopeHelper;
 
+import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.domain.entities.Etudiant;
@@ -33,12 +34,13 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	
 
 	@Override
-	public EtudiantDTO createEtudiant(String firstname, String lastname, String email, String password,
+	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String password,
 			Date naissance) {
 		Etudiant p = new Etudiant();
 		p.setId(++id);
 		p.setPrenom(firstname);
 		p.setNom(lastname);
+		p.setCivilite(civilite);
 		p.setEmail(email);
 		p.setPassword("password");
 		p.setNaissance(naissance);

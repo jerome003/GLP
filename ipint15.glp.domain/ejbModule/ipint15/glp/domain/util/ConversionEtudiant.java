@@ -10,6 +10,7 @@ public class ConversionEtudiant {
 		pDTO.setId(e.getId());
 		pDTO.setPrenom(e.getPrenom());
 		pDTO.setNom(e.getNom());
+		pDTO.setCivilite(e.getCivilite());
 		pDTO.setEmail(e.getEmail());
 		pDTO.setPassword("password");
 		pDTO.setNaissance(e.getNaissance());
@@ -21,6 +22,7 @@ public class ConversionEtudiant {
 		p.setId(e.getId());
 		p.setPrenom(e.getPrenom());
 		p.setNom(e.getNom());
+		p.setCivilite(e.getCivilite());
 		p.setEmail(e.getEmail());
 		p.setPassword("password");
 		p.setNaissance(e.getNaissance());

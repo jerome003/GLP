@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="active">
-              <a href="#">Accueil</a>
+              <a href="${pageContext.request.contextPath}/">Accueil</a>
             </li>
             <li>
               <a href="${pageContext.request.contextPath}/connexion">Connexion<br></a>
@@ -28,7 +28,7 @@
               <a href="${pageContext.request.contextPath}/inscription">Inscription<br></a>
             </li>
             <li>
-              <a href="#">Contact<br></a>
+              <a href="${pageContext.request.contextPath}/contact">Contact<br></a>
             </li>
           </ul>
         </div>
