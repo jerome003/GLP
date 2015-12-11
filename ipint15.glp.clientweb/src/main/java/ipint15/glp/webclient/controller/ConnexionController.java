@@ -25,15 +25,21 @@ public class ConnexionController {
 	@RequestMapping(value = "/connexion", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
 		return new ModelAndView("connexion", "command", new EtudiantDTO());
-		//return "inscription";
+		// return "inscription";
 	}
 
 	@RequestMapping(value = "/connexionProfil", method = RequestMethod.POST)
 	public String connexion(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
-		if(etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())){
+		if (etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())) {
 			return "profil";
 		} else {
 			return "connexion";
 		}
+	}
+
+	@RequestMapping(value = "/deconnection", method = RequestMethod.POST)
+	public String deconnection(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
+		// TODO JBG
+		return "connexion";
 	}
 }
