@@ -50,7 +50,6 @@ public class ConnexionController {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("etudiant", null);
 		request.setAttribute("deco", "deco");
-		// request.getSession().invalidate();
 		return "home";
 	}
 }

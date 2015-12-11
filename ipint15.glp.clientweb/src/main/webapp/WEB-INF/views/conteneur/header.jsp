@@ -15,8 +15,8 @@
 	EtudiantDTO etudiant;
 	String deco = (String) request.getAttribute("deco");
 	if ("deco".equals(deco)) {
-		//session.invalidate();
 		etudiant = null;
+		session.setAttribute("etudiant", null);
 	} else {
 		etudiant = (EtudiantDTO) session.getAttribute("etudiant");
 	}
