@@ -36,11 +36,11 @@
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-ex-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a
-					href="${pageContext.request.contextPath}/">Accueil</a></li>
 				<%
 					if (etudiant == null) {
 				%>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/">Accueil</a></li>
 				<li><a href="${pageContext.request.contextPath}/connexion">Connexion<br></a>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/inscription">Inscription<br></a>
@@ -48,6 +48,8 @@
 				<%
 					} else {
 				%>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/fil-actualite">Fil d'actualité</a></li>
 				<li><a href="${pageContext.request.contextPath}/deconnection">Déconnection<br></a></li>
 				<li><a href="${pageContext.request.contextPath}/profil">Profil<br></a></li>
 				<%
