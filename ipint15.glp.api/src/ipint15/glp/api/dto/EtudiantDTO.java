@@ -21,7 +21,6 @@ public class EtudiantDTO implements Serializable {
 	private String prenom;
 	@NotEmpty
 	private String nom;
-	@NotEmpty
 	private Civilite civilite;
 	@NotEmpty
 	private String password;
