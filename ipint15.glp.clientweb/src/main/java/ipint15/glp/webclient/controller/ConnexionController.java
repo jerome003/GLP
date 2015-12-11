@@ -40,9 +40,11 @@ public class ConnexionController {
 		}
 	}
 
-	@RequestMapping(value = "/deconnection", method = RequestMethod.POST)
-	public String deconnection(@ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
-		// TODO JBG
-		return "connexion";
+	@RequestMapping(value = "/deconnection", method = RequestMethod.GET)
+	public ModelAndView deconnection(Locale locale, Model model) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("etudiant", null);
+		modelAndView.setViewName("connexion");
+		return modelAndView;
 	}
 }
