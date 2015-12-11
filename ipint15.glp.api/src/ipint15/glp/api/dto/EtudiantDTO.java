@@ -1,7 +1,6 @@
 package ipint15.glp.api.dto;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 
@@ -18,6 +17,7 @@ public class EtudiantDTO implements Serializable {
 	private String password;
 	private String email;
 	private Date naissance;
+	private EtudiantProfilDTO profil ;
 
 	
 	public int getId() {
@@ -62,10 +62,21 @@ public class EtudiantDTO implements Serializable {
 	public void setNaissance(Date naissance) {
 		this.naissance = naissance;
 	}
+	
+	
+	public EtudiantProfilDTO getProfil() {
+		return profil;
+	}
+	public void setProfil(EtudiantProfilDTO profil) {
+		this.profil = profil;
+	}
 	@Override
 	public String toString() {
-		return "Etudiant [id=" + id  + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite + ", password="
-				+ password + ", email=" + email + ", naissance=" + naissance + "]";
+		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite
+				+ ", password=" + password + ", email=" + email + ", naissance=" + naissance + ", profil=" + profil
+				+ "]";
 	}
+	
+	
 
 }

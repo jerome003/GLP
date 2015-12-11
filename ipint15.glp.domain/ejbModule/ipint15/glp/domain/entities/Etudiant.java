@@ -3,6 +3,7 @@ package ipint15.glp.domain.entities;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -37,6 +40,11 @@ public class Etudiant implements Serializable {
 	private String email;
 	@Temporal(TemporalType.TIME)
 	private Date naissance;
+	
+	
+	@OneToOne
+    private EtudiantProfil profil ;
+	
 	public int getId() {
 		return id;
 	}
@@ -79,11 +87,19 @@ public class Etudiant implements Serializable {
 	public void setNaissance(Date naissance) {
 		this.naissance = naissance;
 	}
+	
+	public EtudiantProfil getProfil() {
+		return profil;
+	}
+	public void setProfil(EtudiantProfil profil) {
+		this.profil = profil;
+	}
 	@Override
 	public String toString() {
-		return "Etudiant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", password="
-				+ password + ", email=" + email + ", naissance=" + naissance + "]";
+		return "Etudiant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite + ", password="
+				+ password + ", email=" + email + ", naissance=" + naissance + ", profil=" + profil + "]";
 	}
+
 	
 	
 }

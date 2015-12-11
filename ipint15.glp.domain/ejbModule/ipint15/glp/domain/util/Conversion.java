@@ -1,9 +1,14 @@
 package ipint15.glp.domain.util;
 
+import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.EtudiantProfilDTO;
+import ipint15.glp.domain.entities.Competence;
 import ipint15.glp.domain.entities.Etudiant;
+import ipint15.glp.domain.entities.EtudiantProfil;
 
-public class ConversionEtudiant {
+public class Conversion {
+	
 
 	public EtudiantDTO toEtudiantDTO(Etudiant e) {
 		EtudiantDTO pDTO = new EtudiantDTO();
@@ -14,7 +19,10 @@ public class ConversionEtudiant {
 		pDTO.setEmail(e.getEmail());
 		pDTO.setPassword("password");
 		pDTO.setNaissance(e.getNaissance());
-		return pDTO;	
+		return pDTO;
+		
+		//EtudiantDTO eDTO = modelMapper.map(e, EtudiantDTO.class);
+		//return eDTO;
 	}
 
 	public Etudiant toEtudiant(EtudiantDTO e) {
@@ -26,6 +34,8 @@ public class ConversionEtudiant {
 		p.setEmail(e.getEmail());
 		p.setPassword("password");
 		p.setNaissance(e.getNaissance());
-		return p;
+		return p; 
+		
+
 	}
 }

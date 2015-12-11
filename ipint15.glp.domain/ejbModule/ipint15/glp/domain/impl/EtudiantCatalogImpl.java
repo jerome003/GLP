@@ -17,13 +17,12 @@ import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.domain.entities.Etudiant;
-import ipint15.glp.domain.util.ConversionEtudiant;
+import ipint15.glp.domain.util.Conversion;
 
 @Stateless
 public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	
-	ConversionEtudiant ce = new ConversionEtudiant();
-	static int id;
+	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
 	
@@ -37,7 +36,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String password,
 			Date naissance) {
 		Etudiant p = new Etudiant();
-		p.setId(++id);
 		p.setPrenom(firstname);
 		p.setNom(lastname);
 		p.setCivilite(civilite);
