@@ -15,10 +15,12 @@ import org.omg.Messaging.SyncScopeHelper;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.domain.entities.Etudiant;
+import ipint15.glp.domain.util.ConversionEtudiant;
 
 @Stateless
 public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	
+	ConversionEtudiant ce = new ConversionEtudiant();
 	static int id;
 	@PersistenceContext
 	EntityManager em;
@@ -40,14 +42,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		p.setPassword("password");
 		p.setNaissance(naissance);
 		em.persist(p);
-		EtudiantDTO pDTO = new EtudiantDTO();
-		pDTO.setId(id);
-		pDTO.setPrenom(firstname);
-		pDTO.setNom(lastname);
-		pDTO.setEmail(email);
-		pDTO.setPassword("password");
-		pDTO.setNaissance(naissance);
-		return pDTO;
+		return ce.toEtudiantDTO(p);
 	} 
 
 	@Override
@@ -55,14 +50,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
 		List<EtudiantDTO> psDTO = new ArrayList<EtudiantDTO>();
 		for (Etudiant p : ps) {
-			EtudiantDTO pDTO = new EtudiantDTO();
-			pDTO.setId(p.getId());
-			pDTO.setPrenom(p.getPrenom());
-			pDTO.setNom(p.getNom());
-			pDTO.setEmail(p.getEmail());
-			pDTO.setPassword(p.getPassword());
-			pDTO.setNaissance(p.getNaissance());
-			psDTO.add(pDTO);
+			psDTO.add(ce.toEtudiantDTO(p));
 		}
 		return psDTO;
 	}
