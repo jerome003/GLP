@@ -44,7 +44,7 @@ public class InscriptionController {
 		while(it.hasNext()) {
 			System.out.println(it.next().toString());
 		}
-		return "inscription";
+		return "inscriptionOK";
 	}
 
 	@InitBinder
