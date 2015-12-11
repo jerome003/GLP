@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<form class="form-horizontal" role="form">
+				<form class="form-horizontal" role="form" method="post" action="addContact.html">
 					<div class="form-group">
 						<div class="col-sm-2">
 							<label class="control-label">Civilité</label>
