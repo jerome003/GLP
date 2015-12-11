@@ -47,7 +47,7 @@
                                 </li>
                                 <li>
                                     <p>Mail :
-                                        <strong>yolo</strong>
+                                        <strong>${etudiant.email}</strong>
                                     </p>
                                 </li>
                             </ul>

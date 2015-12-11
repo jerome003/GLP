@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
+
 public class EtudiantDTO implements Serializable {
 	
 	/**
@@ -13,9 +14,10 @@ public class EtudiantDTO implements Serializable {
 	private int id;
 	private String prenom;
 	private String nom;
+	private Civilite civilite;
 	private String password;
 	private String email;
-	private Calendar naissance;
+	private Date naissance;
 
 	
 	public int getId() {
@@ -36,7 +38,12 @@ public class EtudiantDTO implements Serializable {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
+	public Civilite getCivilite() {
+		return civilite;
+	}
+	public void setCivilite(Civilite civilite) {
+		this.civilite = civilite;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -49,15 +56,15 @@ public class EtudiantDTO implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Calendar getNaissance() {
+	public Date getNaissance() {
 		return naissance;
 	}
-	public void setNaissance(Calendar naissance) {
+	public void setNaissance(Date naissance) {
 		this.naissance = naissance;
 	}
 	@Override
 	public String toString() {
-		return "Etudiant [id=" + id  + ", prenom=" + prenom + ", nom=" + nom + ", password="
+		return "Etudiant [id=" + id  + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite + ", password="
 				+ password + ", email=" + email + ", naissance=" + naissance + "]";
 	}
 
