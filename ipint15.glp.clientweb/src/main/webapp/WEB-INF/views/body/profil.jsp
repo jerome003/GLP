@@ -1,3 +1,4 @@
+<%@ page session="true" %>
 <html><head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +28,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h2 id="UserName">Nom Prénom</h2>
+                        <h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
                         <div class="col-md-12">
                             <ul class="list-group">
                                 <li>
@@ -42,7 +43,7 @@
                                 </li>
                                 <li>
                                     <p>Nom de l'entreprise :
-                                        <strong>yolo</strong>
+                                        <strong></strong>
                                     </p>
                                 </li>
                                 <li>

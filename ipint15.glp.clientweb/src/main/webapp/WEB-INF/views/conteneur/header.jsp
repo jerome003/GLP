@@ -12,7 +12,14 @@
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css">
 <%
-	EtudiantDTO etudiant = (EtudiantDTO) session.getAttribute("etudiant");
+	EtudiantDTO etudiant;
+	String deco = (String) request.getAttribute("deco");
+	if ("deco".equals(deco)) {
+		//session.invalidate();
+		etudiant = null;
+	} else {
+		etudiant = (EtudiantDTO) session.getAttribute("etudiant");
+	}
 %>
 <div class="navbar navbar-default navbar-static-top">
 	<div class="container">
