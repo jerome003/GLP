@@ -27,7 +27,6 @@ public class EtudiantDTO implements Serializable {
 	@NotEmpty
 	@Email
 	private String email;
-	@Past(message = "Veuillez taper votre vrai date de naissance")
 	private Date naissance;
 
 
