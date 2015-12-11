@@ -45,6 +45,14 @@ public class ConnexionController {
 		}
 	}
 
+	/**
+	 * Deconnection d'un utilisateur.
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/deconnection", method = RequestMethod.GET)
 	public String deconnection(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
