@@ -5,7 +5,7 @@
 			<h2>Inscription Réussi
               <br>
             </h2>
-            <p>Votre inscription est réussi ! Vous allez reçevoir par email votre nouveau mot de passe.
+            <p>Votre inscription est réussi ! Vous allez recevoir par email votre nouveau mot de passe.
               <br>Une fois votre nouveau mot de passe obtenu, rendez-vous   
           		sur ce <a href="${pageContext.request.contextPath}/connexion">lien</a> pour vous connecter.</p>
 			</div>
