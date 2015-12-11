@@ -47,9 +47,6 @@ public class InscriptionController {
 			System.out.println(it.next().toString());
 		}
 
-		if (result.hasErrors()) {
-			return "inscription";
-		}
 		return "inscriptionOK";
 	}
 

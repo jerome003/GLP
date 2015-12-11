@@ -1,10 +1,8 @@
 package ipint15.glp.api.dto;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
-import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,17 +15,13 @@ public class EtudiantDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	@NotEmpty
 	private String prenom;
-	@NotEmpty
 	private String nom;
 	private Civilite civilite;
-	@NotEmpty
 	private String password;
-	@NotEmpty
-	@Email
 	private String email;
 	private Date naissance;
+	private EtudiantProfilDTO profil ;
 
 
 	
@@ -73,10 +67,21 @@ public class EtudiantDTO implements Serializable {
 	public void setNaissance(Date naissance) {
 		this.naissance = naissance;
 	}
+	
+	
+	public EtudiantProfilDTO getProfil() {
+		return profil;
+	}
+	public void setProfil(EtudiantProfilDTO profil) {
+		this.profil = profil;
+	}
 	@Override
 	public String toString() {
-		return "Etudiant [id=" + id  + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite + ", password="
-				+ password + ", email=" + email + ", naissance=" + naissance + "]";
+		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite
+				+ ", password=" + password + ", email=" + email + ", naissance=" + naissance + ", profil=" + profil
+				+ "]";
 	}
+	
+	
 
 }
