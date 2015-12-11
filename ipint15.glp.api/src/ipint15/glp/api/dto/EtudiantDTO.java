@@ -2,7 +2,12 @@ package ipint15.glp.api.dto;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
+
+
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class EtudiantDTO implements Serializable {
 	
@@ -11,10 +16,16 @@ public class EtudiantDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
+	@NotEmpty
 	private String prenom;
+	@NotEmpty
 	private String nom;
+	@NotEmpty
 	private String password;
+	@NotEmpty
+	@Email
 	private String email;
+	@Past(message = "Veuillez taper votre vrai date de naissance")
 	private Calendar naissance;
 
 	
