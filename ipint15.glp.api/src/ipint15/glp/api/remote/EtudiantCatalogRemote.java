@@ -1,6 +1,7 @@
 package ipint15.glp.api.remote;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -10,7 +11,7 @@ import ipint15.glp.api.dto.EtudiantDTO;
 @Remote
 public interface EtudiantCatalogRemote {
 	public EtudiantDTO createEtudiant(String firstname, String
-			lastname, String email, String password, Calendar naissance);
+			lastname, String email, String password, Date naissance);
 	
 	public List<EtudiantDTO> listEtudiant();
 

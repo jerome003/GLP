@@ -30,7 +30,7 @@ public class Etudiant implements Serializable {
 	private String password;
 	private String email;
 	@Temporal(TemporalType.TIME)
-	private Calendar naissance;
+	private Date naissance;
 	public int getId() {
 		return id;
 	}
@@ -61,10 +61,10 @@ public class Etudiant implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Calendar getNaissance() {
+	public Date getNaissance() {
 		return naissance;
 	}
-	public void setNaissance(Calendar naissance) {
+	public void setNaissance(Date naissance) {
 		this.naissance = naissance;
 	}
 	@Override
