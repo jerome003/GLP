@@ -47,7 +47,7 @@
 						</div>
 						<div class="col-sm-10">
 							<div class="form-inline">
-									<form:input path="naissance" type="date" name="bday"/>
+									<form:input path="naissance" type="date" pattern="yyyy-MM-dd" name="bday" />
 							</div>
 						</div>
 					</div>
