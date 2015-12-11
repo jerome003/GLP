@@ -10,8 +10,10 @@
 						</div>
 						  <div class="col-sm-10">
 							<div class="radio">
-							<form:radiobutton  path="civilite" value="M"/>M. 
-							<form:radiobutton  path="civilite" value="Mme"/>Mme 
+							<label class="radio-inline">
+							<form:radiobutton  path="civilite" value="M"/>M.</label>
+							<label class="radio-inline">
+							<form:radiobutton  path="civilite" value="Mme"/>Mme</label> 
 							</div>
 						</div>
 					</div> 
