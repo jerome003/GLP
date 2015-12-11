@@ -4,6 +4,7 @@ package ipint15.glp.domain.impl;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -33,7 +34,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public EtudiantDTO createEtudiant(String firstname, String lastname, String email, String password,
-			Calendar naissance) {
+			Date naissance) {
 		Etudiant p = new Etudiant();
 		p.setId(++id);
 		p.setPrenom(firstname);

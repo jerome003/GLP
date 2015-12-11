@@ -15,7 +15,7 @@ public class EtudiantDTO implements Serializable {
 	private String nom;
 	private String password;
 	private String email;
-	private Calendar naissance;
+	private Date naissance;
 
 	
 	public int getId() {
@@ -49,10 +49,10 @@ public class EtudiantDTO implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Calendar getNaissance() {
+	public Date getNaissance() {
 		return naissance;
 	}
-	public void setNaissance(Calendar naissance) {
+	public void setNaissance(Date naissance) {
 		this.naissance = naissance;
 	}
 	@Override
