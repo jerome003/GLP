@@ -24,6 +24,13 @@
         <put-attribute name="body" value="/WEB-INF/views/body/inscription.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>
+        <definition name="inscriptionOK"
+        template="/WEB-INF/views/layout/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/conteneur/header.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/body/inscriptionOK.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
+    </definition>
      <definition name="connexion"
         template="/WEB-INF/views/layout/layout.jsp">
         <put-attribute name="title" value="" />
