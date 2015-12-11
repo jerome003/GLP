@@ -49,6 +49,24 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	} 
 
 	@Override
+	public EtudiantDTO getEtudiant(String email){
+		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
+		for(Etudiant p : ps){
+			if(p.getEmail().equals(email)){
+				EtudiantDTO pDTO = new EtudiantDTO();
+				pDTO.setId(p.getId());
+				pDTO.setPrenom(p.getPrenom());
+				pDTO.setNom(p.getNom());
+				pDTO.setEmail(p.getEmail());
+				pDTO.setPassword(p.getPassword());
+				pDTO.setNaissance(p.getNaissance());
+				return pDTO;
+			}
+		}
+		// a remplacer par le renvoie d'une exception lorsqu'aucun email ne correspond à celui en parametre
+		return null;
+	}
+	@Override
 	public List<EtudiantDTO> listEtudiant() {
 		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
 		List<EtudiantDTO> psDTO = new ArrayList<EtudiantDTO>();
