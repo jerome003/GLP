@@ -4,18 +4,17 @@
 		<div class="row">
 			<div class="col-md-12">
 				<form:form class="form-horizontal" role="form" method="post" commandName="command" action="addEtudiant">
-					<%-- <div class="form-group">
+					 <div class="form-group">
 						<div class="col-sm-2">
 							<label class="control-label">Civilité</label>
 						</div>
 						  <div class="col-sm-10">
 							<div class="radio">
-								<form:label path="toto" class="radio-inline"> <input type="radio">Mme
-								</form:label> <label class="radio-inline"> <input type="radio">M.
-								</label>
+							<form:radiobutton  path="civilite" value="M"/>M. 
+							<form:radiobutton  path="civilite" value="Mme"/>Mme 
 							</div>
 						</div>
-					</div> --%>
+					</div> 
 					<div class="form-group">
 						<div class="col-sm-2">
 							<form:label path="nom" class="control-label">Nom</form:label>
