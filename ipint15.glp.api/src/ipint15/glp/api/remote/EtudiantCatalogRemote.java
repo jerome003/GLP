@@ -15,4 +15,6 @@ public interface EtudiantCatalogRemote {
 	public List<EtudiantDTO> listEtudiant();
 
 	public boolean connexion(String email, String password);
+	
+	public EtudiantDTO getEtudiant(String email);
 }
