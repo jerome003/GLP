@@ -3,7 +3,7 @@ package ipint15.glp.domain.impl;
 
 
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.omg.Messaging.SyncScopeHelper;
+
 
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.EtudiantDTO;
