@@ -28,6 +28,10 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/glp"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/glp">
+		<attributes>
+			<attribute name="owner.project.facets" value="jpt.jpa;#system#"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
