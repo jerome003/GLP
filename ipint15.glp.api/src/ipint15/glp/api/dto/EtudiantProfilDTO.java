@@ -22,6 +22,8 @@ public class EtudiantProfilDTO implements Serializable {
     
     private List<EcoleDTO> mesEcoles ;
     
+    private List<PublicationDTO> mesPublications;
+    
 	public int getId() {
 		return id;
 	}
@@ -73,7 +75,13 @@ public class EtudiantProfilDTO implements Serializable {
 				+ "]";
 	}
 
+	public List<PublicationDTO> getMesPublications(){
+		return mesPublications;
+	}
 	
+	public void setMesPublications(List<PublicationDTO> mesPublications){
+		this.mesPublications = mesPublications;
+	}
 	
 	
 

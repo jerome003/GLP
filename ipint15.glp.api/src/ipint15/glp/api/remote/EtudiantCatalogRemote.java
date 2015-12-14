@@ -9,9 +9,9 @@ import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.HobbieDTO;
-
 
 @Remote
 public interface EtudiantCatalogRemote {
@@ -27,6 +27,10 @@ public interface EtudiantCatalogRemote {
 	public void addCompetence (EtudiantDTO eDTO, String competence );
 
 	public List<CompetenceDTO> getCompetences (EtudiantDTO eDTO);
+	
+	public List<PublicationDTO> getPublications(EtudiantDTO eDTO);
+
+	void addPublication(EtudiantDTO eDTO, String titre, String message);
 	
 	public void addExperience (EtudiantDTO eDTO, String experience );
 

@@ -34,6 +34,9 @@ public class EtudiantProfil {
 	@OneToMany(mappedBy="profil")
 	private List<Ecole> mesEcoles ;
 
+	@OneToMany(mappedBy="profil")
+	private List<Publication> mesPublications ;
+	
 	public int getId() {
 		return id;
 	}
@@ -71,6 +74,13 @@ public class EtudiantProfil {
 	}
 	public void setMesEcoles(List<Ecole> mesEcoles) {
 		this.mesEcoles = mesEcoles;
+	}
+	
+	public List<Publication> getMesPublications(){
+		return mesPublications;
+	}
+	public void setPublications(List<Publication> mesPublications){
+		this.mesPublications = mesPublications;
 	}
 
 	public EtudiantProfilDTO toEtudiantProfilDTO (){
