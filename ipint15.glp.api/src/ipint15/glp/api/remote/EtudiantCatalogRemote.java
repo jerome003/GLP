@@ -8,6 +8,7 @@ import javax.ejb.Remote;
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.PublicationDTO;
 
 
 @Remote
@@ -24,4 +25,9 @@ public interface EtudiantCatalogRemote {
 	public void addCompetence (EtudiantDTO eDTO, String competence );
 
 	public List<CompetenceDTO> getCompetences (EtudiantDTO eDTO);
+	
+	public List<PublicationDTO> getPublications(EtudiantDTO eDTO);
+
+	void addPublication(EtudiantDTO eDTO, String titre, String message);
+	
 }

@@ -16,10 +16,12 @@ import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.EtudiantProfilDTO;
+import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.domain.entities.Competence;
 import ipint15.glp.domain.entities.Etudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
+import ipint15.glp.domain.entities.Publication;
 import ipint15.glp.domain.util.Conversion;
 
 @Stateless
@@ -139,6 +141,35 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		q.setParameter("email", mail);
 		Etudiant e = (Etudiant)q.getSingleResult();
 		return e;
+	}
+	
+	@Override
+	public List<PublicationDTO> getPublications(EtudiantDTO eDTO) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer le cas si e = null
+		List<Publication> mesPublications = e.getProfil().getMesPublications();
+		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
+		for (Publication c : mesPublications){
+			PublicationDTO cDTO = ce.MappingProfilPublication(e.getProfil(), c);
+			mesPublicationsDTO.add(cDTO);
+		}
+		return mesPublicationsDTO;
+		
+	}
+	
+	@Override
+	public void addPublication(EtudiantDTO eDTO, String titre, String message) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer cas si e = null
+		Publication c = new Publication();
+		c.setTitre(titre);
+		c.setMessage(message);
+		EtudiantProfil ep = e.getProfil();
+		ep.getMesPublications().add(c);
+		c.setProfil(ep);
+		em.persist(c);
+		em.merge(ep);
+		em.merge(e);
 	}
 	
 }
