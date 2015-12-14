@@ -1,10 +1,15 @@
 package ipint15.glp.api.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class EtudiantProfilDTO {
+public class EtudiantProfilDTO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
     private EtudiantDTO etudiant ;
     

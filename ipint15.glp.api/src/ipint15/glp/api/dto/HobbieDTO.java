@@ -1,6 +1,13 @@
 package ipint15.glp.api.dto;
 
-public class HobbieDTO {
+import java.io.Serializable;
+
+public class HobbieDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int id;
 	   

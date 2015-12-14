@@ -1,7 +1,13 @@
 package ipint15.glp.api.dto;
 
+import java.io.Serializable;
 
-public class EcoleDTO {
+public class EcoleDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int id;
 	   

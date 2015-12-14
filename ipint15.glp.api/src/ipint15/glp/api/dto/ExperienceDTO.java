@@ -1,8 +1,13 @@
 package ipint15.glp.api.dto;
 
+import java.io.Serializable;
 
+public class ExperienceDTO implements Serializable{
 
-public class ExperienceDTO {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int id;
 	   
