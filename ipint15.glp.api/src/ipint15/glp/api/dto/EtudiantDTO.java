@@ -3,6 +3,11 @@ package ipint15.glp.api.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 
 public class EtudiantDTO implements Serializable {
@@ -12,10 +17,14 @@ public class EtudiantDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
+	@NotEmpty
 	private String prenom;
+	@NotEmpty
 	private String nom;
 	private Civilite civilite;
 	private String password;
+	@NotEmpty
+	@Email
 	private String email;
 	private Date naissance;
 	private EtudiantProfilDTO profil ;
