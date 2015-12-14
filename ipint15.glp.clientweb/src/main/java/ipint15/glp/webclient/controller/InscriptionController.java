@@ -66,7 +66,9 @@ public class InscriptionController {
 			System.out.println("Mes compétences :" +it.next().toString());
 		}
 		*/
-		
+		if (result.hasErrors()) {
+			return "inscription";
+			}
 		return "inscriptionOK";
 	}
 
