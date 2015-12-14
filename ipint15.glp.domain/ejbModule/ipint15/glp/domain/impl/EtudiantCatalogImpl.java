@@ -256,6 +256,18 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 	
 	@Override
+	public List<PublicationDTO> getPublications() {
+		List<Publication> mesPublications = em.createQuery("select p from Publication p").getResultList();
+		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
+		for (Publication p : mesPublications){
+			PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(), p);
+			mesPublicationsDTO.add(cDTO);
+		}
+		return mesPublicationsDTO;
+		
+	}
+	
+	@Override
 	public void addPublication(EtudiantDTO eDTO, String titre, String message) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
