@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
 
 public class EtudiantDTO implements Serializable {
 	

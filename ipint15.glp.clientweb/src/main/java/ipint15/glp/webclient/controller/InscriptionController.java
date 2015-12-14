@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.RechercheRemote;
 
 @Controller
 @SessionAttributes
@@ -34,6 +36,8 @@ public class InscriptionController {
 
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
+	@Inject
+	protected RechercheRemote rechercheBean;
 
 	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
