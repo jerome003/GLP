@@ -78,7 +78,7 @@ public class EtudiantDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite
-				+ ", password=" + password + ", email=" + email + ", naissance=" + naissance + ", profil=" + profil
+				+ ", password=" + password + ", email=" + email + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non")
 				+ "]";
 	}
 	

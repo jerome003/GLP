@@ -1,6 +1,7 @@
 package ipint15.glp.api.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,6 +35,8 @@ public class EtudiantProfilDTO implements Serializable {
 		this.etudiant = etudiant;
 	}
 	public List<CompetenceDTO> getMesCompetences() {
+		if (mesCompetences == null)
+			mesCompetences = new ArrayList<CompetenceDTO>();
 		return mesCompetences;
 	}
 	public void setMesCompetences(List<CompetenceDTO> mesCompetences) {

@@ -19,6 +19,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import ipint15.glp.api.dto.Civilite;
+import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.EtudiantProfilDTO;
 
 
 @Entity
@@ -94,10 +96,23 @@ public class Etudiant implements Serializable {
 	public void setProfil(EtudiantProfil profil) {
 		this.profil = profil;
 	}
+	
+	public EtudiantDTO toEtudiantDTO() {
+		EtudiantDTO pDTO = new EtudiantDTO();
+		pDTO.setId(this.getId());
+		pDTO.setPrenom(this.getPrenom());
+		pDTO.setNom(this.getNom());
+		pDTO.setCivilite(this.getCivilite());
+		pDTO.setEmail(this.getEmail());
+		pDTO.setPassword("password");
+		pDTO.setNaissance(this.getNaissance());
+		return pDTO;
+	}
+	
 	@Override
 	public String toString() {
 		return "Etudiant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite + ", password="
-				+ password + ", email=" + email + ", naissance=" + naissance + ", profil=" + profil + "]";
+				+ password + ", email=" + email + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non") + "]";
 	}
 
 	

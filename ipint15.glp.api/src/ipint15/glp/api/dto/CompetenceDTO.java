@@ -41,7 +41,7 @@ public class CompetenceDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil=" + profil + ", libelle=" + libelle + "]";
+		return "Competence [id=" + id + ", profil="+ ((profil!=null) ? "oui" : "non") + ", libelle=" + libelle + "]";
 	}
 
 }

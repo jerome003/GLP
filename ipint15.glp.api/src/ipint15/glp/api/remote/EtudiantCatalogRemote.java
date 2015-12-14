@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import ipint15.glp.api.dto.Civilite;
+import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
 
 
@@ -19,4 +20,8 @@ public interface EtudiantCatalogRemote {
 	public boolean connexion(String email, String password);
 	
 	public EtudiantDTO getEtudiant(String email);
+	
+	public void addCompetence (EtudiantDTO eDTO, String competence );
+
+	public List<CompetenceDTO> getCompetences (EtudiantDTO eDTO);
 }

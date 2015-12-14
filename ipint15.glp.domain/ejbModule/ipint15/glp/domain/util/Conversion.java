@@ -9,33 +9,31 @@ import ipint15.glp.domain.entities.EtudiantProfil;
 
 public class Conversion {
 	
-
-	public EtudiantDTO toEtudiantDTO(Etudiant e) {
-		EtudiantDTO pDTO = new EtudiantDTO();
-		pDTO.setId(e.getId());
-		pDTO.setPrenom(e.getPrenom());
-		pDTO.setNom(e.getNom());
-		pDTO.setCivilite(e.getCivilite());
-		pDTO.setEmail(e.getEmail());
-		pDTO.setPassword("password");
-		pDTO.setNaissance(e.getNaissance());
-		return pDTO;
+	
+	public EtudiantDTO MappingEtudiantProfil(Etudiant e, EtudiantProfil ep){
 		
-		//EtudiantDTO eDTO = modelMapper.map(e, EtudiantDTO.class);
-		//return eDTO;
-	}
-
-	public Etudiant toEtudiant(EtudiantDTO e) {
-		Etudiant p = new Etudiant();
-		p.setId(e.getId());
-		p.setPrenom(e.getPrenom());
-		p.setNom(e.getNom());
-		p.setCivilite(e.getCivilite());
-		p.setEmail(e.getEmail());
-		p.setPassword("password");
-		p.setNaissance(e.getNaissance());
-		return p; 
+		// Conversion de l'étudiantProfil en EtudiantProfilDTO et de l'étudiant en EtudiantDTO
+		EtudiantProfilDTO epDTO = ep.toEtudiantProfilDTO();
+		EtudiantDTO eDTO = e.toEtudiantDTO();
 		
-
+		// Mapping de l'étudiantDTO avec son profilDTO
+		eDTO.setProfil(epDTO);
+		epDTO.setEtudiant(eDTO);
+		
+		return eDTO;
 	}
+	
+	public CompetenceDTO MappingProfilCompetence (EtudiantProfil ep, Competence c){
+		
+		//Conversion de l'étudiant en EtudiantProfilDTO et de la  Competence CompetenceDTO
+		EtudiantProfilDTO epDto = ep.toEtudiantProfilDTO();
+		CompetenceDTO cDTO = c.toCompetenceDTO();
+		
+		// Mapping du profil avec sa compétence
+		epDto.getMesCompetences().add(cDTO);
+		cDTO.setProfil(epDto);
+		return cDTO;
+	}
+	
+	
 }
