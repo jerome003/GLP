@@ -14,12 +14,18 @@ import javax.persistence.Query;
 
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
+import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.EtudiantProfilDTO;
+import ipint15.glp.api.dto.ExperienceDTO;
+import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.domain.entities.Competence;
+import ipint15.glp.domain.entities.Ecole;
 import ipint15.glp.domain.entities.Etudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
+import ipint15.glp.domain.entities.Experience;
+import ipint15.glp.domain.entities.Hobbie;
 import ipint15.glp.domain.util.Conversion;
 
 @Stateless
@@ -32,6 +38,14 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	public EtudiantCatalogImpl() {
 		
 	}
+	
+	private Etudiant getEtudiantByMail(String mail){
+		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
+		q.setParameter("email", mail);
+		Etudiant e = (Etudiant)q.getSingleResult();
+		return e;
+	}
+	
 
 	@Override
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String password,
@@ -126,19 +140,104 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		
 		
 		for (Competence c : mesCompetences){
-			CompetenceDTO cDTO = ce.MappingProfilCompetence(e.getProfil(), c);
-			mesCompetencesDTO.add(cDTO);
+			CompetenceDTO competenceDTO = ce.MappingProfilCompetence(e.getProfil(), c);
+			mesCompetencesDTO.add(competenceDTO);
 		}
 		
 		return mesCompetencesDTO;
 		
 	}
-	
-	private Etudiant getEtudiantByMail(String mail){
-		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
-		q.setParameter("email", mail);
-		Etudiant e = (Etudiant)q.getSingleResult();
-		return e;
+
+	@Override
+	public void addExperience(EtudiantDTO eDTO, String experience) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer cas si e = null
+		Experience exp = new Experience();
+		exp.setLibelle(experience);
+		EtudiantProfil ep = e.getProfil();
+		ep.getMesExperiences().add(exp);
+		exp.setProfil(ep);
+		em.persist(exp);
+		em.merge(ep);
+		em.merge(e);
+		
+	}
+
+	@Override
+	public List<ExperienceDTO> getExperiences(EtudiantDTO eDTO) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer le cas si e = null
+		List<Experience> mesExperiences = e.getProfil().getMesExperiences();
+		List<ExperienceDTO> mesExperiencesDTO = new ArrayList<ExperienceDTO>();
+		
+		for (Experience exp : mesExperiences){
+			ExperienceDTO experienceDTO = ce.MappingProfilExperience(e.getProfil(), exp);
+			mesExperiencesDTO.add(experienceDTO);
+		}
+		
+		return mesExperiencesDTO;
+	}
+
+	@Override
+	public void addHobbie(EtudiantDTO eDTO, String hobbie) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer cas si e = null
+		Hobbie h = new Hobbie();
+		h.setLibelle(hobbie);
+		EtudiantProfil ep = e.getProfil();
+		ep.getMesHobbies().add(h);
+		h.setProfil(ep);
+		em.persist(h);
+		em.merge(ep);
+		em.merge(e);
+		
+	}
+
+	@Override
+	public List<HobbieDTO> getHobbies(EtudiantDTO eDTO) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer le cas si e = null
+		List<Hobbie> mesHobbies = e.getProfil().getMesHobbies();
+		List<HobbieDTO> mesHobbiesDTO = new ArrayList<HobbieDTO>();
+		
+		
+		for (Hobbie h : mesHobbies){
+			HobbieDTO hobbieDTO = ce.MappingProfilHobbie(e.getProfil(), h);
+			mesHobbiesDTO.add(hobbieDTO);
+		}
+		
+		return mesHobbiesDTO;
+	}
+
+	@Override
+	public void addEcole(EtudiantDTO eDTO, String ecole) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer cas si e = null
+		Ecole formation = new Ecole();
+		formation.setLibelle(ecole);
+		EtudiantProfil ep = e.getProfil();
+		ep.getMesEcoles().add(formation);
+		formation.setProfil(ep);
+		em.persist(formation);
+		em.merge(ep);
+		em.merge(e);
+		
+	}
+
+	@Override
+	public List<EcoleDTO> getEcoles(EtudiantDTO eDTO) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer le cas si e = null
+		List<Ecole> mesEcoles = e.getProfil().getMesEcoles();
+		List<EcoleDTO> mesEcolesDTO = new ArrayList<EcoleDTO>();
+		
+		
+		for (Ecole formation : mesEcoles){
+			EcoleDTO ecoleDTO = ce.MappingProfilEcole(e.getProfil(), formation);
+			mesEcolesDTO.add(ecoleDTO);
+		}
+		
+		return mesEcolesDTO;
 	}
 	
 }

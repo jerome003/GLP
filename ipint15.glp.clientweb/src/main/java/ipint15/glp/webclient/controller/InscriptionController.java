@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.CompetenceDTO;
+import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.ExperienceDTO;
+import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
 @Controller

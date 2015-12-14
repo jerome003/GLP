@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import ipint15.glp.api.dto.CompetenceDTO;
+import ipint15.glp.api.dto.EcoleDTO;
+
 @Entity
 @Table(name = "ECOLE")
 public class Ecole {
@@ -44,9 +47,16 @@ public class Ecole {
 		this.libelle = libelle;
 	}
 
+	public EcoleDTO toEcoleDTO() {
+		EcoleDTO ecoleDTO = new EcoleDTO();
+		ecoleDTO.setId(this.id);
+		ecoleDTO.setLibelle(this.libelle);
+		return ecoleDTO;
+	}
+	
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil=" + profil + ", libelle=" + libelle + "]";
+		return "Competence [id=" + id + ", profil=" + ((profil!=null) ? "oui" : "non") + ", libelle=" + libelle + "]";
 	}
 	
 	
