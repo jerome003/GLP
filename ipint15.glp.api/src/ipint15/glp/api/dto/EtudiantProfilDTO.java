@@ -45,18 +45,24 @@ public class EtudiantProfilDTO implements Serializable {
 		this.mesCompetences = mesCompetences;
 	}
 	public List<HobbieDTO> getMesHobbies() {
+		if (mesHobbies == null)
+			mesHobbies = new ArrayList<HobbieDTO>();
 		return mesHobbies;
 	}
 	public void setMesHobbies(List<HobbieDTO> mesHobbies) {
 		this.mesHobbies = mesHobbies;
 	}
 	public List<ExperienceDTO> getMesExperiences() {
+		if (mesExperiences == null)
+			mesExperiences = new ArrayList<ExperienceDTO>();
 		return mesExperiences;
 	}
 	public void setMesExperiences(List<ExperienceDTO> mesExperiences) {
 		this.mesExperiences = mesExperiences;
 	}
 	public List<EcoleDTO> getMesEcoles() {
+		if (mesEcoles == null)
+			mesEcoles = new ArrayList<EcoleDTO>();
 		return mesEcoles;
 	}
 	public void setMesEcoles(List<EcoleDTO> mesEcoles) {

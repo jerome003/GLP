@@ -7,9 +7,11 @@ import javax.ejb.Remote;
 
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
+import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.PublicationDTO;
-
+import ipint15.glp.api.dto.ExperienceDTO;
+import ipint15.glp.api.dto.HobbieDTO;
 
 @Remote
 public interface EtudiantCatalogRemote {
@@ -30,4 +32,15 @@ public interface EtudiantCatalogRemote {
 
 	void addPublication(EtudiantDTO eDTO, String titre, String message);
 	
+	public void addExperience (EtudiantDTO eDTO, String experience );
+
+	public List<ExperienceDTO> getExperiences (EtudiantDTO eDTO);
+	
+	public void addHobbie (EtudiantDTO eDTO, String hobbie );
+
+	public List<HobbieDTO> getHobbies (EtudiantDTO eDTO);
+	
+	public void addEcole (EtudiantDTO eDTO, String ecole );
+
+	public List<EcoleDTO> getEcoles (EtudiantDTO eDTO);
 }
