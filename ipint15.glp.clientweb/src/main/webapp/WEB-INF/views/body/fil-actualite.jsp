@@ -20,10 +20,8 @@
 	rel="stylesheet" type="text/css">
 <%
 	String choix = (String) session.getAttribute("choixPublication");
-	System.out.println("Recuperation : " + choix);
 	if (choix == null) {
 		choix = "lesPublications";
-		System.out.println("NULL : les Publications");
 	}
 	EtudiantDTO etudiant = (EtudiantDTO) session.getAttribute("etudiant");
 %>
@@ -35,8 +33,20 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>Fil d'actualité</h1>
+					<%
+		if (choix.equals("lesPublications")) {
+	%>
+					<h1>Fil d'actualité : Toutes les publications</h1>
 					<br>
+
+					<%
+		} else {
+	%>
+					<h1>Fil d'actualité : Toutes mes publications</h1>
+					<br>
+					<%
+		} 
+	%>
 				</div>
 			</div>
 
