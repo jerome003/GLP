@@ -38,7 +38,7 @@ public class filActualiteController {
 	}
 	
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
-	public String addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result, HttpServletRequest request) {
+	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
 		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage());
@@ -59,9 +59,6 @@ public class filActualiteController {
 			System.out.println("Mes compétences :" +it.next().toString());
 		}
 		*/
-		if (result.hasErrors()) {
-			return "fil-actualite";
-			}
-		return "fil-actualite";
+		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 	}
 }
