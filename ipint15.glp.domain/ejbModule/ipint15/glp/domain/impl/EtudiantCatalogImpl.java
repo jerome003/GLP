@@ -302,6 +302,21 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		
 		return true;
 	}
+
+	@Override
+	public boolean isPasswordIsGood(String mail, String password) {
+		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email and o.password = :password ");
+		q.setParameter("email", mail);
+		q.setParameter("password", password);
+		Etudiant e;
+		try {
+			e = (Etudiant)q.getSingleResult();
+		} catch (NoResultException e1) {
+			return false;
+		}
+		
+		return true;
+	}
 	
 	
 	

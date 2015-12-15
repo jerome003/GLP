@@ -49,6 +49,13 @@ public class ConnexionController {
 			return "connexion";
 		}
 
+		
+		if (! etudiantBean.isPasswordIsGood(etudiant.getEmail(), etudiant.getPassword())) {
+			result.rejectValue ("password", null, "Ce n'est pas le bon mot de passe");
+			return "connexion";
+		}
+		
+
 		if (etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())) {
 			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
 			sessionObj = request.getSession();
