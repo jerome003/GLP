@@ -17,14 +17,13 @@ public class EtudiantDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-	@NotEmpty
+	@NotEmpty( message = "Veuillez saisir un prenom" )
 	private String prenom;
-	@NotEmpty
+	@NotEmpty( message = "Veuillez saisir un nom" )
 	private String nom;
 	private Civilite civilite;
 	private String password;
-	@NotEmpty
-	@Email
+	@NotEmpty( message = "Veuillez saisir une adresse email" )
 	private String email;
 	private Date naissance;
 	private EtudiantProfilDTO profil ;

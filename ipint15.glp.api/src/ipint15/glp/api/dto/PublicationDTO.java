@@ -1,6 +1,7 @@
 package ipint15.glp.api.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class PublicationDTO implements Serializable{
 	/**
@@ -15,6 +16,8 @@ public class PublicationDTO implements Serializable{
     private String titre;
     
     private String message;
+    
+    private Date date;
 
 	public int getId() {
 		return id;
@@ -46,6 +49,17 @@ public class PublicationDTO implements Serializable{
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	
+	public Date getDate() {
+		return date;
+	}
+	
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Competence [id=" + id + ", profil="+ ((profil!=null) ? "oui" : "non") + ", titre=" + titre + ", message=" + message+ "]";

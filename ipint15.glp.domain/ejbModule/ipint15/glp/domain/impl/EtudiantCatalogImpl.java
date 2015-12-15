@@ -257,7 +257,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	
 	@Override
 	public List<PublicationDTO> getPublications() {
-		List<Publication> mesPublications = em.createQuery("select p from Publication p").getResultList();
+		List<Publication> mesPublications = em.createQuery("select p from Publication p order by p.date desc").getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications){
 			System.out.println("Profil :" + p.getProfil());
@@ -270,12 +270,13 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 	
 	@Override
-	public void addPublication(EtudiantDTO eDTO, String titre, String message) {
+	public void addPublication(EtudiantDTO eDTO, String titre, String message, Date date) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Publication c = new Publication();
 		c.setTitre(titre);
 		c.setMessage(message);
+		c.setDate(date);
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesPublications().add(c);
 		c.setProfil(ep);

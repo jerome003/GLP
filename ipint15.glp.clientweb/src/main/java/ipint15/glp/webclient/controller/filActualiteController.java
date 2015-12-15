@@ -1,5 +1,6 @@
 package ipint15.glp.webclient.controller;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -41,7 +42,7 @@ public class filActualiteController {
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage());
+		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
 		List<PublicationDTO> myPublications = etudiantBean.getPublications();
 		Iterator it = myPublications.iterator();
 		while(it.hasNext()) {
@@ -60,5 +61,25 @@ public class filActualiteController {
 		}
 		*/
 		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+	}
+	
+	@RequestMapping(value = "/myPublication", method = RequestMethod.GET) 
+	public ModelAndView myPublication(HttpServletRequest request) {
+		System.out.println("change to my");
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("choixPublication", "mesPublications");
+		
+		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+		
+	}
+	
+	@RequestMapping(value = "/allPublication", method = RequestMethod.GET) 
+	public ModelAndView allPublication(HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		System.out.println("change to all");
+		sessionObj.setAttribute("choixPublication", "lesPublications");
+		
+		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+		
 	}
 }

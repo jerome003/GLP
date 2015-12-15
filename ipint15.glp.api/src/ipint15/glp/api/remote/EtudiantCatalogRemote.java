@@ -30,7 +30,7 @@ public interface EtudiantCatalogRemote {
 	
 	public List<PublicationDTO> getPublications(EtudiantDTO eDTO);
 
-	void addPublication(EtudiantDTO eDTO, String titre, String message);
+	void addPublication(EtudiantDTO eDTO, String titre, String message,Date date);
 	
 	public void addExperience (EtudiantDTO eDTO, String experience );
 
