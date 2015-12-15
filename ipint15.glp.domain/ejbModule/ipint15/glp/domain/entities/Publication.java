@@ -64,6 +64,6 @@ import ipint15.glp.api.dto.PublicationDTO;
 		}
 		@Override
 		public String toString() {
-			return "Competence [id=" + id + ", profil=" + profil + ", libelle=" + titre + ", message ="+message +"]";
+			return "Competence [id=" + id + ", profil="  + ((profil!=null) ? "oui" : "non") + ", libelle=" + titre + ", message ="+message +"]";
 		}
 }

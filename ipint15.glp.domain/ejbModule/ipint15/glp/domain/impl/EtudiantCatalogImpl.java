@@ -260,7 +260,9 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		List<Publication> mesPublications = em.createQuery("select p from Publication p").getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications){
+			System.out.println("Profil :" + p.getProfil());
 			PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(), p);
+			System.out.println("Profil DTO :" + cDTO.getProfil());
 			mesPublicationsDTO.add(cDTO);
 		}
 		return mesPublicationsDTO;
@@ -280,6 +282,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(c);
 		em.merge(ep);
 		em.merge(e);
+		
 	}
 	
 }
