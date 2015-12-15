@@ -32,6 +32,7 @@ public class filActualiteController {
 
 	@RequestMapping(value = "/fil-actualite", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
+		model.addAttribute("myInjectedBean", etudiantBean );
 	
 		return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 	}
