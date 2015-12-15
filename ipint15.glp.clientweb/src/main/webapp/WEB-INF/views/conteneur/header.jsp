@@ -1,3 +1,4 @@
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@page import="ipint15.glp.api.dto.EtudiantDTO"%>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,19 +50,17 @@
 				<%
 					} else {
 				%>
-					<!-- /.col-lg-5 -->
-					<div class="col-lg-5">
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Search for..."> <span
-								class="input-group-btn">
-								<a href="resultResearch" target="_blank"> <button class="btn btn-default" type="button">Go!</button></a>
-							</span>
-						</div>
-						<!-- /input-group -->
+
+				<div class="col-lg-5">
+					<div class="input-group">
+					    <FORM action = "research" method = "POST" >
+						<input type="text" name="recherche" class="form-control"
+							placeholder="Search for..."> 
+						<input type="submit" />
+						</FORM>
 					</div>
-					<!-- /.col-lg-5 -->
-				<!-- /.row -->
+				</div>
+
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/fil-actualite">Fil
 						d'actualité</a></li>
