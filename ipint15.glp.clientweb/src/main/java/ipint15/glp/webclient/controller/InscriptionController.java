@@ -21,8 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import ipint15.glp.api.dto.Civilite;
+import ipint15.glp.api.dto.CompetenceDTO;
+import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.ExperienceDTO;
+import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.RechercheRemote;
 
 @Controller
 @SessionAttributes
@@ -30,6 +36,8 @@ public class InscriptionController {
 
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
+	@Inject
+	protected RechercheRemote rechercheBean;
 
 	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
@@ -39,14 +47,33 @@ public class InscriptionController {
 	@RequestMapping(value = "/addEtudiant", method = RequestMethod.POST)
 
 	public String addEtudiant(@Valid @ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
-		etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),
+		
+		if (result.hasErrors()) {
+			return "inscription";
+			}
+		
+		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),
 				etudiant.getPassword(), etudiant.getNaissance());
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
 		Iterator it = myPersons.iterator();
 		while(it.hasNext()) {
-			System.out.println(it.next().toString());
+			System.out.println("Iterator :" +it.next().toString());
 		}
-
+		
+		/*
+		 //Ajout d'une compétence pour notre étudiant
+		etudiantBean.addCompetence(eDTO, "Football");
+		
+		// Affichage de la liste des Compétences
+		List<CompetenceDTO> mesCompetences = etudiantBean.getCompetences(eDTO);
+		it = mesCompetences.iterator();
+		while(it.hasNext()) {
+			System.out.println("Mes compétences :" +it.next().toString());
+		}
+		*/
+		if (result.hasErrors()) {
+			return "inscription";
+			}
 		return "inscriptionOK";
 	}
 

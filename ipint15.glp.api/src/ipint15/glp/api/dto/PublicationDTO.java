@@ -2,8 +2,7 @@ package ipint15.glp.api.dto;
 
 import java.io.Serializable;
 
-public class CompetenceDTO implements Serializable{
-	
+public class PublicationDTO implements Serializable{
 	/**
 	 * 
 	 */
@@ -13,7 +12,9 @@ public class CompetenceDTO implements Serializable{
    
     private EtudiantProfilDTO profil ;
     
-    private String libelle;
+    private String titre;
+    
+    private String message;
 
 	public int getId() {
 		return id;
@@ -31,17 +32,23 @@ public class CompetenceDTO implements Serializable{
 		this.profil = profil;
 	}
 
-	public String getLibelle() {
-		return libelle;
+	public String getTitre() {
+		return titre;
 	}
 
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+	public String getMessage() {
+		return message;
 	}
 
+	public void setMessage(String message) {
+		this.message = message;
+	}
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil="+ ((profil!=null) ? "oui" : "non") + ", libelle=" + libelle + "]";
+		return "Competence [id=" + id + ", profil="+ ((profil!=null) ? "oui" : "non") + ", titre=" + titre + ", message=" + message+ "]";
 	}
 
 }

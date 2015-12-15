@@ -1,6 +1,13 @@
 package ipint15.glp.api.dto;
 
-public class HobbieDTO {
+import java.io.Serializable;
+
+public class HobbieDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private int id;
 	   
@@ -34,7 +41,7 @@ public class HobbieDTO {
 
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil=" + profil + ", libelle=" + libelle + "]";
+		return "Competence [id=" + id + ", profil=" + ((profil!=null) ? "oui" : "non") + ", libelle=" + libelle + "]";
 	}
 
 }

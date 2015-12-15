@@ -12,6 +12,7 @@
 		<class>ipint15.glp.domain.entities.Hobbie</class>
 		<class>ipint15.glp.domain.entities.Experience</class>
 		<class>ipint15.glp.domain.entities.Ecole</class>
+		<class>ipint15.glp.domain.entities.Publication</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value = "drop-and-create"/>
 			<property name="javax.persistence.schema-generation.create-database-schemas" value = "true"/>			

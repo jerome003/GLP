@@ -10,28 +10,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import ipint15.glp.api.dto.EtudiantProfilDTO;
+
 @Entity
 @Table(name = "PROFIL")
 public class EtudiantProfil {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@OneToOne(mappedBy="profil") 
-    private Etudiant etudiant ;
+	private Etudiant etudiant ;
 
-    @OneToMany(mappedBy="profil")
-    private List<Competence> mesCompetences ;
-    
-    @OneToMany(mappedBy="profil")
-    private List<Hobbie> mesHobbies ;
-    
-    @OneToMany(mappedBy="profil")
-    private List<Experience> mesExperiences ;
-    
-    @OneToMany(mappedBy="profil")
-    private List<Ecole> mesEcoles ;
-    
+	@OneToMany(mappedBy="profil")
+	private List<Competence> mesCompetences ;
+
+	@OneToMany(mappedBy="profil")
+	private List<Hobbie> mesHobbies ;
+
+	@OneToMany(mappedBy="profil")
+	private List<Experience> mesExperiences ;
+
+	@OneToMany(mappedBy="profil")
+	private List<Ecole> mesEcoles ;
+
+	@OneToMany(mappedBy="profil")
+	private List<Publication> mesPublications ;
+	
 	public int getId() {
 		return id;
 	}
@@ -44,8 +49,8 @@ public class EtudiantProfil {
 	public void setEtudiant(Etudiant etudiant) {
 		this.etudiant = etudiant;
 	}
-	
-	
+
+
 	public List<Competence> getMesCompetences() {
 		return mesCompetences;
 	}
@@ -70,6 +75,22 @@ public class EtudiantProfil {
 	public void setMesEcoles(List<Ecole> mesEcoles) {
 		this.mesEcoles = mesEcoles;
 	}
+	
+	public List<Publication> getMesPublications(){
+		return mesPublications;
+	}
+	public void setPublications(List<Publication> mesPublications){
+		this.mesPublications = mesPublications;
+	}
+
+	public EtudiantProfilDTO toEtudiantProfilDTO (){
+
+		EtudiantProfilDTO eDTO = new EtudiantProfilDTO();
+		eDTO.setId(this.getId());
+		return eDTO;
+
+	}
+
 	@Override
 	public String toString() {
 		return "EtudiantProfil [id=" + id + ", etudiant=" + etudiant + ", mesCompetences=" + mesCompetences
@@ -77,6 +98,6 @@ public class EtudiantProfil {
 				+ "]";
 	}
 
-	
+
 
 }

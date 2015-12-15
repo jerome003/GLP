@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import ipint15.glp.api.dto.CompetenceDTO;
+import ipint15.glp.api.dto.ExperienceDTO;
+
 @Entity
 @Table(name = "EXPERIENCE")
 public class Experience {
@@ -42,10 +45,17 @@ public class Experience {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
+	
+	public ExperienceDTO toExperienceDTO() {
+		ExperienceDTO expDTO = new ExperienceDTO();
+		expDTO.setId(this.id);
+		expDTO.setLibelle(this.libelle);
+		return expDTO;
+	}
 
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil=" + profil + ", libelle=" + libelle + "]";
+		return "Competence [id=" + id + ", profil=" + ((profil!=null) ? "oui" : "non") + ", libelle=" + libelle + "]";
 	}
 	
 	
