@@ -60,7 +60,7 @@
 					<div class="input-group">
 						<FORM action="research" method="POST">
 							<input type="text" name="recherche" class="form-control"
-								placeholder="Search for..."> <input type="submit" />
+								placeholder="Search for..."> <input type="submit" value="GO !" />
 						</FORM>
 					</div>
 				</div>

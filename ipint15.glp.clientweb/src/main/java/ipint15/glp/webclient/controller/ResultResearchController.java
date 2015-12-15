@@ -37,6 +37,7 @@ public class ResultResearchController {
 		String recherche = request.getParameter("recherche");
 		List<EtudiantDTO> listeResultat = rechercheBean.rechercherEtudiant(recherche);
 		ModelAndView model = new ModelAndView();
+		model.addObject("recherche",request.getParameter("recherche"));
 		model.addObject("liste",listeResultat);
 		model.setViewName("resultResearch");
 		return model ;
