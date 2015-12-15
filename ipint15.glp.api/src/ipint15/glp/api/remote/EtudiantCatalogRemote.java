@@ -43,4 +43,6 @@ public interface EtudiantCatalogRemote {
 	public void addEcole (EtudiantDTO eDTO, String ecole );
 
 	public List<EcoleDTO> getEcoles (EtudiantDTO eDTO);
+
+	List<PublicationDTO> getPublications();
 }
