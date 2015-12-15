@@ -55,7 +55,7 @@
 							<input type="text" class="form-control"
 								placeholder="Search for..."> <span
 								class="input-group-btn">
-								<button class="btn btn-default" type="button">Go!</button>
+								<a href="resultResearch" target="_blank"> <button class="btn btn-default" type="button">Go!</button></a>
 							</span>
 						</div>
 						<!-- /input-group -->
