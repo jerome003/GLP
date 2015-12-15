@@ -8,29 +8,56 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html>
 <script type="text/javascript">
-	function AddChamp(divId, champId, boutonId) {
-		//alert (divId +" "+ champId+" "+boutonId+ " "+document.getElementsByName(champId).length);
-		var taille = document.getElementsByName(champId).length;
-		if (taille == 0) {
-			document.getElementById(divId).innerHTML += "<textarea id=\""+ champId +"0\" name=\""+ champId +"\" rows=\"2\" cols=\"50\"></textarea> <a id=\""+ boutonId +"0\" name=\""+ boutonId +"\" class=\"btn btn-primary\" onClick=\"suppressionChampEtBouton("+champId+"0, "+boutonId+"0)\">-</a>";
 
-		} else {
 
-			//recuperer l'identifiant du dernier élément | attention : l'identifiant ne correspondant pas au nombre d'element dont le nom est expPro car en cas de suppression id exPro15 alors qu'il ya que 10 elem
+function AddChamp(divId, champId, boutonId) {
+	//alert (divId +" "+ champId+" "+boutonId+ " "+document.getElementsByName(champId).length);
+	var taille = document.getElementsByName(champId).length;
+	if (taille == 0) {
+			var input = document.createElement("input");
+			input.type = "text";
+			input.id=champId+"0";
+			input.name=champId;
+			document.getElementById(divId).appendChild(input);
+			var adresse = document.createElement("a");
+			var link = document.createTextNode("-");
+			adresse.setAttribute("class", "btn btn-primary");
+			adresse.setAttribute("id",boutonId+"0");
+			adresse.setAttribute("name",boutonId);
+			adresse.setAttribute("onClick","suppressionChampEtBouton("+champId+"0"+","+ boutonId+"0"+ ")");
+			adresse.appendChild(link);
+			
+			
+		document.getElementById(divId).appendChild(input);
+		document.getElementById(divId).appendChild(adresse);
+	} else {
+
+		//recuperer l'identifiant du dernier élément | attention : l'identifiant ne correspondant pas au nombre d'element dont le nom est expPro car en cas de suppression id exPro15 alors qu'il ya que 10 elem
 			var element = document.getElementsByName(champId);
-			var idelement = element[taille - 1].getAttribute('id');
+			var idelement = element[taille - 1].getAttribute('id'); 	
 			var sizeId = idelement.length; //recup la taille de l'identifiant
 			var nvId = parseInt(idelement.substring(champId.length, sizeId)) + 1;
-			//alert(idelement + "  " + sizeId + "  " + nvId);
+		
+			var input = document.createElement("input");
+			input.type = "text";
+			input.id=champId+nvId;
+			input.name=champId;
+			document.getElementById(divId).appendChild(input);
 
-			//Faire une vérification sur l'ajout de l'element !!!
-			// voir création d'un nouveau node !
-			document.getElementById(divId).innerHTML += "<textarea id=\""+champId+""+nvId+"\" name=\""+ champId +"\" rows=\"2\" cols=\"50\"></textarea> <a id=\""+boutonId+""
-					+ nvId
-					+ "\" name=\""+ boutonId +"\" class=\"btn btn-primary\" onClick=\"suppressionChampEtBouton("+champId+""
-					+ nvId + ","+ boutonId+"" + nvId + ")\">-</a>";
-		}
+			var adresse = document.createElement("a");
+			var link = document.createTextNode("-");
+			adresse.setAttribute("class", "btn btn-primary");
+			adresse.setAttribute("id",boutonId+""+nvId);
+			adresse.setAttribute("name", boutonId);
+			adresse.setAttribute("onClick", "suppressionChampEtBouton("+champId+""+ nvId + ","+ boutonId+"" + nvId + ")");
+			adresse.appendChild(link);
+			
+			document.getElementById(divId).appendChild(input);
+			document.getElementById(divId).appendChild(adresse);
+		
 	}
+}
+
 
 	/**
 	* Suppression d'un textarea et du bouton de suppression
@@ -52,7 +79,7 @@
 
 <%
 	List<ExperienceDTO> listExperience = new ArrayList<ExperienceDTO>();
-	ExperienceDTO e = new ExperienceDTO();
+	/*ExperienceDTO e = new ExperienceDTO();
 	e.setLibelle("Grand vainqueur de la belette de Winchester");
 	ExperienceDTO e2 = new ExperienceDTO();
 	e2.setLibelle("Auteur du livre \"Le druidisme expliqué aux personnes âgées\"");
@@ -60,13 +87,13 @@
 	e3.setLibelle("Test");
 	listExperience.add(e);
 	listExperience.add(e2);
-	listExperience.add(e3);
+	listExperience.add(e3);*/
 	request.setAttribute("expList", listExperience);
 
 	List<CompetenceDTO> listCompetence = new ArrayList<CompetenceDTO>();
-	CompetenceDTO c1 = new CompetenceDTO();
+	/*CompetenceDTO c1 = new CompetenceDTO();
 	c1.setLibelle("Faire des crepes");
-	listCompetence.add(c1);
+	listCompetence.add(c1);*/
 	request.setAttribute("compList", listCompetence);
 
 	List<EcoleDTO> listFormation = new ArrayList<EcoleDTO>();
@@ -113,35 +140,27 @@
 			<div class="row">
 				<div class="col-md-6">
 					<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
-					<div class="col-md-12">
+					<div class="text-success">
 						<ul class="list-group">
 							<li>
-								<p>Poste actuel :</p>
-								<form>
-									<textarea name="nom" rows="1" cols="20"></textarea>
-								</form>
-								<p></p>
+								<label>Poste actuel :</label></br>
+									<input type="text" id="posteActu" name="posteActu" />
+								
 							</li>
 							<li>
-								<p>Lieu:</p>
-								<form>
-									<textarea name="nom" rows="1" cols="20"></textarea>
-								</form>
-								<p></p>
+								<label>Lieu:</label></br>
+									<input type="text" id="lieu" name="lieu" placeholder="Tizi-Ouzou" />
 							</li>
 							<li>
-								<p>Nom de l'entreprise :</p>
-								<form>
-									<textarea name="nom" rows="1" cols="20"></textarea>
-								</form>
-								<p></p>
+								<label>Nom de l'entreprise :</label></br>
+									<input type="text" id="entreprise" name="entreprise"/>
+								
+								
 							</li>
 							<li>
-								<p>Mail :</p>
-								<form>
-									<textarea name="nom" rows="1" cols="20"></textarea>
-								</form>
-								<p></p>
+								<label>Mail :</label></br>
+									<input type="mail" id="mail" name="mail" />
+							
 							</li>
 						</ul>
 					</div>

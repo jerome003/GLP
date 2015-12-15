@@ -25,7 +25,7 @@ public class EditionProfilController {
 
 	@RequestMapping(value = "/editionProfil", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-
+		model.addAttribute("myInjectedBean", etudiantBean);
 		return "editionProfil";
 	}
 
