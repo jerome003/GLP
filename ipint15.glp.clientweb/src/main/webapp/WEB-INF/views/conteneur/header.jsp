@@ -34,20 +34,7 @@
 				l'université de Lille<br>
 			</a>
 		</div>
-		<div>
-				<!-- /.col-lg-5 -->
-			<div class="col-lg-4">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search for...">
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">Go!</button>
-					</span>
-				</div>
-				<!-- /input-group -->
-			</div>
-			<!-- /.col-lg-5 -->
-		</div>
-		<!-- /.row -->
+
 		<div class="collapse navbar-collapse" id="navbar-ex-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<%
@@ -62,6 +49,19 @@
 				<%
 					} else {
 				%>
+					<!-- /.col-lg-5 -->
+					<div class="col-lg-5">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Search for..."> <span
+								class="input-group-btn">
+								<button class="btn btn-default" type="button">Go!</button>
+							</span>
+						</div>
+						<!-- /input-group -->
+					</div>
+					<!-- /.col-lg-5 -->
+				<!-- /.row -->
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/fil-actualite">Fil
 						d'actualité</a></li>
