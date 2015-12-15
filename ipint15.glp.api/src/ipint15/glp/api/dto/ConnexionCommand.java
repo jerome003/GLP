@@ -6,9 +6,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ConnexionCommand {
 	
 	
-	@NotEmpty
+	@NotEmpty( message = "Veuillez saisir votre adresse email" )
 	private String email;
-	@NotEmpty
+	@NotEmpty( message = "Veuillez saisir votre mot de passe" )
 	private String password;
 	
 	public ConnexionCommand() {
