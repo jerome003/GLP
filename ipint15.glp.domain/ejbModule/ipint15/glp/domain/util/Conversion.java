@@ -33,6 +33,7 @@ public class Conversion {
 		
 		//Conversion de l'étudiant en EtudiantProfilDTO et de la  Competence CompetenceDTO
 		EtudiantProfilDTO epDto = ep.toEtudiantProfilDTO();
+		epDto.setEtudiant(MappingEtudiantProfil(ep.getEtudiant(),ep));
 		CompetenceDTO cDTO = c.toCompetenceDTO();
 		
 		// Mapping du profil avec sa compétence
@@ -45,6 +46,7 @@ public class Conversion {
 		
 		//Conversion de l'étudiant en EtudiantProfilDTO et de la  Competence CompetenceDTO
 		EtudiantProfilDTO epDto = ep.toEtudiantProfilDTO();
+		epDto.setEtudiant(MappingEtudiantProfil(ep.getEtudiant(),ep));
 		PublicationDTO cDTO = p.toPublicationDTO();
 		
 		// Mapping du profil avec sa compétence
@@ -56,6 +58,7 @@ public class Conversion {
 		
 		//Conversion de l'étudiant en EtudiantProfilDTO et de la  Competence CompetenceDTO
 		EtudiantProfilDTO epDto = ep.toEtudiantProfilDTO();
+		epDto.setEtudiant(MappingEtudiantProfil(ep.getEtudiant(),ep));
 		ExperienceDTO experienceDTO = exp.toExperienceDTO();
 		
 		// Mapping du profil avec sa compétence
@@ -68,6 +71,7 @@ public class Conversion {
 		
 		//Conversion de l'étudiant en EtudiantProfilDTO et de la  Competence CompetenceDTO
 		EtudiantProfilDTO epDto = ep.toEtudiantProfilDTO();
+		epDto.setEtudiant(MappingEtudiantProfil(ep.getEtudiant(),ep));
 		HobbieDTO hDTO = c.toHobbieDTO();
 		
 		// Mapping du profil avec sa compétence
@@ -80,6 +84,7 @@ public class Conversion {
 		
 		//Conversion de l'étudiant en EtudiantProfilDTO et de la  Competence CompetenceDTO
 		EtudiantProfilDTO epDto = ep.toEtudiantProfilDTO();
+		epDto.setEtudiant(MappingEtudiantProfil(ep.getEtudiant(),ep));
 		EcoleDTO ecoleDTO = c.toEcoleDTO();
 		
 		// Mapping du profil avec sa compétence

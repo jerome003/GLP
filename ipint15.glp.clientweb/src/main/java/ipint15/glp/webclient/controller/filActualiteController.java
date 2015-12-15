@@ -1,5 +1,6 @@
 package ipint15.glp.webclient.controller;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -32,15 +33,16 @@ public class filActualiteController {
 
 	@RequestMapping(value = "/fil-actualite", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
+		model.addAttribute("myInjectedBean", etudiantBean );
 	
 		return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 	}
 	
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
-	public String addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result, HttpServletRequest request) {
+	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage());
+		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
 		List<PublicationDTO> myPublications = etudiantBean.getPublications();
 		Iterator it = myPublications.iterator();
 		while(it.hasNext()) {
@@ -58,9 +60,6 @@ public class filActualiteController {
 			System.out.println("Mes compétences :" +it.next().toString());
 		}
 		*/
-		if (result.hasErrors()) {
-			return "fil-actualite";
-			}
-		return "fil-actualite";
+		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 	}
 }

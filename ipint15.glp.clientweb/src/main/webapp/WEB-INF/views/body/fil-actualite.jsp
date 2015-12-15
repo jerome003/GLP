@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -19,33 +20,35 @@
 </head>
 
 <body>
+
 	<div class="section">
 		<div class="container">
 			<div class="row">
-
 				<div class="col-md-12">
-					<h1>Fil d'actualité</h1> <br>
-					
-					<h1>Créer une publication</h1> <br>
+					<h1>Fil d'actualité</h1>
+					<br>
+
+					<h1>Créer une publication</h1>
+					<br>
 
 					<form:form class="form-horizontal" role="form" method="post"
 						commandName="command" action="addPublication">
 						<div class="form-group">
-						<div class="col-sm-2">
-							<form:label path="titre" class="control-label">Titre</form:label>
+							<div class="col-sm-2">
+								<form:label path="titre" class="control-label">Titre</form:label>
+							</div>
+							<div class="col-sm-6">
+								<form:input path="titre" type="text" class="form-control" />
+							</div>
 						</div>
-						<div class="col-sm-6">
-							<form:input path="titre" type="text" class="form-control"/>
-						</div>
-					</div>
 						<div class="form-group">
-						<div class="col-sm-2">
-							<form:label path="message" class="control-label">Message</form:label>
+							<div class="col-sm-2">
+								<form:label path="message" class="control-label">Message</form:label>
+							</div>
+							<div class="col-sm-6">
+								<form:input path="message" type="text" class="form-control" />
+							</div>
 						</div>
-						<div class="col-sm-6">
-							<form:input path="message" type="text" class="form-control"/>
-						</div>
-					</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button type="submit" value="Add Publication"
@@ -59,58 +62,29 @@
 			</div>
 		</div>
 	</div>
-	<div class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="btn-group btn-group-justified">
-						<a href="#" class="btn btn-info">Manuel Dupond</a> <a href="#"
-							class="btn btn-default">Fans de BD</a>
+	<c:forEach items="${myInjectedBean.getPublications()}"
+		var="publication">
+
+		<div class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="btn-group btn-group-justified">
+							<a href="#" class="btn btn-info">${publication.profil.etudiant.nom} ${publication.profil.etudiant.prenom}</a> <a href="#"
+								class="btn btn-default"><fmt:formatDate type="both" 
+            dateStyle="short" timeStyle="short" 
+            value="${publication.date}"/> : ${publication.titre}</a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<img src="26-07-10.jpg" class="center-block img-responsive">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="btn-group btn-group-justified">
-						<a href="#" class="btn btn-info">Toto Bernard</a> <a href="#"
-							class="btn btn-default">Journée des métiers de l'informatique</a>
+				<div class="row">
+					<div class="col-md-12">
+						<p>${publication.message}</p>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<p>La journée des métiers de l'informatique se déroulera le 15
-						février 2016 dont l'objectif est de faire connaître les diffrents
-						métiers de l'informatique aux étudiants</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<img src="IMG_4409_twitter.jpg" class="img-responsive">
-				</div>
-				<div class="col-md-6">
-					<img src="informatique.jpg" class="img-responsive">
-				</div>
-			</div>
-		</div>
-	</div>
+	</c:forEach>
 </body>
 
 </html>
