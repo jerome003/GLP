@@ -1,5 +1,6 @@
 package ipint15.glp.webclient.controller;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -41,7 +42,7 @@ public class filActualiteController {
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage());
+		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
 		List<PublicationDTO> myPublications = etudiantBean.getPublications();
 		Iterator it = myPublications.iterator();
 		while(it.hasNext()) {

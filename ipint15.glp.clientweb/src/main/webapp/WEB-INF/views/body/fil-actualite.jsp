@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -70,7 +71,9 @@
 					<div class="col-md-12">
 						<div class="btn-group btn-group-justified">
 							<a href="#" class="btn btn-info">${publication.profil.etudiant.nom} ${publication.profil.etudiant.prenom}</a> <a href="#"
-								class="btn btn-default">${publication.titre}</a>
+								class="btn btn-default"><fmt:formatDate type="both" 
+            dateStyle="short" timeStyle="short" 
+            value="${publication.date}"/> : ${publication.titre}</a>
 						</div>
 					</div>
 				</div>

@@ -1,11 +1,15 @@
 package ipint15.glp.domain.entities;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.PublicationDTO;
@@ -24,6 +28,9 @@ import ipint15.glp.api.dto.PublicationDTO;
 	    private String titre;
 
 	    private String message;
+	    
+		@Temporal(TemporalType.TIME)
+		private Date date;
 	    
 		public int getId() {
 			return id;
@@ -55,11 +62,23 @@ import ipint15.glp.api.dto.PublicationDTO;
 		public void setMessage(String message) {
 			this.message = message;
 		}
+		
+		
+		
+		public Date getDate() {
+			return date;
+		}
+
+		public void setDate(Date date) {
+			this.date = date;
+		}
+
 		public PublicationDTO toPublicationDTO() {
 			PublicationDTO cDTO = new PublicationDTO();
 			cDTO.setId(this.id);
 			cDTO.setTitre(this.titre);
 			cDTO.setMessage(this.message);
+			cDTO.setDate(this.date);
 			return cDTO;
 		}
 		@Override
