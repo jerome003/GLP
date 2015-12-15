@@ -11,7 +11,7 @@
 						  <div class="col-sm-10">
 							<div class="radio">
 							<label class="radio-inline">
-							<form:radiobutton  path="civilite" value="M"/>M.</label>
+							<form:radiobutton  path="civilite" checked="checked" value="M"/>M.</label>
 							<label class="radio-inline">
 							<form:radiobutton  path="civilite" value="Mme"/>Mme</label> 
 							</div>
