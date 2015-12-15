@@ -64,7 +64,7 @@
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/fil-actualite">Fil
 						d'actualité</a></li>
-				<li><a href="${pageContext.request.contextPath}/deconnection">Déconnection<br></a></li>
+				<li><a href="${pageContext.request.contextPath}/deconnection">Déconnexion<br></a></li>
 				<li><a href="${pageContext.request.contextPath}/profil">Profil<br></a></li>
 				<%
 					}

@@ -51,7 +51,10 @@ public class InscriptionController {
 		if (result.hasErrors()) {
 			return "inscription";
 			}
-		
+		if (etudiantBean.isMailExists(etudiant.getEmail())) {
+			result.rejectValue ("email", null, "Cette adresse email est deja utilisee ");
+			return "inscription";
+		}
 		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),
 				etudiant.getPassword(), etudiant.getNaissance());
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
@@ -71,9 +74,7 @@ public class InscriptionController {
 			System.out.println("Mes compétences :" +it.next().toString());
 		}
 		*/
-		if (result.hasErrors()) {
-			return "inscription";
-			}
+		
 		return "inscriptionOK";
 	}
 

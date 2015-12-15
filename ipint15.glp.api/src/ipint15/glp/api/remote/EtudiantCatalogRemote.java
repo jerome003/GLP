@@ -30,7 +30,7 @@ public interface EtudiantCatalogRemote {
 	
 	public List<PublicationDTO> getPublications(EtudiantDTO eDTO);
 
-	void addPublication(EtudiantDTO eDTO, String titre, String message);
+	void addPublication(EtudiantDTO eDTO, String titre, String message,Date date);
 	
 	public void addExperience (EtudiantDTO eDTO, String experience );
 
@@ -45,4 +45,6 @@ public interface EtudiantCatalogRemote {
 	public List<EcoleDTO> getEcoles (EtudiantDTO eDTO);
 
 	List<PublicationDTO> getPublications();
+	
+	public boolean isMailExists (String mail);
 }

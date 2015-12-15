@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -257,10 +258,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	
 	@Override
 	public List<PublicationDTO> getPublications() {
-		List<Publication> mesPublications = em.createQuery("select p from Publication p").getResultList();
+		List<Publication> mesPublications = em.createQuery("select p from Publication p order by p.date desc").getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications){
+			System.out.println("Profil :" + p.getProfil());
 			PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(), p);
+			System.out.println("Profil DTO :" + cDTO.getProfil());
 			mesPublicationsDTO.add(cDTO);
 		}
 		return mesPublicationsDTO;
@@ -268,18 +271,38 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 	
 	@Override
-	public void addPublication(EtudiantDTO eDTO, String titre, String message) {
+	public void addPublication(EtudiantDTO eDTO, String titre, String message, Date date) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Publication c = new Publication();
 		c.setTitre(titre);
 		c.setMessage(message);
+		c.setDate(date);
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesPublications().add(c);
 		c.setProfil(ep);
 		em.persist(c);
 		em.merge(ep);
 		em.merge(e);
+		
 	}
+
+	@Override
+	public boolean isMailExists(String mail) {
+		
+		
+		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
+		q.setParameter("email", mail);
+		Etudiant e;
+		try {
+			e = (Etudiant)q.getSingleResult();
+		} catch (NoResultException e1) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
 	
 }
