@@ -48,7 +48,7 @@ public class PublicationDTO implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil="+ ", titre=" + titre + "+ , message=" + message+ "]";
+		return "Competence [id=" + id + ", profil="+ ((profil!=null) ? "oui" : "non") + ", titre=" + titre + ", message=" + message+ "]";
 	}
 
 }
