@@ -20,6 +20,13 @@
 
 <body>
 	<div class="section">
+	
+		<c:forEach items="${liste}"
+		var="results">
+		
+		${results.nom}
+		
+	</c:forEach>
 	</div>
 </body>
 
