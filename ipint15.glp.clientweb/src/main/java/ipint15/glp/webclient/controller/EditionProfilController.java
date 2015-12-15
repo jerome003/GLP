@@ -3,6 +3,8 @@ package ipint15.glp.webclient.controller;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -24,7 +26,9 @@ public class EditionProfilController {
 	protected EtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/editionProfil", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "profil");
 
 		return "editionProfil";
 	}

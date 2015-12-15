@@ -32,7 +32,9 @@ public class filActualiteController {
 	protected EtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/fil-actualite", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
+	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "actualite");
 		model.addAttribute("myInjectedBean", etudiantBean );
 	
 		return new ModelAndView("fil-actualite", "command", new PublicationDTO());

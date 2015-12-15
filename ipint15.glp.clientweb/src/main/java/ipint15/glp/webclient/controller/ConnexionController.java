@@ -30,14 +30,17 @@ public class ConnexionController {
 	protected EtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/connexion", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
+	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "connexion");
 		return new ModelAndView("connexion", "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/connexionProfil", method = RequestMethod.POST)
 	public String connexion(@Valid @ModelAttribute("command") ConnexionCommand etudiant, BindingResult result,
 			HttpServletRequest request) {
-		
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "actualite");
 		
 		if (result.hasErrors()) {
 			return "connexion";
@@ -45,9 +48,9 @@ public class ConnexionController {
 		
 		if (etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())) {
 			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
-			HttpSession sessionObj = request.getSession();
+			sessionObj = request.getSession();
 			sessionObj.setAttribute("etudiant", etu);
-			return "profil";
+			return "redirect:fil-actualite";
 		} else {
 			return null;
 		}
