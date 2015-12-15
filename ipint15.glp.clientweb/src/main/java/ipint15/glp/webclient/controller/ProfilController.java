@@ -30,6 +30,5 @@ public class ProfilController {
 		model.addAttribute("name",name);
 		model.addAttribute("prenom",prenom);
 		return new ModelAndView("profil", "command", new EtudiantDTO());
-		
 	}
 }
