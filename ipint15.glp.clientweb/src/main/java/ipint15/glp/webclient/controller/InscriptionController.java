@@ -47,6 +47,11 @@ public class InscriptionController {
 	@RequestMapping(value = "/addEtudiant", method = RequestMethod.POST)
 
 	public String addEtudiant(@Valid @ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "inscription";
+			}
+		
 		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),
 				etudiant.getPassword(), etudiant.getNaissance());
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
