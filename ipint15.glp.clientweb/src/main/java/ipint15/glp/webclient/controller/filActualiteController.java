@@ -62,4 +62,21 @@ public class filActualiteController {
 		*/
 		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 	}
+	
+	@RequestMapping(value = "/myPublication", method = RequestMethod.GET) 
+	public ModelAndView myPublication(HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("choixPublication", "mesPublications");
+		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+		
+	}
+	
+	@RequestMapping(value = "/allPublication", method = RequestMethod.GET) 
+	public ModelAndView allPublication(HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("choixPublication", "lesPublications");
+		
+		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+		
+	}
 }
