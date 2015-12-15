@@ -24,7 +24,6 @@ public class EtudiantDTO implements Serializable {
 	private Civilite civilite;
 	private String password;
 	@NotEmpty
-	@Email
 	private String email;
 	private Date naissance;
 	private EtudiantProfilDTO profil ;
