@@ -72,7 +72,7 @@
 				<div class="col-md-6">
 					<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
 
-
+					${etudiant.profil.mesCompetences}
 
 
 

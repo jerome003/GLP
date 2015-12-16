@@ -53,7 +53,13 @@ public class EditionProfilController {
 	public ModelAndView saveExpPro(String mail, String expPro1, String expPro2, String expPro3, String expPro4,
 			String expPro5) {
 		System.out.println(mail + expPro1 + expPro2 + expPro3 + expPro4 + expPro5);
-		// TODO a finir
+		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
+		etudiantBean.deleteExpProList(etudiantDTO);
+		etudiantBean.addExperience(etudiantDTO, expPro1);
+		etudiantBean.addExperience(etudiantDTO, expPro2);
+		etudiantBean.addExperience(etudiantDTO, expPro3);
+		etudiantBean.addExperience(etudiantDTO, expPro4);
+		etudiantBean.addExperience(etudiantDTO, expPro5);
 		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
 	}
 
@@ -62,6 +68,7 @@ public class EditionProfilController {
 			String comp5) {
 		System.out.println(mail + comp1 + comp2 + comp3 + comp4 + comp5);
 		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
+		etudiantBean.deleteCompetenceList(etudiantDTO);
 		etudiantBean.addCompetence(etudiantDTO, comp1);
 		etudiantBean.addCompetence(etudiantDTO, comp2);
 		etudiantBean.addCompetence(etudiantDTO, comp3);
@@ -74,7 +81,13 @@ public class EditionProfilController {
 	public ModelAndView saveFormation(String mail, String formation1, String formation2, String formation3,
 			String formation4, String formation5) {
 		System.out.println(mail + formation1 + formation2 + formation3 + formation4 + formation5);
-		// TODO a finir
+		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
+		etudiantBean.deleteFormationList(etudiantDTO);
+		etudiantBean.addEcole(etudiantDTO, formation1);
+		etudiantBean.addEcole(etudiantDTO, formation2);
+		etudiantBean.addEcole(etudiantDTO, formation3);
+		etudiantBean.addEcole(etudiantDTO, formation4);
+		etudiantBean.addEcole(etudiantDTO, formation5);
 		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
 	}
 
@@ -82,7 +95,13 @@ public class EditionProfilController {
 	public ModelAndView saveLoisir(String mail, String loisir1, String loisir2, String loisir3, String loisir4,
 			String loisir5) {
 		System.out.println(mail + loisir1 + loisir2 + loisir3 + loisir4 + loisir5);
-		// TODO a finir
+		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
+		etudiantBean.deleteLoisirList(etudiantDTO);
+		etudiantBean.addHobbie(etudiantDTO, loisir1);
+		etudiantBean.addHobbie(etudiantDTO, loisir2);
+		etudiantBean.addHobbie(etudiantDTO, loisir3);
+		etudiantBean.addHobbie(etudiantDTO, loisir4);
+		etudiantBean.addHobbie(etudiantDTO, loisir5);
 		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
 	}
 
