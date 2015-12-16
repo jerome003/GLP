@@ -1,5 +1,6 @@
 package ipint15.glp.webclient.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -16,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import ipint15.glp.api.dto.CompetenceDTO;
+import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.ExperienceDTO;
+import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
 @Controller
@@ -51,7 +56,7 @@ public class EditionProfilController {
 
 	@RequestMapping(value = "/saveExpPro", method = RequestMethod.POST)
 	public ModelAndView saveExpPro(String mail, String expPro1, String expPro2, String expPro3, String expPro4,
-			String expPro5) {
+			String expPro5, HttpServletRequest request) {
 		System.out.println(mail + expPro1 + expPro2 + expPro3 + expPro4 + expPro5);
 		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
 		etudiantBean.deleteExpProList(etudiantDTO);
@@ -60,12 +65,14 @@ public class EditionProfilController {
 		etudiantBean.addExperience(etudiantDTO, expPro3);
 		etudiantBean.addExperience(etudiantDTO, expPro4);
 		etudiantBean.addExperience(etudiantDTO, expPro5);
+		List<ExperienceDTO> listExpPro = etudiantBean.getExperiences(etudiantDTO);
+		request.getSession().setAttribute("listExpPro", listExpPro);
 		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveCompetence", method = RequestMethod.POST)
 	public ModelAndView saveCompetence(String mail, String comp1, String comp2, String comp3, String comp4,
-			String comp5) {
+			String comp5, HttpServletRequest request) {
 		System.out.println(mail + comp1 + comp2 + comp3 + comp4 + comp5);
 		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
 		etudiantBean.deleteCompetenceList(etudiantDTO);
@@ -74,12 +81,14 @@ public class EditionProfilController {
 		etudiantBean.addCompetence(etudiantDTO, comp3);
 		etudiantBean.addCompetence(etudiantDTO, comp4);
 		etudiantBean.addCompetence(etudiantDTO, comp5);
+		List<CompetenceDTO> listCompetence = etudiantBean.getCompetences(etudiantDTO);
+		request.getSession().setAttribute("listCompetence", listCompetence);
 		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveFormation", method = RequestMethod.POST)
 	public ModelAndView saveFormation(String mail, String formation1, String formation2, String formation3,
-			String formation4, String formation5) {
+			String formation4, String formation5, HttpServletRequest request) {
 		System.out.println(mail + formation1 + formation2 + formation3 + formation4 + formation5);
 		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
 		etudiantBean.deleteFormationList(etudiantDTO);
@@ -88,12 +97,14 @@ public class EditionProfilController {
 		etudiantBean.addEcole(etudiantDTO, formation3);
 		etudiantBean.addEcole(etudiantDTO, formation4);
 		etudiantBean.addEcole(etudiantDTO, formation5);
+		List<EcoleDTO> listEcole = etudiantBean.getEcoles(etudiantDTO);
+		request.getSession().setAttribute("listEcole", listEcole);
 		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveLoisir", method = RequestMethod.POST)
 	public ModelAndView saveLoisir(String mail, String loisir1, String loisir2, String loisir3, String loisir4,
-			String loisir5) {
+			String loisir5, HttpServletRequest request) {
 		System.out.println(mail + loisir1 + loisir2 + loisir3 + loisir4 + loisir5);
 		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
 		etudiantBean.deleteLoisirList(etudiantDTO);
@@ -102,6 +113,8 @@ public class EditionProfilController {
 		etudiantBean.addHobbie(etudiantDTO, loisir3);
 		etudiantBean.addHobbie(etudiantDTO, loisir4);
 		etudiantBean.addHobbie(etudiantDTO, loisir5);
+		List<HobbieDTO> listLoisir = etudiantBean.getHobbies(etudiantDTO);
+		request.getSession().setAttribute("listLoisir", listLoisir);
 		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
 	}
 

@@ -60,9 +60,6 @@
 						<br> <br>
 					</p>
 				</div>
-				<div class="col-md-4">
-					<a class="btn btn-primary">Enregistrer les modifications<br></a>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -71,14 +68,6 @@
 			<div class="row">
 				<div class="col-md-6">
 					<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
-
-					${etudiant.profil.mesCompetences}
-
-
-
-
-
-
 					<div class="text-success">
 						<form method="post" action="saveProfile">
 							<ul class="list-group">
@@ -106,11 +95,14 @@
 							<form method="post" action="saveExpPro">
 								<input type="hidden" id="mailEtu" name="mail"
 									value="${etudiant.email}" /> <input type="text" id="expPro1"
-									name="expPro1" /> <input type="text" id="expPro2"
-									name="expPro2" /> <input type="text" id="expPro3"
-									name="expPro3" /> <input type="text" id="expPro4"
-									name="expPro4" /> <input type="text" id="expPro5"
-									name="expPro5" /> <input type="submit" value="Envoyer" />
+									name="expPro1" value="${listExpPro[0].libelle}" /> <input
+									type="text" id="expPro2" name="expPro2"
+									value="${listExpPro[1].libelle}" /> <input type="text"
+									id="expPro3" name="expPro3" value="${listExpPro[2].libelle}" />
+								<input type="text" id="expPro4" name="expPro4"
+									value="${listExpPro[3].libelle}" /> <input type="text"
+									id="expPro5" name="expPro5" value="${listExpPro[4].libelle}" />
+								<input type="submit" value="Envoyer" />
 							</form>
 
 							<div>
@@ -130,11 +122,14 @@
 								<form method="post" action="saveCompetence">
 									<input type="hidden" id="mailEtuCompetence" name="mail"
 										value="${etudiant.email}" /> <input type="text" id="comp1"
-										name="comp1" /> <input type="text" id="comp2" name="comp2" />
-									<input type="text" id="comp3" name="comp3" /> <input
-										type="text" id="comp4" name="comp4" /> <input type="text"
-										id="comp5" name="comp5" /> <input type="submit"
-										value="Envoyer" />
+										name="comp1" value="${listCompetence[0].libelle}" /> <input
+										type="text" id="comp2" name="comp2"
+										value="${listCompetence[1].libelle}" /> <input type="text"
+										id="comp3" name="comp3" value="${listCompetence[2].libelle}" />
+									<input type="text" id="comp4" name="comp4"
+										value="${listCompetence[3].libelle}" /> <input type="text"
+										id="comp5" name="comp5" value="${listCompetence[4].libelle}" />
+									<input type="submit" value="Envoyer" />
 								</form>
 
 							</div>
@@ -146,11 +141,16 @@
 								<form method="post" action="saveFormation">
 									<input type="hidden" id="mailEtuFormation" name="mail"
 										value="${etudiant.email}" /> <input type="text"
-										id="formation1" name="formation1" /> <input type="text"
-										id="formation2" name="formation2" /> <input type="text"
-										id="formation3" name="formation3" /> <input type="text"
-										id="formation4" name="formation4" /> <input type="text"
-										id="formation5" name="formation5" /> <input type="submit"
+										id="formation1" name="formation1"
+										value="${listEcole[0].libelle}" /> <input type="text"
+										id="formation2" name="formation2"
+										value="${listEcole[1].libelle}" /> <input type="text"
+										id="formation3" name="formation3"
+										value="${listEcole[2].libelle}" /> <input type="text"
+										id="formation4" name="formation4"
+										value="${listEcole[3].libelle}" /> <input type="text"
+										id="formation5" name="formation5"
+										value="${listEcole[4].libelle}" /> <input type="submit"
 										value="Envoyer" />
 								</form>
 
@@ -169,11 +169,14 @@
 								<form method="post" action="saveLoisir">
 									<input type="hidden" id="mailEtuFormation" name="mail"
 										value="${etudiant.email}" /> <input type="text" id="loisir1"
-										name="loisir1" /> <input type="text" id="loisir2"
-										name="loisir2" /> <input type="text" id="loisir3"
-										name="loisir3" /> <input type="text" id="loisir4"
-										name="loisir4" /> <input type="text" id="loisir5"
-										name="loisir5" /> <input type="submit" value="Envoyer" />
+										name="loisir1" value="${listLoisir[0].libelle}" /> <input
+										type="text" id="loisir2" name="loisir2"
+										value="${listLoisir[1].libelle}" /> <input type="text"
+										id="loisir3" name="loisir3" value="${listLoisir[2].libelle}" />
+									<input type="text" id="loisir4" name="loisir4"
+										value="${listLoisir[3].libelle}" /> <input type="text"
+										id="loisir5" name="loisir5" value="${listLoisir[4].libelle}" />
+									<input type="submit" value="Envoyer" />
 								</form>
 
 							</div>
