@@ -59,6 +59,16 @@ public class InscriptionController {
 			result.rejectValue ("email", null, "Cette adresse email est deja utilisee ");
 			return "inscription";
 		}
+		
+		Date today = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		 		 
+		 if (dateFormat.format(today).compareTo(dateFormat.format(etudiant.getNaissance())) == 0){
+			result.rejectValue("naissance", null, "Veuillez saisir une date de naissance valide");
+			return "inscription";
+		 }
+	
+		
 		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),
 				etudiant.getPassword(), etudiant.getNaissance());
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
