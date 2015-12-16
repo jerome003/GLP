@@ -8,20 +8,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import ipint15.glp.api.dto.CompetenceDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
 
 @Entity
 @Table(name = "COMPETENCE")
 public class Competence {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-   
-    @ManyToOne
-    private EtudiantProfil profil ;
-    
-    private String libelle;
+
+	@ManyToOne
+	private EtudiantProfil profil;
+
+	private String libelle;
 
 	public int getId() {
 		return id;
@@ -46,7 +45,7 @@ public class Competence {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	
+
 	public CompetenceDTO toCompetenceDTO() {
 		CompetenceDTO cDTO = new CompetenceDTO();
 		cDTO.setId(this.id);
@@ -56,9 +55,7 @@ public class Competence {
 
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil=" + ((profil!=null) ? "oui" : "non") + ", libelle=" + libelle + "]";
+		return "Competence [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + ", libelle=" + libelle + "]";
 	}
-	
-	
 
 }

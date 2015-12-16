@@ -19,18 +19,24 @@ public class RechercheImpl implements RechercheRemote {
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@Override
 	public List<EtudiantDTO> rechercherEtudiant(String recherche) {
 		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
 		List<EtudiantDTO> psDTO = new ArrayList<EtudiantDTO>();
+		String[] recherches = recherche.split(" ");
 
 		for (Etudiant e : ps) {
-			if (e.getNom().toLowerCase().contains(recherche.toLowerCase()) || 
-					e.getPrenom().toLowerCase().contains(recherche.toLowerCase())) {
-				EtudiantProfil ep = e.getProfil();
-				EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
-				psDTO.add(eDTO);
+			for (int i = 0; i < recherches.length; i++) {
+
+				if (e.getNom().toLowerCase().contains(recherches[i].toLowerCase())
+						|| e.getPrenom().toLowerCase().contains(recherches[i].toLowerCase())) {
+					EtudiantProfil ep = e.getProfil();
+					EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+					System.out.println(eDTO);
+					if (!psDTO.contains(eDTO))
+							psDTO.add(eDTO);
+				}
 			}
 		}
 		return psDTO;
