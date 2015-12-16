@@ -340,7 +340,7 @@ private Etudiant getEtudiantById(int id){
 		List<Competence> mesCompetences = e.getProfil().getMesCompetences();
 		System.out.println("isEmpty : " + mesCompetences.isEmpty());
 		System.out.println(mesCompetences);
-		e.getProfil().setMesCompetences(new ArrayList<>());
+		e.getProfil().setMesCompetences(new ArrayList<Competence>());
 		em.persist(e);
 		mesCompetences = e.getProfil().getMesCompetences();
 		System.out.println(mesCompetences);
@@ -350,7 +350,7 @@ private Etudiant getEtudiantById(int id){
 	public void deleteExpProList(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// List<Experience> mesExperiences = e.getProfil().getMesExperiences();
-		e.getProfil().setMesExperiences(new ArrayList<>());
+		e.getProfil().setMesExperiences(new ArrayList<Experience>());
 		em.persist(e);
 	}
 
@@ -358,7 +358,7 @@ private Etudiant getEtudiantById(int id){
 	public void deleteFormationList(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// List<Ecole> mesFormations = e.getProfil().getMesEcoles();
-		e.getProfil().setMesEcoles(new ArrayList<>());
+		e.getProfil().setMesEcoles(new ArrayList<Ecole>());
 		em.persist(e);
 	}
 
@@ -366,7 +366,7 @@ private Etudiant getEtudiantById(int id){
 	public void deleteLoisirList(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// List<Hobbie> mesLoisirs = e.getProfil().getMesHobbies();
-		e.getProfil().setMesHobbies(new ArrayList<>());
+		e.getProfil().setMesHobbies(new ArrayList<Hobbie>());
 		em.persist(e);
 	}
 
