@@ -28,7 +28,10 @@ public class ContactController {
 	public String home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "contact");
+		
+		EtudiantDTO etu = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+		if (etu == null) return "contactDisconnect";
+		else return "contactConnect";
 	
-	return "contact";
 	}
 }
