@@ -49,4 +49,5 @@ public interface EtudiantCatalogRemote {
 	public boolean isMailExists (String mail);
 	
 	public boolean isPasswordIsGood (String mail, String password);
+	
 }
