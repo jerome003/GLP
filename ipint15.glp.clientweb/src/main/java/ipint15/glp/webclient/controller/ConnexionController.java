@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.eclipse.persistence.sessions.server.ServerSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sun.xml.ws.runtime.dev.Session;
+
 
 import ipint15.glp.api.dto.ConnexionCommand;
 import ipint15.glp.api.dto.EtudiantDTO;
@@ -30,27 +29,43 @@ public class ConnexionController {
 	protected EtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/connexion", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
+	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "connexion");
 		return new ModelAndView("connexion", "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/connexionProfil", method = RequestMethod.POST)
 	public String connexion(@Valid @ModelAttribute("command") ConnexionCommand etudiant, BindingResult result,
 			HttpServletRequest request) {
-		
-		
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "actualite");
+
 		if (result.hasErrors()) {
 			return "connexion";
-			}
+		}
+		if (! etudiantBean.isMailExists(etudiant.getEmail())) {
+			result.rejectValue ("email", null, "Cette adresse mail n'existe pas");
+			return "connexion";
+		}
+
 		
+		if (! etudiantBean.isPasswordIsGood(etudiant.getEmail(), etudiant.getPassword())) {
+			result.rejectValue ("password", null, "Ce n'est pas le bon mot de passe");
+			return "connexion";
+		}
+		
+
 		if (etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())) {
 			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
-			HttpSession sessionObj = request.getSession();
+			sessionObj = request.getSession();
 			sessionObj.setAttribute("etudiant", etu);
-			return "profil";
-		} else {
-			return null;
+
 		}
+
+		return "redirect:fil-actualite";
+
+
 	}
 
 	/**

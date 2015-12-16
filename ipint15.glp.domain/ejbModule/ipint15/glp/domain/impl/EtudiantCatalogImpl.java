@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -285,5 +286,38 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.merge(e);
 		
 	}
+
+	@Override
+	public boolean isMailExists(String mail) {
+		
+		
+		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
+		q.setParameter("email", mail);
+		Etudiant e;
+		try {
+			e = (Etudiant)q.getSingleResult();
+		} catch (NoResultException e1) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean isPasswordIsGood(String mail, String password) {
+		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email and o.password = :password ");
+		q.setParameter("email", mail);
+		q.setParameter("password", password);
+		Etudiant e;
+		try {
+			e = (Etudiant)q.getSingleResult();
+		} catch (NoResultException e1) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
 	
 }

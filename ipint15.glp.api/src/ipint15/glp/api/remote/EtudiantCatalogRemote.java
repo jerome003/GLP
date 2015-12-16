@@ -45,4 +45,8 @@ public interface EtudiantCatalogRemote {
 	public List<EcoleDTO> getEcoles (EtudiantDTO eDTO);
 
 	List<PublicationDTO> getPublications();
+	
+	public boolean isMailExists (String mail);
+	
+	public boolean isPasswordIsGood (String mail, String password);
 }

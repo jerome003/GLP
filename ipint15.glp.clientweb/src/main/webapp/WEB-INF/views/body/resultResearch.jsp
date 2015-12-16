@@ -20,6 +20,18 @@
 
 <body>
 	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+				<h1>Résultat de la recherche : ${recherche} </h1>
+					<c:forEach items="${liste}" var="results">
+						<a href="#" class="btn btn-info">${results.prenom} ${results.nom}</a>
+						</br>
+						</br>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 

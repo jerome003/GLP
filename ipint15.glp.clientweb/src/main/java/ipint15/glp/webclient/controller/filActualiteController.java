@@ -32,7 +32,9 @@ public class filActualiteController {
 	protected EtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/fil-actualite", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
+	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "actualite");
 		model.addAttribute("myInjectedBean", etudiantBean );
 	
 		return new ModelAndView("fil-actualite", "command", new PublicationDTO());
@@ -65,10 +67,8 @@ public class filActualiteController {
 	
 	@RequestMapping(value = "/myPublication", method = RequestMethod.GET) 
 	public ModelAndView myPublication(HttpServletRequest request) {
-		System.out.println("change to my");
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("choixPublication", "mesPublications");
-		
 		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 		
 	}
@@ -76,7 +76,6 @@ public class filActualiteController {
 	@RequestMapping(value = "/allPublication", method = RequestMethod.GET) 
 	public ModelAndView allPublication(HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
-		System.out.println("change to all");
 		sessionObj.setAttribute("choixPublication", "lesPublications");
 		
 		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());

@@ -1,3 +1,4 @@
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@page import="ipint15.glp.api.dto.EtudiantDTO"%>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +12,10 @@
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css">
+
+
 <%
+    String section = (String) session.getAttribute("section");
 	EtudiantDTO etudiant;
 	String deco = (String) request.getAttribute("deco");
 	if ("deco".equals(deco)) {
@@ -40,37 +44,38 @@
 				<%
 					if (etudiant == null) {
 				%>
-				<li class="active"><a
+				<li <%if (section.equals("accueil")) {%> class="active" <% } %>><a
 					href="${pageContext.request.contextPath}/">Accueil</a></li>
-				<li><a href="${pageContext.request.contextPath}/connexion">Connexion<br></a>
+				<li <%if (section.equals("connexion")) {%> class="active" <% } %>><a
+					href="${pageContext.request.contextPath}/connexion">Connexion<br></a>
 				</li>
-				<li><a href="${pageContext.request.contextPath}/inscription">Inscription<br></a>
+				<li <%if (section.equals("inscription")) {%> class="active" <% } %>><a
+					href="${pageContext.request.contextPath}/inscription">Inscription<br></a>
 				</li>
 				<%
 					} else {
 				%>
-					<!-- /.col-lg-5 -->
-					<div class="col-lg-5">
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Search for..."> <span
-								class="input-group-btn">
-								<a href="resultResearch" target="_blank"> <button class="btn btn-default" type="button">Go!</button></a>
-							</span>
-						</div>
-						<!-- /input-group -->
+
+				<div class="col-lg-5">
+					<div class="input-group">
+						<FORM action="research" method="POST">
+							<input type="text" name="recherche" class="form-control"
+								placeholder="Search for..."> <input type="submit" value="GO !" />
+						</FORM>
 					</div>
-					<!-- /.col-lg-5 -->
-				<!-- /.row -->
-				<li class="active"><a
+				</div>
+
+				<li <%if (section.equals("actualite")) {%> class="active" <% } %>><a
 					href="${pageContext.request.contextPath}/fil-actualite">Fil
 						d'actualité</a></li>
-				<li><a href="${pageContext.request.contextPath}/deconnection">Déconnection<br></a></li>
-				<li><a href="${pageContext.request.contextPath}/profil">Profil<br></a></li>
+				<li><a href="${pageContext.request.contextPath}/deconnection">Déconnexion<br></a></li>
+				<li <%if (section.equals("profil")) {%> class="active" <% } %>><a
+					href="${pageContext.request.contextPath}/profil">Profil<br></a></li>
 				<%
 					}
 				%>
-				<li><a href="${pageContext.request.contextPath}/contact">Contact<br></a>
+				<li <%if (section.equals("contact")) {%> class="active" <% } %>><a
+					href="${pageContext.request.contextPath}/contact">Contact<br></a>
 				</li>
 			</ul>
 		</div>

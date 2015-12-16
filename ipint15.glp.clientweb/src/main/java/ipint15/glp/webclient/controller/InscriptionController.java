@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -40,7 +42,9 @@ public class InscriptionController {
 	protected RechercheRemote rechercheBean;
 
 	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model) {
+	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "inscription");
 		return new ModelAndView("inscription", "command", new EtudiantDTO());
 	}
 
@@ -51,7 +55,10 @@ public class InscriptionController {
 		if (result.hasErrors()) {
 			return "inscription";
 			}
-		
+		if (etudiantBean.isMailExists(etudiant.getEmail())) {
+			result.rejectValue ("email", null, "Cette adresse email est deja utilisee ");
+			return "inscription";
+		}
 		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),
 				etudiant.getPassword(), etudiant.getNaissance());
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();

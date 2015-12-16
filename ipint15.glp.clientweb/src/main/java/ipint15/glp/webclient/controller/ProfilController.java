@@ -1,6 +1,8 @@
 package ipint15.glp.webclient.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +24,11 @@ public class ProfilController {
 	@RequestMapping(value = "/profil", method = RequestMethod.GET)
 	public ModelAndView home(
 		@RequestParam(value= "name",required=false)String name,
-		@RequestParam(value="prenom",required=false)String prenom,Model model){
-		// model.addAttribute("name",name);
-		// model.addAttribute("prenom",prenom);
+		@RequestParam(value="prenom",required=false)String prenom,Model model, HttpServletRequest request){
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "profil");
+		model.addAttribute("name",name);
+		model.addAttribute("prenom",prenom);
 		model.addAttribute("myInjectedBean", etudiantBean );
 		return new ModelAndView("profil", "command", new EtudiantDTO());
 		
