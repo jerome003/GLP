@@ -22,6 +22,8 @@ public interface EtudiantCatalogRemote {
 	public boolean connexion(String email, String password);
 
 	public EtudiantDTO getEtudiant(String email);
+	
+	public EtudiantDTO getEtudiant(int id);
 
 	public void addCompetence(EtudiantDTO eDTO, String competence);
 

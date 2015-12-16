@@ -120,7 +120,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="btn-group btn-group-justified">
-							<a href="#" class="btn btn-info">${publication.profil.etudiant.nom}
+							<a href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}" class="btn btn-info">${publication.profil.etudiant.nom}
 								${publication.profil.etudiant.prenom}</a> <a href="#"
 								class="btn btn-default"><fmt:formatDate type="both"
 									dateStyle="short" timeStyle="short" value="${publication.date}" />

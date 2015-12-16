@@ -3,9 +3,9 @@ package ipint15.glp.api.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -25,6 +25,8 @@ public class EtudiantDTO implements Serializable {
 	private String password;
 	@NotEmpty( message = "Veuillez saisir une adresse email" )
 	private String email;
+	@NotNull (message="Veuillez saisir une date de naissance")
+	@Past (message= "Veuillez saisir une date de naissance valide")
 	private Date naissance;
 	private EtudiantProfilDTO profil ;
 
@@ -66,6 +68,8 @@ public class EtudiantDTO implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
 	public Date getNaissance() {
 		return naissance;
 	}

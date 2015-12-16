@@ -25,7 +25,7 @@
 				<div class="col-md-12">
 				<h1>Résultat de la recherche : ${recherche} </h1>
 					<c:forEach items="${liste}" var="results">
-						<a href="#" class="btn btn-info">${results.prenom} ${results.nom}</a>
+						<a href="${pageContext.request.contextPath}/profil/${results.id}" type="submit" class="btn btn-info">${results.prenom} ${results.nom}</a>
 						</br>
 						</br>
 					</c:forEach>

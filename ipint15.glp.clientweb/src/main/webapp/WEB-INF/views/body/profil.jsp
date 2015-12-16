@@ -24,13 +24,16 @@
 						<br> <br>
 					</p>
 				</div>
-
+                    <%
+						if ((Boolean)session.getAttribute("consultation") == false) {
+					%>
 				<div class="col-md-4">
 					<a class="btn btn-primary"
 						href="${pageContext.request.contextPath}/editionProfil">Editer
 						profil<br>
 					</a>
 				</div>
+				   <% } %>
 			</div>
 		</div>
 	</div>

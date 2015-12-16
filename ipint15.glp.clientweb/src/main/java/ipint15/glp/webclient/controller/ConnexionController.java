@@ -61,6 +61,7 @@ public class ConnexionController {
 			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
 			sessionObj = request.getSession();
 			sessionObj.setAttribute("etudiant", etu);
+			System.out.println("connexion controller"+etu.getId());
 			List<ExperienceDTO> listExpPro = etudiantBean.getExperiences(etu);
 			request.getSession().setAttribute("listExpPro", listExpPro);
 			List<CompetenceDTO> listCompetence = etudiantBean.getCompetences(etu);
