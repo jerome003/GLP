@@ -41,7 +41,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
-					<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
+					<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
 					<div class="col-md-12">
 						<ul class="list-group">
 							<li>
