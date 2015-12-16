@@ -57,7 +57,12 @@ public class EditionProfilController {
 	public ModelAndView saveCompetence(String mail, String comp1, String comp2, String comp3, String comp4,
 			String comp5) {
 		System.out.println(mail + comp1 + comp2 + comp3 + comp4 + comp5);
-		// TODO a finir
+		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
+		etudiantBean.addCompetence(etudiantDTO, comp1);
+		etudiantBean.addCompetence(etudiantDTO, comp2);
+		etudiantBean.addCompetence(etudiantDTO, comp3);
+		etudiantBean.addCompetence(etudiantDTO, comp4);
+		etudiantBean.addCompetence(etudiantDTO, comp5);
 		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
 	}
 

@@ -23,8 +23,9 @@ public class ProfilController {
 	public ModelAndView home(
 		@RequestParam(value= "name",required=false)String name,
 		@RequestParam(value="prenom",required=false)String prenom,Model model){
-		model.addAttribute("name",name);
-		model.addAttribute("prenom",prenom);
+		// model.addAttribute("name",name);
+		// model.addAttribute("prenom",prenom);
+		model.addAttribute("myInjectedBean", etudiantBean );
 		return new ModelAndView("profil", "command", new EtudiantDTO());
 		
 	}
