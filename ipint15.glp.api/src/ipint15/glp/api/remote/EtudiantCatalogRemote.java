@@ -24,6 +24,8 @@ public interface EtudiantCatalogRemote {
 	
 	public EtudiantDTO getEtudiant(String email);
 	
+	public EtudiantDTO getEtudiant(int id);
+
 	public void addCompetence (EtudiantDTO eDTO, String competence );
 
 	public List<CompetenceDTO> getCompetences (EtudiantDTO eDTO);
@@ -49,4 +51,5 @@ public interface EtudiantCatalogRemote {
 	public boolean isMailExists (String mail);
 	
 	public boolean isPasswordIsGood (String mail, String password);
+
 }

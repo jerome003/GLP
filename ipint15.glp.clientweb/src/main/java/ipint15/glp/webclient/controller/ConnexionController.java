@@ -60,7 +60,7 @@ public class ConnexionController {
 			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
 			sessionObj = request.getSession();
 			sessionObj.setAttribute("etudiant", etu);
-
+			System.out.println("connexion controller"+etu.getId());
 		}
 
 		return "redirect:fil-actualite";

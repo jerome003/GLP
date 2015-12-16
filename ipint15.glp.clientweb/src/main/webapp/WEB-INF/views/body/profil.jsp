@@ -1,4 +1,6 @@
 <%@ page session="true" %>
+<%@page import="ipint15.glp.api.dto.EtudiantDTO"%>
+
 <html><head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,10 +19,13 @@
                             <br>
                         </p>
                     </div>
-                    
+                    <%
+						if ((Boolean)session.getAttribute("consultation") == false) {
+					%>
                     <div class="col-md-4">
 	                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/editionProfil">Editer profil<br></a>
                     </div>
+                    <% } %>
                 </div>
             </div>
         </div>
