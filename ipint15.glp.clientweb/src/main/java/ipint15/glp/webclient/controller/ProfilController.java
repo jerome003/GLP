@@ -33,7 +33,9 @@ public class ProfilController {
 		sessionObj.setAttribute("section", "profil");
 		model.addAttribute("name",name);
 		model.addAttribute("prenom",prenom);
+		model.addAttribute("myInjectedBean", etudiantBean );
 		return new ModelAndView("profil", "command", new EtudiantDTO());
+		
 	}
 	
 	//permet de renvoyer la page de profil de la personne ayant l'id choisi dans l'url /profil/{id}
