@@ -30,8 +30,6 @@ public class ProfilController {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("consultation", false);
 		sessionObj.setAttribute("section", "profil");
-		model.addAttribute("name", name);
-		model.addAttribute("prenom", prenom);
 		model.addAttribute("myInjectedBean", etudiantBean);
 		return new ModelAndView("profil", "command", new EtudiantDTO());
 
@@ -53,6 +51,7 @@ public class ProfilController {
 			sessionObj.setAttribute("consultation", true);
 			model.addObject("profilRecherche", etu);
 		}
+		sessionObj.setAttribute("profil", etu);
 		model.setViewName("profil");
 		return model;
 	}

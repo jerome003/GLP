@@ -23,70 +23,36 @@
 			%>
 		</div>
 	</div>
-</div>
-<div class="section">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<%
-					if ((Boolean) session.getAttribute("consultation") == false) {
-				%>
-				<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
-				<div class="col-md-12">
-					<ul class="list-group">
-						<li>
-							<p>
-								Poste actuel : <strong>jardinier</strong>
-							</p>
-						</li>
-						<li>
-							<p>
-								Lieu: <strong>yolo</strong>
-							</p>
-						</li>
-						<li>
-							<p>
-								Nom de l'entreprise : <strong></strong>
-							</p>
-						</li>
-						<li>
-							<p>
-								Mail : <strong>${etudiant.email}</strong>
-							</p>
-						</li>
-					</ul>
+	<div class="section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<h2 id="UserName">${profil.prenom}${profil.nom}</h2>
+					<div class="col-md-12">
+						<ul class="list-group">
+							<li>
+								<p>
+									Poste actuel : <strong>jardinier</strong>
+								</p>
+							</li>
+							<li>
+								<p>
+									Lieu: <strong>yolo</strong>
+								</p>
+							</li>
+							<li>
+								<p>
+									Nom de l'entreprise : <strong></strong>
+								</p>
+							</li>
+							<li>
+								<p>
+									Mail : <strong>${profil.email}</strong>
+								</p>
+							</li>
+						</ul>
+					</div>
 				</div>
-				<%
-					} else {
-				%>
-				<h2 id="UserName">${profilRecherche.prenom} ${profilRecherche.nom}</h2>
-				<div class="col-md-12">
-					<ul class="list-group">
-						<li>
-							<p>
-								Poste actuel : <strong>jardinier</strong>
-							</p>
-						</li>
-						<li>
-							<p>
-								Lieu: <strong>yolo</strong>
-							</p>
-						</li>
-						<li>
-							<p>
-								Nom de l'entreprise : <strong></strong>
-							</p>
-						</li>
-						<li>
-							<p>
-								Mail : <strong>${profil.email}</strong>
-							</p>
-						</li>
-					</ul>
-				</div>
-				<%
-					}
-				%>
 			</div>
 			<div class="col-md-6">
 				<h2 class="text-success">
