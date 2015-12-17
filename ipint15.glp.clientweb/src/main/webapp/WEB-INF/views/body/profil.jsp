@@ -27,7 +27,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
-					<h2 id="UserName">${profil.prenom} ${profil.nom}</h2>
+					<h2 id="UserName">${profil.prenom}${profil.nom}</h2>
 					<div class="col-md-12">
 						<ul class="list-group">
 							<li>
@@ -54,6 +54,12 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+<div class="section">
+	<div class="container">
+		<div class="row">
 			<div class="col-md-6">
 				<h2 class="text-success">
 					Expériences Professionnelles <br>
@@ -68,12 +74,6 @@
 					</ul>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
-<div class="section">
-	<div class="container">
-		<div class="row">
 			<div class="col-md-6">
 				<h2 class="text-success">Compétences</h2>
 				<div class="col-md-12">
@@ -98,12 +98,6 @@
 					</ul>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
-<div class="section">
-	<div class="container">
-		<div class="row">
 			<div class="col-md-6">
 				<h2 class="text-success">Loisirs</h2>
 				<div class="col-md-12">
@@ -119,4 +113,5 @@
 		</div>
 	</div>
 </div>
+
 
