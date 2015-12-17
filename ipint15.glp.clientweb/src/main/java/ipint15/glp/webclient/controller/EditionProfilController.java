@@ -120,7 +120,7 @@ public class EditionProfilController {
 		etudiantDTO.getProfil().setMesExperiences(listExpPro);
 		etudiantDTO.getProfil().setMesHobbies(listLoisir);
 		request.getSession().setAttribute("etudiant", etudiantDTO);
-		return new ModelAndView("redirect:profil", "command", new EtudiantDTO());
+		return new ModelAndView("redirect:profil/" + etudiantDTO.getId(), "command", new EtudiantDTO());
 	}
 
 }

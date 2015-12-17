@@ -41,15 +41,17 @@ public class ProfilController {
 	public ModelAndView profilConsult(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
 		int id = Integer.parseInt(pathVariables.get("id"));
 		EtudiantDTO etu = etudiantBean.getEtudiant(id);
+		etu.getProfil().setMesCompetences(etudiantBean.getCompetences(etu));
+		etu.getProfil().setMesEcoles(etudiantBean.getEcoles(etu));
+		etu.getProfil().setMesExperiences(etudiantBean.getExperiences(etu));
+		etu.getProfil().setMesHobbies(etudiantBean.getHobbies(etu));
 		HttpSession sessionObj = request.getSession();
 		EtudiantDTO etudiant = (EtudiantDTO) sessionObj.getAttribute("etudiant");
 		ModelAndView model = new ModelAndView();
 		if (etudiant.getId() == id) {
 			sessionObj.setAttribute("consultation", false);
-			model.addObject("etudiant", etu);
 		} else {
 			sessionObj.setAttribute("consultation", true);
-			model.addObject("profilRecherche", etu);
 		}
 		sessionObj.setAttribute("profil", etu);
 		model.setViewName("profil");
