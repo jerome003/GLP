@@ -46,7 +46,12 @@ public class ProfilController {
 		int id = Integer.parseInt(pathVariables.get("id"));
 		EtudiantDTO etu = etudiantBean.getEtudiant(id);
 		HttpSession sessionObj = request.getSession();
-		sessionObj.setAttribute("consultation", true);
+		EtudiantDTO etudiant = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+		if(etudiant.getId()==id){
+			sessionObj.setAttribute("consultation", false);
+		} else {
+			sessionObj.setAttribute("consultation", true);
+		}
 		ModelAndView model = new ModelAndView();
 		model.addObject("etudiant",etu);
 		model.setViewName("profil");
