@@ -26,7 +26,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
-					<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
+					<h2 id="UserName">${profil.prenom} ${profil.nom}</h2>
 					<div class="col-md-12">
 						<ul class="list-group">
 							<li>
@@ -46,7 +46,7 @@
 							</li>
 							<li>
 								<p>
-									Mail : <strong>${etudiant.email}</strong>
+									Mail : <strong>${profil.email}</strong>
 								</p>
 							</li>
 						</ul>
