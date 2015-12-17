@@ -23,37 +23,36 @@ import ipint15.glp.api.remote.EtudiantCatalogRemote;
 public class ProfilController {
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
-	
+
 	@RequestMapping(value = "/profil", method = RequestMethod.GET)
-	public ModelAndView home(
-		@RequestParam(value= "name",required=false)String name,
-		@RequestParam(value="prenom",required=false)String prenom,Model model, HttpServletRequest request){
+	public ModelAndView home(@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "prenom", required = false) String prenom, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("consultation", false);
 		sessionObj.setAttribute("section", "profil");
-		model.addAttribute("name",name);
-		model.addAttribute("prenom",prenom);
-		model.addAttribute("myInjectedBean", etudiantBean );
+		model.addAttribute("name", name);
+		model.addAttribute("prenom", prenom);
+		model.addAttribute("myInjectedBean", etudiantBean);
 		return new ModelAndView("profil", "command", new EtudiantDTO());
-		
+
 	}
-	
-	//permet de renvoyer la page de profil de la personne ayant l'id choisi dans l'url /profil/{id}
-	@RequestMapping(value="/profil/{id}",method = RequestMethod.GET)
-	public ModelAndView profilConsult(HttpServletRequest request,
-			@PathVariable Map<String, String> pathVariables) 
-	{
+
+	// permet de renvoyer la page de profil de la personne ayant l'id choisi
+	// dans l'url /profil/{id}
+	@RequestMapping(value = "/profil/{id}", method = RequestMethod.GET)
+	public ModelAndView profilConsult(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
 		int id = Integer.parseInt(pathVariables.get("id"));
 		EtudiantDTO etu = etudiantBean.getEtudiant(id);
 		HttpSession sessionObj = request.getSession();
 		EtudiantDTO etudiant = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-		if(etudiant.getId()==id){
+		ModelAndView model = new ModelAndView();
+		if (etudiant.getId() == id) {
 			sessionObj.setAttribute("consultation", false);
+			model.addObject("etudiant", etu);
 		} else {
 			sessionObj.setAttribute("consultation", true);
+			model.addObject("profilRecherche", etu);
 		}
-		ModelAndView model = new ModelAndView();
-		model.addObject("etudiant",etu);
 		model.setViewName("profil");
 		return model;
 	}
