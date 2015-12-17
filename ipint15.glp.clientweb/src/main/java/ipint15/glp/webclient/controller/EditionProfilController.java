@@ -67,7 +67,7 @@ public class EditionProfilController {
 		etudiantBean.addExperience(etudiantDTO, expPro5);
 		List<ExperienceDTO> listExpPro = etudiantBean.getExperiences(etudiantDTO);
 		request.getSession().setAttribute("listExpPro", listExpPro);
-		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
+		return new ModelAndView("redirect:profil", "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveCompetence", method = RequestMethod.POST)
@@ -83,7 +83,7 @@ public class EditionProfilController {
 		etudiantBean.addCompetence(etudiantDTO, comp5);
 		List<CompetenceDTO> listCompetence = etudiantBean.getCompetences(etudiantDTO);
 		request.getSession().setAttribute("listCompetence", listCompetence);
-		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
+		return new ModelAndView("redirect:profil", "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveFormation", method = RequestMethod.POST)
@@ -99,7 +99,7 @@ public class EditionProfilController {
 		etudiantBean.addEcole(etudiantDTO, formation5);
 		List<EcoleDTO> listEcole = etudiantBean.getEcoles(etudiantDTO);
 		request.getSession().setAttribute("listEcole", listEcole);
-		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
+		return new ModelAndView("redirect:profil", "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveLoisir", method = RequestMethod.POST)
@@ -115,7 +115,7 @@ public class EditionProfilController {
 		etudiantBean.addHobbie(etudiantDTO, loisir5);
 		List<HobbieDTO> listLoisir = etudiantBean.getHobbies(etudiantDTO);
 		request.getSession().setAttribute("listLoisir", listLoisir);
-		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
+		return new ModelAndView("redirect:profil", "command", new EtudiantDTO());
 	}
 
 }
