@@ -28,14 +28,10 @@
 				<div class="col-md-12">
 					<ul class="list-group">
 						<li>
-							<p>
-								Poste actuel : todo
-							</p>
+							<p>Poste actuel : todo</p>
 						</li>
 						<li>
-							<p>
-								Lieu: todo
-							</p>
+							<p>Lieu: todo</p>
 						</li>
 						<li>
 							<p>
@@ -56,46 +52,49 @@
 				<h2 class="text-success">
 					Expériences Professionnelles <br>
 				</h2>
-					<ul class="list-group">
-						<li class="list-group-item">${profil.profil.mesExperiences[0].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesExperiences[1].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesExperiences[2].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesExperiences[3].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesExperiences[4].libelle}</li>
-					</ul>
+				<ul class="list-group">
+					<li class="list-group-item">${profil.profil.mesExperiences[0].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesExperiences[1].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesExperiences[2].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesExperiences[3].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesExperiences[4].libelle}</li>
+				</ul>
 			</div>
 			<div class="col-md-6">
 				<h2 class="text-success">Compétences</h2>
-					<ul class="list-group">
-						<li class="list-group-item">${profil.profil.mesCompetences[0].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesCompetences[1].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesCompetences[2].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesCompetences[3].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesCompetences[4].libelle}</li>
-					</ul>
+				<ul class="list-group">
+					<li class="list-group-item">${profil.profil.mesCompetences[0].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesCompetences[1].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesCompetences[2].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesCompetences[3].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesCompetences[4].libelle}</li>
+				</ul>
 			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<h2 class="text-success">Formation</h2>
-					<ul class="list-group">
-						<li class="list-group-item">${profil.profil.mesEcoles[0].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesEcoles[1].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesEcoles[2].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesEcoles[3].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesEcoles[4].libelle}</li>
-					</ul>
+				<ul class="list-group">
+					<li class="list-group-item">${profil.profil.mesEcoles[0].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesEcoles[1].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesEcoles[2].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesEcoles[3].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesEcoles[4].libelle}</li>
+				</ul>
 			</div>
 			<div class="col-md-6">
 				<h2 class="text-success">Loisirs</h2>
-					<ul class="list-group">
-						<li class="list-group-item">${profil.profil.mesHobbies[0].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesHobbies[1].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesHobbies[2].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesHobbies[3].libelle}</li>
-						<li class="list-group-item">${profil.profil.mesHobbies[4].libelle}</li>
-					</ul>
+				<ul class="list-group">
+					<li class="list-group-item">${profil.profil.mesHobbies[0].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesHobbies[1].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesHobbies[2].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesHobbies[3].libelle}</li>
+					<li class="list-group-item">${profil.profil.mesHobbies[4].libelle}</li>
+				</ul>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 
