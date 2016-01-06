@@ -90,7 +90,7 @@
 							<form:label path="anneeDiplome" class="control-label">Année d'obtention</form:label>
 						</div>
 						<div class="col-sm-4">
-							<form:input type="number" value="2015" path="anneeDiplome" class="form-control" />
+							<form:input type="number" required="required" value="2015" path="anneeDiplome" class="form-control" />
 							<form:errors path="anneeDiplome" />
 						</div>
 					</div>
