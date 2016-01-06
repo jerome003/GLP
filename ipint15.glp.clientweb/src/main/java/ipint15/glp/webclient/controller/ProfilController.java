@@ -23,35 +23,37 @@ import ipint15.glp.api.remote.EtudiantCatalogRemote;
 public class ProfilController {
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
-	
+
 	@RequestMapping(value = "/profil", method = RequestMethod.GET)
-	public ModelAndView home(
-		@RequestParam(value= "name",required=false)String name,
-		@RequestParam(value="prenom",required=false)String prenom,Model model, HttpServletRequest request){
+	public ModelAndView home(@RequestParam(value = "name", required = false) String name,
+			@RequestParam(value = "prenom", required = false) String prenom, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("consultation", false);
 		sessionObj.setAttribute("section", "profil");
-		model.addAttribute("myInjectedBean", etudiantBean );
+		model.addAttribute("myInjectedBean", etudiantBean);
 		return new ModelAndView("profil", "command", new EtudiantDTO());
-		
+
 	}
-	
-	//permet de renvoyer la page de profil de la personne ayant l'id choisi dans l'url /profil/{id}
-	@RequestMapping(value="/profil/{id}",method = RequestMethod.GET)
-	public ModelAndView profilConsult(HttpServletRequest request,
-			@PathVariable Map<String, String> pathVariables) 
-	{
+
+	// permet de renvoyer la page de profil de la personne ayant l'id choisi
+	// dans l'url /profil/{id}
+	@RequestMapping(value = "/profil/{id}", method = RequestMethod.GET)
+	public ModelAndView profilConsult(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
 		int id = Integer.parseInt(pathVariables.get("id"));
 		EtudiantDTO etu = etudiantBean.getEtudiant(id);
+		etu.getProfil().setMesCompetences(etudiantBean.getCompetences(etu));
+		etu.getProfil().setMesEcoles(etudiantBean.getEcoles(etu));
+		etu.getProfil().setMesExperiences(etudiantBean.getExperiences(etu));
+		etu.getProfil().setMesHobbies(etudiantBean.getHobbies(etu));
 		HttpSession sessionObj = request.getSession();
 		EtudiantDTO etudiant = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-		if(etudiant.getId()==id){
+		ModelAndView model = new ModelAndView();
+		if (etudiant.getId() == id) {
 			sessionObj.setAttribute("consultation", false);
 		} else {
 			sessionObj.setAttribute("consultation", true);
 		}
-		ModelAndView model = new ModelAndView();
-		sessionObj.setAttribute("profil",etu);
+		sessionObj.setAttribute("profil", etu);
 		model.setViewName("profil");
 		return model;
 	}

@@ -65,9 +65,7 @@ public class EditionProfilController {
 		etudiantBean.addExperience(etudiantDTO, expPro3);
 		etudiantBean.addExperience(etudiantDTO, expPro4);
 		etudiantBean.addExperience(etudiantDTO, expPro5);
-		List<ExperienceDTO> listExpPro = etudiantBean.getExperiences(etudiantDTO);
-		request.getSession().setAttribute("listExpPro", listExpPro);
-		return new ModelAndView("redirect:profil", "command", new EtudiantDTO());
+		return mapCompetencesEtudiant(etudiantDTO, request);
 	}
 
 	@RequestMapping(value = "/saveCompetence", method = RequestMethod.POST)
@@ -81,9 +79,7 @@ public class EditionProfilController {
 		etudiantBean.addCompetence(etudiantDTO, comp3);
 		etudiantBean.addCompetence(etudiantDTO, comp4);
 		etudiantBean.addCompetence(etudiantDTO, comp5);
-		List<CompetenceDTO> listCompetence = etudiantBean.getCompetences(etudiantDTO);
-		request.getSession().setAttribute("listCompetence", listCompetence);
-		return new ModelAndView("redirect:profil", "command", new EtudiantDTO());
+		return mapCompetencesEtudiant(etudiantDTO, request);
 	}
 
 	@RequestMapping(value = "/saveFormation", method = RequestMethod.POST)
@@ -97,9 +93,7 @@ public class EditionProfilController {
 		etudiantBean.addEcole(etudiantDTO, formation3);
 		etudiantBean.addEcole(etudiantDTO, formation4);
 		etudiantBean.addEcole(etudiantDTO, formation5);
-		List<EcoleDTO> listEcole = etudiantBean.getEcoles(etudiantDTO);
-		request.getSession().setAttribute("listEcole", listEcole);
-		return new ModelAndView("redirect:profil", "command", new EtudiantDTO());
+		return mapCompetencesEtudiant(etudiantDTO, request);
 	}
 
 	@RequestMapping(value = "/saveLoisir", method = RequestMethod.POST)
@@ -113,9 +107,20 @@ public class EditionProfilController {
 		etudiantBean.addHobbie(etudiantDTO, loisir3);
 		etudiantBean.addHobbie(etudiantDTO, loisir4);
 		etudiantBean.addHobbie(etudiantDTO, loisir5);
+		return mapCompetencesEtudiant(etudiantDTO, request);
+	}
+
+	public ModelAndView mapCompetencesEtudiant(EtudiantDTO etudiantDTO, HttpServletRequest request) {
 		List<HobbieDTO> listLoisir = etudiantBean.getHobbies(etudiantDTO);
-		request.getSession().setAttribute("listLoisir", listLoisir);
-		return new ModelAndView("redirect:profil", "command", new EtudiantDTO());
+		List<EcoleDTO> listEcole = etudiantBean.getEcoles(etudiantDTO);
+		List<ExperienceDTO> listExpPro = etudiantBean.getExperiences(etudiantDTO);
+		List<CompetenceDTO> listCompetence = etudiantBean.getCompetences(etudiantDTO);
+		etudiantDTO.getProfil().setMesCompetences(listCompetence);
+		etudiantDTO.getProfil().setMesEcoles(listEcole);
+		etudiantDTO.getProfil().setMesExperiences(listExpPro);
+		etudiantDTO.getProfil().setMesHobbies(listLoisir);
+		request.getSession().setAttribute("etudiant", etudiantDTO);
+		return new ModelAndView("redirect:profil/" + etudiantDTO.getId(), "command", new EtudiantDTO());
 	}
 
 }

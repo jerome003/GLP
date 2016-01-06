@@ -47,12 +47,14 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		Etudiant e = (Etudiant) q.getSingleResult();
 		return e;
 	}
-private Etudiant getEtudiantById(int id){
+
+	private Etudiant getEtudiantById(int id) {
 		Query q = em.createQuery("select o from Etudiant o WHERE o.id = :id");
 		q.setParameter("id", id);
-		Etudiant e = (Etudiant)q.getSingleResult();
+		Etudiant e = (Etudiant) q.getSingleResult();
 		return e;
 	}
+
 	@Override
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
 			String password, Date naissance) {
@@ -98,18 +100,21 @@ private Etudiant getEtudiantById(int id){
 		// correspond à celui en parametre
 		return null;
 	}
-	@Override 
-	public EtudiantDTO getEtudiant(int id){
+
+	@Override
+	public EtudiantDTO getEtudiant(int id) {
 		Etudiant e = getEtudiantById(id);
-		if(e!=null){
+		if (e != null) {
 			EtudiantProfil ep = e.getProfil();
 			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 			return eDTO;
 		}
-		// a remplacer par le renvoie d'une exception lorsqu'aucun id ne correspond à celui en parametre
+		// a remplacer par le renvoie d'une exception lorsqu'aucun id ne
+		// correspond à celui en parametre
 		return null;
-		
+
 	}
+
 	@Override
 	public List<EtudiantDTO> listEtudiant() {
 		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();

@@ -31,7 +31,7 @@ public class ResultResearchController {
 	@Inject
 	protected RechercheRemote rechercheBean;
 	
-	@RequestMapping(value = "/research", method = RequestMethod.POST)
+	@RequestMapping(value = {"*/research","/research"}, method = RequestMethod.POST)
 	public ModelAndView recherche(@Valid HttpServletRequest request) {
 		System.out.println("POST");
 		String recherche = request.getParameter("recherche");
