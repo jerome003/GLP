@@ -70,7 +70,7 @@ public class InscriptionController {
 	
 		
 		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),
-				etudiant.getPassword(), etudiant.getNaissance());
+				etudiant.getPassword(), etudiant.getNaissance(),etudiant.getDiplome(), etudiant.getAnneeDiplome());
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
 		Iterator it = myPersons.iterator();
 		while(it.hasNext()) {

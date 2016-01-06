@@ -57,7 +57,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
-			String password, Date naissance) {
+			String password, Date naissance, String diplome, int anneeDiplome) {
 
 		// Création de l'étudiant
 		Etudiant e = new Etudiant();
@@ -67,6 +67,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		e.setEmail(email);
 		e.setPassword("password");
 		e.setNaissance(naissance);
+		e.setDiplome(diplome);
+		e.setAnneeDiplome(anneeDiplome);
 
 		// Création du profil de l'étudiant
 		EtudiantProfil ep = new EtudiantProfil();

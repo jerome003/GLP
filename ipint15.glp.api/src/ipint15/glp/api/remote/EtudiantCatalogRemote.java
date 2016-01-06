@@ -15,7 +15,7 @@ import ipint15.glp.api.dto.HobbieDTO;
 @Remote
 public interface EtudiantCatalogRemote {
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
-			String password, Date naissance);
+			String password, Date naissance, String diplome, int anneeDiplome);
 
 	public List<EtudiantDTO> listEtudiant();
 

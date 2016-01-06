@@ -30,7 +30,9 @@ public class EtudiantDTO implements Serializable {
 	@Past (message= "Veuillez saisir une date de naissance valide")
 	private Date naissance;
 	private EtudiantProfilDTO profil ;
+	@NotEmpty( message = "Veuillez saisir un diplome" )
 	private String diplome;
+	@NotNull(message = "Veuillez saisir une année") 
 	private int anneeDiplome;
 
 
@@ -107,7 +109,7 @@ public class EtudiantDTO implements Serializable {
 	public String toString() {
 		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite
 				+ ", password=" + password + ", email=" + email + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non")
-				+ "]";
+				+ "diplome=" + diplome + "Annee obtention=" + anneeDiplome+ "]";
 	}
 	
 	
