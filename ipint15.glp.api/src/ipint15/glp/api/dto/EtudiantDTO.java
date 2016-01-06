@@ -30,6 +30,8 @@ public class EtudiantDTO implements Serializable {
 	@Past (message= "Veuillez saisir une date de naissance valide")
 	private Date naissance;
 	private EtudiantProfilDTO profil ;
+	private String diplome;
+	private int anneeDiplome;
 
 
 	
@@ -85,6 +87,22 @@ public class EtudiantDTO implements Serializable {
 	public void setProfil(EtudiantProfilDTO profil) {
 		this.profil = profil;
 	}
+	
+	public String getDiplome() {
+		return diplome;
+	}
+	public void setDiplome(String diplome) {
+		this.diplome = diplome;
+	}
+	
+	public int getAnneeDiplome() {
+		return anneeDiplome;
+	}
+	public void setAnneeDiplome(int anneeDiplome) {
+		this.anneeDiplome = anneeDiplome;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite

@@ -52,7 +52,7 @@
 				</li>
 
 				<li <%if (section.equals("profil")) {%> class="active" <%}%>><a
-					href="${pageContext.request.contextPath}/profil">Profil<br></a>
+					href="${pageContext.request.contextPath}/profil/${etudiant.id}">${etudiant.prenom}<br></a>
 				</li>
 
 				<li <%if (section.equals("contact")) {%> class="active" <%}%>>

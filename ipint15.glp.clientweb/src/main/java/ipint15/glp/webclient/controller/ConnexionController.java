@@ -43,7 +43,7 @@ public class ConnexionController {
 			HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "actualite");
-
+		System.out.println("Mon etudiant" + etudiant);
 		if (result.hasErrors()) {
 			return "connexion";
 		}
