@@ -24,23 +24,32 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<h2 id="UserName">${profil.prenom}${profil.nom}</h2>
+				<h2 id="UserName">${profil.prenom} ${profil.nom}</h2>
 				<div class="col-md-12">
 					<ul class="list-group">
 						<li>
-							<p>Poste actuel : todo</p>
-						</li>
-						<li>
-							<p>Lieu: todo</p>
+							<p>
+								Poste actuel : <strong>${profil.posteActu}</strong>
+							</p>
 						</li>
 						<li>
 							<p>
-								Nom de l'entreprise : <strong></strong>
+								Ville actuelle : <strong>${profil.villeActu}</strong>
+							</p>
+						</li>
+						<li>
+							<p>
+								Nom de l'entreprise : <strong>${profil.nomEntreprise}</strong>
 							</p>
 						</li>
 						<li>
 							<p>
 								Mail : <strong>${profil.email}</strong>
+							</p>
+						</li>
+						<li>
+							<p>
+								Numéro de téléphone : <strong>${profil.numTelephone}</strong>
 							</p>
 						</li>
 					</ul>

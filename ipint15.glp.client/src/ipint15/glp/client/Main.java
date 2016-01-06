@@ -23,10 +23,10 @@ public class Main {
 						// requête sur le nom de la ressource que l'on veut, ici notre EJB
 						EtudiantCatalogRemote catalog =(EtudiantCatalogRemote)context.lookup("ipint15.glp.api.remote.EtudiantCatalogRemote");
 						RechercheRemote recherche =(RechercheRemote)context.lookup("ipint15.glp.api.remote.RechercheRemote");
-						catalog.createEtudiant("Maxime", "Delporte", Civilite.M, "maximus@gmail.com","toto", new Date());
-						catalog.createEtudiant("Maximus", "Delporte", Civilite.M, "maximus@gmail.com","toto", new Date());
-						catalog.createEtudiant("Jerome", "Delporto", Civilite.M, "maximus@gmail.com","toto", new Date());
-						catalog.createEtudiant("Jeromus", "Gideon", Civilite.M, "maximus@gmail.com","toto", new Date());
+						catalog.createEtudiant("Maxime", "Delporte", Civilite.M, "maximus@gmail.com","0654897514","toto", new Date(),"Développeur", "Lille","Wordline");
+						catalog.createEtudiant("Maximus", "Delporte", Civilite.M, "maximus@gmail.com","0568547895","toto", new Date(),"MOA","Lille","CGI");
+						catalog.createEtudiant("Jerome", "Delporto", Civilite.M, "maximus@gmail.com","0565548970","toto", new Date(),"BI","Lille","GCI");
+						catalog.createEtudiant("Jeromus", "Gideon", Civilite.M, "maximus@gmail.com","0654878950","toto", new Date(),"Dev","Lille","Open");
 						
 						
 						//List<EtudiantDTO> myPersons = catalog.listEtudiant();

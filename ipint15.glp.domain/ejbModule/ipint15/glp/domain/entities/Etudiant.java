@@ -23,6 +23,10 @@ import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.EtudiantProfilDTO;
 
 
+/**
+ * @author kabri
+ *
+ */
 @Entity
 @Table(name = "ETUDIANT")
 public class Etudiant implements Serializable {
@@ -40,9 +44,12 @@ public class Etudiant implements Serializable {
 	private Civilite civilite;
 	private String password;
 	private String email;
+	private String numTelephone;
 	@Temporal(TemporalType.TIME)
 	private Date naissance;
-	
+	private String villeActu;
+	private String posteActu;
+	private String nomEntreprise;
 	
 	@OneToOne
     private EtudiantProfil profil ;
@@ -96,6 +103,30 @@ public class Etudiant implements Serializable {
 	public void setProfil(EtudiantProfil profil) {
 		this.profil = profil;
 	}
+	public String getNumTelephone() {
+		return numTelephone;
+	}
+	public void setNumTelephone(String numTelephone) {
+		this.numTelephone = numTelephone;
+	}
+	public String getVilleActu() {
+		return villeActu;
+	}
+	public void setVilleActu(String villeActu) {
+		this.villeActu = villeActu;
+	}
+	public String getPosteActu() {
+		return posteActu;
+	}
+	public void setPosteActu(String posteActu) {
+		this.posteActu = posteActu;
+	}
+	public String getNomEntreprise() {
+		return nomEntreprise;
+	}
+	public void setNomEntreprise(String nomEntreprise) {
+		this.nomEntreprise = nomEntreprise;
+	}
 	
 	public EtudiantDTO toEtudiantDTO() {
 		EtudiantDTO pDTO = new EtudiantDTO();
@@ -104,16 +135,28 @@ public class Etudiant implements Serializable {
 		pDTO.setNom(this.getNom());
 		pDTO.setCivilite(this.getCivilite());
 		pDTO.setEmail(this.getEmail());
+		pDTO.setNumTelephone(this.getNumTelephone());
 		pDTO.setPassword("password");
 		pDTO.setNaissance(this.getNaissance());
+		pDTO.setPosteActu(this.getPosteActu());
+		pDTO.setVilleActu(this.getVilleActu());
+		pDTO.setNomEntreprise(this.getNomEntreprise());
 		return pDTO;
 	}
 	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "Etudiant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite + ", password="
-				+ password + ", email=" + email + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non") + "]";
+				+ password + ", email=" + email + ", numTelephone=" + numTelephone + ", naissance=" + naissance
+				+ ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise=" + nomEntreprise
+				 + "]";
 	}
+	
+
 
 	
 	

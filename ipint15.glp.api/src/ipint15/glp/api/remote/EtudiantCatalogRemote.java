@@ -14,11 +14,36 @@ import ipint15.glp.api.dto.HobbieDTO;
 
 @Remote
 public interface EtudiantCatalogRemote {
-	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
-			String password, Date naissance);
+	
+	/**
+	 * Permet de créer un nouvel étudiant DTO
+	 * @param firstname
+	 * @param lastname 
+	 * @param civilite
+	 * @param email
+	 * @param numTelephone
+	 * @param password
+	 * @param naissance
+	 * @param posteActu
+	 * @param villeActu
+	 * @param nomEntreprise
+	 * @return
+	 */
+	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
+			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise);
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<EtudiantDTO> listEtudiant();
 
+	/**
+	 * 
+	 * @param email
+	 * @param password
+	 * @return
+	 */
 	public boolean connexion(String email, String password);
 
 	public EtudiantDTO getEtudiant(String email);
@@ -55,7 +80,25 @@ public interface EtudiantCatalogRemote {
 
 	public void deleteCompetenceList(EtudiantDTO eDTO);
 
+	/**
+	 * Permet de supprimer la liste des formations d'un étudiant
+	 * @param eDTO
+	 */
 	public void deleteFormationList(EtudiantDTO eDTO);
-
+	/**
+	 * permet de supprimer la liste des loisir d'un étudiant
+	 * @param eDTO
+	 */
 	public void deleteLoisirList(EtudiantDTO eDTO);
+	
+	/**
+	 * Permet de modifier les information du profil d'un étudiant
+	 * @param id
+	 * @param posteActu
+	 * @param villeActu
+	 * @param nomEntreprise
+	 * @param numtelephone
+	 */
+	
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone);
 }

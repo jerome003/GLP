@@ -52,15 +52,18 @@
 				<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
 				<div class="text-success">
 					<form method="post" action="saveProfile">
-						<ul class="list-group">
+					<input type="hidden" id="idEtu" name="idEtu"
+								value="${profil.id}" />
+						<ul class="list-group">	
 							<li><label>Poste actuel :</label></br> <input type="text"
-								id="posteActu" name="posteActu" /></li>
-							<li><label>Lieu:</label></br> <input type="text" id="lieu"
-								name="lieu" placeholder="Tizi-Ouzou" /></li>
+								id="posteActu" name="posteActu" value="${profil.posteActu}"/></li>
+							<li><label>Ville Actuelle:</label></br> <input type="text" id="villeActu"
+								name="villeActu" value="${profil.villeActu}"/></li>
 							<li><label>Nom de l'entreprise :</label></br> <input type="text"
-								id="entreprise" name="entreprise" /></li>
+								id="nomEntreprise" name="nomEntreprise" value="${profil.nomEntreprise}" /></li>
 							<li><label>Mail :</label></br> <input type="mail" id="mail"
-								name="mail" readOnly="readOnly" value="${etudiant.email}" /></li>
+								name="mail" value="${profil.email}" /></li>
+							<li><label>Numéro de téléphone : </label><input type="tel" id="numtelephone" name="numTelephone" value="${profil.numTelephone}"></li>	
 						</ul>
 						<input type="submit" value="Envoyer" />
 					</form>
