@@ -42,6 +42,8 @@ public class Etudiant implements Serializable {
 	private String email;
 	@Temporal(TemporalType.TIME)
 	private Date naissance;
+	private String diplome;
+	private int anneeDiplome;
 	
 	
 	@OneToOne
@@ -96,6 +98,20 @@ public class Etudiant implements Serializable {
 	public void setProfil(EtudiantProfil profil) {
 		this.profil = profil;
 	}
+	public String getDiplome() {
+		return diplome;
+	}
+	public void setDiplome(String diplome) {
+		this.diplome = diplome;
+	}
+	public int getAnneeDiplome() {
+		return anneeDiplome;
+	}
+	public void setAnneeDiplome(int anneeDiplome) {
+		this.anneeDiplome = anneeDiplome;
+	}
+	
+
 	
 	public EtudiantDTO toEtudiantDTO() {
 		EtudiantDTO pDTO = new EtudiantDTO();
