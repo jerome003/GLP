@@ -10,6 +10,7 @@ import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
 
 @Remote
@@ -58,4 +59,8 @@ public interface EtudiantCatalogRemote {
 	public void deleteFormationList(EtudiantDTO eDTO);
 
 	public void deleteLoisirList(EtudiantDTO eDTO);
+
+	public void addGroupe(EtudiantDTO eDTO, GroupeDTO gDTO);
+
+	public List<GroupeDTO> getGroupes(EtudiantDTO eDTO);
 }
