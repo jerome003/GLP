@@ -19,6 +19,7 @@ import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.domain.entities.Competence;
@@ -27,6 +28,7 @@ import ipint15.glp.domain.entities.Etudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Publication;
 import ipint15.glp.domain.entities.Experience;
+import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Hobbie;
 import ipint15.glp.domain.util.Conversion;
 
@@ -53,6 +55,13 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		q.setParameter("id", id);
 		Etudiant e = (Etudiant) q.getSingleResult();
 		return e;
+	}
+	
+	private Groupe getGroupeById(int id) {
+		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
+		q.setParameter("id", id);
+		Groupe g = (Groupe) q.getSingleResult();
+		return g;
 	}
 
 	
@@ -212,6 +221,35 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		}
 
 		return mesExperiencesDTO;
+	}
+	
+	@Override
+	public List<GroupeDTO> getGroupes(EtudiantDTO eDTO) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer le cas si e = null
+		List<Groupe> mesGroupes = e.getGroupes();
+		List<GroupeDTO> mesGroupesDTO = new ArrayList<GroupeDTO>();
+
+		for (Groupe grp : mesGroupes) {
+			GroupeDTO gDTO = ce.MappingEtudiantGroupe(e, grp);
+			mesGroupesDTO.add(gDTO);
+		}
+
+		return mesGroupesDTO;
+	}
+	
+	@Override
+	public void addGroupe(EtudiantDTO eDTO, GroupeDTO gDTO) {
+		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		Groupe grp = getGroupeById(gDTO.getId());
+		
+		e.getGroupes().add(grp);
+		grp.getEtudiants().add(e);
+
+
+		em.merge(grp);
+		em.merge(e);
+
 	}
 
 	@Override
