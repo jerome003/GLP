@@ -10,6 +10,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 
+/**
+ * @author kabri
+ *
+ */
 public class EtudiantDTO implements Serializable {
 	
 	/**
@@ -24,12 +28,23 @@ public class EtudiantDTO implements Serializable {
 	private Civilite civilite;
 	private String password;
 	
+	
 	@NotEmpty( message = "Veuillez saisir une adresse email" )
 	private String email;
+	private String numTelephone;
 	@NotNull (message="Veuillez saisir une date de naissance")
 	@Past (message= "Veuillez saisir une date de naissance valide")
 	private Date naissance;
+	
+	private String villeActu;
+	private String posteActu;
+	private String nomEntreprise;
+	
 	private EtudiantProfilDTO profil ;
+	@NotEmpty( message = "Veuillez saisir un diplome" )
+	private String diplome;
+	@NotNull(message = "Veuillez saisir une année") 
+	private int anneeDiplome;
 
 
 	
@@ -79,20 +94,67 @@ public class EtudiantDTO implements Serializable {
 	}
 	
 	
+	public String getNumTelephone() {
+		return numTelephone;
+	}
+	public void setNumTelephone(String numTelephone) {
+		this.numTelephone = numTelephone;
+	}
+	public String getVilleActu() {
+		return villeActu;
+	}
+	public void setVilleActu(String villeActu) {
+		this.villeActu = villeActu;
+	}
+	public String getPosteActu() {
+		return posteActu;
+	}
+	public void setPosteActu(String posteActu) {
+		this.posteActu = posteActu;
+	}
+	public String getNomEntreprise() {
+		return nomEntreprise;
+	}
+	public void setNomEntreprise(String nomEntreprise) {
+		this.nomEntreprise = nomEntreprise;
+	}
+	
+	
 	public EtudiantProfilDTO getProfil() {
 		return profil;
 	}
 	public void setProfil(EtudiantProfilDTO profil) {
 		this.profil = profil;
 	}
+	
+
+	public String getDiplome() {
+		return diplome;
+	}
+	public void setDiplome(String diplome) {
+		this.diplome = diplome;
+	}
+	
+	public int getAnneeDiplome() {
+		return anneeDiplome;
+	}
+	public void setAnneeDiplome(int anneeDiplome) {
+		this.anneeDiplome = anneeDiplome;
+	}
+	
+
+	
+	
 	@Override
 	public String toString() {
 		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite
-				+ ", password=" + password + ", email=" + email + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non")
-				+ "]";
+				+ ", password=" + password + ", email=" + email + ", numTelephone=" + numTelephone + ", naissance="
+				+ naissance + ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise="
+				+ nomEntreprise + ", diplome=" + diplome + ", anneeDiplome=" + anneeDiplome + "]";
 	}
-	
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -102,10 +164,21 @@ public class EtudiantDTO implements Serializable {
 		result = prime * result + id;
 		result = prime * result + ((naissance == null) ? 0 : naissance.hashCode());
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		result = prime * result + ((nomEntreprise == null) ? 0 : nomEntreprise.hashCode());
+		result = prime * result + ((numTelephone == null) ? 0 : numTelephone.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((posteActu == null) ? 0 : posteActu.hashCode());
 		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
+		result = prime * result + ((villeActu == null) ? 0 : villeActu.hashCode());
 		return result;
 	}
+	
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -134,18 +207,39 @@ public class EtudiantDTO implements Serializable {
 				return false;
 		} else if (!nom.equals(other.nom))
 			return false;
+		if (nomEntreprise == null) {
+			if (other.nomEntreprise != null)
+				return false;
+		} else if (!nomEntreprise.equals(other.nomEntreprise))
+			return false;
+		if (numTelephone == null) {
+			if (other.numTelephone != null)
+				return false;
+		} else if (!numTelephone.equals(other.numTelephone))
+			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
+			return false;
+		if (posteActu == null) {
+			if (other.posteActu != null)
+				return false;
+		} else if (!posteActu.equals(other.posteActu))
 			return false;
 		if (prenom == null) {
 			if (other.prenom != null)
 				return false;
 		} else if (!prenom.equals(other.prenom))
 			return false;
+		if (villeActu == null) {
+			if (other.villeActu != null)
+				return false;
+		} else if (!villeActu.equals(other.villeActu))
+			return false;
 		return true;
 	}
+
 	
 	
 

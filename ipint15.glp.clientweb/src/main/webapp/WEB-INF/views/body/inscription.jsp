@@ -76,6 +76,24 @@
 							</div>
 						</div>
 					</div>
+					</br>
+					<div class="form-group">
+						<div class="col-sm-2">
+							<form:label path="diplome" class="control-label">Diplôme obtenu</form:label>
+						</div>
+						<div class="col-sm-4">
+							<form:input path="diplome" type="text" class="form-control" />
+							<form:errors path="diplome" />
+						</div>
+
+						<div class="col-sm-2">
+							<form:label path="anneeDiplome" class="control-label">Année d'obtention</form:label>
+						</div>
+						<div class="col-sm-4">
+							<form:input type="number" required="required" value="2015" path="anneeDiplome" class="form-control" />
+							<form:errors path="anneeDiplome" />
+						</div>
+					</div>
 
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">

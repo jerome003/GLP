@@ -55,9 +55,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		return e;
 	}
 
+	
+	// TODO en cours de modif
 	@Override
-	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
-			String password, Date naissance) {
+
+	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
+			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome) {
 
 		// Création de l'étudiant
 		Etudiant e = new Etudiant();
@@ -65,8 +68,17 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		e.setNom(lastname);
 		e.setCivilite(civilite);
 		e.setEmail(email);
+		e.setNumTelephone(numTelephone);
 		e.setPassword("password");
 		e.setNaissance(naissance);
+
+		e.setPosteActu(posteActu);
+		e.setVilleActu(villeActu);
+		e.setNomEntreprise(nomEntreprise);
+
+		e.setDiplome(diplome);
+		e.setAnneeDiplome(anneeDiplome);
+
 
 		// Création du profil de l'étudiant
 		EtudiantProfil ep = new EtudiantProfil();
@@ -373,6 +385,19 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		// List<Hobbie> mesLoisirs = e.getProfil().getMesHobbies();
 		e.getProfil().setMesHobbies(new ArrayList<Hobbie>());
 		em.persist(e);
+	}
+
+	@Override
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone ) {
+		// TODO Auto-generated method stub		
+		Etudiant e = getEtudiantById(id);
+		e.setPosteActu(posteActu);
+		e.setVilleActu(villeActu);
+		e.setNomEntreprise(nomEntreprise);
+		e.setNumTelephone(numTelephone);
+		em.persist(e);
+
+		
 	}
 
 }
