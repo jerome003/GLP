@@ -1,5 +1,6 @@
 package ipint15.glp.webclient.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -32,7 +33,12 @@ public class adminController {
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 	HttpSession sessionObj = request.getSession();
 	sessionObj.setAttribute("section", "groupes");
-	return new ModelAndView("adminGroupe", "command", new GroupeDTO());
+	
+	List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+	ModelAndView modelView = new ModelAndView("adminGroupe", "command", new GroupeDTO());
+	modelView.addObject("liste",listeResultat);
+	
+	return modelView;
 	}
 	
 
@@ -41,7 +47,11 @@ public class adminController {
 		System.out.println("Mon groupe est :" + groupe.getName());
 		groupeBean.createGroupe(groupe.getName());
 		System.out.println(groupeBean.getAllGroupe());
-		return new ModelAndView("adminGroupe", "command", new GroupeDTO());
+		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+		ModelAndView modelView = new ModelAndView("adminGroupe", "command", new GroupeDTO());
+		modelView.addObject("liste",listeResultat);
+		
+		return modelView;
 	}
 
 }
