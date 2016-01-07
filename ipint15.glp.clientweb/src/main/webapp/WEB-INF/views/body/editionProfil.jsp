@@ -62,7 +62,7 @@
 							<li><label>Nom de l'entreprise :</label></br> <input type="text"
 								id="nomEntreprise" name="nomEntreprise" value="${profil.nomEntreprise}" /></li>
 							<li><label>Mail :</label></br> <input type="mail" id="mail"
-								name="mail" value="${profil.email}" /></li>
+								name="mail" value="${profil.email}" disabled="disabled"/></li>
 							<li><label>Numéro de téléphone : </label><input type="tel" id="numtelephone" name="numTelephone" value="${profil.numTelephone}"></li>	
 						</ul>
 						<input type="submit" value="Envoyer" />

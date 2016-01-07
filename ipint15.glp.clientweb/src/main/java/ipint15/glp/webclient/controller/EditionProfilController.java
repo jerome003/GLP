@@ -30,10 +30,10 @@ public class EditionProfilController {
 
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
-	
-	
+
 	/**
 	 * Permet la redirection vers la page d'edition de profil
+	 * 
 	 * @param locale
 	 * @param model
 	 * @param request
@@ -54,9 +54,9 @@ public class EditionProfilController {
 		return "editionProfil";
 	}
 
-	
 	/**
-	 * Permet d'enregistrer les nouvelles données correspondant à un étudiant 
+	 * Permet d'enregistrer les nouvelles données correspondant à un étudiant
+	 * 
 	 * @param posteActu
 	 * @param lieu
 	 * @param entreprise
@@ -64,10 +64,11 @@ public class EditionProfilController {
 	 * @return
 	 */
 	@RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
-	public ModelAndView saveProfil(int idEtu, String posteActu, String villeActu, String nomEntreprise, String mail, String numTelephone) {
+	public ModelAndView saveProfil(int idEtu, String posteActu, String villeActu, String nomEntreprise, String mail,
+			String numTelephone) {
 		System.out.println(idEtu + posteActu + villeActu + nomEntreprise + mail + numTelephone);
 		etudiantBean.updateEtudiant(idEtu, posteActu, villeActu, nomEntreprise, numTelephone);
-		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
+		return new ModelAndView("redirect:profil/" + idEtu, "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveExpPro", method = RequestMethod.POST)
