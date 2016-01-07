@@ -47,9 +47,13 @@ public class Etudiant implements Serializable {
 	private String numTelephone;
 	@Temporal(TemporalType.TIME)
 	private Date naissance;
+
 	private String villeActu;
 	private String posteActu;
 	private String nomEntreprise;
+
+	private String diplome;
+	private int anneeDiplome;
 	
 	@OneToOne
     private EtudiantProfil profil ;
@@ -103,6 +107,7 @@ public class Etudiant implements Serializable {
 	public void setProfil(EtudiantProfil profil) {
 		this.profil = profil;
 	}
+
 	public String getNumTelephone() {
 		return numTelephone;
 	}
@@ -127,6 +132,22 @@ public class Etudiant implements Serializable {
 	public void setNomEntreprise(String nomEntreprise) {
 		this.nomEntreprise = nomEntreprise;
 	}
+
+	public String getDiplome() {
+		return diplome;
+	}
+	public void setDiplome(String diplome) {
+		this.diplome = diplome;
+	}
+	public int getAnneeDiplome() {
+		return anneeDiplome;
+	}
+	public void setAnneeDiplome(int anneeDiplome) {
+		this.anneeDiplome = anneeDiplome;
+	}
+	
+
+
 	
 	public EtudiantDTO toEtudiantDTO() {
 		EtudiantDTO pDTO = new EtudiantDTO();
@@ -138,9 +159,14 @@ public class Etudiant implements Serializable {
 		pDTO.setNumTelephone(this.getNumTelephone());
 		pDTO.setPassword("password");
 		pDTO.setNaissance(this.getNaissance());
+
 		pDTO.setPosteActu(this.getPosteActu());
 		pDTO.setVilleActu(this.getVilleActu());
 		pDTO.setNomEntreprise(this.getNomEntreprise());
+
+		pDTO.setDiplome(this.getDiplome());
+		pDTO.setAnneeDiplome(this.anneeDiplome);
+
 		return pDTO;
 	}
 	

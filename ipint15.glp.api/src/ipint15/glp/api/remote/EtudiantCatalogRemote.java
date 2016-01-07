@@ -14,6 +14,7 @@ import ipint15.glp.api.dto.HobbieDTO;
 
 @Remote
 public interface EtudiantCatalogRemote {
+
 	
 	/**
 	 * Permet de créer un nouvel étudiant DTO
@@ -30,7 +31,8 @@ public interface EtudiantCatalogRemote {
 	 * @return
 	 */
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
-			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise);
+			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome);
+
 
 	/**
 	 * 

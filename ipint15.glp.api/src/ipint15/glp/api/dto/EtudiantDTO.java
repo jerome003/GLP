@@ -41,6 +41,10 @@ public class EtudiantDTO implements Serializable {
 	private String nomEntreprise;
 	
 	private EtudiantProfilDTO profil ;
+	@NotEmpty( message = "Veuillez saisir un diplome" )
+	private String diplome;
+	@NotNull(message = "Veuillez saisir une année") 
+	private int anneeDiplome;
 
 
 	
@@ -123,20 +127,31 @@ public class EtudiantDTO implements Serializable {
 		this.profil = profil;
 	}
 	
+
+	public String getDiplome() {
+		return diplome;
+	}
+	public void setDiplome(String diplome) {
+		this.diplome = diplome;
+	}
+	
+	public int getAnneeDiplome() {
+		return anneeDiplome;
+	}
+	public void setAnneeDiplome(int anneeDiplome) {
+		this.anneeDiplome = anneeDiplome;
+	}
 	
 
 	
-
 	
 	@Override
 	public String toString() {
 		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite
 				+ ", password=" + password + ", email=" + email + ", numTelephone=" + numTelephone + ", naissance="
 				+ naissance + ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise="
-				+ nomEntreprise + "]";
+				+ nomEntreprise + ", diplome=" + diplome + ", anneeDiplome=" + anneeDiplome + "]";
 	}
-	
-	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
