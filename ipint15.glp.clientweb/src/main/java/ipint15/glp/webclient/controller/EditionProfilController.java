@@ -31,6 +31,14 @@ public class EditionProfilController {
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
 
+	/**
+	 * Permet la redirection vers la page d'edition de profil
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/editionProfil", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
@@ -46,12 +54,21 @@ public class EditionProfilController {
 		return "editionProfil";
 	}
 
+	/**
+	 * Permet d'enregistrer les nouvelles données correspondant à un étudiant
+	 * 
+	 * @param posteActu
+	 * @param lieu
+	 * @param entreprise
+	 * @param mail
+	 * @return
+	 */
 	@RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
-	public ModelAndView saveProfil(String posteActu, String lieu, String entreprise, String mail) {
-		System.out.println(posteActu + lieu + entreprise + mail);
-		System.out.println(etudiantBean.getEtudiant(mail).getId());
-		// TODO persister quand les champs existeront en base
-		return new ModelAndView("redirect:editionProfil", "command", new EtudiantDTO());
+	public ModelAndView saveProfil(int idEtu, String posteActu, String villeActu, String nomEntreprise, String mail,
+			String numTelephone) {
+		System.out.println(idEtu + posteActu + villeActu + nomEntreprise + mail + numTelephone);
+		etudiantBean.updateEtudiant(idEtu, posteActu, villeActu, nomEntreprise, numTelephone);
+		return new ModelAndView("redirect:profil/" + idEtu, "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveExpPro", method = RequestMethod.POST)
