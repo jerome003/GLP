@@ -33,7 +33,7 @@ public class GroupeDTO implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "GroupeDTO [id=" + id + ", name=" + name +  ", etudiants=" + ((!etudiants.isEmpty()) ? "oui" : "non") +"]";
+		return "GroupeDTO [id=" + id + ", name=" + name +  ", etudiants=" + ((!getEtudiants().isEmpty()) ? "oui" : "non") +"]";
 	}
 	
 	

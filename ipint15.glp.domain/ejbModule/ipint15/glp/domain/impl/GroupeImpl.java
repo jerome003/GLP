@@ -53,7 +53,7 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public List<GroupeDTO> getAllGroupe() {
-		Query q = em.createQuery("select o from Groupe");
+		Query q = em.createQuery("select o from Groupe o");
 		List<Groupe> gList = (List<Groupe>) q.getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		for(Groupe g : gList) {
