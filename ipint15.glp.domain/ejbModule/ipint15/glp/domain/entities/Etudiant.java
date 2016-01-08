@@ -177,6 +177,8 @@ public class Etudiant implements Serializable {
 
 		pDTO.setDiplome(this.getDiplome());
 		pDTO.setAnneeDiplome(this.anneeDiplome);
+		
+		pDTO.setGroupe(this.groupe.toGroupeDTO());
 
 		return pDTO;
 	}

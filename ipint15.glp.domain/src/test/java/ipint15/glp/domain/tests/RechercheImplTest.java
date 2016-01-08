@@ -52,9 +52,9 @@ public class RechercheImplTest {
 		
 		List<EtudiantDTO> list = new ArrayList<EtudiantDTO>();
 		EtudiantDTO etu = etuCatalog.createEtudiant("paul","dupont", Civilite.M, "paul@gmail.com", "0000000",
-			 "password", new Date(), "dev", "Lille", "Miage CORP", "Miage", 2003);
+			 "password", new Date(), "dev", "Lille", "Miage CORP", "Miage", 2003, null);
 		EtudiantDTO etu1 = etuCatalog.createEtudiant("henry","charles", Civilite.M, "henry@gmail.com", "0000000",
-				 "password", new Date(), "dev", "Lille", "Miage CORP", "Miage", 2003);
+				 "password", new Date(), "dev", "Lille", "Miage CORP", "Miage", 2003, null);
 		list = recherche.rechercherEtudiant(etu.getNom());
 		
 		for (EtudiantDTO e : list) {

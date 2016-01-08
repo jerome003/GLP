@@ -52,6 +52,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
 		q.setParameter("email", mail);
 		Etudiant e = (Etudiant) q.getSingleResult();
+		factory.close();
 		return e;
 	}
 
@@ -74,7 +75,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	@Override
 
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
-			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome) {
+			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
 		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		em = factory.createEntityManager();
 		// Création de l'étudiant
@@ -93,6 +94,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		e.setDiplome(diplome);
 		e.setAnneeDiplome(anneeDiplome);
+		
+		Groupe p = getGroupeById(groupe.getId());
+		
+		e.setGroupe(p);
+		p.getEtudiants().add(e);
+		
 
 
 		// Création du profil de l'étudiant
@@ -105,10 +112,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		// Persistance de l'étudiant et du profil en BDD
 		em.persist(ep);
 		em.persist(e);
+		em.merge(p);
 
 		// Mapping EtudiantDTO et ProfilDTO pour retourner un etudiantDTO à la
 		// couche présentation
 		EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+		factory.close();
 		return eDTO;
 
 	}
@@ -136,11 +145,14 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		if (e != null) {
 			EtudiantProfil ep = e.getProfil();
 			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+			factory.close();
 			return eDTO;
 		}
 		// a remplacer par le renvoie d'une exception lorsqu'aucun id ne
 		// correspond à celui en parametre
+		factory.close();
 		return null;
+
 
 	}
 
@@ -156,6 +168,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 			psDTO.add(eDTO);
 		}
+		factory.close();
 		return psDTO;
 	}
 
@@ -166,10 +179,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		Etudiant e = getEtudiantByMail(email);
 		if (e != null && (e.getPassword().equals(password))) {
 			System.out.println("connexion etablie");
+			factory.close();
 			return true;
 		}
 
 		System.out.println("connexion refusee");
+		factory.close();
 		return false;
 	}
 
@@ -187,6 +202,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(c);
 		em.merge(ep);
 		em.merge(e);
+		factory.close();
 
 	}
 
@@ -219,6 +235,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(exp);
 		em.merge(ep);
 		em.merge(e);
+		
 
 	}
 
@@ -233,7 +250,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			ExperienceDTO experienceDTO = ce.MappingProfilExperience(e.getProfil(), exp);
 			mesExperiencesDTO.add(experienceDTO);
 		}
-
 		return mesExperiencesDTO;
 	}
 	
@@ -243,7 +259,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		// TODO gérer le cas si e = null
 		Groupe monGroupe = e.getGroupe();
 		GroupeDTO monGroupeDTO = ce.MappingEtudiantGroupe(e, monGroupe);
-
 		return monGroupeDTO;
 	}
 	
@@ -273,7 +288,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(h);
 		em.merge(ep);
 		em.merge(e);
-
 	}
 
 	@Override
@@ -287,7 +301,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			HobbieDTO hobbieDTO = ce.MappingProfilHobbie(e.getProfil(), h);
 			mesHobbiesDTO.add(hobbieDTO);
 		}
-
 		return mesHobbiesDTO;
 	}
 
@@ -317,7 +330,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			EcoleDTO ecoleDTO = ce.MappingProfilEcole(e.getProfil(), formation);
 			mesEcolesDTO.add(ecoleDTO);
 		}
-
 		return mesEcolesDTO;
 	}
 
@@ -378,7 +390,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		} catch (NoResultException e1) {
 			return false;
 		}
-
 		return true;
 	}
 
@@ -393,7 +404,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		} catch (NoResultException e1) {
 			return false;
 		}
-
 		return true;
 	}
 
@@ -408,6 +418,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(e);
 		mesCompetences = e.getProfil().getMesCompetences();
 		System.out.println(mesCompetences);
+		
 	}
 
 	@Override

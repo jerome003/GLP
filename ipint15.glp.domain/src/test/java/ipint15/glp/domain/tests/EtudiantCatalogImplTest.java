@@ -109,21 +109,21 @@ public class EtudiantCatalogImplTest {
 
 	}
 
-	@Test
-	public void testCreateEtudiant() {
-		em = factory.createEntityManager();
-
-		EtudiantDTO etu = new EtudiantDTO();
-		etu = etuCata.createEtudiant("Henri", "Charles", Civilite.M, "henri@gmail.com","000000", 
-				"password", new Date(),"CP", "Lille", "", "Miage",
-				2004);
-		
-		assertEquals("Henri",etu.getPrenom());
-		assertEquals("Charles",etu.getNom());
-		assertEquals("henri@gmail.com",etu.getEmail());
-		assertEquals(2004,etu.getAnneeDiplome());
-
-	}
+//	@Test
+//	public void testCreateEtudiant() {
+//		em = factory.createEntityManager();
+//
+//		EtudiantDTO etu = new EtudiantDTO();
+//		etu = etuCata.createEtudiant("Henri", "Charles", Civilite.M, "henri@gmail.com","000000", 
+//				"password", new Date(),"CP", "Lille", "", "Miage",
+//				2004);
+//		
+//		assertEquals("Henri",etu.getPrenom());
+//		assertEquals("Charles",etu.getNom());
+//		assertEquals("henri@gmail.com",etu.getEmail());
+//		assertEquals(2004,etu.getAnneeDiplome());
+//
+//	}
 
 	@Test
 	public void testGetEtudiant() {

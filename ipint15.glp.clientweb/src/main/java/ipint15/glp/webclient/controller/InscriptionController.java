@@ -28,8 +28,10 @@ import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.api.remote.RechercheRemote;
 
 @Controller
@@ -40,7 +42,15 @@ public class InscriptionController {
 	protected EtudiantCatalogRemote etudiantBean;
 	@Inject
 	protected RechercheRemote rechercheBean;
+	@Inject
+	protected GroupeRemote groupeBean;
 
+	@ModelAttribute("groupeList")
+	public List<GroupeDTO> getGroupe()
+	{
+		return groupeBean.getAllGroupe();
+	}
+	
 	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
@@ -68,10 +78,12 @@ public class InscriptionController {
 			return "inscription";
 		 }
 	
-		
+		GroupeDTO newGroupe = groupeBean.getGroupeDTOById(etudiant.getGroupe().getId());
+		System.out.println("old groupe :" + etudiant.getGroupe());
+		System.out.println("new groupe :" + newGroupe);
 
 		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),etudiant.getNumTelephone(),
-				etudiant.getPassword(), etudiant.getNaissance(),etudiant.getPosteActu(),etudiant.getVilleActu(),etudiant.getNomEntreprise(),etudiant.getDiplome(), etudiant.getAnneeDiplome());
+				etudiant.getPassword(), etudiant.getNaissance(),etudiant.getPosteActu(),etudiant.getVilleActu(),etudiant.getNomEntreprise(),etudiant.getDiplome(), etudiant.getAnneeDiplome(), newGroupe);
 
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
 		Iterator it = myPersons.iterator();
