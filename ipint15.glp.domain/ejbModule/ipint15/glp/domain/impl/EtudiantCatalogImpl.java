@@ -8,7 +8,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
@@ -35,18 +37,22 @@ import ipint15.glp.domain.util.Conversion;
 @Stateless
 public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
+	private static final String PERSISTENCE_UNIT_NAME = "ipint.ejb.personbean";
+	private static EntityManagerFactory factory;
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
-
+	
 	public EtudiantCatalogImpl() {
-
 	}
 
 	private Etudiant getEtudiantByMail(String mail) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
 		q.setParameter("email", mail);
 		Etudiant e = (Etudiant) q.getSingleResult();
+		factory.close();
 		return e;
 	}
 
@@ -69,8 +75,9 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	@Override
 
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
-			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome) {
-
+			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		// Création de l'étudiant
 		Etudiant e = new Etudiant();
 		e.setPrenom(firstname);
@@ -87,6 +94,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		e.setDiplome(diplome);
 		e.setAnneeDiplome(anneeDiplome);
+		
+		Groupe p = getGroupeById(groupe.getId());
+		
+		e.setGroupe(p);
+		p.getEtudiants().add(e);
+		
 
 
 		// Création du profil de l'étudiant
@@ -99,10 +112,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		// Persistance de l'étudiant et du profil en BDD
 		em.persist(ep);
 		em.persist(e);
+		em.merge(p);
 
 		// Mapping EtudiantDTO et ProfilDTO pour retourner un etudiantDTO à la
 		// couche présentation
 		EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+		factory.close();
 		return eDTO;
 
 	}
@@ -124,20 +139,27 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public EtudiantDTO getEtudiant(int id) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Etudiant e = getEtudiantById(id);
 		if (e != null) {
 			EtudiantProfil ep = e.getProfil();
 			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+			factory.close();
 			return eDTO;
 		}
 		// a remplacer par le renvoie d'une exception lorsqu'aucun id ne
 		// correspond à celui en parametre
+		factory.close();
 		return null;
+
 
 	}
 
 	@Override
 	public List<EtudiantDTO> listEtudiant() {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
 		List<EtudiantDTO> psDTO = new ArrayList<EtudiantDTO>();
 
@@ -146,23 +168,30 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 			psDTO.add(eDTO);
 		}
+		factory.close();
 		return psDTO;
 	}
 
 	@Override
 	public boolean connexion(String email, String password) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Etudiant e = getEtudiantByMail(email);
 		if (e != null && (e.getPassword().equals(password))) {
 			System.out.println("connexion etablie");
+			factory.close();
 			return true;
 		}
 
 		System.out.println("connexion refusee");
+		factory.close();
 		return false;
 	}
 
 	@Override
 	public void addCompetence(EtudiantDTO eDTO, String competence) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Competence c = new Competence();
@@ -173,6 +202,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(c);
 		em.merge(ep);
 		em.merge(e);
+		factory.close();
 
 	}
 
@@ -205,6 +235,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(exp);
 		em.merge(ep);
 		em.merge(e);
+		
 
 	}
 
@@ -219,31 +250,24 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			ExperienceDTO experienceDTO = ce.MappingProfilExperience(e.getProfil(), exp);
 			mesExperiencesDTO.add(experienceDTO);
 		}
-
 		return mesExperiencesDTO;
 	}
 	
 	@Override
-	public List<GroupeDTO> getGroupes(EtudiantDTO eDTO) {
+	public GroupeDTO getGroupe(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
-		List<Groupe> mesGroupes = e.getGroupes();
-		List<GroupeDTO> mesGroupesDTO = new ArrayList<GroupeDTO>();
-
-		for (Groupe grp : mesGroupes) {
-			GroupeDTO gDTO = ce.MappingEtudiantGroupe(e, grp);
-			mesGroupesDTO.add(gDTO);
-		}
-
-		return mesGroupesDTO;
+		Groupe monGroupe = e.getGroupe();
+		GroupeDTO monGroupeDTO = ce.MappingEtudiantGroupe(e, monGroupe);
+		return monGroupeDTO;
 	}
 	
 	@Override
-	public void addGroupe(EtudiantDTO eDTO, GroupeDTO gDTO) {
+	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		Groupe grp = getGroupeById(gDTO.getId());
 		
-		e.getGroupes().add(grp);
+		e.setGroupe(grp);
 		grp.getEtudiants().add(e);
 
 
@@ -264,7 +288,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(h);
 		em.merge(ep);
 		em.merge(e);
-
 	}
 
 	@Override
@@ -278,7 +301,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			HobbieDTO hobbieDTO = ce.MappingProfilHobbie(e.getProfil(), h);
 			mesHobbiesDTO.add(hobbieDTO);
 		}
-
 		return mesHobbiesDTO;
 	}
 
@@ -308,7 +330,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			EcoleDTO ecoleDTO = ce.MappingProfilEcole(e.getProfil(), formation);
 			mesEcolesDTO.add(ecoleDTO);
 		}
-
 		return mesEcolesDTO;
 	}
 
@@ -369,7 +390,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		} catch (NoResultException e1) {
 			return false;
 		}
-
 		return true;
 	}
 
@@ -384,7 +404,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		} catch (NoResultException e1) {
 			return false;
 		}
-
 		return true;
 	}
 
@@ -399,6 +418,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(e);
 		mesCompetences = e.getProfil().getMesCompetences();
 		System.out.println(mesCompetences);
+		
 	}
 
 	@Override

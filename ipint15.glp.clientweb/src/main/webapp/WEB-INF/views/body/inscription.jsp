@@ -71,8 +71,20 @@
 						<div class="col-sm-10">
 							<div class="form-inline">
 								<form:input id="bdField" path="naissance" type="date"
-									 name="bday" />
+									name="bday" />
 								<form:errors path="naissance" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-2">
+							<form:label path="groupe.id" class="control-label">Groupe choisi :</form:label>
+						</div>
+						<div class="col-sm-10">
+							<div class="form-inline">
+								<form:select path="groupe.id">
+									<form:options items="${groupeList}" itemValue="id" itemLabel="name"/>
+								</form:select>
 							</div>
 						</div>
 					</div>
@@ -90,7 +102,8 @@
 							<form:label path="anneeDiplome" class="control-label">Année d'obtention</form:label>
 						</div>
 						<div class="col-sm-4">
-							<form:input type="number" required="required" value="2015" path="anneeDiplome" class="form-control" />
+							<form:input type="number" required="required" value="2015"
+								path="anneeDiplome" class="form-control" />
 							<form:errors path="anneeDiplome" />
 						</div>
 					</div>

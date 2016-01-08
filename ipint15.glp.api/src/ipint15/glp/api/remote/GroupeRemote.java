@@ -19,7 +19,11 @@ public interface GroupeRemote {
 	
 	public void removeGroupe(int id);
 
-	List<GroupeDTO> getAllGroupe();
+	public List<GroupeDTO> getAllGroupe();
+
+	public GroupeDTO getGroupeDTOById(int id);
+
+	int getGroupeSize(int id);
 
 	
 
