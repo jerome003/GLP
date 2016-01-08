@@ -2,6 +2,7 @@ package ipint15.glp.webclient.controller;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -48,10 +50,25 @@ public class adminController {
 		groupeBean.createGroupe(groupe.getName());
 		System.out.println(groupeBean.getAllGroupe());
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
-		ModelAndView modelView = new ModelAndView("adminGroupe", "command", new GroupeDTO());
+		ModelAndView modelView = new ModelAndView("redirect:groupes", "command", new GroupeDTO());
 		modelView.addObject("liste",listeResultat);
 		
 		return modelView;
 	}
 
+	@RequestMapping(value = "/admin/removeGroupe/{id}", method = RequestMethod.GET)
+	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,@PathVariable Map<String, String> pathVariables) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "groupes");
+		
+		int id = Integer.parseInt(pathVariables.get("id"));
+		groupeBean.removeGroupe(id);
+		
+		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+		ModelAndView modelView = new ModelAndView("redirect:../groupes", "command", new GroupeDTO());
+		modelView.addObject("liste",listeResultat);
+		
+		return modelView;
+		}
+	
 }
