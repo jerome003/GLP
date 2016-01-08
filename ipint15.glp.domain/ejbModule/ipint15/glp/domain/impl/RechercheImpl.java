@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 import ipint15.glp.api.dto.EtudiantDTO;
@@ -19,9 +21,14 @@ public class RechercheImpl implements RechercheRemote {
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
+	
+	private static final String PERSISTENCE_UNIT_NAME = "ipint.ejb.personbean";
+	private static EntityManagerFactory factory;
 
 	@Override
 	public List<EtudiantDTO> rechercherEtudiant(String recherche) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
 		List<EtudiantDTO> psDTO = new ArrayList<EtudiantDTO>();
 		String[] recherches = recherche.split(" ");

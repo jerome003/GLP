@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -22,37 +24,45 @@ public class GroupeImpl implements GroupeRemote {
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
-	
+	private static final String PERSISTENCE_UNIT_NAME = "ipint.ejb.personbean";
+	private static EntityManagerFactory factory;
+
 	private Groupe getGroupeById(int id) {
 		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
 		q.setParameter("id", id);
 		Groupe g = (Groupe) q.getSingleResult();
 		return g;
 	}
-	
+
 	@Override
 	public GroupeDTO createGroupe(String name) {
-				Groupe g = new Groupe();
-				g.setName(name);
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
+		Groupe g = new Groupe();
+		g.setName(name);
 
-				em.persist(g);
+		em.persist(g);
 
-				GroupeDTO gDTO = g.toGroupeDTO();
-				return gDTO;
+		GroupeDTO gDTO = g.toGroupeDTO();
+		return gDTO;
 
 	}
 
 	@Override
 	public void editGroupe(int id, String newName) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Groupe g = getGroupeById(id);
 		g.setName(newName);
-		
+
 		em.merge(g);
-		
+
 	}
 
 	@Override
 	public List<GroupeDTO> getAllGroupe() {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Query q = em.createQuery("select o from Groupe o");
 		List<Groupe> gList = (List<Groupe>) q.getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
@@ -64,6 +74,8 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public void removeGroupe(int id) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Groupe g = getGroupeById(id);
 		em.remove(g);
 	}
