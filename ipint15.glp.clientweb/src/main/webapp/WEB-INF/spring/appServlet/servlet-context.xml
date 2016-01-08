@@ -49,6 +49,11 @@
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/RechercheImpl"
 		business-interface="ipint15.glp.api.remote.RechercheRemote">
 	</jee:remote-slsb>
+	
+	<jee:remote-slsb id="groupebean"
+		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl"
+		business-interface="ipint15.glp.api.remote.GroupeRemote">
+	</jee:remote-slsb>
 
 	<context:component-scan base-package="ipint15.glp.webclient.controller" />
 	<context:component-scan base-package="ipint15.glp.domain" />
