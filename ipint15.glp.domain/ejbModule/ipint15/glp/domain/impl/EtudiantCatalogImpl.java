@@ -8,7 +8,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
@@ -35,15 +37,18 @@ import ipint15.glp.domain.util.Conversion;
 @Stateless
 public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
+	private static final String PERSISTENCE_UNIT_NAME = "ipint.ejb.personbean";
+	private static EntityManagerFactory factory;
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
-
+	
 	public EtudiantCatalogImpl() {
-
 	}
 
 	private Etudiant getEtudiantByMail(String mail) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
 		q.setParameter("email", mail);
 		Etudiant e = (Etudiant) q.getSingleResult();
@@ -70,7 +75,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
 			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome) {
-
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		// Création de l'étudiant
 		Etudiant e = new Etudiant();
 		e.setPrenom(firstname);
@@ -124,6 +130,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public EtudiantDTO getEtudiant(int id) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Etudiant e = getEtudiantById(id);
 		if (e != null) {
 			EtudiantProfil ep = e.getProfil();
@@ -138,6 +146,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public List<EtudiantDTO> listEtudiant() {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
 		List<EtudiantDTO> psDTO = new ArrayList<EtudiantDTO>();
 
@@ -151,6 +161,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public boolean connexion(String email, String password) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Etudiant e = getEtudiantByMail(email);
 		if (e != null && (e.getPassword().equals(password))) {
 			System.out.println("connexion etablie");
@@ -163,6 +175,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public void addCompetence(EtudiantDTO eDTO, String competence) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		em = factory.createEntityManager();
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Competence c = new Competence();
