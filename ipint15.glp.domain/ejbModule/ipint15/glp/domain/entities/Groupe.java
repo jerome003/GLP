@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,7 +21,7 @@ public class Groupe {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@ManyToMany(mappedBy="groupes")
+	@OneToMany(mappedBy="groupe")
     private List<Etudiant> etudiants ;
 	private String name;
 	public int getId() {

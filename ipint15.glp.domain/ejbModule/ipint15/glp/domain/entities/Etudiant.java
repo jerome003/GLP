@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -55,8 +56,8 @@ public class Etudiant implements Serializable {
 
 	private String diplome;
 	private int anneeDiplome;
-    @ManyToMany
-    private List<Groupe> groupes ;
+    @ManyToOne
+    private Groupe groupe ;
 
 	@OneToOne
     private EtudiantProfil profil ;
@@ -148,12 +149,12 @@ public class Etudiant implements Serializable {
 	public void setAnneeDiplome(int anneeDiplome) {
 		this.anneeDiplome = anneeDiplome;
 	}
-	public List<Groupe> getGroupes() {
-		return groupes;
+	public Groupe getGroupe() {
+		return groupe;
 	}
 
-	public void setGroupes(List<Groupe> groupes) {
-		this.groupes = groupes;
+	public void setGroupe(Groupe groupe) {
+		this.groupe = groupe;
 	}
 	
 
@@ -188,7 +189,7 @@ public class Etudiant implements Serializable {
 	public String toString() {
 		return "Etudiant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite + ", password="
 				+ password + ", email=" + email + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non") 
-						+ ", mesGroupes=" + groupes + ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise=" + nomEntreprise
+						+ ", monGroupe=" + groupe + ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise=" + nomEntreprise
 						 + "]";
 
 	}

@@ -224,26 +224,21 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 	
 	@Override
-	public List<GroupeDTO> getGroupes(EtudiantDTO eDTO) {
+	public GroupeDTO getGroupe(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
-		List<Groupe> mesGroupes = e.getGroupes();
-		List<GroupeDTO> mesGroupesDTO = new ArrayList<GroupeDTO>();
+		Groupe monGroupe = e.getGroupe();
+		GroupeDTO monGroupeDTO = ce.MappingEtudiantGroupe(e, monGroupe);
 
-		for (Groupe grp : mesGroupes) {
-			GroupeDTO gDTO = ce.MappingEtudiantGroupe(e, grp);
-			mesGroupesDTO.add(gDTO);
-		}
-
-		return mesGroupesDTO;
+		return monGroupeDTO;
 	}
 	
 	@Override
-	public void addGroupe(EtudiantDTO eDTO, GroupeDTO gDTO) {
+	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		Groupe grp = getGroupeById(gDTO.getId());
 		
-		e.getGroupes().add(grp);
+		e.setGroupe(grp);
 		grp.getEtudiants().add(e);
 
 

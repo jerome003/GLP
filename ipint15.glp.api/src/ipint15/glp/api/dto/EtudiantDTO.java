@@ -46,7 +46,7 @@ public class EtudiantDTO implements Serializable {
 	private String diplome;
 	@NotNull(message = "Veuillez saisir une année") 
 	private int anneeDiplome;
-	private List<GroupeDTO> groupes ;
+	private GroupeDTO groupe ;
 
 
 	
@@ -149,17 +149,17 @@ public class EtudiantDTO implements Serializable {
 	
 	
 	
-	public List<GroupeDTO> getGroupes() {
-		return groupes;
+	public GroupeDTO getGroupe() {
+		return groupe;
 	}
-	public void setGroupes(List<GroupeDTO> groupes) {
-		this.groupes = groupes;
+	public void setGroupe(GroupeDTO groupe) {
+		this.groupe = groupe;
 	}
 	@Override
 	public String toString() {
 		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite
 				+ ", password=" + password + ", email=" + email + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non")
-				+ ", diplome=" + diplome + ", Annee obtention=" + anneeDiplome+ ", groupe= " + groupes + ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise="
+				+ ", diplome=" + diplome + ", Annee obtention=" + anneeDiplome+ ", groupe= " + groupe + ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise="
 						+ nomEntreprise + "]";
 
 	}

@@ -94,10 +94,6 @@ public interface EtudiantCatalogRemote {
 	 */
 	public void deleteLoisirList(EtudiantDTO eDTO);
 
-	public void addGroupe(EtudiantDTO eDTO, GroupeDTO gDTO);
-
-	public List<GroupeDTO> getGroupes(EtudiantDTO eDTO);
-
 	
 	/**
 	 * Permet de modifier les information du profil d'un étudiant
@@ -109,4 +105,10 @@ public interface EtudiantCatalogRemote {
 	 */
 	
 	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone);
+
+
+	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO);
+
+
+	public GroupeDTO getGroupe(EtudiantDTO eDTO);
 }

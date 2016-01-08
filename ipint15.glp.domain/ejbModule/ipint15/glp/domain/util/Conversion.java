@@ -101,7 +101,7 @@ public class Conversion {
 		GroupeDTO gDTO = g.toGroupeDTO();
 		
 		// Mapping du profil avec sa compétence
-		eDto.getGroupes().add(gDTO);
+		eDto.setGroupe(gDTO);
 		gDTO.getEtudiants().add(eDto);
 		return gDTO;
 	}
