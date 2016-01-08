@@ -37,6 +37,7 @@ public class adminController {
 	List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
 	ModelAndView modelView = new ModelAndView("adminGroupe", "command", new GroupeDTO());
 	modelView.addObject("liste",listeResultat);
+	model.addAttribute("myInjectedBean", groupeBean );
 	
 	return modelView;
 	}

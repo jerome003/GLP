@@ -5,20 +5,19 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import ipint15.glp.api.dto.EtudiantDTO;
+
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.GroupeRemote;
-import ipint15.glp.domain.entities.Etudiant;
-import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.util.Conversion;
 
 @Stateless
 public class GroupeImpl implements GroupeRemote {
-
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
@@ -28,6 +27,15 @@ public class GroupeImpl implements GroupeRemote {
 		q.setParameter("id", id);
 		Groupe g = (Groupe) q.getSingleResult();
 		return g;
+	}
+	
+	@Override
+	public GroupeDTO getGroupeDTOById(int id) {
+		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
+		q.setParameter("id", id);
+		Groupe g = (Groupe) q.getSingleResult();
+		GroupeDTO gDTO = g.toGroupeDTO();
+		return gDTO;
 	}
 	
 	@Override
@@ -53,13 +61,19 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public List<GroupeDTO> getAllGroupe() {
-		Query q = em.createQuery("select o from Groupe o");
-		List<Groupe> gList = (List<Groupe>) q.getResultList();
+		List<Groupe> gList = em.createQuery("select o from Groupe o", Groupe.class).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
+		System.out.println(gList);
 		for(Groupe g : gList) {
 			gDTOList.add(g.toGroupeDTO());
 		}
 		return gDTOList;
+	}
+	
+	@Override
+	public int getGroupeSize(int id) {
+		Groupe g = getGroupeById(id);
+		return g.getEtudiants().size();
 	}
 
 	@Override

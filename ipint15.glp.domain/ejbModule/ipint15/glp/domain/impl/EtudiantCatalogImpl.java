@@ -74,7 +74,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	@Override
 
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
-			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome) {
+			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
 		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		em = factory.createEntityManager();
 		// Création de l'étudiant
@@ -93,6 +93,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		e.setDiplome(diplome);
 		e.setAnneeDiplome(anneeDiplome);
+		
+		Groupe p = getGroupeById(groupe.getId());
+		
+		e.setGroupe(p);
+		p.getEtudiants().add(e);
+		
 
 
 		// Création du profil de l'étudiant
@@ -105,6 +111,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		// Persistance de l'étudiant et du profil en BDD
 		em.persist(ep);
 		em.persist(e);
+		em.merge(p);
 
 		// Mapping EtudiantDTO et ProfilDTO pour retourner un etudiantDTO à la
 		// couche présentation
