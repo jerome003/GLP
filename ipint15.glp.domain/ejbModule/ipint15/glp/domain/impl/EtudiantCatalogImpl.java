@@ -37,8 +37,6 @@ import ipint15.glp.domain.util.Conversion;
 @Stateless
 public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
-	private static final String PERSISTENCE_UNIT_NAME = "ipint.ejb.personbean";
-	private static EntityManagerFactory factory;
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
@@ -47,12 +45,11 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	private Etudiant getEtudiantByMail(String mail) {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
+
 		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
 		q.setParameter("email", mail);
 		Etudiant e = (Etudiant) q.getSingleResult();
-		factory.close();
+
 		return e;
 	}
 
@@ -76,8 +73,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
 			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
 		// Création de l'étudiant
 		Etudiant e = new Etudiant();
 		e.setPrenom(firstname);
@@ -117,7 +112,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		// Mapping EtudiantDTO et ProfilDTO pour retourner un etudiantDTO à la
 		// couche présentation
 		EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
-		factory.close();
 		return eDTO;
 
 	}
@@ -139,18 +133,14 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public EtudiantDTO getEtudiant(int id) {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
 		Etudiant e = getEtudiantById(id);
 		if (e != null) {
 			EtudiantProfil ep = e.getProfil();
 			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
-			factory.close();
 			return eDTO;
 		}
 		// a remplacer par le renvoie d'une exception lorsqu'aucun id ne
 		// correspond à celui en parametre
-		factory.close();
 		return null;
 
 
@@ -158,8 +148,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public List<EtudiantDTO> listEtudiant() {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
 		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
 		List<EtudiantDTO> psDTO = new ArrayList<EtudiantDTO>();
 
@@ -168,30 +156,24 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 			psDTO.add(eDTO);
 		}
-		factory.close();
 		return psDTO;
 	}
 
 	@Override
 	public boolean connexion(String email, String password) {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
+
 		Etudiant e = getEtudiantByMail(email);
 		if (e != null && (e.getPassword().equals(password))) {
 			System.out.println("connexion etablie");
-			factory.close();
 			return true;
 		}
 
 		System.out.println("connexion refusee");
-		factory.close();
 		return false;
 	}
 
 	@Override
 	public void addCompetence(EtudiantDTO eDTO, String competence) {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Competence c = new Competence();
@@ -202,7 +184,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(c);
 		em.merge(ep);
 		em.merge(e);
-		factory.close();
 
 	}
 

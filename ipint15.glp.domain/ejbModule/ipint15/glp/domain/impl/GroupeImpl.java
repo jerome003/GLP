@@ -21,8 +21,6 @@ public class GroupeImpl implements GroupeRemote {
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
-	private static final String PERSISTENCE_UNIT_NAME = "ipint.ejb.personbean";
-	private static EntityManagerFactory factory;
 
 	private Groupe getGroupeById(int id) {
 		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
@@ -42,8 +40,6 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public GroupeDTO createGroupe(String name) {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
 		Groupe g = new Groupe();
 		g.setName(name);
 
@@ -56,8 +52,6 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public void editGroupe(int id, String newName) {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
 		Groupe g = getGroupeById(id);
 		g.setName(newName);
 
@@ -67,16 +61,12 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public List<GroupeDTO> getAllGroupe() {
-
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
 		List<Groupe> gList = em.createQuery("select o from Groupe o", Groupe.class).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		System.out.println(gList);
 		for(Groupe g : gList) {
 			gDTOList.add(g.toGroupeDTO());
 		}
-		factory.close();
 	
 		return gDTOList;
 		
@@ -90,8 +80,6 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public void removeGroupe(int id) {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
 		Groupe g = getGroupeById(id);
 		em.remove(g);
 	}
