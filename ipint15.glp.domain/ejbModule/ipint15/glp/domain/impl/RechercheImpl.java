@@ -10,9 +10,11 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.RechercheRemote;
 import ipint15.glp.domain.entities.Etudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
+import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.util.Conversion;
 
 @Stateless
@@ -38,6 +40,25 @@ public class RechercheImpl implements RechercheRemote {
 					System.out.println(eDTO);
 					if (!psDTO.contains(eDTO))
 							psDTO.add(eDTO);
+				}
+			}
+		}
+		return psDTO;
+	}
+	
+	@Override
+	public List<GroupeDTO> rechercherGroupe(String recherche) {
+		List<Groupe> ps = em.createQuery("select o from Groupe o").getResultList();
+		List<GroupeDTO> psDTO = new ArrayList<GroupeDTO>();
+		String[] recherches = recherche.split(" ");
+
+		for (Groupe g : ps) {
+			for (int i = 0; i < recherches.length; i++) {
+
+				if (g.getName().toLowerCase().contains(recherches[i].toLowerCase())) {
+					GroupeDTO gDTO = g.toGroupeDTO();
+					if (!psDTO.contains(gDTO))
+							psDTO.add(gDTO);
 				}
 			}
 		}

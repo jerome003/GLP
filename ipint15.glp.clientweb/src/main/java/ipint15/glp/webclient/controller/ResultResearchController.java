@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.RechercheRemote;
 
@@ -36,9 +37,11 @@ public class ResultResearchController {
 		System.out.println("POST");
 		String recherche = request.getParameter("recherche");
 		List<EtudiantDTO> listeResultat = rechercheBean.rechercherEtudiant(recherche);
+		List<GroupeDTO> listeResultatGroupe = rechercheBean.rechercherGroupe(recherche);
 		ModelAndView model = new ModelAndView();
 		model.addObject("recherche",request.getParameter("recherche"));
 		model.addObject("liste",listeResultat);
+		model.addObject("listeGroupe",listeResultatGroupe);
 		model.setViewName("resultResearch");
 		return model ;
 	}
