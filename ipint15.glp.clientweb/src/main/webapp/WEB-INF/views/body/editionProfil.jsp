@@ -9,27 +9,22 @@
 <html>
 <script type="text/javascript">
 
-
-
-
-function save(name, url){
-	var mail = document.getElementById('mail');
-	
-	
+function saveExpPro(){
+	var name = 'lesExpPro';
+	var url = 'saveExpPro';
 	var tmp = "";
-	
- 	var maClass= document.getElementById(name);
- 	var noeuds = maClass.getElementsByTagName('input');
- 	
- 	for(i = 0 ; i< noeuds.length; i++){
- 		tmp += noeuds[i].value+"%";
+	var mail = document.getElementById('mail');
+	var maClass= document.getElementById(name);
+	var noeuds = maClass.getElementsByTagName('input'); 
+	for(i = 0 ; i< noeuds.length;){
+		tmp += noeuds[i++].value+"|";
+		tmp += noeuds[i++].value+"|";
+		tmp += noeuds[i++].value+"|";
+ 		tmp += noeuds[i++].value+"%";
  	}
- 	var res = { mail : mail.value,maListe : tmp } ;
- 	
-	alert(res.mail + res);
-	
-	
-	
+	var test = "toto";
+	alert(tmp+" "+test);
+	var res = { mail : mail.value,maListe : tmp } ; 	
  	$.ajax({
          type: "POST",
          url: url,
@@ -41,17 +36,32 @@ function save(name, url){
              // do something.
         }
      });
-
 }
 
 
-
-
-
-
+function save(name, url){
+	var mail = document.getElementById('mail');	
+	var tmp = "";	
+ 	var maClass= document.getElementById(name);
+ 	var noeuds = maClass.getElementsByTagName('input'); 	
+ 	for(i = 0 ; i< noeuds.length; i++){
+ 		tmp += noeuds[i].value+"%";
+ 	}
+ 	var res = { mail : mail.value,maListe : tmp } ; 	
+ 	$.ajax({
+         type: "POST",
+         url: url,
+         data: res,
+         success: function (result) {
+             // do something.
+         },
+         error: function (result) {
+             // do something.
+        }
+     });
+}
 
 function AddChamp(divId, champId, boutonId) {
-	//alert (divId +" "+ champId+" "+boutonId+ " "+document.getElementsByName(champId).length);
 	var taille = document.getElementsByName(champId).length;
 	if (taille == 0) {
 			var input = document.createElement("input");
@@ -70,6 +80,7 @@ function AddChamp(divId, champId, boutonId) {
 			
 		document.getElementById(divId).appendChild(input);
 		document.getElementById(divId).appendChild(adresse);
+		document.getElementById(divId).appendChild(document.createElement("br"));
 	} else {
 
 		//recuperer l'identifiant du dernier élément | attention : l'identifiant ne correspondant pas au nombre d'element dont le nom est expPro car en cas de suppression id exPro15 alors qu'il ya que 10 elem
@@ -94,9 +105,122 @@ function AddChamp(divId, champId, boutonId) {
 			
 			document.getElementById(divId).appendChild(input);
 			document.getElementById(divId).appendChild(adresse);
+			document.getElementById(divId).appendChild(document.createElement("br"));
 		
 	}
 }
+
+	function AddExpPro(lesExpPro, expPro, deleteExpPro){
+		var taille = document.getElementsByName("lesExpPro").length;
+		if (taille == 0){
+			//
+			var label = document.createElement("label");
+			label.id = "labelExpProPoste0";
+			label.htmlFor = "expProPoste0";
+			label.innerHTML = "Poste : ";
+			document.getElementById("lesExpPro").appendChild(label);
+			
+			var input = document.createElement("input");
+			input.type = "text";
+			input.id="expProPoste0";
+			input.name="expPro";
+			document.getElementById("lesExpPro").appendChild(input);
+			//
+			label = document.createElement("label");
+			label.id = "labelExpProEntreprise0";
+			label.htmlFor = "expProEntreprise0";
+			label.innerHTML = "Entreprise : ";
+			document.getElementById("lesExpPro").appendChild(label);
+			
+			input = document.createElement("input");
+			input.type = "text";
+			input.id="expProEntreprise0";
+			input.name="expPro";
+			document.getElementById("lesExpPro").appendChild(input);
+			//
+			label = document.createElement("label");
+			label.id = "labelExpProDebut0";
+			label.htmlFor = "expProDebut0";
+			label.innerHTML = "Début : ";
+			document.getElementById("lesExpPro").appendChild(label);
+			
+			input = document.createElement("input");
+			input.type = "text";
+			input.id="labelExpProDebut0";
+			input.name="expPro";
+			document.getElementById("lesExpPro").appendChild(input);
+			//
+			label = document.createElement("label");
+			label.id = "expProDuree0";
+			label.htmlFor = "expProDuree0";
+			label.innerHTML = "Durée : ";
+			document.getElementById("lesExpPro").appendChild(label);
+			
+			input = document.createElement("input");
+			input.type = "text";
+			input.id="expProDuree0";
+			input.name="expPro";
+			document.getElementById("lesExpPro").appendChild(input);
+			//
+			
+			var adresse = document.createElement("a");
+			var link = document.createTextNode("-");
+			adresse.setAttribute("class", "btn btn-primary");
+			adresse.setAttribute("id","deleteExpPro0");
+			adresse.setAttribute("name","deleteExpPro");
+			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro(0, deleteExpPro0)");
+			adresse.appendChild(link);
+			
+			document.getElementById("lesExpPro").appendChild(adresse);
+			document.getElementById("lesExpPro").appendChild(document.createElement("br"));
+			
+		}else {
+			var element = document.getElementsByName("lesExpPro");
+			var idelement = element[taille - 1].getAttribute('id');  	
+			var sizeId = idelement.length; //recup la taille de l'identifiant
+			var nvId = parseInt(idelement.substring("expPro".length, sizeId)) + 1;
+			//
+			var label = document.createElement("label");
+			label.id = "labelExpProPoste"+nvId;
+			label.htmlFor = "expProPoste"+nvId;
+			label.innerHTML = "Poste : ";
+			document.getElementById("lesExpPro").appendChild(label);
+			var input = document.createElement("input");
+			input.type = "text";
+			input.id="expProPoste"+nvId;
+			input.name="expPro";
+			document.getElementById("lesExpPro").appendChild(input);
+			//
+			input = document.createElement("input");
+			input.type = "text";
+			input.id="expProEntreprise"+nvId;
+			input.name="expPro";
+			document.getElementById("lesExpPro").appendChild(input);
+			//
+			input = document.createElement("input");
+			input.type = "text";
+			input.id="expProDebut"+nvId;
+			input.name="expPro";
+			document.getElementById("lesExpPro").appendChild(input);
+			//label
+			input = document.createElement("input");
+			input.type = "text";
+			input.id="expProDuree"+nvId;
+			input.name="expPro";
+			document.getElementById("lesExpPro").appendChild(input);
+			
+			var adresse = document.createElement("a");
+			var link = document.createTextNode("-");
+			adresse.setAttribute("class", "btn btn-primary");
+			adresse.setAttribute("id","deleteExpPro"+nvId);
+			adresse.setAttribute("name","deleteExpPro");
+			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro("+nvId+", deleteExpPro"+nvId+")");
+			adresse.appendChild(link);
+			
+			document.getElementById("lesExpPro").appendChild(adresse);
+			document.getElementById("lesExpPro").appendChild(document.createElement("br"));
+		}
+	}
 
 
 	/**
@@ -107,41 +231,35 @@ function AddChamp(divId, champId, boutonId) {
 	*/
 	function suppressionChampEtBouton(champ, bouton) {
 		var r = confirm("Voulez-vous réellement supprimer ce champ ?");
-		//alert(champ, idBouton);
 		if(r == true){
 			champ.parentNode.removeChild(champ);
 			bouton.parentNode.removeChild(bouton);
 		}
 	}
+	
+	function suppressionChampEtBoutonExpPro(index, bouton){
+		var r = confirm("Voulez-vous réellement supprimer ce champ ?");
+		if(r == true){
+			var element = document.getElementById("expProPoste"+index);
+			element.parentNode.removeChild(element);
+			element = document.getElementById("expProEntreprise"+index);
+			element.parentNode.removeChild(element);
+			element = document.getElementById("expProDebut"+index);
+			element.parentNode.removeChild(element);
+			element = document.getElementById("expProDuree"+index);
+			element.parentNode.removeChild(element);
+			element = document.getElementById("labelExpProPoste"+index);
+			element.parentNode.removeChild(element);
+			element = document.getElementById("labelExpProEntreprise"+index);
+			element.parentNode.removeChild(element);
+			element = document.getElementById("labelExpProDebut"+index);
+			element.parentNode.removeChild(element);
+			element = document.getElementById("labelExpProDuree"+index);
+			element.parentNode.removeChild(element);
+			bouton.parentNode.removeChild(bouton);
+		}
+	}
 </script>
-
-
-
-<%
-	List<ExperienceDTO> listExperience = new ArrayList<ExperienceDTO>();
-	/*ExperienceDTO e = new ExperienceDTO();
-	e.setLibelle("Grand vainqueur de la belette de Winchester");
-	ExperienceDTO e2 = new ExperienceDTO();
-	e2.setLibelle("Auteur du livre \"Le druidisme expliqué aux personnes âgées\"");
-	ExperienceDTO e3 = new ExperienceDTO();
-	e3.setLibelle("Test");
-	listExperience.add(e);
-	listExperience.add(e2);
-	listExperience.add(e3);*/
-	request.setAttribute("expList", listExperience);
-
-	List<CompetenceDTO> listCompetence = new ArrayList<CompetenceDTO>();
-	/*CompetenceDTO c1 = new CompetenceDTO();
-	c1.setLibelle("Faire des crepes");
-	listCompetence.add(c1);*/
-	request.setAttribute("compList", listCompetence);
-
-	List<EcoleDTO> listFormation = new ArrayList<EcoleDTO>();
-	request.setAttribute("formList", listFormation);
-
-	List<HobbieDTO> listLoisirs = new ArrayList<HobbieDTO>();
-	request.setAttribute("loisirList", listLoisirs);
-%>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -206,16 +324,30 @@ function AddChamp(divId, champId, boutonId) {
 						<div class="lesExpPro" id="lesExpPro">
 
 							<a class="btn btn-primary"
-								onClick="AddChamp('lesExpPro', 'expPro', 'deleteExpPro');">Ajouter
+								onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');">Ajouter
 								une exprérience</a><a class="btn btn-primary"
-								onClick="save('lesExpPro', 'saveExpPro');">Enregistrer</a>
+								onClick="saveExpPro();">Enregistrer</a>
 							<c:forEach items="${profil.profil.mesExperiences}"
 								var="experience" varStatus="loop">
-								<input id="expPro${loop.index}" name="expPro"
+								<label id="labelExpProPoste${loop.index}"
+									for="expProPoste${loop.index}">Poste :</label>
+								<input id="expProPoste${loop.index}" name="expPro"
 									value="${experience.libelle}">
+								<label id="labelExpProEntreprise${loop.index}"
+									for="expProEntreprise${loop.index}">Entreprise :</label>
+								<input id="expProEntreprise${loop.index}" name="expPro"
+									value="${experience.entreprise}">
+								<label id="labelExpProDebut${loop.index}"
+									for="expProDebut${loop.index}">Année de début :</label>
+								<input id="expProDebut${loop.index}" name="expPro"
+									value="${experience.anneeDebut}">
+								<label id="labelExpProDuree${loop.index}"
+									for="expProDuree${loop.index}">Durée :</label>
+								<input id="expProDuree${loop.index}" name="expPro"
+									value="${experience.duree}">
 								<a id="deleteExpPro${loop.index}" name="deleteExpPro"
 									class="btn btn-primary"
-									onClick='suppressionChampEtBouton(expPro${loop.index}, deleteExpPro${loop.index})'>-</a>
+									onClick='suppressionChampEtBoutonExpPro(${loop.index}, deleteExpPro${loop.index})'>-</a>
 								</br>
 							</c:forEach>
 

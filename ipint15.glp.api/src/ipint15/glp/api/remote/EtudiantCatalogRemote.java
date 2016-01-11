@@ -61,7 +61,7 @@ public interface EtudiantCatalogRemote {
 
 	void addPublication(EtudiantDTO eDTO, String titre, String message, Date date);
 
-	public void addExperience(EtudiantDTO eDTO, String experience);
+	public void addExperience(EtudiantDTO eDTO, String experience, String entreprise, String duree, String anneeDebut);
 
 	public List<ExperienceDTO> getExperiences(EtudiantDTO eDTO);
 

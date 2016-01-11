@@ -80,7 +80,9 @@ public class EditionProfilController {
 		etudiantBean.deleteExpProList(etudiantDTO);
 		String tabExp[] = liste.split("%");
 		for (int i = 0; i < tabExp.length; i++) {
-			etudiantBean.addExperience(etudiantDTO, tabExp[i]);
+			String tabExpTmp[] = tabExp[i].split("\\|");
+			etudiantBean.addExperience(etudiantDTO, tabExpTmp[0].replaceAll("|", ""), tabExpTmp[1].replaceAll("|", ""),
+					tabExpTmp[3].replaceAll("|", ""), tabExpTmp[2].replaceAll("|", ""));
 		}
 
 		return mapCompetencesEtudiant(etudiantDTO, request);
@@ -134,11 +136,4 @@ public class EditionProfilController {
 		request.getSession().setAttribute("etudiant", etudiantDTO);
 		return new ModelAndView("redirect:profil/" + etudiantDTO.getId(), "command", new EtudiantDTO());
 	}
-
-	@RequestMapping(value = "/test", method = RequestMethod.POST)
-	public ModelAndView test(int id) {
-		System.out.println("OK !");
-		return new ModelAndView("redirect:profil/" + id, "command", new EtudiantDTO());
-	}
-
 }

@@ -40,7 +40,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
-	
+
 	public EtudiantCatalogImpl() {
 	}
 
@@ -59,7 +59,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		Etudiant e = (Etudiant) q.getSingleResult();
 		return e;
 	}
-	
+
 	private Groupe getGroupeById(int id) {
 		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
 		q.setParameter("id", id);
@@ -67,12 +67,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		return g;
 	}
 
-	
 	// TODO en cours de modif
 	@Override
 
-	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
-			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
+	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
+			String numTelephone, String password, Date naissance, String posteActu, String villeActu,
+			String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
 		// Création de l'étudiant
 		Etudiant e = new Etudiant();
 		e.setPrenom(firstname);
@@ -89,13 +89,11 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		e.setDiplome(diplome);
 		e.setAnneeDiplome(anneeDiplome);
-		
+
 		Groupe p = getGroupeById(groupe.getId());
-		
+
 		e.setGroupe(p);
 		p.getEtudiants().add(e);
-		
-
 
 		// Création du profil de l'étudiant
 		EtudiantProfil ep = new EtudiantProfil();
@@ -142,7 +140,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		// a remplacer par le renvoie d'une exception lorsqu'aucun id ne
 		// correspond à celui en parametre
 		return null;
-
 
 	}
 
@@ -205,7 +202,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addExperience(EtudiantDTO eDTO, String experience) {
+	public void addExperience(EtudiantDTO eDTO, String experience, String entreprise, String duree, String anneeDebut) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Experience exp = new Experience();
@@ -213,10 +210,13 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesExperiences().add(exp);
 		exp.setProfil(ep);
+		exp.setLibelle(experience);
+		exp.setDuree(duree);
+		exp.setEntreprise(entreprise);
+		exp.setAnneeDebut(anneeDebut);
 		em.persist(exp);
 		em.merge(ep);
 		em.merge(e);
-		
 
 	}
 
@@ -233,7 +233,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		}
 		return mesExperiencesDTO;
 	}
-	
+
 	@Override
 	public GroupeDTO getGroupe(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
@@ -242,15 +242,14 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		GroupeDTO monGroupeDTO = ce.MappingEtudiantGroupe(e, monGroupe);
 		return monGroupeDTO;
 	}
-	
+
 	@Override
 	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		Groupe grp = getGroupeById(gDTO.getId());
-		
+
 		e.setGroupe(grp);
 		grp.getEtudiants().add(e);
-
 
 		em.merge(grp);
 		em.merge(e);
@@ -399,7 +398,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(e);
 		mesCompetences = e.getProfil().getMesCompetences();
 		System.out.println(mesCompetences);
-		
+
 	}
 
 	@Override
@@ -427,8 +426,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone ) {
-		// TODO Auto-generated method stub		
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone) {
+		// TODO Auto-generated method stub
 		Etudiant e = getEtudiantById(id);
 		e.setPosteActu(posteActu);
 		e.setVilleActu(villeActu);
@@ -436,7 +435,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		e.setNumTelephone(numTelephone);
 		em.persist(e);
 
-		
 	}
 
 }
