@@ -53,6 +53,10 @@ public class Etudiant implements Serializable {
 	private String villeActu;
 	private String posteActu;
 	private String nomEntreprise;
+	private String twitter;
+	private String facebook;
+	private String linkedin;
+	private String viadeo;
 
 	private String diplome;
 	private int anneeDiplome;
@@ -157,9 +161,34 @@ public class Etudiant implements Serializable {
 		this.groupe = groupe;
 	}
 	
+	
 
 
 	
+	public String getTwitter() {
+		return twitter;
+	}
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+	public String getFacebook() {
+		return facebook;
+	}
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+	public String getLinkedin() {
+		return linkedin;
+	}
+	public void setLinkedin(String linkedin) {
+		this.linkedin = linkedin;
+	}
+	public String getViadeo() {
+		return viadeo;
+	}
+	public void setViadeo(String viadeo) {
+		this.viadeo = viadeo;
+	}
 	public EtudiantDTO toEtudiantDTO() {
 		EtudiantDTO pDTO = new EtudiantDTO();
 		pDTO.setId(this.getId());
@@ -179,6 +208,10 @@ public class Etudiant implements Serializable {
 		pDTO.setAnneeDiplome(this.anneeDiplome);
 		
 		pDTO.setGroupe(this.groupe.toGroupeDTO());
+		pDTO.setTwitter(this.getTwitter());
+		pDTO.setFacebook(this.getFacebook());
+		pDTO.setLinkedin(this.getLinkedin());
+		pDTO.setViadeo(this.getViadeo());
 
 		return pDTO;
 	}

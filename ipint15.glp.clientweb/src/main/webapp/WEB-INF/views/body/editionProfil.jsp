@@ -194,6 +194,18 @@ function AddChamp(divId, champId, boutonId) {
 								<li><label>Numéro de téléphone : </label><input type="tel"
 									id="numtelephone" name="numTelephone"
 									value="${profil.numTelephone}"></li>
+								<li><label>Facebook : </label><input type="text"
+									id="facebook" name="facebook"
+									value="${profil.facebook}"></li>
+								<li><label>Twitter : </label><input type="text"
+									id="twitter" name="twitter"
+									value="${profil.twitter}"></li>
+								<li><label>Viadeo : </label><input type="text"
+									id="viadeo" name="viadeo"
+									value="${profil.viadeo}"></li>
+								<li><label>Linkedin : </label><input type="text"
+									id="linkedin" name="linkedin"
+									value="${profil.linkedin}"></li>
 							</ul>
 							<input type="submit" value="Envoyer" />
 						</form>

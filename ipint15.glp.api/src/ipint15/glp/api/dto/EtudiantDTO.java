@@ -47,6 +47,10 @@ public class EtudiantDTO implements Serializable {
 	@NotNull(message = "Veuillez saisir une année") 
 	private int anneeDiplome;
 	private GroupeDTO groupe ;
+	private String facebook;
+	private String twitter;
+	private String viadeo;
+	private String linkedin;
 
 
 	
@@ -144,16 +148,37 @@ public class EtudiantDTO implements Serializable {
 		this.anneeDiplome = anneeDiplome;
 	}
 	
-
-	
-	
-	
-	
 	public GroupeDTO getGroupe() {
 		return groupe;
 	}
 	public void setGroupe(GroupeDTO groupe) {
 		this.groupe = groupe;
+	}
+	
+	
+	public String getFacebook() {
+		return facebook;
+	}
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+	public String getTwitter() {
+		return twitter;
+	}
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+	public String getViadeo() {
+		return viadeo;
+	}
+	public void setViadeo(String viadeo) {
+		this.viadeo = viadeo;
+	}
+	public String getLinkedin() {
+		return linkedin;
+	}
+	public void setLinkedin(String linkedin) {
+		this.linkedin = linkedin;
 	}
 	@Override
 	public String toString() {

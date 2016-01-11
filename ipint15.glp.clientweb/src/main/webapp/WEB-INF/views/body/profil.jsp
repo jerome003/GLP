@@ -53,6 +53,18 @@
 								Numéro de téléphone : <strong>${profil.numTelephone}</strong>
 							</p>
 						</li>
+						<c:if test="${not empty profil.facebook}">
+    	<a href="${profil.facebook}"><img src="${pageContext.request.contextPath}/resources/img/facebook.png" alt="facebook"/></a>
+		</c:if>
+		<c:if test="${not empty profil.twitter}">
+    	<a href="${profil.twitter}"><img src="${pageContext.request.contextPath}/resources/img/twitter.jpg" alt="twitter"/></a>
+		</c:if>
+		<c:if test="${not empty profil.viadeo}">
+    	<a href="${profil.viadeo}"><img src="${pageContext.request.contextPath}/resources/img/viadeo.png" alt="viadeo"/></a>
+		</c:if>
+		<c:if test="${not empty profil.linkedin}">
+    	<a href="${profil.linkedin}"><img src="${pageContext.request.contextPath}/resources/img/linkedin.png" alt="linkedin"/></a>
+		</c:if>
 					</ul>
 				</div>
 			</div>

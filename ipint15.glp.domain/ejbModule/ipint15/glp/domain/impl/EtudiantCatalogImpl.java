@@ -40,7 +40,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
-	
+
 	public EtudiantCatalogImpl() {
 	}
 
@@ -59,7 +59,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		Etudiant e = (Etudiant) q.getSingleResult();
 		return e;
 	}
-	
+
 	private Groupe getGroupeById(int id) {
 		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
 		q.setParameter("id", id);
@@ -67,7 +67,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		return g;
 	}
 
-	
+
 	// TODO en cours de modif
 	@Override
 
@@ -89,12 +89,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		e.setDiplome(diplome);
 		e.setAnneeDiplome(anneeDiplome);
-		
+
 		Groupe p = getGroupeById(groupe.getId());
-		
+
 		e.setGroupe(p);
 		p.getEtudiants().add(e);
-		
+
 
 
 		// Création du profil de l'étudiant
@@ -216,7 +216,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(exp);
 		em.merge(ep);
 		em.merge(e);
-		
+
 
 	}
 
@@ -233,7 +233,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		}
 		return mesExperiencesDTO;
 	}
-	
+
 	@Override
 	public GroupeDTO getGroupe(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
@@ -242,12 +242,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		GroupeDTO monGroupeDTO = ce.MappingEtudiantGroupe(e, monGroupe);
 		return monGroupeDTO;
 	}
-	
+
 	@Override
 	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		Groupe grp = getGroupeById(gDTO.getId());
-		
+
 		e.setGroupe(grp);
 		grp.getEtudiants().add(e);
 
@@ -399,7 +399,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(e);
 		mesCompetences = e.getProfil().getMesCompetences();
 		System.out.println(mesCompetences);
-		
+
 	}
 
 	@Override
@@ -427,16 +427,30 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone ) {
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone ,String facebook, String twitter, String viadeo, String linkedin) {
 		// TODO Auto-generated method stub		
 		Etudiant e = getEtudiantById(id);
 		e.setPosteActu(posteActu);
 		e.setVilleActu(villeActu);
 		e.setNomEntreprise(nomEntreprise);
 		e.setNumTelephone(numTelephone);
-		em.persist(e);
+		if (valideLien(facebook, "facebook.com")) 
+			e.setFacebook(facebook);
+		if(valideLien(twitter, "twitter.com"))
+			e.setTwitter(twitter);
+		if(valideLien(viadeo, "viadeo.com"))
+			e.setViadeo(viadeo);
+		if (valideLien(linkedin, "linkedin.com"))
+			e.setLinkedin(linkedin);
+		em.persist(e);	
+	}
 
-		
+	@Override
+	public boolean valideLien(String lien, String site) {
+		if (lien.contains(site) && (lien.contains("http://") || lien.contains("https://")))
+			return true;
+		return false;
+
 	}
 
 }
