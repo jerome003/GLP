@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -72,58 +73,52 @@ public class EditionProfilController {
 	}
 
 	@RequestMapping(value = "/saveExpPro", method = RequestMethod.POST)
-	public ModelAndView saveExpPro(String mail, String expPro1, String expPro2, String expPro3, String expPro4,
-			String expPro5, HttpServletRequest request) {
-		System.out.println(mail + expPro1 + expPro2 + expPro3 + expPro4 + expPro5);
-		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
+	public ModelAndView saveExpPro(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
+			HttpServletRequest request) {
+		System.out.println(liste + " " + email);
+		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
 		etudiantBean.deleteExpProList(etudiantDTO);
-		etudiantBean.addExperience(etudiantDTO, expPro1);
-		etudiantBean.addExperience(etudiantDTO, expPro2);
-		etudiantBean.addExperience(etudiantDTO, expPro3);
-		etudiantBean.addExperience(etudiantDTO, expPro4);
-		etudiantBean.addExperience(etudiantDTO, expPro5);
+		String tabExp[] = liste.split("%");
+		for (int i = 0; i < tabExp.length; i++) {
+			etudiantBean.addExperience(etudiantDTO, tabExp[i]);
+		}
+
 		return mapCompetencesEtudiant(etudiantDTO, request);
 	}
 
 	@RequestMapping(value = "/saveCompetence", method = RequestMethod.POST)
-	public ModelAndView saveCompetence(String mail, String comp1, String comp2, String comp3, String comp4,
-			String comp5, HttpServletRequest request) {
-		System.out.println(mail + comp1 + comp2 + comp3 + comp4 + comp5);
-		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
+	public ModelAndView saveCompetence(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
+			HttpServletRequest request) {
+		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
 		etudiantBean.deleteCompetenceList(etudiantDTO);
-		etudiantBean.addCompetence(etudiantDTO, comp1);
-		etudiantBean.addCompetence(etudiantDTO, comp2);
-		etudiantBean.addCompetence(etudiantDTO, comp3);
-		etudiantBean.addCompetence(etudiantDTO, comp4);
-		etudiantBean.addCompetence(etudiantDTO, comp5);
+		String tabExp[] = liste.split("%");
+		for (int i = 0; i < tabExp.length; i++) {
+			etudiantBean.addCompetence(etudiantDTO, tabExp[i]);
+		}
 		return mapCompetencesEtudiant(etudiantDTO, request);
 	}
 
 	@RequestMapping(value = "/saveFormation", method = RequestMethod.POST)
-	public ModelAndView saveFormation(String mail, String formation1, String formation2, String formation3,
-			String formation4, String formation5, HttpServletRequest request) {
-		System.out.println(mail + formation1 + formation2 + formation3 + formation4 + formation5);
-		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
+	public ModelAndView saveFormation(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
+			HttpServletRequest request) {
+		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
 		etudiantBean.deleteFormationList(etudiantDTO);
-		etudiantBean.addEcole(etudiantDTO, formation1);
-		etudiantBean.addEcole(etudiantDTO, formation2);
-		etudiantBean.addEcole(etudiantDTO, formation3);
-		etudiantBean.addEcole(etudiantDTO, formation4);
-		etudiantBean.addEcole(etudiantDTO, formation5);
+		String tabExp[] = liste.split("%");
+		for (int i = 0; i < tabExp.length; i++) {
+			etudiantBean.addEcole(etudiantDTO, tabExp[i]);
+		}
 		return mapCompetencesEtudiant(etudiantDTO, request);
 	}
 
 	@RequestMapping(value = "/saveLoisir", method = RequestMethod.POST)
-	public ModelAndView saveLoisir(String mail, String loisir1, String loisir2, String loisir3, String loisir4,
-			String loisir5, HttpServletRequest request) {
-		System.out.println(mail + loisir1 + loisir2 + loisir3 + loisir4 + loisir5);
-		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(mail);
+	public ModelAndView saveLoisir(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
+			HttpServletRequest request) {
+		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
 		etudiantBean.deleteLoisirList(etudiantDTO);
-		etudiantBean.addHobbie(etudiantDTO, loisir1);
-		etudiantBean.addHobbie(etudiantDTO, loisir2);
-		etudiantBean.addHobbie(etudiantDTO, loisir3);
-		etudiantBean.addHobbie(etudiantDTO, loisir4);
-		etudiantBean.addHobbie(etudiantDTO, loisir5);
+		String tabExp[] = liste.split("%");
+		for (int i = 0; i < tabExp.length; i++) {
+			etudiantBean.addHobbie(etudiantDTO, tabExp[i]);
+		}
 		return mapCompetencesEtudiant(etudiantDTO, request);
 	}
 
@@ -138,6 +133,12 @@ public class EditionProfilController {
 		etudiantDTO.getProfil().setMesHobbies(listLoisir);
 		request.getSession().setAttribute("etudiant", etudiantDTO);
 		return new ModelAndView("redirect:profil/" + etudiantDTO.getId(), "command", new EtudiantDTO());
+	}
+
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	public ModelAndView test(int id) {
+		System.out.println("OK !");
+		return new ModelAndView("redirect:profil/" + id, "command", new EtudiantDTO());
 	}
 
 }
