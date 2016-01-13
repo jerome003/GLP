@@ -1,3 +1,3 @@
  <div class="container">
-        <p> 404 Not found </p>
+        <p> Une erreur s'est produite... :( </p>
 </div>
