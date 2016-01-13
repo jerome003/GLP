@@ -2,139 +2,102 @@ package ipint15.glp.domain.tests;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
-import org.junit.After;
-import org.junit.Before;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.GroupeDTO;
-import ipint15.glp.domain.entities.Groupe;
-import ipint15.glp.domain.impl.GroupeImpl;
-import ipint15.glp.domain.util.Conversion;
+import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.GroupeRemote;
+
 
 public class GroupeImplTest {
 
-	@PersistenceContext
-	EntityManager em;
 
-	Conversion ce = new Conversion();
-
-	private GroupeImpl groupeImpl = new GroupeImpl();
-
-
-	private static final String PERSISTENCE_UNIT_NAME = "ipint.ejb.personbean";
-	private static EntityManagerFactory factory;
-
-	@Before
-	public void setUp(){
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = factory.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-
-		Query queryDelete = em.createQuery("delete from Groupe ");
-		queryDelete.executeUpdate();
-
-		Groupe g = new Groupe();
-		g.setName("groupe");
-		em.persist(g);
-
-
-		Groupe g1 = new Groupe();
-		g1.setName("groupe1");
-		em.persist(g1);
-
-
-		tx.commit();
+	private static InitialContext ctx;
+	private static GroupeRemote groupBean;
+	private static EtudiantCatalogRemote etuBean ;
+	private static GroupeDTO groupe;
+	private static GroupeDTO groupe2;
+	private static GroupeDTO groupe3;
+	
+	@BeforeClass
+	public static void setUp() throws NamingException{
+		ctx= new InitialContext();
+		groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
+		etuBean = (EtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
+		groupe = groupBean.createGroupe("Miage");
+		groupe3 = groupBean.createGroupe("bidule");
+		
+		etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@gmail.com","00000000", "password",new Date(), "prof","Lille", "Université lille", "miage",1980, groupe );
+		etuBean.createEtudiant("Steven", "Dupont", Civilite.M, "steven@gmail.com","000000", "password", new Date(), "CP", "Paris","Miage Corp", "miage",2006, groupe);
 	}
 
-	@After
-	public void tearDown(){
-		em.close();
-		factory.close();
+	@AfterClass
+	public static void tearDown(){
+		
 	}
 
-	@Test
-	public void testGetGroupeById() {
-		em = factory.createEntityManager();
-		int id = 101 ;
-		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
-		q.setParameter("id", id);
-		Groupe g = (Groupe) q.getSingleResult();
-		assertEquals("groupe",g.getName());
-
-	}
 
 	@Test
 	public void testCreateGroupe() {
-		em = factory.createEntityManager();
-
-		GroupeDTO g = new GroupeDTO();
-		g = groupeImpl.createGroupe("Miage");
-
-		assertEquals("Miage",g.getName());
-
+		
+		groupe2 = groupBean.createGroupe("fil");
+		assertEquals("fil",groupe2.getName());
 
 	}
+	
+	@Test
+	public void testGetGroupeDTOById () {
+		GroupeDTO g = groupBean.getGroupeDTOById(groupe.getId());
+		assertEquals(g.getName(),groupe.getName());
+		assertEquals(g.getId(), groupe.getId());
+	}
 
-//	@Test
-//	public void testEditeGroupe() {
-//		em = factory.createEntityManager();
-//		em.getTransaction().begin();
-//
-//		Groupe g1 = new Groupe();
-//		g1.setName("groupe_miage");
-//		em.persist(g1);
-//		em.getTransaction().commit();
-//
-//		System.out.println(g1.getName());
-//		groupeImpl.editGroupe(g1.getId(),"Miage_Lille");
-//		System.out.println(g1.getName());
-//
-//		assertEquals("Miage_Lille",g1.getName());
-//
-//
-//	}	
+	@Test
+	public void testEditeGroupe() {
+		groupBean.editGroupe(groupe.getId(), "Miage_Lille");
+		groupe = groupBean.getGroupeDTOById(groupe.getId());
+		assertEquals("Miage_Lille", groupe.getName());
+
+	}	
 
 	@Test
 	public void testGetAllGroupe() {
-		em = factory.createEntityManager();
-		List<GroupeDTO> liste = new ArrayList<GroupeDTO>();
-		liste = groupeImpl.getAllGroupe();
+		
+		List<GroupeDTO> liste = groupBean.getAllGroupe();
+		
+		assertEquals("Miage",liste.get(0).getName());
+		assertEquals("fil",liste.get(1).getName());
+		//assertEquals("bidule",liste.get(1).getName());
+		assertEquals(2,liste.size());
 
-		assertEquals("groupe1",liste.get(1).getName());
-		assertEquals("groupe",liste.get(0).getName());
-
-
+	}
+	
+	@Test
+	public void testGroupeSize(){
+		int nb = groupBean.getGroupeSize(groupe.getId());
+		assertEquals( 2 , nb);
+		int nb2 = groupBean.getGroupeSize(groupe2.getId());
+		assertEquals( 0 , nb2);
 	}
 
 	@Test
 	public void testRemoveGroupe() {
-		em = factory.createEntityManager();
-		em.getTransaction().begin();
-
-		Groupe g1 = new Groupe();	
-		g1.setName("groupe_miage");
-		em.persist(g1);
-		em.getTransaction().commit();
-
-		groupeImpl.removeGroupe(g1.getId());
-
-		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
-		q.setParameter("id", g1.getId());
-		Groupe g = (Groupe) q.getSingleResult();
-		System.out.println(g.getName());
-		assertNull(g);
-
+		groupBean.removeGroupe(groupe3.getId());
+		
+		List<GroupeDTO> liste = groupBean.getAllGroupe();
+		assertEquals(2,liste.size());
+		assertEquals("Miage",liste.get(0).getName());
+		assertEquals("fil",liste.get(1).getName());
 
 
 	}
