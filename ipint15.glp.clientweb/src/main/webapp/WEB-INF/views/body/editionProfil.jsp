@@ -7,6 +7,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <html>
+<!-- ----------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------- -->
+<!-- -----------------------------Code JS----------------------------------- -->
+<!-- ----------------------------------------------------------------------- -->
 <script type="text/javascript">
 
 function saveExpPro(){
@@ -22,8 +26,8 @@ function saveExpPro(){
 		tmp += noeuds[i++].value+"|";
  		tmp += noeuds[i++].value+"%";
  	}
-	var test = "toto";
-	alert(tmp+" "+test);
+//	var test = "toto";
+	//alert(tmp+" "+test);
 	var res = { mail : mail.value,maListe : tmp } ; 	
  	$.ajax({
          type: "POST",
@@ -61,7 +65,7 @@ function save(name, url){
      });
 }
 
-function AddChamp(divId, champId, boutonId) {
+function AddChamp(divId, champId, boutonId, fctSave) {
 	var taille = document.getElementsByName(champId).length;
 	if (taille == 0) {
 			var input = document.createElement("input");
@@ -74,7 +78,7 @@ function AddChamp(divId, champId, boutonId) {
 			adresse.setAttribute("class", "btn btn-primary");
 			adresse.setAttribute("id",boutonId+"0");
 			adresse.setAttribute("name",boutonId);
-			adresse.setAttribute("onClick","suppressionChampEtBouton("+champId+"0"+","+ boutonId+"0"+ ")");
+			adresse.setAttribute("onClick","suppressionChampEtBouton("+champId+"0"+","+ boutonId+"0"+ ");");
 			adresse.appendChild(link);
 			
 			
@@ -100,7 +104,7 @@ function AddChamp(divId, champId, boutonId) {
 			adresse.setAttribute("class", "btn btn-primary");
 			adresse.setAttribute("id",boutonId+""+nvId);
 			adresse.setAttribute("name", boutonId);
-			adresse.setAttribute("onClick", "suppressionChampEtBouton("+champId+""+ nvId + ","+ boutonId+"" + nvId + ")");
+			adresse.setAttribute("onClick", "suppressionChampEtBouton("+champId+""+ nvId + ","+ boutonId+"" + nvId + ");");
 			adresse.appendChild(link);
 			
 			document.getElementById(divId).appendChild(input);
@@ -168,7 +172,7 @@ function AddChamp(divId, champId, boutonId) {
 			adresse.setAttribute("class", "btn btn-primary");
 			adresse.setAttribute("id","deleteExpPro0");
 			adresse.setAttribute("name","deleteExpPro");
-			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro(0, deleteExpPro0)");
+			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro(0, deleteExpPro0);");
 			adresse.appendChild(link);
 			
 			document.getElementById("lesExpPro").appendChild(adresse);
@@ -214,7 +218,7 @@ function AddChamp(divId, champId, boutonId) {
 			adresse.setAttribute("class", "btn btn-primary");
 			adresse.setAttribute("id","deleteExpPro"+nvId);
 			adresse.setAttribute("name","deleteExpPro");
-			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro("+nvId+", deleteExpPro"+nvId+")");
+			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro("+nvId+", deleteExpPro"+nvId+");");
 			adresse.appendChild(link);
 			
 			document.getElementById("lesExpPro").appendChild(adresse);
@@ -260,6 +264,10 @@ function AddChamp(divId, champId, boutonId) {
 		}
 	}
 </script>
+<!-- ----------------------------------------------------------------------- -->
+<!-- ----------------------------------------------------------------------- -->
+<!-- ----------------------------Fin Code JS-------------------------------- -->
+<!-- ----------------------------------------------------------------------- -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -347,7 +355,7 @@ function AddChamp(divId, champId, boutonId) {
 									value="${experience.duree}">
 								<a id="deleteExpPro${loop.index}" name="deleteExpPro"
 									class="btn btn-primary"
-									onClick='suppressionChampEtBoutonExpPro(${loop.index}, deleteExpPro${loop.index})'>-</a>
+									onClick='suppressionChampEtBoutonExpPro(${loop.index}, deleteExpPro${loop.index});  saveExpPro();'>-</a>
 								</br>
 							</c:forEach>
 
@@ -365,8 +373,8 @@ function AddChamp(divId, champId, boutonId) {
 						<div class="col-md-6">
 							<h2 class="text-success">Compétences</h2>
 							<div id="lesCompetences" class="lesCompetences">
-								<a class="btn btn-primary"
-									onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence');">Ajouter
+								<a class="btn btn-primary"	
+									onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');">Ajouter
 									une compétence</a><a class="btn btn-primary"
 									onClick="save('lesCompetences', 'saveCompetence');">Enregistrer</a>
 								<ul class="list-group">
@@ -376,7 +384,7 @@ function AddChamp(divId, champId, boutonId) {
 											value="${competence.libelle}">
 										<a id="deleteCompetence${loop.index}" name="deleteCompetence"
 											class="btn btn-primary"
-											onClick="suppressionChampEtBouton(competence${loop.index}, deleteCompetence${loop.index})">-</a>
+											onClick="suppressionChampEtBouton(competence${loop.index}, deleteCompetence${loop.index}); save('lesCompetences', 'saveCompetence');">-</a>
 										</br>
 									</c:forEach>
 								</ul>
@@ -386,7 +394,7 @@ function AddChamp(divId, champId, boutonId) {
 							<h2 class="text-success">Formation</h2>
 							<div id="lesFormations" class="lesFormations">
 								<a class="btn btn-primary"
-									onClick="AddChamp('lesFormations', 'formation', 'deleteFormation');">Ajouter
+									onClick="AddChamp('lesFormations', 'formation', 'deleteFormation','saveFormation()');">Ajouter
 									une formation</a><a class="btn btn-primary"
 									onClick="save('lesFormations', 'saveFormation');">Enregistrer</a>
 								<ul class="list-group">
@@ -396,7 +404,7 @@ function AddChamp(divId, champId, boutonId) {
 											value="${formation.libelle}">
 										<a id="deleteFormation${loop.index}" name="deleteFormation"
 											class="btn btn-primary"
-											onClick="suppressionChampEtBouton(formation${loop.index}, deleteFormation${loop.index})">-</a>
+											onClick="suppressionChampEtBouton(formation${loop.index}, deleteFormation${loop.index}); save('lesFormations', 'saveFormation');">-</a>
 									</c:forEach>
 								</ul>
 							</div>
@@ -411,7 +419,7 @@ function AddChamp(divId, champId, boutonId) {
 							<h2 class="text-success">Loisirs</h2>
 							<div id="lesLoisirs" class="lesLoisirs">
 								<a class="btn btn-primary"
-									onClick="AddChamp('lesLoisirs', 'loisir', 'deleteLoisir');">Ajouter
+									onClick="AddChamp('lesLoisirs', 'loisir', 'deleteLoisir','saveLoisir()');">Ajouter
 									un loisir</a><a class="btn btn-primary"
 									onClick="save('lesLoisirs', 'saveLoisir');">Enregistrer</a>
 								<ul class="list-group">
@@ -421,7 +429,7 @@ function AddChamp(divId, champId, boutonId) {
 											value="${loisir.libelle}">
 										<a id="deleteLoisir${loop.index}" name="deleteLoisir"
 											class="btn btn-primary"
-											onClick="suppressionChampEtBouton(loisir${loop.index}, deleteLoisir${loop.index})">-</a>
+											onClick="suppressionChampEtBouton(loisir${loop.index}, deleteLoisir${loop.index}); save('lesLoisirs', 'saveLoisir');">-</a>
 									</c:forEach>
 								</ul>
 							</div>

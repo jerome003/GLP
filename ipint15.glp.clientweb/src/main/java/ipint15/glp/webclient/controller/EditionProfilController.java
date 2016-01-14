@@ -76,16 +76,27 @@ public class EditionProfilController {
 	public ModelAndView saveExpPro(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
 			HttpServletRequest request) {
 		System.out.println(liste + " " + email);
+		if(liste == null || liste.length() < 4){
+			return null;
+		}
+		else{
 		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
 		etudiantBean.deleteExpProList(etudiantDTO);
 		String tabExp[] = liste.split("%");
-		for (int i = 0; i < tabExp.length; i++) {
-			String tabExpTmp[] = tabExp[i].split("\\|");
-			etudiantBean.addExperience(etudiantDTO, tabExpTmp[0].replaceAll("|", ""), tabExpTmp[1].replaceAll("|", ""),
-					tabExpTmp[3].replaceAll("|", ""), tabExpTmp[2].replaceAll("|", ""));
-		}
+		
+		//TODO ajouter une exception, si le le tableau est vide on fait rien --> vérif avec le if !!
+		
 
+			for (int i = 0; i < tabExp.length; i++) {
+				String tabExpTmp[] = tabExp[i].split("\\|");
+				etudiantBean.addExperience(etudiantDTO, tabExpTmp[0].replaceAll("|", ""), tabExpTmp[1].replaceAll("|", ""),
+					tabExpTmp[3].replaceAll("|", ""), tabExpTmp[2].replaceAll("|", ""));
+			}
+		
+		
 		return mapCompetencesEtudiant(etudiantDTO, request);
+		}
+		
 	}
 
 	@RequestMapping(value = "/saveCompetence", method = RequestMethod.POST)
