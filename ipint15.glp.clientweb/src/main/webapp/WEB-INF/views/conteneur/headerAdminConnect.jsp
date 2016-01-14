@@ -34,12 +34,15 @@
 
 		<div class="collapse navbar-collapse" id="navbar-ex-collapse">
 			<ul class="nav navbar-nav navbar-right">
+					<li <%if (section.equals("accueilgroupes")) {%> class="active" <%}%>>
+					<a href="${pageContext.request.contextPath}/admin">Accueil</a>
+				</li>
 				<li <%if (section.equals("groupes")) {%> class="active" <%}%>>
-					<a href="${pageContext.request.contextPath}/groupes">Gestion Groupes</a>
+					<a href="${pageContext.request.contextPath}/admin/groupes">Gestion Groupes</a>
 				</li>
 
 				<li <%if (section.equals("moderateur")) {%> class="active" <%}%>><a
-					href="${pageContext.request.contextPath}/moderateurs">Gestion Modérateurs<br></a>
+					href="${pageContext.request.contextPath}/admin/moderateurs">Gestion Modérateurs<br></a>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/deconnection">Déconnexion<br></a>
 				</li>
