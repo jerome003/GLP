@@ -35,7 +35,7 @@
 			<table class="table table-striped table-hover table-users">
 				<thead>
 					<tr>
-						<th>Nom du groupe</th>
+						<th>Nom du groupe (nb)</th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -44,7 +44,7 @@
 				<tbody>
 				<c:forEach items="${liste}" var="results">
 					<tr>
-						<td>${results.name} ${myInjectedBean.getGroupeSize(results.id)}</td>
+						<td>${results.name} (${myInjectedBean.getGroupeSize(results.id)})</td>
 						<td><a class="btn mini blue-stripe"
 							href="${pageContext.request.contextPath}/admin/editGroupe/${results.id}"><span
 								class="glyphicon glyphicon-pencil"></span> Edit</a></td>

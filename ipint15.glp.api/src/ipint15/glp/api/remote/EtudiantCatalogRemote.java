@@ -104,11 +104,14 @@ public interface EtudiantCatalogRemote {
 	 * @param numtelephone
 	 */
 	
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone);
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone, String facebook, String twitter, String viadeo, String linkedin);
 
 
 	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO);
 
 
 	public GroupeDTO getGroupe(EtudiantDTO eDTO);
+
+
+	boolean valideLien(String lien, String site);
 }

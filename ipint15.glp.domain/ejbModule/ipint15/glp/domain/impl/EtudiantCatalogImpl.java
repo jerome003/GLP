@@ -67,9 +67,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		return g;
 	}
 
-	// TODO en cours de modif
 	@Override
-
 	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
 			String numTelephone, String password, Date naissance, String posteActu, String villeActu,
 			String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
@@ -94,6 +92,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		e.setGroupe(p);
 		p.getEtudiants().add(e);
+
 
 		// Création du profil de l'étudiant
 		EtudiantProfil ep = new EtudiantProfil();
@@ -426,15 +425,30 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone) {
-		// TODO Auto-generated method stub
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone ,String facebook, String twitter, String viadeo, String linkedin) {
+
 		Etudiant e = getEtudiantById(id);
 		e.setPosteActu(posteActu);
 		e.setVilleActu(villeActu);
 		e.setNomEntreprise(nomEntreprise);
 		e.setNumTelephone(numTelephone);
-		em.persist(e);
+		if (valideLien(facebook, "facebook.com")) 
+			e.setFacebook(facebook);
+		if(valideLien(twitter, "twitter.com"))
+			e.setTwitter(twitter);
+		if(valideLien(viadeo, "viadeo.com"))
+			e.setViadeo(viadeo);
+		if (valideLien(linkedin, "linkedin.com"))
+			e.setLinkedin(linkedin);
+		em.persist(e);	
+	}
 
+
+	@Override
+	public boolean valideLien(String lien, String site) {
+		if (lien.contains(site) && (lien.contains("http://") || lien.contains("https://")))
+			return true;
+		return false;
 	}
 
 }
