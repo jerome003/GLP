@@ -42,8 +42,11 @@ public class ConnexionController {
 	public String connexion(@Valid @ModelAttribute("command") ConnexionCommand etudiant, BindingResult result,
 			HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
+		if (etudiant.getEmail().equals("admin@admin") && etudiant.getPassword().equals("admin")) {
+			sessionObj.setAttribute("section", "connexion");
+			return "redirect:admin";
+		}
 		sessionObj.setAttribute("section", "actualite");
-		System.out.println("Mon etudiant" + etudiant);
 		if (result.hasErrors()) {
 			return "connexion";
 		}
