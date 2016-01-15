@@ -125,7 +125,6 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testAddExperience() {
-
 		etuBean.addExperience(etudiant, "Stage", "Miage Corp", "6 mois", "2014");
 		etudiant = etuBean.getEtudiant(etudiant.getId());
 		List<ExperienceDTO> e = etuBean.getExperiences(etudiant);
@@ -276,7 +275,6 @@ public class EtudiantCatalogImplTest {
 		assertEquals("ecole2",liste.get(2).getLibelle());
 		assertEquals(3,liste.size());
 	}
-	
 
 	
 	@Test
