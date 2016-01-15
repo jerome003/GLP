@@ -125,6 +125,7 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testAddExperience() {
+
 		etuBean.addExperience(etudiant, "Stage", "Miage Corp", "6 mois", "2014");
 		etudiant = etuBean.getEtudiant(etudiant.getId());
 		List<ExperienceDTO> e = etuBean.getExperiences(etudiant);
@@ -191,17 +192,6 @@ public class EtudiantCatalogImplTest {
 	
 	
 	@Test
-	public void testGetEcoles () {
-		etuBean.addEcole(etudiant, "ecole1");
-		etuBean.addEcole(etudiant, "ecole2");
-		etudiant = etuBean.getEtudiant(etudiant.getId());
-		List<EcoleDTO> liste = etuBean.getEcoles(etudiant);
-		assertEquals("ecole1",liste.get(1).getLibelle());
-		assertEquals("ecole2",liste.get(2).getLibelle());
-		assertEquals(3,liste.size());
-	}
-	
-	@Test
 	public void testGetPublicationByEtudiant() {
 		etuBean.addPublication(etudiant, "coucou"," message test", new Date());
 		List<PublicationDTO> p = etuBean.getPublications(etudiant);
@@ -266,12 +256,28 @@ public class EtudiantCatalogImplTest {
 	public void testDeleteExpProList() {
 		etuBean.addExperience(etu,"Stage2", "CapGemini","6 mois", "2013");
 		etuBean.addExperience(etu, "Stage3", "CGI", "5 mois", "2015");
-		etuBean.deleteExpProList(etu);
-		etu = etuBean.getEtudiant(etu.getId());
-		List<ExperienceDTO> listeEtu = etuBean.getExperiences(etu);
-		List<ExperienceDTO> liste = new ArrayList<ExperienceDTO>();
-		assertEquals(liste,listeEtu);
+		etuBean.addExperience(etudiant, "Stage", null, null, null);
+		etudiant = etuBean.getEtudiant(etudiant.getId());
+		List<ExperienceDTO> e = etuBean.getExperiences(etudiant);
+		assertEquals("Stage", e.get(2).getLibelle());
+		assertEquals(3, e.size());
 	}
+	
+
+
+	
+	@Test
+	public void testGetEcoles () {
+		etuBean.addEcole(etudiant, "ecole1");
+		etuBean.addEcole(etudiant, "ecole2");
+		etudiant = etuBean.getEtudiant(etudiant.getId());
+		List<EcoleDTO> liste = etuBean.getEcoles(etudiant);
+		assertEquals("ecole1",liste.get(1).getLibelle());
+		assertEquals("ecole2",liste.get(2).getLibelle());
+		assertEquals(3,liste.size());
+	}
+	
+
 	
 	@Test
 	public void testDeleteFormationList() {
