@@ -32,7 +32,7 @@ public class adminController {
 	protected GroupeRemote groupeBean;
 	
 	@RequestMapping(value = "/admin/groupes", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
+	public ModelAndView homeGroupes(Locale locale, Model model, HttpServletRequest request) {
 	HttpSession sessionObj = request.getSession();
 	sessionObj.setAttribute("section", "groupes");
 	
@@ -42,6 +42,13 @@ public class adminController {
 	model.addAttribute("myInjectedBean", groupeBean );
 	
 	return modelView;
+	}
+	
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String home(Locale locale, Model model, HttpServletRequest request) {
+	HttpSession sessionObj = request.getSession();
+	sessionObj.setAttribute("section", "accueilgroupes");
+	return "admin";
 	}
 	
 
