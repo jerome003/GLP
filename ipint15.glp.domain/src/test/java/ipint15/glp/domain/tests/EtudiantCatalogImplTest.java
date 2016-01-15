@@ -17,7 +17,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.domain.entities.Etudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
