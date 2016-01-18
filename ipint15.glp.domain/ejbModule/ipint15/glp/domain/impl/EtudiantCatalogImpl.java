@@ -67,12 +67,10 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		return g;
 	}
 
-
-	// TODO en cours de modif
 	@Override
-
-	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
-			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
+	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
+			String numTelephone, String password, Date naissance, String posteActu, String villeActu,
+			String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
 		// Création de l'étudiant
 		Etudiant e = new Etudiant();
 		e.setPrenom(firstname);
@@ -94,7 +92,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		e.setGroupe(p);
 		p.getEtudiants().add(e);
-
 
 
 		// Création du profil de l'étudiant
@@ -142,7 +139,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		// a remplacer par le renvoie d'une exception lorsqu'aucun id ne
 		// correspond à celui en parametre
 		return null;
-
 
 	}
 
@@ -205,7 +201,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addExperience(EtudiantDTO eDTO, String experience) {
+	public void addExperience(EtudiantDTO eDTO, String experience, String entreprise, String duree, String anneeDebut) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Experience exp = new Experience();
@@ -213,10 +209,13 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesExperiences().add(exp);
 		exp.setProfil(ep);
+		exp.setLibelle(experience);
+		exp.setDuree(duree);
+		exp.setEntreprise(entreprise);
+		exp.setAnneeDebut(anneeDebut);
 		em.persist(exp);
 		em.merge(ep);
 		em.merge(e);
-
 
 	}
 
@@ -250,7 +249,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		e.setGroupe(grp);
 		grp.getEtudiants().add(e);
-
 
 		em.merge(grp);
 		em.merge(e);
@@ -428,7 +426,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone ,String facebook, String twitter, String viadeo, String linkedin) {
-		// TODO Auto-generated method stub		
+
 		Etudiant e = getEtudiantById(id);
 		e.setPosteActu(posteActu);
 		e.setVilleActu(villeActu);
@@ -445,12 +443,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(e);	
 	}
 
+
 	@Override
 	public boolean valideLien(String lien, String site) {
 		if (lien.contains(site) && (lien.contains("http://") || lien.contains("https://")))
 			return true;
 		return false;
-
 	}
 
 }
