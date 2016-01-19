@@ -23,6 +23,9 @@ public class Groupe {
 	private int id;
 	@OneToMany(mappedBy="groupe")
     private List<Etudiant> etudiants ;
+	@ManyToMany(mappedBy="groupes")
+    private List<Moderateur> moderateurs ;
+
 	private String name;
 	public int getId() {
 		return id;
@@ -42,6 +45,14 @@ public class Groupe {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public List<Moderateur> getModerateurs() {
+		return moderateurs;
+	}
+	public void setModerateurs(List<Moderateur> moderateurs) {
+		this.moderateurs = moderateurs;
+	}
+	
 	@Override
 	public String toString() {
 		return "Groupe [id=" + id + ", name=" + name + "]";
