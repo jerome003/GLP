@@ -15,6 +15,7 @@
 		<class>ipint15.glp.domain.entities.Publication</class>
 		<class>ipint15.glp.domain.entities.Groupe</class>
 		<class>ipint15.glp.domain.entities.Moderateur</class>
+		<class>ipint15.glp.domain.entities.Admin</class>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value = "drop-and-create"/>
 			<property name="javax.persistence.schema-generation.create-database-schemas" value = "true"/>			
