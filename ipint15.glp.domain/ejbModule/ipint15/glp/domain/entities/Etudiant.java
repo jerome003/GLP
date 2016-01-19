@@ -46,6 +46,7 @@ public class Etudiant implements Serializable {
 	private Civilite civilite;
 	private String password;
 	private String email;
+	private boolean validation;
 	private String numTelephone;
 	@Temporal(TemporalType.TIME)
 	private Date naissance;
@@ -161,9 +162,12 @@ public class Etudiant implements Serializable {
 		this.groupe = groupe;
 	}
 	
-	
-
-
+	public boolean getValidation() {
+		return validation;
+	}
+	public void setValidation(boolean validation) {
+		this.validation = validation;
+	}
 	
 	public String getTwitter() {
 		return twitter;
@@ -223,7 +227,7 @@ public class Etudiant implements Serializable {
 	@Override
 	public String toString() {
 		return "Etudiant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite + ", password="
-				+ password + ", email=" + email + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non") 
+				+ password + ", email=" + email + ", validation=" + validation + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non") 
 						+ ", monGroupe=" + groupe + ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise=" + nomEntreprise
 						 + "]";
 

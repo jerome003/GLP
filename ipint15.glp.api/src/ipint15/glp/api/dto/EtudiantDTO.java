@@ -32,6 +32,7 @@ public class EtudiantDTO implements Serializable {
 	
 	@NotEmpty( message = "Veuillez saisir une adresse email" )
 	private String email;
+	private boolean validation;
 	private String numTelephone;
 	@NotNull (message="Veuillez saisir une date de naissance")
 	@Past (message= "Veuillez saisir une date de naissance valide")
@@ -154,7 +155,13 @@ public class EtudiantDTO implements Serializable {
 	public void setGroupe(GroupeDTO groupe) {
 		this.groupe = groupe;
 	}
-	
+
+	public boolean getValidation() {
+		return validation;
+	}
+	public void setValidation(boolean validation) {
+		this.validation = validation;
+	}
 	
 	public String getFacebook() {
 		return facebook;
@@ -183,7 +190,7 @@ public class EtudiantDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", civilite=" + civilite
-				+ ", password=" + password + ", email=" + email + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non")
+				+ ", password=" + password + ", email=" + email + ", validation=" + validation + ", naissance=" + naissance + ", profil=" + ((profil!=null) ? "oui" : "non")
 				+ ", diplome=" + diplome + ", Annee obtention=" + anneeDiplome+ ", groupe= " + groupe + ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise="
 						+ nomEntreprise + "]";
 
