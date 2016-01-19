@@ -77,6 +77,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		e.setNom(lastname);
 		e.setCivilite(civilite);
 		e.setEmail(email);
+		e.setValidation(false);
 		e.setNumTelephone(numTelephone);
 		e.setPassword("password");
 		e.setNaissance(naissance);
