@@ -6,14 +6,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
-=======
-	<classpathentry kind="con" path="oracle.eclipse.tools.glassfish.lib.system">
-		<attributes>
-			<attribute name="owner.project.facets" value="jst.ejb"/>
-		</attributes>
-	</classpathentry>
->>>>>>> branch 'master' of https://github.com/jerome003/GLP.git
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
@@ -27,25 +19,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-8-oracle">
-		<attributes>
-<<<<<<< HEAD
-			<attribute name="owner.project.facets" value="#system#;jpt.jpa"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="/ipint15.glp.api"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/glpLibrary"/>
 	<classpathentry kind="con" path="oracle.eclipse.tools.glassfish.lib.system">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.ejb"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-8-oracle">
 		<attributes>
-=======
->>>>>>> branch 'master' of https://github.com/jerome003/GLP.git
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/glpLibrary"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
