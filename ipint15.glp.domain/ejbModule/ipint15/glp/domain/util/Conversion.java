@@ -8,6 +8,7 @@ import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
+import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.domain.entities.Competence;
 import ipint15.glp.domain.entities.Ecole;
 import ipint15.glp.domain.entities.Etudiant;
@@ -16,6 +17,7 @@ import ipint15.glp.domain.entities.Publication;
 import ipint15.glp.domain.entities.Experience;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Hobbie;
+import ipint15.glp.domain.entities.Moderateur;
 public class Conversion {
 	
 	
@@ -30,6 +32,8 @@ public class Conversion {
 		epDTO.setEtudiant(eDTO);
 		return eDTO;
 	}
+	
+	
 	
 	public CompetenceDTO MappingProfilCompetence (EtudiantProfil ep, Competence c){
 		
@@ -104,6 +108,28 @@ public class Conversion {
 		eDto.setGroupe(gDTO);
 		gDTO.getEtudiants().add(eDto);
 		return gDTO;
+	}
+	
+	public GroupeDTO MappingModerateurGroupe (Moderateur m, Groupe g){
+		
+		ModerateurDTO mDto = m.toModerateurDTO();
+		GroupeDTO gDTO = g.toGroupeDTO();
+		
+		// Mapping du profil avec sa compétence
+		mDto.getGroupes().add(gDTO);
+		gDTO.getModerateurs().add(mDto);
+		return gDTO;
+	}
+	
+	public ModerateurDTO MappingGroupeModerateur (Moderateur m, Groupe g){
+		
+		ModerateurDTO mDTO = m.toModerateurDTO();
+		GroupeDTO gDTO = g.toGroupeDTO();
+		
+		// Mapping du profil avec sa compétence
+		mDTO.getGroupes().add(gDTO);
+		gDTO.getModerateurs().add(mDTO);
+		return mDTO;
 	}
 	
 	

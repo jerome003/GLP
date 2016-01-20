@@ -29,6 +29,7 @@ import ipint15.glp.api.remote.GroupeRemote;
 
 public class EtudiantCatalogImplTest {
 
+
 	private static InitialContext ctx;
 	private static EtudiantCatalogRemote etuBean ;
 	private static GroupeRemote groupBean;

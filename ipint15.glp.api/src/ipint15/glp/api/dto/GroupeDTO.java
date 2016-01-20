@@ -10,11 +10,21 @@ public class GroupeDTO implements Serializable {
 	private int id;
 	private String name;
 	private List<EtudiantDTO> etudiants ;
+	private List<ModerateurDTO> moderateurs ;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public List<ModerateurDTO> getModerateurs() {
+		if (moderateurs == null) {
+			this.moderateurs = new ArrayList<ModerateurDTO>();
+		}
+		return moderateurs;
+	}
+	public void setModerateurs(List<ModerateurDTO> moderateurs) {
+		this.moderateurs = moderateurs;
 	}
 	public String getName() {
 		return name;
@@ -33,11 +43,7 @@ public class GroupeDTO implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "GroupeDTO [id=" + id + ", name=" + name +  ", etudiants=" + ((!getEtudiants().isEmpty()) ? "oui" : "non") +"]";
-	}
-	
-	
-	
-	
-
+		return "GroupeDTO [id=" + id + ", name=" + name +  ", etudiants=" + ((!getEtudiants().isEmpty()) ? "oui" : "non") 
+				+  ", moderateurs=" + ((!getModerateurs().isEmpty()) ? "oui" : "non")+"]";
+	}	
 }
