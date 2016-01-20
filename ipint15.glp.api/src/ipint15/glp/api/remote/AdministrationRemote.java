@@ -18,8 +18,12 @@ public interface AdministrationRemote {
 	
 	public String generatePassword();	
 	
+	public List<ModerateurDTO> getAllModerateur();
+	
 	public ModerateurDTO getModerateurDTOById(int id);
 
-	ModerateurDTO createModerateur(String prenom, String nom, String email, String password, GroupeDTO groupe);
+	public ModerateurDTO createModerateur(String prenom, String nom, String email, String password);
+	
+	public void addGroupetoModo(int id, GroupeDTO groupe);
 
 }
