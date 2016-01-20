@@ -272,6 +272,8 @@ public class EtudiantCatalogImplTest {
 		List<ExperienceDTO> liste = new ArrayList<ExperienceDTO>();
 		assertEquals(liste,listeEtu);
 	}
+
+
 	
 	@Test
 	public void testDeleteFormationList() {
