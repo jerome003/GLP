@@ -79,7 +79,7 @@ public class AdministrationImpl implements AdministrationRemote {
 
 
 	@Override
-	public void addGroupetoModo(int id, GroupeDTO groupe) {
+	public ModerateurDTO addGroupetoModo(int id, GroupeDTO groupe) {
 		Moderateur m = getModerateurById(id);
 		Groupe g = getGroupeById(groupe.getId());
 		m.getGroupes().add(g);
@@ -87,6 +87,8 @@ public class AdministrationImpl implements AdministrationRemote {
 		
 		em.merge(m);
 		em.merge(g);
+		
+		return  ce.MappingGroupeModerateur(m, g);
 		
 	}
 

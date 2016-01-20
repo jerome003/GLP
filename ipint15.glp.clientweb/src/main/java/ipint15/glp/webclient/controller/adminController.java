@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sun.research.ws.wadl.Request;
+
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
@@ -35,6 +37,12 @@ public class adminController {
 	
 	@Inject
 	protected AdministrationRemote administrationBean;
+	
+	@ModelAttribute("moderateurList")
+	public List<ModerateurDTO> getModerateur()
+	{
+		return administrationBean.getAllModerateur();
+	}
 	
 	@RequestMapping(value = "/admin/groupes", method = RequestMethod.GET)
 	public ModelAndView homeGroupes(Locale locale, Model model, HttpServletRequest request) {
@@ -71,10 +79,10 @@ public class adminController {
 	
 
 	@RequestMapping(value = "/admin/saveGroupe", method = RequestMethod.POST)
-	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") GroupeDTO groupe, BindingResult result) {
-		System.out.println("Mon groupe est :" + groupe.getName());
-		groupeBean.createGroupe(groupe.getName());
-		System.out.println(groupeBean.getAllGroupe());
+	public ModelAndView saveGroupe(String nameGroupe, int modo) {
+		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe);
+		ModerateurDTO mDTO = administrationBean.addGroupetoModo(modo, gDTO);
+		System.out.println("Modo : " + mDTO.getNom() + " " +  mDTO.getGroupes());
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
 		ModelAndView modelView = new ModelAndView("redirect:groupes", "command", new GroupeDTO());
 		modelView.addObject("liste",listeResultat);
