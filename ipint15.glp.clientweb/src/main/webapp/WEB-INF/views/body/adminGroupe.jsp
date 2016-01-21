@@ -22,6 +22,15 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2">
+						<label class="control-label">Description du groupe :</label>
+					</div>
+					<div class="col-sm-6">
+						<input id="descriptionGroupe" name="descriptionGroupe" type="text"
+							class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2">
 						<label class="control-label">Moderateur :</label>
 					</div>
 					<div class="col-sm-10">
@@ -52,6 +61,7 @@
 				<thead>
 					<tr>
 						<th>Nom du groupe (nb)</th>
+						<th>Description</th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -62,6 +72,8 @@
 						<tr>
 							<td>${results.name}
 								(${myInjectedBean.getGroupeSize(results.id)})</td>
+							<td>${results.description}
+							</td>
 							<td><a class="btn mini blue-stripe"
 								href="${pageContext.request.contextPath}/admin/editGroupe/${results.id}"><span
 									class="glyphicon glyphicon-pencil"></span> Edit</a></td>

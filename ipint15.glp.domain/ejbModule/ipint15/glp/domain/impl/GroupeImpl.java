@@ -39,10 +39,10 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
-	public GroupeDTO createGroupe(String name) {
+	public GroupeDTO createGroupe(String name, String description) {
 		Groupe g = new Groupe();
 		g.setName(name);
-
+		g.setDescription(description);
 		em.persist(g);
 
 		GroupeDTO gDTO = g.toGroupeDTO();
@@ -51,9 +51,10 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
-	public void editGroupe(int id, String newName) {
+	public void editGroupe(int id, String newName, String description) {
 		Groupe g = getGroupeById(id);
 		g.setName(newName);
+		g.setDescription(description);
 
 		em.merge(g);
 

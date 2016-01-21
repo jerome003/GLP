@@ -24,6 +24,6 @@ public interface AdministrationRemote {
 
 	public ModerateurDTO createModerateur(String prenom, String nom, String email, String password);
 	
-	public void addGroupetoModo(int id, GroupeDTO groupe);
+	public ModerateurDTO addGroupetoModo(int id, GroupeDTO groupe);
 
 }

@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.HobbieDTO;
 
 @Entity

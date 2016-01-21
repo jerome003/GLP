@@ -22,8 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
-import ipint15.glp.domain.entities.Etudiant;
-import ipint15.glp.domain.entities.Publication;
+
 @Controller
 @SessionAttributes
 public class filActualiteController {

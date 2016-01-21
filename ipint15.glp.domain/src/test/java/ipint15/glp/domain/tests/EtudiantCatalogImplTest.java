@@ -44,8 +44,8 @@ public class EtudiantCatalogImplTest {
 		etuBean = (EtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
 		groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 		
-		groupe = groupBean.createGroupe("miage");
-		groupe2 = groupBean.createGroupe("fil");
+		groupe = groupBean.createGroupe("miage","groupeMiage");
+		groupe2 = groupBean.createGroupe("fil","groupeFil");
 		etu =etuBean.createEtudiant("Tom", "Hardy", Civilite.M, "tom@gmail.com","000000", "password", new Date(), "Dev", "Lille", "Advens","miage", 2008, groupe2);
 		
 	}

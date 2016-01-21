@@ -34,8 +34,8 @@ public class GroupeImplTest {
 		ctx= new InitialContext();
 		groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 		etuBean = (EtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
-		groupe = groupBean.createGroupe("Miage");
-		groupe3 = groupBean.createGroupe("bidule");
+		groupe = groupBean.createGroupe("Miage","groupeMiage");
+		groupe3 = groupBean.createGroupe("bidule","groupeBidule");
 		
 		etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@gmail.com","00000000", "password",new Date(), "prof","Lille", "Université lille", "miage",1980, groupe );
 		etuBean.createEtudiant("Steven", "Dupont", Civilite.M, "steven@gmail.com","000000", "password", new Date(), "CP", "Paris","Miage Corp", "miage",2006, groupe);
@@ -50,7 +50,7 @@ public class GroupeImplTest {
 	@Test
 	public void testCreateGroupe() {
 		
-		groupe2 = groupBean.createGroupe("fil");
+		groupe2 = groupBean.createGroupe("fil","groupeFil");
 		assertEquals("fil",groupe2.getName());
 
 	}
@@ -64,7 +64,7 @@ public class GroupeImplTest {
 
 	@Test
 	public void testEditeGroupe() {
-		groupBean.editGroupe(groupe.getId(), "Miage_Lille");
+		groupBean.editGroupe(groupe.getId(), "Miage_Lille","groupeMiageLille");
 		groupe = groupBean.getGroupeDTOById(groupe.getId());
 		assertEquals("Miage_Lille", groupe.getName());
 

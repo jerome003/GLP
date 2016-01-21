@@ -79,8 +79,8 @@ public class adminController {
 	
 
 	@RequestMapping(value = "/admin/saveGroupe", method = RequestMethod.POST)
-	public ModelAndView saveGroupe(String nameGroupe, int modo) {
-		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe);
+	public ModelAndView saveGroupe(String nameGroupe, String descriptionGroupe, int modo) {
+		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe,descriptionGroupe);
 		ModerateurDTO mDTO = administrationBean.addGroupetoModo(modo, gDTO);
 		System.out.println("Modo : " + mDTO.getNom() + " " +  mDTO.getGroupes());
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
