@@ -16,10 +16,14 @@ public interface AdministrationRemote {
 	
 	public AdminDTO createAdmin(String email, String mdp);
 	
-	public String generatePassword();	
+	public String generatePassword(int i);	
+	
+	public List<ModerateurDTO> getAllModerateur();
 	
 	public ModerateurDTO getModerateurDTOById(int id);
 
-	ModerateurDTO createModerateur(String prenom, String nom, String email, String password, GroupeDTO groupe);
+	public ModerateurDTO createModerateur(String prenom, String nom, String email, String password);
+	
+	public ModerateurDTO addGroupetoModo(int id, GroupeDTO groupe);
 
 }

@@ -1,6 +1,7 @@
 package ipint15.glp.api.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -70,6 +71,9 @@ public class ModerateurDTO implements Serializable {
 	
 	
 	public List<GroupeDTO> getGroupes() {
+		if (groupes==null) {
+			groupes = new ArrayList<GroupeDTO>();
+		}
 		return groupes;
 	}
 	public void setGroupes(List<GroupeDTO> groupes) {
@@ -80,7 +84,7 @@ public class ModerateurDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", password=" + password + ", email=" + email + "]";
+		return "ModerateurDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", password=" + password + ", email=" + email + "]";
 
 	}
 	@Override

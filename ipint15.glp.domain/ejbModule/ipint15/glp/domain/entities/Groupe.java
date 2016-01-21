@@ -8,10 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import ipint15.glp.api.dto.EtudiantProfilDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 
 @Entity
@@ -25,6 +23,7 @@ public class Groupe {
     private List<Etudiant> etudiants ;
 	@ManyToMany(mappedBy="groupes")
     private List<Moderateur> moderateurs ;
+	private String description;
 
 	private String name;
 	public int getId() {
@@ -52,7 +51,13 @@ public class Groupe {
 	public void setModerateurs(List<Moderateur> moderateurs) {
 		this.moderateurs = moderateurs;
 	}
-	
+
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	@Override
 	public String toString() {
 		return "Groupe [id=" + id + ", name=" + name + "]";
@@ -63,6 +68,7 @@ public class Groupe {
 		GroupeDTO gDTO = new GroupeDTO();
 		gDTO.setId(this.getId());
 		gDTO.setName(this.getName());
+		gDTO.setDescription(description);
 		return gDTO;
 
 	}
