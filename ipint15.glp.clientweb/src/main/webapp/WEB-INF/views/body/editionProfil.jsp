@@ -34,10 +34,12 @@ function saveExpPro(){
          url: url,
          data: res,
          success: function (result) {
-        	 /*window.location = "/ipint15.glp.clientweb/profil/3";*/
+        	 //var id = document.getElementById('idEtu').value;
+        	 //window.location = "/ipint15.glp.clientweb/profil/"+id;
+        	 alert ("Modifications enregistrées");
          },
          error: function (result) {
-             // do something.
+        	 window.location = "/ipint15.glp.clientweb/error";
         }
      });
 }
@@ -57,10 +59,12 @@ function save(name, url){
          url: url,
          data: res,
          success: function (result) {
-             // do something.
+//         	 var id = document.getElementById('idEtu').value;
+//         	 window.location.replace("/ipint15.glp.clientweb/profil/"+id);
+        	 alert ("Modifications enregistrées");
          },
          error: function (result) {
-             // do something.
+        	 window.location = "/ipint15.glp.clientweb/error";
         }
      });
 }
@@ -218,14 +222,13 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			adresse.setAttribute("class", "btn btn-primary");
 			adresse.setAttribute("id","deleteExpPro"+nvId);
 			adresse.setAttribute("name","deleteExpPro");
-			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro("+nvId+", deleteExpPro"+nvId+");");
+			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro("+nvId+", deleteExpPro"+nvId+"); saveExpPro");
 			adresse.appendChild(link);
 			
 			document.getElementById("lesExpPro").appendChild(adresse);
 			document.getElementById("lesExpPro").appendChild(document.createElement("br"));
 		}
 	}
-
 
 	/**
 	* Suppression d'un textarea et du bouton de suppression
@@ -239,6 +242,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			champ.parentNode.removeChild(champ);
 			bouton.parentNode.removeChild(bouton);
 		}
+		
 	}
 	
 	function suppressionChampEtBoutonExpPro(index, bouton){
@@ -263,6 +267,10 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			bouton.parentNode.removeChild(bouton);
 		}
 	}
+	
+	window.onbeforeunload = function(){
+		  return 'Les modifications non enregistrées seront perdues';
+		};
 </script>
 <!-- ----------------------------------------------------------------------- -->
 <!-- ----------------------------------------------------------------------- -->
