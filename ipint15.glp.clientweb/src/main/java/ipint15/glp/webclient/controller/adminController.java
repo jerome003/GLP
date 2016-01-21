@@ -92,7 +92,7 @@ public class adminController {
 	
 	@RequestMapping(value = "/admin/saveModerateur", method = RequestMethod.POST)
 	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result) {
-		administrationBean.createModerateur(moderateur.getPrenom(), moderateur.getNom(), moderateur.getEmail(), administrationBean.generatePassword());
+		administrationBean.createModerateur(moderateur.getPrenom(), moderateur.getNom(), moderateur.getEmail(), administrationBean.generatePassword(8));
 		List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
 		ModelAndView modelView = new ModelAndView("redirect:moderateurs", "command", new ModerateurDTO());
 		modelView.addObject("liste",listeResultat);

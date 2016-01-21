@@ -16,7 +16,7 @@ public interface AdministrationRemote {
 	
 	public AdminDTO createAdmin(String email, String mdp);
 	
-	public String generatePassword();	
+	public String generatePassword(int i);	
 	
 	public List<ModerateurDTO> getAllModerateur();
 	

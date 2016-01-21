@@ -37,10 +37,13 @@
 						<form:input path="email" type="text" class="form-control" />
 						<form:errors path="email" />
 					</div>
+
 					<div class="col-sm-3">
 						<input type="submit" value="Enregistrer" />
 					</div>
+			
 				</div>
+				
 			</form:form>
 		</div>
 		<div class="row">
