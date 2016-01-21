@@ -1,13 +1,10 @@
 package ipint15.glp.api.remote;
 
-import java.util.Date;
-import java.util.List;
+
 
 import javax.ejb.Remote;
 
 import ipint15.glp.api.dto.AdminDTO;
-import ipint15.glp.api.dto.Civilite;
-import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 
@@ -20,6 +17,16 @@ public interface AdministrationRemote {
 	
 	public ModerateurDTO getModerateurDTOById(int id);
 
-	ModerateurDTO createModerateur(String prenom, String nom, String email, String password, GroupeDTO groupe);
+	public ModerateurDTO createModerateur(String prenom, String nom, String email, String password, GroupeDTO groupe);
+	
+	public boolean isMailExists(String mail);
+
+	public boolean isPasswordIsGood(String mail, String password);
+	
+	public boolean connexion(String email, String password);
+	
+	public boolean isThereAnAdmin();
+
+	
 
 }
