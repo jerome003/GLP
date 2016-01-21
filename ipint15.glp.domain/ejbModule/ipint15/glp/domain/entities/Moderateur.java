@@ -84,8 +84,7 @@ public class Moderateur implements Serializable {
 		mDTO.setPrenom(this.getPrenom());
 		mDTO.setNom(this.getNom());
 		mDTO.setEmail(this.getEmail());
-
-		//mDTO.setGroupe(this.groupe.toGroupeDTO());
+		mDTO.setPassword(this.password);
 
 		return mDTO;
 	}
