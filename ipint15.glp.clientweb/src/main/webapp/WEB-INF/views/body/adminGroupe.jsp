@@ -44,16 +44,17 @@
 						</div>
 					</div>
 					<div class="col-sm-2">
-					<a class="btn mini blue-stripe"
-							href="${pageContext.request.contextPath}/admin/moderateurs">Besoin d'ajouter un modérateur ?</a>
+						<a class="btn mini blue-stripe"
+							href="${pageContext.request.contextPath}/admin/moderateurs">Besoin
+							d'ajouter un modérateur ?</a>
 					</div>
-				</div>
-				<div class="form-group">
-				<div class="col-sm-2"> </div>
-					<div class="col-sm-3">
-						<input type="submit" value="Enregistrer" />
+
+					<div class="form-group">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-3">
+							<input type="submit" value="Enregistrer" />
+						</div>
 					</div>
-				</div>
 			</form>
 		</div>
 	</div>
