@@ -41,7 +41,7 @@
 					<a href="${pageContext.request.contextPath}/admin/groupes">Gestion Groupes</a>
 				</li>
 
-				<li <%if (section.equals("moderateur")) {%> class="active" <%}%>><a
+				<li <%if (section.equals("moderateurs")) {%> class="active" <%}%>><a
 					href="${pageContext.request.contextPath}/admin/moderateurs">Gestion Modérateurs<br></a>
 				</li>
 				<li><a href="${pageContext.request.contextPath}/deconnectionAdmin">Déconnexion<br></a>

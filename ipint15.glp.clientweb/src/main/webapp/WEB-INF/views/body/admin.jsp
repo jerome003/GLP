@@ -18,8 +18,8 @@
 				<div class="row">
 		<div class="well well-lg">
 				<a class="col-md-3" class="btn mini blue-stripe"
-							href="${pageContext.request.contextPath}/admin/groupes"><span
-								class="glyphicon glyphicon-pencil"></span> Gestion Modérateurs</a> En construction...
+							href="${pageContext.request.contextPath}/admin/moderateurs"><span
+								class="glyphicon glyphicon-pencil"></span> Gestion Modérateurs</a> Permet de créer des modérateurs
 		</div>
 		</div>
 	</div>

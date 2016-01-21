@@ -11,6 +11,8 @@ public class GroupeDTO implements Serializable {
 	private String name;
 	private List<EtudiantDTO> etudiants ;
 	private List<ModerateurDTO> moderateurs ;
+	private String description;
+	
 	public int getId() {
 		return id;
 	}
@@ -41,6 +43,15 @@ public class GroupeDTO implements Serializable {
 	public void setEtudiants(List<EtudiantDTO> etudiants) {
 		this.etudiants = etudiants;
 	}
+	
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	@Override
 	public String toString() {
 		return "GroupeDTO [id=" + id + ", name=" + name +  ", etudiants=" + ((!getEtudiants().isEmpty()) ? "oui" : "non") 

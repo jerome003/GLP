@@ -13,9 +13,9 @@ import ipint15.glp.api.dto.GroupeDTO;
 public interface GroupeRemote {
 	
 	//CRUD
-	public GroupeDTO createGroupe(String name);
+	public GroupeDTO createGroupe(String name, String description);
 	
-	public void editGroupe(int id, String newName);
+	public void editGroupe(int id, String newName, String description);
 	
 	public void removeGroupe(int id);
 
