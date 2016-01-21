@@ -2,8 +2,9 @@
 	<wb-module deploy-name="ipint15.glp.clientweb">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
 		<wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-		<wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
         <dependent-module archiveName="ipint15.glp.api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ipint15.glp.api/ipint15.glp.api">
             <dependency-type>uses</dependency-type>
         </dependent-module>

@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -39,12 +39,22 @@ public class AdministrationImpl implements AdministrationRemote {
 		return g;
 	}
 
+	private Admin getAdminByMail(String mail) {
+
+		Query q = em.createQuery("select o from Admin o WHERE o.email = :email");
+		q.setParameter("email", mail);
+		Admin a = (Admin) q.getSingleResult();
+
+		return a;
+	}
+
 	@Override
 	public ModerateurDTO createModerateur(String prenom, String nom, String email, String password) {
 		Moderateur m = new Moderateur();
 		m.setEmail(email);
 		m.setNom(nom);
 		m.setPassword(password);
+
 		m.setPrenom(prenom);
 
 		em.persist(m);
@@ -82,6 +92,61 @@ public class AdministrationImpl implements AdministrationRemote {
 		ModerateurDTO mDTO = m.toModerateurDTO();
 		return mDTO;
 	}
+
+	@Override
+	public boolean isMailExists(String mail) {
+		Query q = em.createQuery("select o from Admin o WHERE o.email = :email");
+		q.setParameter("email", mail);
+		Admin a;
+		try {
+			a = (Admin) q.getSingleResult();
+		} catch (NoResultException e1) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean isPasswordIsGood(String mail, String password) {
+		Query q = em.createQuery("select o from Admin o WHERE o.email = :email and o.password = :password ");
+		q.setParameter("email", mail);
+		q.setParameter("password", password);
+		Admin a;
+		try {
+			a = (Admin) q.getSingleResult();
+		} catch (NoResultException e1) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean connexion(String email, String password) {
+		Admin a = getAdminByMail(email);
+		if (a != null && (a.getPassword().equals(password))) {
+			System.out.println("connexion etablie");
+			return true;
+		}
+
+		System.out.println("connexion refusee");
+		return false;
+	}
+
+	@Override
+	public boolean isThereAnAdmin() {
+		Query q = em.createQuery("select o from Admin o  ");
+		
+		Admin a ;
+		try {
+			a = (Admin) q.getSingleResult();
+		} catch (NoResultException e1) {
+			return false;
+		}
+		return true;
+	}
+
+
+
 
 
 
