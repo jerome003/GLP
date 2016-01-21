@@ -58,6 +58,7 @@
 						<th>Prenom</th>
 						<th>Nom</th>
 						<th>Email</th>
+						<th>Groupes</th>
 					</tr>
 				</thead>
 
@@ -67,6 +68,11 @@
 							<td>${results.prenom}</td>
 							<td>${results.nom}</td>
 							<td>${results.email}</td>
+							<td>
+							<c:forEach items="${results.groupes}" var="resultsGroupe">
+								${resultsGroupe.name}
+							</c:forEach>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

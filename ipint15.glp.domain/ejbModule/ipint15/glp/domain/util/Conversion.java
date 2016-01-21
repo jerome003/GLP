@@ -1,5 +1,8 @@
 package ipint15.glp.domain.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
@@ -130,7 +133,25 @@ public class Conversion {
 		mDTO.getGroupes().add(gDTO);
 		gDTO.getModerateurs().add(mDTO);
 		return mDTO;
+	}	
+	public ModerateurDTO MappingGroupeModerateur (Moderateur m, List<Groupe> gList){
+		
+		ModerateurDTO mDTO = m.toModerateurDTO();
+		List<GroupeDTO> gDTO = new ArrayList<GroupeDTO>();
+		
+		for(Groupe g : gList) {
+			gDTO.add(g.toGroupeDTO());
+		}
+		
+		
+		// Mapping du profil avec sa compétence
+		mDTO.setGroupes(gDTO);
+		
+		for(GroupeDTO g : gDTO) {
+			g.getModerateurs().add(mDTO);
+		}
+		
+		return mDTO;
 	}
-	
 	
 }
