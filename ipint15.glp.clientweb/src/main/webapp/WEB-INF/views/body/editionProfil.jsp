@@ -306,138 +306,141 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="col-md-6">
 					<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
 					<form method="post" action="saveProfile">
-						<input type="hidden" id="idEtu" name="idEtu" value="${profil.id}" />
-						<ul class="list-group">
-							<li><label>Poste actuel :</label> <input type="text"
-								id="posteActu" name="posteActu" value="${profil.posteActu}" /></li>
-							<li><label>Ville Actuelle:</label> <input type="text"
-								id="villeActu" name="villeActu" value="${profil.villeActu}" /></li>
-							<li><label>Nom de l'entreprise :</label> <input type="text"
-								id="nomEntreprise" name="nomEntreprise"
-								value="${profil.nomEntreprise}" /></li>
-							<li><label>Mail :</label> <input type="mail" id="mail"
-								name="mail" value="${profil.email}" disabled="disabled" /></li>
-							<li><label>Numéro de téléphone : </label><input type="tel"
-								id="numtelephone" name="numTelephone"
-								value="${profil.numTelephone}"></li>
+						<div class="col-md-6">
+							<input type="hidden" id="idEtu" name="idEtu" value="${profil.id}" />
+							<ul class="list-group">
+								<li><label>Poste actuel :</label> <input type="text"
+									id="posteActu" name="posteActu" value="${profil.posteActu}" /></li>
+								<li><label>Ville Actuelle:</label> <input type="text"
+									id="villeActu" name="villeActu" value="${profil.villeActu}" /></li>
+								<li><label>Nom de l'entreprise :</label> <input type="text"
+									id="nomEntreprise" name="nomEntreprise"
+									value="${profil.nomEntreprise}" /></li>
+								<li><label>Mail :</label> <input type="mail" id="mail"
+									name="mail" value="${profil.email}" disabled="disabled" /></li>
+								<li><label>Numéro de téléphone : </label><input type="tel"
+									id="numtelephone" name="numTelephone"
+									value="${profil.numTelephone}"></li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<ul>
+								<li><label>Facebook : </label><input type="text"
+									id="facebook" name="facebook" value="${profil.facebook}"></li>
+								<li><label>Twitter : </label><input type="text"
+									id="twitter" name="twitter" value="${profil.twitter}"></li>
+								<li><label>Viadeo : </label><input type="text" id="viadeo"
+									name="viadeo" value="${profil.viadeo}"></li>
+								<li><label>Linkedin : </label><input type="text"
+									id="linkedin" name="linkedin" value="${profil.linkedin}"></li>
+								<input type="submit" value="Envoyer" class="btn btn-default" />
 
-							<li><label>Facebook : </label><input type="text"
-								id="facebook" name="facebook" value="${profil.facebook}"></li>
-							<li><label>Twitter : </label><input type="text" id="twitter"
-								name="twitter" value="${profil.twitter}"></li>
-							<li><label>Viadeo : </label><input type="text" id="viadeo"
-								name="viadeo" value="${profil.viadeo}"></li>
-							<li><label>Linkedin : </label><input type="text"
-								id="linkedin" name="linkedin" value="${profil.linkedin}"></li>
-							<input type="submit" value="Envoyer" class="btn btn-default" />
-						</ul>
+							</ul>
+
+						</div>
+					</form>
 				</div>
-				</form>
+				<div class="col-md-6">GROUPES</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<div class="well well-lg">
-						<h2>Expériences Professionnelles</h2>
-						<div class="lesExpPro" id="lesExpPro">
-
-
-							<a class="btn btn-primary"
-								onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');">Ajouter
-								une exprérience</a><a class="btn btn-primary"
-								onClick="saveExpPro();">Enregistrer</a>
-							<c:forEach items="${profil.profil.mesExperiences}"
-								var="experience" varStatus="loop">
-								<label id="labelExpProPoste${loop.index}"
-									for="expProPoste${loop.index}">Poste :</label>
-								<input id="expProPoste${loop.index}" name="expPro"
-									value="${experience.libelle}">
-								<label id="labelExpProEntreprise${loop.index}"
-									for="expProEntreprise${loop.index}">Entreprise :</label>
-								<input id="expProEntreprise${loop.index}" name="expPro"
-									value="${experience.entreprise}">
-								<label id="labelExpProDebut${loop.index}"
-									for="expProDebut${loop.index}">Année de début :</label>
-								<input id="expProDebut${loop.index}" name="expPro"
-									value="${experience.anneeDebut}">
-								<label id="labelExpProDuree${loop.index}"
-									for="expProDuree${loop.index}">Durée :</label>
-								<input id="expProDuree${loop.index}" name="expPro"
-									value="${experience.duree}">
-								<a id="deleteExpPro${loop.index}" name="deleteExpPro"
-									class="btn btn-primary"
-									onClick='suppressionChampEtBoutonExpPro(${loop.index},
-												deleteExpPro${loop.index}); saveExpPro();'>-</a>
-
-								</br>
-							</c:forEach>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="well well-lg">
-						<h2>Compétences</h2>
-						<div id="lesCompetences" class="lesCompetences">
-							<a class="btn btn-primary"
-								onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');">Ajouter
-								une compétence</a><a class="btn btn-primary"
-								onClick="save('lesCompetences', 'saveCompetence');">Enregistrer</a>
-							<ul class="list-group">
-								<c:forEach items="${profil.profil.mesCompetences}"
-									var="competence" varStatus="loop">
-									<input id="competence${loop.index}" name="competence"
-										value="${competence.libelle}">
-									<a id="deleteCompetence${loop.index}" name="deleteCompetence"
+				<div class="col-md-12">
+					<div class="col-md-3">
+						<div class="well well-lg">
+							<h2>Expériences Professionnelles</h2>
+							<div class="lesExpPro" id="lesExpPro">
+								<a class="btn btn-primary"
+									onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');">Ajouter
+									une exprérience</a><a class="btn btn-primary"
+									onClick="saveExpPro();">Enregistrer</a>
+								<c:forEach items="${profil.profil.mesExperiences}"
+									var="experience" varStatus="loop">
+									<label id="labelExpProPoste${loop.index}"
+										for="expProPoste${loop.index}">Poste :</label>
+									<input id="expProPoste${loop.index}" name="expPro"
+										value="${experience.libelle}">
+									<label id="labelExpProEntreprise${loop.index}"
+										for="expProEntreprise${loop.index}">Entreprise :</label>
+									<input id="expProEntreprise${loop.index}" name="expPro"
+										value="${experience.entreprise}">
+									<label id="labelExpProDebut${loop.index}"
+										for="expProDebut${loop.index}">Année de début :</label>
+									<input id="expProDebut${loop.index}" name="expPro"
+										value="${experience.anneeDebut}">
+									<label id="labelExpProDuree${loop.index}"
+										for="expProDuree${loop.index}">Durée :</label>
+									<input id="expProDuree${loop.index}" name="expPro"
+										value="${experience.duree}">
+									<a id="deleteExpPro${loop.index}" name="deleteExpPro"
 										class="btn btn-primary"
-										onClick="suppressionChampEtBouton(competence${loop.index}, deleteCompetence${loop.index}); save('lesCompetences', 'saveCompetence');">-</a>
+										onClick='suppressionChampEtBoutonExpPro(${loop.index},
+												deleteExpPro${loop.index}); saveExpPro();'>-</a>
 									</br>
 								</c:forEach>
-							</ul>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<div class="well well-lg">
-						<h2>Formation</h2>
-						<div id="lesFormations" class="lesFormations">
-							<a class="btn btn-primary"
-								onClick="AddChamp('lesFormations', 'formation', 'deleteFormation','saveFormation()');">Ajouter
-								une formation</a><a class="btn btn-primary"
-								onClick="save('lesFormations', 'saveFormation');">Enregistrer</a>
-							<ul class="list-group">
-								<c:forEach items="${profil.profil.mesEcoles}" var="formation"
-									varStatus="loop">
-									<input id="formation${loop.index}" name="formation"
-										value="${formation.libelle}">
-									<a id="deleteFormation${loop.index}" name="deleteFormation"
-										class="btn btn-primary"
-										onClick="suppressionChampEtBouton(formation${loop.index}, deleteFormation${loop.index}); save('lesFormations', 'saveFormation');">-</a>
-								</c:forEach>
-							</ul>
+					<div class="col-md-3">
+						<div class="well well-lg">
+							<h2>Compétences</h2>
+							<div id="lesCompetences" class="lesCompetences">
+								<a class="btn btn-primary"
+									onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');">Ajouter
+									une compétence</a><a class="btn btn-primary"
+									onClick="save('lesCompetences', 'saveCompetence');">Enregistrer</a>
+								<ul class="list-group">
+									<c:forEach items="${profil.profil.mesCompetences}"
+										var="competence" varStatus="loop">
+										<input id="competence${loop.index}" name="competence"
+											value="${competence.libelle}">
+										<a id="deleteCompetence${loop.index}" name="deleteCompetence"
+											class="btn btn-primary"
+											onClick="suppressionChampEtBouton(competence${loop.index}, deleteCompetence${loop.index}); save('lesCompetences', 'saveCompetence');">-</a>
+										</br>
+									</c:forEach>
+								</ul>
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="well well-lg">
-						<h2>Loisirs</h2>
-						<div id="lesLoisirs" class="lesLoisirs">
-							<a class="btn btn-primary"
-								onClick="AddChamp('lesLoisirs', 'loisir', 'deleteLoisir','saveLoisir()');">Ajouter
-								un loisir</a><a class="btn btn-primary"
-								onClick="save('lesLoisirs', 'saveLoisir');">Enregistrer</a>
-							<ul class="list-group">
-								<c:forEach items="${profil.profil.mesHobbies}" var="loisir"
-									varStatus="loop">
-									<input id="loisir${loop.index}" name="loisir"
-										value="${loisir.libelle}">
-									<a id="deleteLoisir${loop.index}" name="deleteLoisir"
-										class="btn btn-primary"
-										onClick="suppressionChampEtBouton(loisir${loop.index}, deleteLoisir${loop.index}); save('lesLoisirs', 'saveLoisir');">-</a>
-								</c:forEach>
-							</ul>
+					<div class="col-md-3">
+						<div class="well well-lg">
+							<h2>Formation</h2>
+							<div id="lesFormations" class="lesFormations">
+								<a class="btn btn-primary"
+									onClick="AddChamp('lesFormations', 'formation', 'deleteFormation','saveFormation()');">Ajouter
+									une formation</a><a class="btn btn-primary"
+									onClick="save('lesFormations', 'saveFormation');">Enregistrer</a>
+								<ul class="list-group">
+									<c:forEach items="${profil.profil.mesEcoles}" var="formation"
+										varStatus="loop">
+										<input id="formation${loop.index}" name="formation"
+											value="${formation.libelle}">
+										<a id="deleteFormation${loop.index}" name="deleteFormation"
+											class="btn btn-primary"
+											onClick="suppressionChampEtBouton(formation${loop.index}, deleteFormation${loop.index}); save('lesFormations', 'saveFormation');">-</a>
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="well well-lg">
+							<h2>Loisirs</h2>
+							<div id="lesLoisirs" class="lesLoisirs">
+								<a class="btn btn-primary"
+									onClick="AddChamp('lesLoisirs', 'loisir', 'deleteLoisir','saveLoisir()');">Ajouter
+									un loisir</a><a class="btn btn-primary"
+									onClick="save('lesLoisirs', 'saveLoisir');">Enregistrer</a>
+								<ul class="list-group">
+									<c:forEach items="${profil.profil.mesHobbies}" var="loisir"
+										varStatus="loop">
+										<input id="loisir${loop.index}" name="loisir"
+											value="${loisir.libelle}">
+										<a id="deleteLoisir${loop.index}" name="deleteLoisir"
+											class="btn btn-primary"
+											onClick="suppressionChampEtBouton(loisir${loop.index}, deleteLoisir${loop.index}); save('lesLoisirs', 'saveLoisir');">-</a>
+									</c:forEach>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
