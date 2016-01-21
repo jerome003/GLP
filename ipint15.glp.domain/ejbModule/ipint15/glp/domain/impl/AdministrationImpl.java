@@ -66,14 +66,13 @@ public class AdministrationImpl implements AdministrationRemote {
 	
 	@Override
 	public String generatePassword(int length) {
-	    String chars = "abcdefghijklmnopqrstuvwxyz1234567890"; // Tu supprimes les lettres dont tu ne veux pas
-	    String pass = "";
-	    for(int x=0;x<length;x++)   {
-	       int i = (int)Math.floor(Math.random() * chars.length() -1); // Si tu supprimes des lettres tu diminues ce nb
-	       pass += chars.charAt(i);
-	    }
-	    System.out.println(pass);
-	    return pass;
+		String chars = "abcdefghijklmnopqrstuvwxyz1234567890"; 
+        StringBuffer pass = new StringBuffer();
+        for(int x=0;x<length;x++)   {
+           int i = (int)Math.floor(Math.random() * (chars.length() -1));
+           pass.append(chars.charAt(i));
+        }
+        return pass.toString();
 }
 	@Override
 	public ModerateurDTO getModerateurDTOById(int id) {
