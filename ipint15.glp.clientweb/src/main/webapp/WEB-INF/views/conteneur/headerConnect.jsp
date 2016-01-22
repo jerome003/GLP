@@ -12,6 +12,7 @@
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/resources/css/moncss.css" rel="stylesheet" >
 
 
 <%
