@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.AdminDTO;
 import ipint15.glp.api.dto.ConnexionCommand;
+import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 
 
@@ -58,7 +59,9 @@ public class ConnexionAdminController {
 		}
 		
 		if (adminBean.connexion(admin.getEmail(), admin.getPassword())){
-			sessionObj = request.getSession();
+			AdminDTO ad = adminBean.getAdmin(admin.getEmail());
+			HttpSession session = request.getSession();
+			session.setAttribute("admin", ad);
 
 		}
 
@@ -76,7 +79,10 @@ public class ConnexionAdminController {
 	 */
 	@RequestMapping(value = "/deconnectionAdmin", method = RequestMethod.GET)
 	public String deconnection(Locale locale, Model model, HttpServletRequest request) {
-		System.out.println("IN");
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("admin", null);
+		request.setAttribute("deco", "deco");
+		sessionObj.removeAttribute("admin");
 		return "redirect:connexionAdmin";
 	}
 }
