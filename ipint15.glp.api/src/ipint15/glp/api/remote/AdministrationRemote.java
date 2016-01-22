@@ -21,11 +21,15 @@ public interface AdministrationRemote {
 	
 	public ModerateurDTO getModerateurDTOById(int id);
 	
-	public boolean isMailExists(String mail);
+	public boolean isMailExistsForAdmin(String mail);
 
-	public boolean isPasswordIsGood(String mail, String password);
+	public boolean isPasswordIsGoodForAdmin(String mail, String password);
 	
-	public boolean connexion(String email, String password);
+	public boolean isMailExistsForModerateur(String mail);
+
+	public boolean isPasswordIsGoodForModerateur(String mail, String password);
+	
+	public boolean connexionAdmin(String email, String password);
 	
 	public boolean isThereAnAdmin();
 
@@ -34,6 +38,12 @@ public interface AdministrationRemote {
 	public ModerateurDTO addGroupetoModo(int id, GroupeDTO groupe);
 	
 	public AdminDTO getAdmin(String email);
+	
+	public ModerateurDTO getModerateur(String email);
+
+	void sendMailModoAssign(ModerateurDTO modo, GroupeDTO groupe);
+
+	boolean connexionModerateur(String email, String password);
 
 
 }

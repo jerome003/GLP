@@ -20,52 +20,52 @@ import org.springframework.web.servlet.ModelAndView;
 import ipint15.glp.api.dto.AdminDTO;
 import ipint15.glp.api.dto.ConnexionCommand;
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 
 
 @Controller
-public class ConnexionAdminController {
+public class ConnexionModerateurController {
 	@Inject
-	protected AdministrationRemote adminBean;
+	protected AdministrationRemote administrationBean;
 
 
-	@RequestMapping(value = "/connexionAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/connexionModerateur", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "connexion");
-		if (!adminBean.isThereAnAdmin()){
-			adminBean.createAdmin("admin@admin.fr", "password");
-		}
-		return new ModelAndView("connexionAdmin", "command", new AdminDTO());
+		return new ModelAndView("connexionModerateur", "command", new ModerateurDTO());
 	}
 
-	@RequestMapping(value = "/connexionAdministration", method = RequestMethod.POST)
-	public String connexion(@Valid @ModelAttribute("command") ConnexionCommand admin, BindingResult result,
+	@RequestMapping(value = "/doConnexionModerateur", method = RequestMethod.POST)
+	public String connexion(@Valid @ModelAttribute("command") ConnexionCommand moderateur, BindingResult result,
 			HttpServletRequest request) {
+		
 		HttpSession sessionObj = request.getSession();
 		
-		sessionObj.setAttribute("section", "accueilgroupes");
+		sessionObj.setAttribute("section", "accueilmoderateur");
+		
 		if (result.hasErrors()) {
-			return "connexionAdmin";
+			return "connexionModerateur";
 		}
-		if (!adminBean.isMailExistsForAdmin(admin.getEmail())) {
+		if (!administrationBean.isMailExistsForModerateur(moderateur.getEmail())) {
 			result.rejectValue("email", null, "Cette adresse mail n'existe pas");
-			return "connexionAdmin";
+			return "connexionModerateur";
 		}
 
-		if (!adminBean.isPasswordIsGoodForAdmin(admin.getEmail(), admin.getPassword())) {
+		if (!administrationBean.isPasswordIsGoodForModerateur(moderateur.getEmail(), moderateur.getPassword())) {
 			result.rejectValue("password", null, "Ce n'est pas le bon mot de passe");
-			return "connexionAdmin";
+			return "connexionModerateur";
 		}
 		
-		if (adminBean.connexionAdmin(admin.getEmail(), admin.getPassword())){
-			AdminDTO ad = adminBean.getAdmin(admin.getEmail());
+		if (administrationBean.connexionModerateur(moderateur.getEmail(), moderateur.getPassword())){
+			ModerateurDTO modo = administrationBean.getModerateur(moderateur.getEmail());
 			HttpSession session = request.getSession();
-			session.setAttribute("user", ad);
+			session.setAttribute("user", modo);
 
 		}
 
-		return "redirect:admin";
+		return "redirect:moderateur";
 
 	}
 
@@ -77,13 +77,13 @@ public class ConnexionAdminController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/deconnectionAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/deconnectionModerateur", method = RequestMethod.GET)
 	public String deconnection(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("user", null);
 		request.setAttribute("deco", "deco");
 		sessionObj.removeAttribute("user");
-		return "redirect:connexionAdmin";
+		return "redirect:connexionModerateur";
 	}
 }
 
