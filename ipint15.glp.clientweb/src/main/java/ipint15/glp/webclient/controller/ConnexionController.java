@@ -26,7 +26,7 @@ import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
 @Controller
-@SessionAttributes("etudiant")
+@SessionAttributes
 public class ConnexionController {
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
@@ -54,7 +54,7 @@ public class ConnexionController {
 			result.rejectValue("email", null, "Cette adresse mail n'existe pas");
 			return "connexion";
 		}
-
+		System.out.println(etudiant.getEmail());
 		if (!etudiantBean.isPasswordIsGood(etudiant.getEmail(), etudiant.getPassword())) {
 			result.rejectValue("password", null, "Ce n'est pas le bon mot de passe");
 			return "connexion";
@@ -62,8 +62,8 @@ public class ConnexionController {
 
 		if (etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())) {
 			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
-			sessionObj = request.getSession();
-			sessionObj.setAttribute("etudiant", etu);
+			HttpSession session = request.getSession();
+			session.setAttribute("etudiant", etu);
 			System.out.println("connexion controller"+etu.getId());
 			List<ExperienceDTO> listExpPro = etudiantBean.getExperiences(etu);
 			request.getSession().setAttribute("listExpPro", listExpPro);
@@ -91,7 +91,9 @@ public class ConnexionController {
 	public String deconnection(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("etudiant", null);
+		sessionObj.setAttribute("profil", null);
 		request.setAttribute("deco", "deco");
+		sessionObj.removeAttribute("etudiant");
 		return "home";
 	}
 }

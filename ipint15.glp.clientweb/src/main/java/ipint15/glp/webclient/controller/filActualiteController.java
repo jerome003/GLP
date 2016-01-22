@@ -35,7 +35,7 @@ public class filActualiteController {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "actualite");
 		model.addAttribute("myInjectedBean", etudiantBean );
-	
+		EtudiantDTO etu = (EtudiantDTO) sessionObj.getAttribute("etudiant");
 		return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 	}
 	
