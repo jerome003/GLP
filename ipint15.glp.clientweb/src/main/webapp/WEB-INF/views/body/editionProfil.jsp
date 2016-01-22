@@ -105,8 +105,8 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			input.name=champId;
 			document.getElementById(divId).appendChild(input);
 			var adresse = document.createElement("a");
-			var link = document.createTextNode("-");
-			adresse.setAttribute("class", "btn btn-primary col-md-1");
+			var link = document.createTextNode("");
+			adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
 			adresse.setAttribute("id",boutonId+"0");
 			adresse.setAttribute("name",boutonId);
 			adresse.setAttribute("onClick","suppressionChampEtBouton("+champId+"0"+","+ boutonId+"0"+ ");");
@@ -132,8 +132,8 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			document.getElementById(divId).appendChild(input);
 
 			var adresse = document.createElement("a");
-			var link = document.createTextNode("-");
-			adresse.setAttribute("class", "btn btn-primary col-md-1");
+			var link = document.createTextNode("");
+			adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
 			adresse.setAttribute("id",boutonId+""+nvId);
 			adresse.setAttribute("name", boutonId);
 			adresse.setAttribute("onClick", "suppressionChampEtBouton("+champId+""+ nvId + ","+ boutonId+"" + nvId + ");");
@@ -208,8 +208,8 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			//
 			
 			var adresse = document.createElement("a");
-			var link = document.createTextNode("-");
-			adresse.setAttribute("class", "btn btn-primary col-md-1");
+			var link = document.createTextNode("");
+			adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
 			adresse.setAttribute("id","deleteExpPro0");
 			adresse.setAttribute("name","deleteExpPro");
 			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro(0, deleteExpPro0);");
@@ -257,8 +257,8 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			document.getElementById("lesExpPro").appendChild(input);
 			
 			var adresse = document.createElement("a");
-			var link = document.createTextNode("-");
-			adresse.setAttribute("class", "btn btn-primary col-md-1");
+			var link = document.createTextNode("");
+			adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
 			adresse.setAttribute("id","deleteExpPro"+nvId);
 			adresse.setAttribute("name","deleteExpPro");
 			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro("+nvId+", deleteExpPro"+nvId+"); saveExpPro");
@@ -378,7 +378,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				</div>
 				<div class="row">
 					<div class="col-sm-offset-5 col-sm-2 text-center">
-						<a class="btn btn-primary center-block" onClick="saveProfil();">Enregistrer</a>
+						<a class="btn btn-primary center-block  glyphicon glyphicon-floppy-disk" onClick="saveProfil();"> Enregistrer</a>
 					</div>
 				</div>
 			</div>
@@ -386,10 +386,9 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Expériences Professionnelles</h2>
 					<div class="row">
-							<a class="btn btn-primary"
-								onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');">Ajouter
-								une exprérience</a><a class="btn btn-primary"
-								onClick="saveExpPro();">Enregistrer</a>
+							<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+								onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');"></a><a class="btn btn-primary glyphicon glyphicon-floppy-disk"
+								onClick="saveExpPro();"> Enregistrer</a>
 					</div>
 					<div class="lesExpPro" id="lesExpPro">
 						<c:forEach items="${profil.profil.mesExperiences}"
@@ -403,7 +402,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 							<input id="expProEntreprise${loop.index}" name="expPro"
 								value="${experience.entreprise}" class="col-md-2">
 							<label id="labelExpProDebut${loop.index}"
-								for="expProDebut${loop.index}" class="col-md-1">Année de début :</label>
+								for="expProDebut${loop.index}" class="col-md-1">Début :</label>
 							<input id="expProDebut${loop.index}" name="expPro"
 								value="${experience.anneeDebut}" class="col-md-1">
 							<label id="labelExpProDuree${loop.index}"
@@ -411,9 +410,9 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 							<input id="expProDuree${loop.index}" name="expPro"
 								value="${experience.duree}" class="col-md-1">
 							<a id="deleteExpPro${loop.index}" name="deleteExpPro"
-								class="btn btn-primary col-md-1"
+								class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
 								onClick='suppressionChampEtBoutonExpPro(${loop.index},
-												deleteExpPro${loop.index}); saveExpPro();'>-</a>
+												deleteExpPro${loop.index}); saveExpPro();'></a>
 							</br>
 						</c:forEach>
 					</div>
@@ -423,18 +422,17 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Compétences</h2>
 					<div id="lesCompetences" class="lesCompetences">
-						<a class="btn btn-primary"
-							onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');">Ajouter
-							une compétence</a><a class="btn btn-primary"
-							onClick="save('lesCompetences', 'saveCompetence');">Enregistrer</a>
+						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+							onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');"></a><a class="btn btn-primary glyphicon glyphicon-floppy-disk"
+							onClick="save('lesCompetences', 'saveCompetence');"> Enregistrer</a>
 						<ul class="list-group">
 							<c:forEach items="${profil.profil.mesCompetences}"
 								var="competence" varStatus="loop">
 								<input id="competence${loop.index}" name="competence"
 									value="${competence.libelle}" class="col-md-11" />
 								<a id="deleteCompetence${loop.index}" name="deleteCompetence"
-									class="btn btn-primary col-md-1"
-									onClick="suppressionChampEtBouton(competence${loop.index}, deleteCompetence${loop.index}); save('lesCompetences', 'saveCompetence');">-</a>
+									class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
+									onClick="suppressionChampEtBouton(competence${loop.index}, deleteCompetence${loop.index}); save('lesCompetences', 'saveCompetence');"></a>
 								</br>
 							</c:forEach>
 						</ul>
@@ -445,18 +443,17 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Formation</h2>
 					<div id="lesFormations" class="lesFormations">
-						<a class="btn btn-primary"
-							onClick="AddChamp('lesFormations', 'formation', 'deleteFormation','saveFormation()');">Ajouter
-							une formation</a><a class="btn btn-primary"
-							onClick="save('lesFormations', 'saveFormation');">Enregistrer</a>
+						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+							onClick="AddChamp('lesFormations', 'formation', 'deleteFormation','saveFormation()');"></a><a class="btn btn-primary glyphicon glyphicon-floppy-disk"
+							onClick="save('lesFormations', 'saveFormation');"> Enregistrer</a>
 						<ul class="list-group">
 							<c:forEach items="${profil.profil.mesEcoles}" var="formation"
 								varStatus="loop">
 								<input id="formation${loop.index}" name="formation"
 									value="${formation.libelle}" class="col-md-11" />
 								<a id="deleteFormation${loop.index}" name="deleteFormation"
-									class="btn btn-primary col-md-1"
-									onClick="suppressionChampEtBouton(formation${loop.index}, deleteFormation${loop.index}); save('lesFormations', 'saveFormation');">-</a>
+									class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
+									onClick="suppressionChampEtBouton(formation${loop.index}, deleteFormation${loop.index}); save('lesFormations', 'saveFormation');"></a>
 							</c:forEach>
 						</ul>
 					</div>
@@ -466,18 +463,17 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Loisirs</h2>
 					<div id="lesLoisirs" class="lesLoisirs">
-						<a class="btn btn-primary"
-							onClick="AddChamp('lesLoisirs', 'loisir', 'deleteLoisir','saveLoisir()');">Ajouter
-							un loisir</a><a class="btn btn-primary"
-							onClick="save('lesLoisirs', 'saveLoisir');">Enregistrer</a>
+						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+							onClick="AddChamp('lesLoisirs', 'loisir', 'deleteLoisir','saveLoisir()');"></a><a class="btn btn-primary glyphicon glyphicon-floppy-disk"
+							onClick="save('lesLoisirs', 'saveLoisir');"> Enregistrer</a>
 						<ul class="list-group">
 							<c:forEach items="${profil.profil.mesHobbies}" var="loisir"
 								varStatus="loop">
 								<input id="loisir${loop.index}" name="loisir"
 									value="${loisir.libelle}" class="col-md-11" />
 								<a id="deleteLoisir${loop.index}" name="deleteLoisir"
-									class="btn btn-primary col-md-1"
-									onClick="suppressionChampEtBouton(loisir${loop.index}, deleteLoisir${loop.index}); save('lesLoisirs', 'saveLoisir');">-</a>
+									class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
+									onClick="suppressionChampEtBouton(loisir${loop.index}, deleteLoisir${loop.index}); save('lesLoisirs', 'saveLoisir');"></a>
 							</c:forEach>
 						</ul>
 					</div>
