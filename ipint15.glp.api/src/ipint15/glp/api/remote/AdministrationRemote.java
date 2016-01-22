@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import ipint15.glp.api.dto.AdminDTO;
+import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 
@@ -41,7 +42,11 @@ public interface AdministrationRemote {
 	
 	public ModerateurDTO getModerateur(String email);
 
-	void sendMailModoAssign(ModerateurDTO modo, GroupeDTO groupe);
+	public void sendMailModoAssign(ModerateurDTO modo, GroupeDTO groupe);
+	
+	public void sendMailEtudiantOK(EtudiantDTO etu);
+	
+	public void sendMailEtudiantKO(EtudiantDTO etu);
 
 	boolean connexionModerateur(String email, String password);
 

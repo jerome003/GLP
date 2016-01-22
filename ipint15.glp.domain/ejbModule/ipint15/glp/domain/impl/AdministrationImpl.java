@@ -307,4 +307,93 @@ public class AdministrationImpl implements AdministrationRemote {
 		}
 		return null;
 	}
+
+	@Override
+	public void sendMailEtudiantOK(EtudiantDTO etu) {
+		final String username = "maxime.gidon";
+		final String password = "Miage2016";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtps.univ-lille1.fr");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.socketFactory.port", "587");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "587");
+		
+
+		Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		  });
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username + "@etudiant.univ-lille1.fr"));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(etu.getEmail()));
+			message.setSubject("[Lille1] Validation de votre inscription");
+			message.setText("Bonjour, "
+				+ "\n\nVotre inscription vient d'être validé pour le groupe " + etu.getGroupe().getName() +
+				" : " + etu.getGroupe().getDescription()+ " \nVotre mot de passe pour vous connecter est : " +
+				etu.getPassword() +". \n\n A bientot sur le réseau d'ancien de Lille 1 !");
+
+			Transport.send(message);
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+	@Override
+	public void sendMailEtudiantKO(EtudiantDTO etu) {
+		final String username = "maxime.gidon";
+		final String password = "Miage2016";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtps.univ-lille1.fr");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.socketFactory.port", "587");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "587");
+		
+
+		Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		  });
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username + "@etudiant.univ-lille1.fr"));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(etu.getEmail()));
+			message.setSubject("[Lille1] Refus de votre inscription");
+			message.setText("Bonjour, "
+				+ "\n\nVotre inscription vient d'être refusé pour le groupe " + etu.getGroupe().getName() +
+				" : " + etu.getGroupe().getDescription()+ " \nVotre compte a été supprimé, vous pouvez me contacter pour plus de détails." +
+				etu.getPassword() +". \n\n A bientot sur le réseau d'ancien de Lille 1 !");
+
+			Transport.send(message);
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+		
 }
