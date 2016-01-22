@@ -11,10 +11,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ipint15.glp.api.dto.AdminDTO;
+import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.domain.entities.Admin;
+import ipint15.glp.domain.entities.Etudiant;
+import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Moderateur;
 import ipint15.glp.domain.util.Conversion;
@@ -179,5 +182,19 @@ public class AdministrationImpl implements AdministrationRemote {
 		}
 		return mDTOList;
 
+	}
+
+	@Override
+	public AdminDTO getAdmin(String email) {
+		Admin a = getAdminByMail(email);
+
+		if (a != null) {
+			AdminDTO aDTO = a.toAdminDTO();
+			return aDTO;
+		}
+
+		// a remplacer par le renvoie d'une exception lorsqu'aucun email ne
+		// correspond à celui en parametre
+		return null;
 	}
 }
