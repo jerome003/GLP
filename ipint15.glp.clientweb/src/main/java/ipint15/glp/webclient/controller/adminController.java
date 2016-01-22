@@ -81,6 +81,7 @@ public class adminController {
 	public ModelAndView saveGroupe(String nameGroupe, String descriptionGroupe, int modo) {
 		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe,descriptionGroupe);
 		ModerateurDTO mDTO = administrationBean.addGroupetoModo(modo, gDTO);
+		administrationBean.sendMailModoAssign(mDTO, gDTO);
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
 		ModelAndView modelView = new ModelAndView("redirect:groupes", "command", new GroupeDTO());
 		modelView.addObject("liste",listeResultat);

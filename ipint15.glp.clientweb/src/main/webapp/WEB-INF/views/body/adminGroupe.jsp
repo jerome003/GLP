@@ -33,7 +33,7 @@
 					<div class="col-sm-2">
 						<label class="control-label">Moderateur :</label>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 						<div class="form-inline">
 							<select id="modo" name="modo">
 								<c:forEach items="${moderateurList}" var="item"
@@ -43,7 +43,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-sm-2">
+					<div class="col-sm-1">
 						<a class="btn mini blue-stripe"
 							href="${pageContext.request.contextPath}/admin/moderateurs">Besoin
 							d'ajouter un modérateur ?</a>

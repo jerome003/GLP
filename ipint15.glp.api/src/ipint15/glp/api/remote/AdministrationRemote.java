@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import ipint15.glp.api.dto.AdminDTO;
+import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 
@@ -21,11 +22,15 @@ public interface AdministrationRemote {
 	
 	public ModerateurDTO getModerateurDTOById(int id);
 	
-	public boolean isMailExists(String mail);
+	public boolean isMailExistsForAdmin(String mail);
 
-	public boolean isPasswordIsGood(String mail, String password);
+	public boolean isPasswordIsGoodForAdmin(String mail, String password);
 	
-	public boolean connexion(String email, String password);
+	public boolean isMailExistsForModerateur(String mail);
+
+	public boolean isPasswordIsGoodForModerateur(String mail, String password);
+	
+	public boolean connexionAdmin(String email, String password);
 	
 	public boolean isThereAnAdmin();
 
@@ -34,6 +39,18 @@ public interface AdministrationRemote {
 	public ModerateurDTO addGroupetoModo(int id, GroupeDTO groupe);
 	
 	public AdminDTO getAdmin(String email);
+	
+	public ModerateurDTO getModerateur(String email);
+
+	public void sendMailModoAssign(ModerateurDTO modo, GroupeDTO groupe);
+	
+	public void sendMailEtudiantOK(EtudiantDTO etu);
+	
+	public void sendMailEtudiantKO(EtudiantDTO etu);
+	
+	public void sendMailNewEtudiant(EtudiantDTO etu);
+
+	boolean connexionModerateur(String email, String password);
 
 
 }
