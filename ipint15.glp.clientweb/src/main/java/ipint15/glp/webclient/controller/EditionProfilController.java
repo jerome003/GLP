@@ -75,7 +75,7 @@ public class EditionProfilController {
 	@RequestMapping(value = "/saveExpPro", method = RequestMethod.POST)
 	public ModelAndView saveExpPro(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
 			HttpServletRequest request) {
-		System.out.println(liste + " " + email);
+		//System.out.println(liste + " " + email);
 		if(liste == null || liste.length() < 5){
 			return null;
 		}
