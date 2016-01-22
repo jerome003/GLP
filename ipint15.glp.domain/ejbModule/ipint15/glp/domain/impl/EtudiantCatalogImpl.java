@@ -106,10 +106,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(ep);
 		em.persist(e);
 		em.merge(p);
+		
+		p = getGroupeById(groupe.getId());
 
 		// Mapping EtudiantDTO et ProfilDTO pour retourner un etudiantDTO à la
 		// couche présentation
-		EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+		EtudiantDTO eDTO = ce.MappingEtudiantProfilGroupe(e, ep, p);
 		return eDTO;
 
 	}

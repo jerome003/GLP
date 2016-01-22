@@ -23,6 +23,22 @@ import ipint15.glp.domain.entities.Hobbie;
 import ipint15.glp.domain.entities.Moderateur;
 public class Conversion {
 	
+public EtudiantDTO MappingEtudiantProfilGroupe(Etudiant e, EtudiantProfil ep, Groupe g){
+		
+		// Conversion de l'étudiantProfil en EtudiantProfilDTO et de l'étudiant en EtudiantDTO
+		GroupeDTO groupe = g.toGroupeDTO();
+		for(Moderateur m : g.getModerateurs()) {
+			groupe.getModerateurs().add(MappingGroupeModerateur(m, g));
+		}
+		EtudiantProfilDTO epDTO = ep.toEtudiantProfilDTO();
+		EtudiantDTO eDTO = e.toEtudiantDTO();
+		
+		// Mapping de l'étudiantDTO avec son profilDTO
+		eDTO.setGroupe(groupe);
+		eDTO.setProfil(epDTO);
+		epDTO.setEtudiant(eDTO);
+		return eDTO;
+	}
 	
 	public EtudiantDTO MappingEtudiantProfil(Etudiant e, EtudiantProfil ep){
 		

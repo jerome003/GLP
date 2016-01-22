@@ -47,6 +47,8 @@ public interface AdministrationRemote {
 	public void sendMailEtudiantOK(EtudiantDTO etu);
 	
 	public void sendMailEtudiantKO(EtudiantDTO etu);
+	
+	public void sendMailNewEtudiant(EtudiantDTO etu);
 
 	boolean connexionModerateur(String email, String password);
 

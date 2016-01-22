@@ -60,7 +60,7 @@ public class AdministrationImpl implements AdministrationRemote {
 
 		return a;
 	}
-	
+
 	private Moderateur getModerateurByMail(String mail) {
 
 		Query q = em.createQuery("select o from Moderateur o WHERE o.email = :email");
@@ -84,7 +84,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		ModerateurDTO mDTO = m.toModerateurDTO();
 		return mDTO;
 	}
-	
+
 	@Override
 	public void sendMailModoAssign(ModerateurDTO modo, GroupeDTO groupe) {
 		final String username = "maxime.gidon";
@@ -100,23 +100,23 @@ public class AdministrationImpl implements AdministrationRemote {
 		props.put("mail.smtp.port", "587");
 
 		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
+				new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}
-		  });
+		});
 
 		try {
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(username + "@etudiant.univ-lille1.fr"));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(modo.getEmail()));
+					InternetAddress.parse(modo.getEmail()));
 			message.setSubject("[Lille1] Modération du groupe " + groupe.getName());
 			message.setText("Bonjour, "
-				+ "\n\nVous venez d'être désigné modérateur pour le groupe " + groupe.getName() +
-				" : " + groupe.getDescription()+ " \nVotre mot de passe pour vous connecter est : " +
-				modo.getPassword() +". \n\n A bientot sur le réseau d'ancien de Lille 1 !");
+					+ "\n\nVous venez d'être désigné modérateur pour le groupe " + groupe.getName() +
+					" : " + groupe.getDescription()+ " \nVotre mot de passe pour vous connecter est : " +
+					modo.getPassword() +". \n\n A bientot sur le réseau d'ancien de Lille 1 !");
 
 			Transport.send(message);
 
@@ -126,7 +126,7 @@ public class AdministrationImpl implements AdministrationRemote {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public AdminDTO createAdmin(String email, String mdp) {
 		Admin a = new Admin();
@@ -196,7 +196,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		System.out.println("connexion refusee");
 		return false;
 	}
-	
+
 	@Override
 	public boolean connexionModerateur(String email, String password) {
 		Moderateur m = getModerateurByMail(email);
@@ -212,7 +212,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	@Override
 	public boolean isThereAnAdmin() {
 		Query q = em.createQuery("select o from Admin o  ");
-		
+
 		Admin a ;
 		try {
 			a = (Admin) q.getSingleResult();
@@ -249,7 +249,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		for(Moderateur m : mList) {
 			if (!m.getGroupes().isEmpty()) {
 				mDTOList.add(ce.MappingGroupeModerateur(m, m.getGroupes()));
-				
+
 			}else {
 				mDTOList.add(m.toModerateurDTO());
 			}
@@ -321,26 +321,26 @@ public class AdministrationImpl implements AdministrationRemote {
 				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "587");
-		
+
 
 		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
+				new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}
-		  });
+		});
 
 		try {
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(username + "@etudiant.univ-lille1.fr"));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(etu.getEmail()));
+					InternetAddress.parse(etu.getEmail()));
 			message.setSubject("[Lille1] Validation de votre inscription");
 			message.setText("Bonjour, "
-				+ "\n\nVotre inscription vient d'être validé pour le groupe " + etu.getGroupe().getName() +
-				" : " + etu.getGroupe().getDescription()+ " \nVotre mot de passe pour vous connecter est : " +
-				etu.getPassword() +". \n\n A bientot sur le réseau d'ancien de Lille 1 !");
+					+ "\n\nVotre inscription vient d'être validé pour le groupe " + etu.getGroupe().getName() +
+					" : " + etu.getGroupe().getDescription()+ " \nVotre mot de passe pour vous connecter est : " +
+					etu.getPassword() +". \n\nA bientot sur le réseau d'ancien de Lille 1 !");
 
 			Transport.send(message);
 
@@ -349,7 +349,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 	}
 
 	@Override
@@ -365,26 +365,26 @@ public class AdministrationImpl implements AdministrationRemote {
 				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "587");
-		
+
 
 		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
+				new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}
-		  });
+		});
 
 		try {
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(username + "@etudiant.univ-lille1.fr"));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(etu.getEmail()));
+					InternetAddress.parse(etu.getEmail()));
 			message.setSubject("[Lille1] Refus de votre inscription");
 			message.setText("Bonjour, "
-				+ "\n\nVotre inscription vient d'être refusé pour le groupe " + etu.getGroupe().getName() +
-				" : " + etu.getGroupe().getDescription()+ " \nVotre compte a été supprimé, vous pouvez me contacter pour plus de détails." +
-				etu.getPassword() +". \n\n A bientot sur le réseau d'ancien de Lille 1 !");
+					+ "\n\nVotre inscription vient d'être refusé pour le groupe " + etu.getGroupe().getName() +
+					" : " + etu.getGroupe().getDescription()+ " \nVotre compte a été supprimé, vous pouvez me contacter pour plus de détails." +
+					etu.getPassword() +". \n\nA bientot sur le réseau d'ancien de Lille 1 !");
 
 			Transport.send(message);
 
@@ -393,7 +393,55 @@ public class AdministrationImpl implements AdministrationRemote {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 	}
-		
+
+	@Override
+	public void sendMailNewEtudiant(EtudiantDTO etu) {
+		final String username = "maxime.gidon";
+		final String password = "Miage2016";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtps.univ-lille1.fr");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.socketFactory.port", "587");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "587");
+
+
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		for (ModerateurDTO modo : etu.getGroupe().getModerateurs() ) {
+
+			try {
+
+				Message message = new MimeMessage(session);
+				message.setFrom(new InternetAddress(username + "@etudiant.univ-lille1.fr"));
+				message.setRecipients(Message.RecipientType.TO,
+						InternetAddress.parse(modo.getEmail()));
+				message.setSubject("[Lille1] Nouvelle demande d'inscription");
+				message.setText("Bonjour, "
+						+ "\n\n" + etu.getPrenom() + " " + etu.getNom() + " souhaite rejoindre le groupe " + etu.getGroupe().getName() +
+						" : " + etu.getGroupe().getDescription()+ " \nVotre mot de passe pour vous connecter est : " +
+					modo.getPassword() +". \n\nA bientot sur le réseau d'ancien de Lille 1 !");
+
+				Transport.send(message);
+
+				System.out.println("Done");
+
+			} catch (MessagingException e) {
+				throw new RuntimeException(e);
+			}
+
+		}
+
+	}
+
 }
