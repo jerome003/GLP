@@ -330,40 +330,47 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
-						<div class="col-md-6">
-							<input type="hidden" id="idEtu" name="idEtu" value="${profil.id}" />
-							<ul class="list-group">
-								<li><label>Poste actuel :</label> <input type="text"
-									id="posteActu" name="posteActu" value="${profil.posteActu}" /></li>
-								<li><label>Ville Actuelle:</label> <input type="text"
-									id="villeActu" name="villeActu" value="${profil.villeActu}" /></li>
-								<li><label>Nom de l'entreprise :</label> <input type="text"
-									id="nomEntreprise" name="nomEntreprise"
-									value="${profil.nomEntreprise}" /></li>
-								<li><label>Mail :</label> <input type="mail" id="mail"
-									name="mail" value="${profil.email}" disabled="disabled" /></li>
-								<li><label>Numéro de téléphone : </label><input type="tel"
-									id="numTelephone" name="numTelephone"
-									value="${profil.numTelephone}"></li>
-							</ul>
-						</div>
-						<div class="col-md-6">
-							<ul>
-								<li><label>Facebook : </label><input type="text"
-									id="facebook" name="facebook" value="${profil.facebook}"></li>
-								<li><label>Twitter : </label><input type="text"
-									id="twitter" name="twitter" value="${profil.twitter}"></li>
-								<li><label>Viadeo : </label><input type="text" id="viadeo"
-									name="viadeo" value="${profil.viadeo}"></li>
-								<li><label>Linkedin : </label><input type="text"
-									id="linkedin" name="linkedin" value="${profil.linkedin}"></li>
-							</ul>
-								<a class="btn btn-primary" onClick="saveProfil();">Enregistrer</a>
+					<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
+					<div class="col-md-6">
+						<input type="hidden" id="idEtu" name="idEtu" value="${profil.id}" />
+						<ul class="list-group">
+							<li><label>Poste actuel :</label> <input type="text"
+								id="posteActu" name="posteActu" value="${profil.posteActu}" /></li>
+							<li><label>Ville Actuelle:</label> <input type="text"
+								id="villeActu" name="villeActu" value="${profil.villeActu}" /></li>
+							<li><label>Nom de l'entreprise :</label> <input type="text"
+								id="nomEntreprise" name="nomEntreprise"
+								value="${profil.nomEntreprise}" /></li>
+							<li><label>Mail :</label> <input type="mail" id="mail"
+								name="mail" value="${profil.email}" disabled="disabled" /></li>
+							<li><label>Numéro de téléphone : </label><input type="tel"
+								id="numTelephone" name="numTelephone"
+								value="${profil.numTelephone}"></li>
+						</ul>
+					</div>
+					<div class="col-md-6">
+						<ul>
+							<li><label>Facebook : </label><input type="text"
+								id="facebook" name="facebook" value="${profil.facebook}"></li>
+							<li><label>Twitter : </label><input type="text" id="twitter"
+								name="twitter" value="${profil.twitter}"></li>
+							<li><label>Viadeo : </label><input type="text" id="viadeo"
+								name="viadeo" value="${profil.viadeo}"></li>
+							<li><label>Linkedin : </label><input type="text"
+								id="linkedin" name="linkedin" value="${profil.linkedin}"></li>
+						</ul>
+						<a class="btn btn-primary" onClick="saveProfil();">Enregistrer</a>
 
-						</div>
+					</div>
 				</div>
-				<div class="col-md-6">GROUPES</div>
+				<div class="col-md-6">
+					<h2>
+						Groupes <br>
+					</h2>
+					<c:if test="${not empty profil.groupe}">
+						${profil.groupe.name}
+					</c:if>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
