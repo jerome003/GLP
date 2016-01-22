@@ -69,6 +69,32 @@ function save(name, url){
      });
 }
 
+function saveProfil (){
+	var idEtu = document.getElementById('idEtu');
+	var posteActu = document.getElementById('posteActu');
+	var villeActu = document.getElementById('villeActu');
+	var nomEntreprise = document.getElementById('nomEntreprise');
+	var mail = document.getElementById('mail');	
+	var numTelephone = document.getElementById('numTelephone');
+	var facebook = document.getElementById('facebook');
+	var twitter = document.getElementById('twitter');
+	var viadeo = document.getElementById('viadeo');
+	var linkedin = document.getElementById('linkedin');
+	
+	var res = { idEtu : idEtu.value, posteActu : posteActu.value, villeActu : villeActu.value, nomEntreprise : nomEntreprise.value, mail : mail.value, numTelephone : numTelephone.value, facebook : facebook.value, twitter : twitter.value, viadeo : viadeo.value, linkedin : linkedin.value} ;
+	$.ajax({
+        type: "POST",
+        url: "saveProfile",
+        data: res,
+        success: function (result) {
+       	 alert ("Modifications enregistrées");
+        },
+        error: function (result) {
+       	 window.location = "/ipint15.glp.clientweb/error";
+       }
+    });
+}
+
 function AddChamp(divId, champId, boutonId, fctSave) {
 	var taille = document.getElementsByName(champId).length;
 	if (taille == 0) {
@@ -305,7 +331,6 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			<div class="row">
 				<div class="col-md-6">
 					<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
-					<form method="post" action="saveProfile">
 						<div class="col-md-6">
 							<input type="hidden" id="idEtu" name="idEtu" value="${profil.id}" />
 							<ul class="list-group">
@@ -319,7 +344,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 								<li><label>Mail :</label> <input type="mail" id="mail"
 									name="mail" value="${profil.email}" disabled="disabled" /></li>
 								<li><label>Numéro de téléphone : </label><input type="tel"
-									id="numtelephone" name="numTelephone"
+									id="numTelephone" name="numTelephone"
 									value="${profil.numTelephone}"></li>
 							</ul>
 						</div>
@@ -333,12 +358,10 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 									name="viadeo" value="${profil.viadeo}"></li>
 								<li><label>Linkedin : </label><input type="text"
 									id="linkedin" name="linkedin" value="${profil.linkedin}"></li>
-								<input type="submit" value="Envoyer" class="btn btn-default" />
-
 							</ul>
+								<a class="btn btn-primary" onClick="saveProfil();">Enregistrer</a>
 
 						</div>
-					</form>
 				</div>
 				<div class="col-md-6">GROUPES</div>
 			</div>
