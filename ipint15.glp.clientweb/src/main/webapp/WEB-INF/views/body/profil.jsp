@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-8">
-				<h1 class="col-md-8">${profil.prenom}${profil.nom}</h1>
+				<h1 class="col-md-8">${profil.prenom} ${profil.nom}</h1>
 				<p>
 					<br> <br>
 				</p>
@@ -154,7 +154,7 @@
 							var="competence" varStatus="loop">
 							<tr>
 								<td>${competence.libelle}</td>
-								<td>a venir</td>
+								<td>${competence.niveau}</td>
 							</tr>
 						</c:forEach>
 					</table>

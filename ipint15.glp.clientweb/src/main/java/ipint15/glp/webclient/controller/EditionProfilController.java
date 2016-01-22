@@ -68,35 +68,35 @@ public class EditionProfilController {
 	public ModelAndView saveProfil(int idEtu, String posteActu, String villeActu, String nomEntreprise, String mail,
 			String numTelephone, String facebook, String twitter, String viadeo, String linkedin) {
 		System.out.println(idEtu + posteActu + villeActu + nomEntreprise + mail + numTelephone);
-		etudiantBean.updateEtudiant(idEtu, posteActu, villeActu, nomEntreprise, numTelephone, facebook, twitter, viadeo, linkedin);
+		etudiantBean.updateEtudiant(idEtu, posteActu, villeActu, nomEntreprise, numTelephone, facebook, twitter, viadeo,
+				linkedin);
 		return new ModelAndView("redirect:profil/" + idEtu, "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveExpPro", method = RequestMethod.POST)
 	public ModelAndView saveExpPro(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
 			HttpServletRequest request) {
-		//System.out.println(liste + " " + email);
-		if(liste == null || liste.length() < 5){
+		// System.out.println(liste + " " + email);
+		if (liste == null || liste.length() < 5) {
 			return null;
-		}
-		else{
-		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
-		etudiantBean.deleteExpProList(etudiantDTO);
-		String tabExp[] = liste.split("%");
-		
-		//TODO ajouter une exception, si le le tableau est vide on fait rien --> vérif avec le if !!
-		
+		} else {
+			EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
+			etudiantBean.deleteExpProList(etudiantDTO);
+			String tabExp[] = liste.split("%");
+
+			// TODO ajouter une exception, si le le tableau est vide on fait
+			// rien --> vérif avec le if !!
 
 			for (int i = 0; i < tabExp.length; i++) {
 				String tabExpTmp[] = tabExp[i].split("\\|");
-				etudiantBean.addExperience(etudiantDTO, tabExpTmp[0].replaceAll("|", ""), tabExpTmp[1].replaceAll("|", ""),
-					tabExpTmp[3].replaceAll("|", ""), tabExpTmp[2].replaceAll("|", ""));
+				etudiantBean.addExperience(etudiantDTO, tabExpTmp[0].replaceAll("|", ""),
+						tabExpTmp[1].replaceAll("|", ""), tabExpTmp[3].replaceAll("|", ""),
+						tabExpTmp[2].replaceAll("|", ""));
 			}
-		
-		
-		return mapCompetencesEtudiant(etudiantDTO, request);
+
+			return mapCompetencesEtudiant(etudiantDTO, request);
 		}
-		
+
 	}
 
 	@RequestMapping(value = "/saveCompetence", method = RequestMethod.POST)
@@ -106,7 +106,9 @@ public class EditionProfilController {
 		etudiantBean.deleteCompetenceList(etudiantDTO);
 		String tabExp[] = liste.split("%");
 		for (int i = 0; i < tabExp.length; i++) {
-			etudiantBean.addCompetence(etudiantDTO, tabExp[i]);
+			String tabExpTmp[] = tabExp[i].split("\\|");
+			System.out.println(tabExpTmp);
+			etudiantBean.addCompetence(etudiantDTO, tabExpTmp[0], Integer.parseInt(tabExpTmp[1]));
 		}
 		return mapCompetencesEtudiant(etudiantDTO, request);
 	}

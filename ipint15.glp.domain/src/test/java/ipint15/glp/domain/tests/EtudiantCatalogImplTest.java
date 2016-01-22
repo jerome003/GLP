@@ -104,7 +104,7 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testAddCompetence() {
-		etuBean.addCompetence(etudiant, "Java");
+		etuBean.addCompetence(etudiant, "Java", 1);
 		etudiant = etuBean.getEtudiant(etudiant.getId());
 		List<CompetenceDTO> c = etuBean.getCompetences(etudiant);
 		assertEquals("Java", c.get(0).getLibelle());
@@ -114,8 +114,8 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testGetCompetences () {
-		etuBean.addCompetence(etudiant,"Oracle");
-		etuBean.addCompetence(etudiant, "J2EE");
+		etuBean.addCompetence(etudiant,"Oracle", 1);
+		etuBean.addCompetence(etudiant, "J2EE", 1);
 		etudiant = etuBean.getEtudiant(etudiant.getId());
 		List<CompetenceDTO> liste = etuBean.getCompetences(etudiant);
 		assertEquals("Java",liste.get(0).getLibelle());
@@ -254,8 +254,8 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testDeleteCompetenceList() {
-		etuBean.addCompetence(etu,"Oracle");
-		etuBean.addCompetence(etu, "J2EE");
+		etuBean.addCompetence(etu,"Oracle", 1);
+		etuBean.addCompetence(etu, "J2EE", 1);
 		etuBean.deleteCompetenceList(etu);
 		etu = etuBean.getEtudiant(etu.getId());
 		List<CompetenceDTO> listeEtu = etuBean.getCompetences(etu);
