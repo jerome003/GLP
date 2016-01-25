@@ -3,8 +3,8 @@
 <div class="section">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4">
-				<h1 class="col-md-2">Profil</h1>
+			<div class="col-md-8">
+				<h1 class="col-md-8">${profil.prenom} ${profil.nom}</h1>
 				<p>
 					<br> <br>
 				</p>
@@ -24,100 +24,145 @@
 			%>
 		</div>
 		<div class="row">
-			<div class="col-md-6">
-				<div class="col-md-6">
-					<div class="well well-lg">
-						<h2 id="UserName">${profil.prenom} ${profil.nom}</h2>
-						<ul class="list-group">
-							<li>Poste actuel : <strong>${profil.posteActu}</strong>
-							</li>
-							<li>Ville actuelle : <strong>${profil.villeActu}</strong>
-							</li>
-							<li>Nom de l'entreprise : <strong>${profil.nomEntreprise}</strong>
-							</li>
-							<li>Mail : <strong>${profil.email}</strong>
-							</li>
-							<li>Numéro de téléphone : <strong>${profil.numTelephone}</strong>
-							</li>
-						</ul>
+			<div class="col-md-12">
+				<div class="col-md-7">
+					<div class="col-md-6">
+						<div class="well well-lg">
+							<div class="row">
+								<label class="control-label">Contact :</label>
+							</div>
+							<div class="row">
+								<label class="col-md-4 intitule">Mail :</label> <label
+									class="col-md-8">${profil.email}</label>
+							</div>
+							<div class="row">
+								<label class="col-md-4 intitule">Tel :</label> <label
+									class="col-md-8">${profil.numTelephone}</label>
+							</div>
+							<div class="row">
+								<c:if test="${not empty profil.facebook}">
+									<a href="${profil.facebook}"><img
+										src="${pageContext.request.contextPath}/resources/img/facebook.png"
+										alt="facebook" /></a>
+								</c:if>
+								<c:if test="${not empty profil.twitter}">
+									<a href="${profil.twitter}"><img
+										src="${pageContext.request.contextPath}/resources/img/twitter.jpg"
+										alt="twitter" /></a>
+								</c:if>
+								<c:if test="${not empty profil.viadeo}">
+									<a href="${profil.viadeo}"><img
+										src="${pageContext.request.contextPath}/resources/img/viadeo.png"
+										alt="viadeo" /></a>
+								</c:if>
+								<c:if test="${not empty profil.linkedin}">
+									<a href="${profil.linkedin}"><img
+										src="${pageContext.request.contextPath}/resources/img/linkedin.png"
+										alt="linkedin" /></a>
+								</c:if>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="well well-lg">
+							<div class="row">
+								<label class="control-label">Situation Actuelle :</label>
+							</div>
+							<div class="row">
+								<label class="col-md-5 intitule">Poste :</label> <label
+									class="col-md-7">${profil.posteActu}</label>
+							</div>
+							<div class="row">
+								<label class="col-md-5 intitule">Ville : </label> <label
+									class="col-md-7">${profil.villeActu}</label>
+							</div>
+							<div class="row">
+								<label class="col-md-5 intitule">Entreprise : </label> <label
+									class="col-md-7">${profil.nomEntreprise}</label>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-5">
 					<div class="well well-lg">
-						<c:if test="${not empty profil.facebook}">
-							<a href="${profil.facebook}"><img
-								src="${pageContext.request.contextPath}/resources/img/facebook.png"
-								alt="facebook" /></a>
-						</c:if>
-						<c:if test="${not empty profil.twitter}">
-							<a href="${profil.twitter}"><img
-								src="${pageContext.request.contextPath}/resources/img/twitter.jpg"
-								alt="twitter" /></a>
-						</c:if>
-						<c:if test="${not empty profil.viadeo}">
-							<a href="${profil.viadeo}"><img
-								src="${pageContext.request.contextPath}/resources/img/viadeo.png"
-								alt="viadeo" /></a>
-						</c:if>
-						<c:if test="${not empty profil.linkedin}">
-							<a href="${profil.linkedin}"><img
-								src="${pageContext.request.contextPath}/resources/img/linkedin.png"
-								alt="linkedin" /></a>
-						</c:if>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="well well-lg">
-					<h2>
-						Groupes <br>
-					</h2>
-					<c:if test="${not empty profil.groupe}">
+						<label class="control-label">Groupes :</label> <br />
+						<c:if test="${not empty profil.groupe}">
 						${profil.groupe.name}
 					</c:if>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-12">
 				<div class="well well-lg">
-					<h2>
-						Expériences Professionnelles <br>
-					</h2>
-					<ul class="list-group">
+					<label class="control-label">Expériences Professionnelles :</label>
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Poste</th>
+								<th>Entreprise</th>
+								<th>Début</th>
+								<th>Durée</th>
+							</tr>
+						</thead>
 						<c:forEach items="${profil.profil.mesExperiences}"
 							var="experience" varStatus="loop">
-							<li>${experience.libelle}</li>
+							<tr>
+								<td>${experience.libelle}</td>
+								<td>${experience.entreprise}</td>
+								<td>${experience.anneeDebut}</td>
+								<td>${experience.duree}</td>
+							</tr>
 						</c:forEach>
-
-					</ul>
+					</table>
 				</div>
 			</div>
-			<div class="col-md-3">
+		</div>
+		<div class="row">
+			<div class="col-md-12">
 				<div class="well well-lg">
-					<h2>Compétences</h2>
-					<ul class="list-group">
-						<c:forEach items="${profil.profil.mesCompetences}"
-							var="competence" varStatus="loop">
-							<li>${competence.libelle}</li>
-						</c:forEach>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="well well-lg">
-					<h2>Formation</h2>
-					<ul class="list-group">
+					<label class="control-label">Formation :</label>
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Formation</th>
+							</tr>
+						</thead>
 						<c:forEach items="${profil.profil.mesEcoles}" var="ecole"
 							varStatus="loop">
-							<li>${ecole.libelle}</li>
+							<tr>
+								<td>${ecole.libelle}</td>
+							</tr>
 						</c:forEach>
-					</ul>
+					</table>
 				</div>
 			</div>
-			<div class="col-md-3">
+		</div>
+		<div class="row">
+			<div class="col-md-6">
 				<div class="well well-lg">
-					<h2>Loisirs</h2>
+					<label class="control-label">Compétences :</label>
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Compétence</th>
+								<th>Niveau</th>
+							</tr>
+						</thead>
+						<c:forEach items="${profil.profil.mesCompetences}"
+							var="competence" varStatus="loop">
+							<tr>
+								<td>${competence.libelle}</td>
+								<td>${competence.niveau}</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="well well-lg">
+					<label class="control-label">Loisirs :</label>
 					<ul class="list-group">
 						<c:forEach items="${profil.profil.mesHobbies}" var="hobbie"
 							varStatus="loop">
@@ -129,6 +174,3 @@
 		</div>
 	</div>
 </div>
-
-
-

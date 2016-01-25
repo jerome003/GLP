@@ -21,7 +21,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-2">
+					<div class="col-sm-2"> 
 						<label class="control-label">Description du groupe :</label>
 					</div>
 					<div class="col-sm-6">

@@ -49,9 +49,42 @@ function save(name, url){
 	var mail = document.getElementById('mail');	
 	var tmp = "";	
  	var maClass= document.getElementById(name);
- 	var noeuds = maClass.getElementsByTagName('input'); 	
+ 	var noeuds = maClass.getElementsByTagName('input');
  	for(i = 0 ; i< noeuds.length; i++){
  		tmp += noeuds[i].value+"%";
+ 	}
+ 	alert(tmp);
+ 	var res = { mail : mail.value,maListe : tmp } ; 	
+ 	$.ajax({
+         type: "POST",
+         url: url,
+         data: res,
+         success: function (result) {
+//         	 var id = document.getElementById('idEtu').value;
+//         	 window.location.replace("/ipint15.glp.clientweb/profil/"+id);
+        	 alert ("Modifications enregistrées");
+         },
+         error: function (result) {
+        	 window.location = "/ipint15.glp.clientweb/error";
+        }
+     });
+}
+
+function saveCompetence(name, url){
+	var mail = document.getElementById('mail');	
+	var tmp = "";	
+ 	var maClass= document.getElementById(name);
+ 	var noeuds = maClass.getElementsByTagName('input'); 
+ 	var selects = maClass.getElementsByTagName('select');
+ 	for(i = 0 ; i< noeuds.length; i++){
+ 		//alert($("#"+selects[i].id+" option:selected").val());
+ 		//tmp += noeuds[i].value+"|"+selects[i].text()+"%";
+ 		
+ 		//TODO
+ 		
+ 		
+ 		
+ 		tmp += noeuds[i].value+"|"+$("#"+selects[i].id+" option:selected").val()+"%";
  	}
  	var res = { mail : mail.value,maListe : tmp } ; 	
  	$.ajax({
@@ -97,53 +130,68 @@ function saveProfil (){
 
 function AddChamp(divId, champId, boutonId, fctSave) {
 	var taille = document.getElementsByName(champId).length;
+	var nvId;
 	if (taille == 0) {
-			var input = document.createElement("input");
-			input.type = "text";
-			input.setAttribute("class","col-md-11");
-			input.id=champId+"0";
-			input.name=champId;
-			document.getElementById(divId).appendChild(input);
-			var adresse = document.createElement("a");
-			var link = document.createTextNode("-");
-			adresse.setAttribute("class", "btn btn-primary col-md-1");
-			adresse.setAttribute("id",boutonId+"0");
-			adresse.setAttribute("name",boutonId);
-			adresse.setAttribute("onClick","suppressionChampEtBouton("+champId+"0"+","+ boutonId+"0"+ ");");
-			adresse.appendChild(link);
-			
-			
-		document.getElementById(divId).appendChild(input);
-		document.getElementById(divId).appendChild(adresse);
-		document.getElementById(divId).appendChild(document.createElement("br"));
+		nvId = 0;
 	} else {
-
 		//recuperer l'identifiant du dernier élément | attention : l'identifiant ne correspondant pas au nombre d'element dont le nom est expPro car en cas de suppression id exPro15 alors qu'il ya que 10 elem
 			var element = document.getElementsByName(champId);
 			var idelement = element[taille - 1].getAttribute('id'); 	
 			var sizeId = idelement.length; //recup la taille de l'identifiant
-			var nvId = parseInt(idelement.substring(champId.length, sizeId)) + 1;
-		
-			var input = document.createElement("input");
-			input.type = "text";
-			input.setAttribute("class","col-md-11");
-			input.id=champId+nvId;
-			input.name=champId;
-			document.getElementById(divId).appendChild(input);
-
-			var adresse = document.createElement("a");
-			var link = document.createTextNode("-");
-			adresse.setAttribute("class", "btn btn-primary col-md-1");
-			adresse.setAttribute("id",boutonId+""+nvId);
-			adresse.setAttribute("name", boutonId);
-			adresse.setAttribute("onClick", "suppressionChampEtBouton("+champId+""+ nvId + ","+ boutonId+"" + nvId + ");");
-			adresse.appendChild(link);
-			
-			document.getElementById(divId).appendChild(input);
-			document.getElementById(divId).appendChild(adresse);
-			document.getElementById(divId).appendChild(document.createElement("br"));
-		
+			nvId = parseInt(idelement.substring(champId.length, sizeId)) + 1;
 	}
+	var input = document.createElement("input");
+	input.type = "text";
+	input.id=champId+nvId;
+	input.name=champId;
+	document.getElementById(divId).appendChild(input);
+	
+	if(divId==="lesCompetences"){
+		input.setAttribute("class","col-md-9");
+		var label = document.createElement("label");
+		label.setAttribute("class","col-md-1");
+		label.appendChild(document.createTextNode("Niveau :"));
+		label.id = "competenceSelectLabel"+nvId;
+		label.name = "competenceSelectLabel";
+		
+		var select = document.createElement("select");
+		select.setAttribute("class","col-md-1");
+		select.id="competenceSelect"+nvId
+		select.name="competenceSelect";
+		for(i=1;i<6;i++){
+			var option = document.createElement("option");
+			option.setAttribute("value",i);
+			option.appendChild(document.createTextNode(i));
+			select.appendChild(option);
+		}
+		
+		var adresse = document.createElement("a");
+		var link = document.createTextNode("");
+		adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
+		adresse.setAttribute("id",boutonId+""+nvId);
+		adresse.setAttribute("name", boutonId);
+		adresse.setAttribute("onClick", "suppressionChampEtBoutonCompetence("+champId+""+ nvId + ","+ boutonId+"" + nvId + ", competenceSelectLabel"+nvId+", competenceSelect"+nvId+");");
+		adresse.appendChild(link);
+		
+		document.getElementById(divId).appendChild(input);
+		document.getElementById(divId).appendChild(label);
+		document.getElementById(divId).appendChild(select);
+		document.getElementById(divId).appendChild(adresse);
+		document.getElementById(divId).appendChild(document.createElement("br"));
+	}else{
+		input.setAttribute("class","col-md-11");
+		var adresse = document.createElement("a");
+		var link = document.createTextNode("");
+		adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
+		adresse.setAttribute("id",boutonId+""+nvId);
+		adresse.setAttribute("name", boutonId);
+		adresse.setAttribute("onClick", "suppressionChampEtBouton("+champId+""+ nvId + ","+ boutonId+"" + nvId + ");");
+		adresse.appendChild(link);
+		document.getElementById(divId).appendChild(input);
+		document.getElementById(divId).appendChild(adresse);
+		document.getElementById(divId).appendChild(document.createElement("br"));
+	}
+	
 }
 
 	function AddExpPro(lesExpPro, expPro, deleteExpPro){
@@ -208,8 +256,8 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			//
 			
 			var adresse = document.createElement("a");
-			var link = document.createTextNode("-");
-			adresse.setAttribute("class", "btn btn-primary col-md-1");
+			var link = document.createTextNode("");
+			adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
 			adresse.setAttribute("id","deleteExpPro0");
 			adresse.setAttribute("name","deleteExpPro");
 			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro(0, deleteExpPro0);");
@@ -257,8 +305,8 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			document.getElementById("lesExpPro").appendChild(input);
 			
 			var adresse = document.createElement("a");
-			var link = document.createTextNode("-");
-			adresse.setAttribute("class", "btn btn-primary col-md-1");
+			var link = document.createTextNode("");
+			adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
 			adresse.setAttribute("id","deleteExpPro"+nvId);
 			adresse.setAttribute("name","deleteExpPro");
 			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro("+nvId+", deleteExpPro"+nvId+"); saveExpPro");
@@ -280,6 +328,17 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 		if(r == true){
 			champ.parentNode.removeChild(champ);
 			bouton.parentNode.removeChild(bouton);
+		}
+		
+	}
+	
+	function suppressionChampEtBoutonCompetence(champ, bouton, label, select) {
+		var r = confirm("Voulez-vous réellement supprimer ce champ ?");
+		if(r == true){
+			champ.parentNode.removeChild(champ);
+			bouton.parentNode.removeChild(bouton);
+			label.parentNode.removeChild(label);
+			select.parentNode.removeChild(select);
 		}
 		
 	}
@@ -344,7 +403,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			<div class="row">
 				<div class="row">
 					<div class="col-md-12">
-						<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
+						<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
 						<div class="col-md-6">
 							<input type="hidden" id="idEtu" name="idEtu" value="${profil.id}" />
 							<label class="col-md-4">Poste actuel :</label> <input type="text"
@@ -378,7 +437,9 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				</div>
 				<div class="row">
 					<div class="col-sm-offset-5 col-sm-2 text-center">
-						<a class="btn btn-primary center-block" onClick="saveProfil();">Enregistrer</a>
+						<a
+							class="btn btn-primary center-block  glyphicon glyphicon-floppy-disk"
+							onClick="saveProfil();"> Enregistrer</a>
 					</div>
 				</div>
 			</div>
@@ -386,10 +447,10 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Expériences Professionnelles</h2>
 					<div class="row">
-							<a class="btn btn-primary"
-								onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');">Ajouter
-								une exprérience</a><a class="btn btn-primary"
-								onClick="saveExpPro();">Enregistrer</a>
+						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+							onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');"></a><a
+							class="btn btn-primary glyphicon glyphicon-floppy-disk"
+							onClick="saveExpPro();"> Enregistrer</a>
 					</div>
 					<div class="lesExpPro" id="lesExpPro">
 						<c:forEach items="${profil.profil.mesExperiences}"
@@ -399,11 +460,12 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 							<input id="expProPoste${loop.index}" name="expPro"
 								value="${experience.libelle}" class="col-md-2">
 							<label id="labelExpProEntreprise${loop.index}"
-								for="expProEntreprise${loop.index}" class="col-md-2">Nom de l'Entreprise :</label>
+								for="expProEntreprise${loop.index}" class="col-md-2">Nom
+								de l'Entreprise :</label>
 							<input id="expProEntreprise${loop.index}" name="expPro"
 								value="${experience.entreprise}" class="col-md-2">
 							<label id="labelExpProDebut${loop.index}"
-								for="expProDebut${loop.index}" class="col-md-1">Année de début :</label>
+								for="expProDebut${loop.index}" class="col-md-1">Début :</label>
 							<input id="expProDebut${loop.index}" name="expPro"
 								value="${experience.anneeDebut}" class="col-md-1">
 							<label id="labelExpProDuree${loop.index}"
@@ -411,9 +473,9 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 							<input id="expProDuree${loop.index}" name="expPro"
 								value="${experience.duree}" class="col-md-1">
 							<a id="deleteExpPro${loop.index}" name="deleteExpPro"
-								class="btn btn-primary col-md-1"
+								class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
 								onClick='suppressionChampEtBoutonExpPro(${loop.index},
-												deleteExpPro${loop.index}); saveExpPro();'>-</a>
+												deleteExpPro${loop.index}); saveExpPro();'></a>
 							</br>
 						</c:forEach>
 					</div>
@@ -423,18 +485,29 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Compétences</h2>
 					<div id="lesCompetences" class="lesCompetences">
-						<a class="btn btn-primary"
-							onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');">Ajouter
-							une compétence</a><a class="btn btn-primary"
-							onClick="save('lesCompetences', 'saveCompetence');">Enregistrer</a>
+						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+							onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');"></a><a
+							class="btn btn-primary glyphicon glyphicon-floppy-disk"
+							onClick="saveCompetence('lesCompetences', 'saveCompetence');">
+							Enregistrer</a>
 						<ul class="list-group">
 							<c:forEach items="${profil.profil.mesCompetences}"
 								var="competence" varStatus="loop">
 								<input id="competence${loop.index}" name="competence"
-									value="${competence.libelle}" class="col-md-11" />
+									value="${competence.libelle}" class="col-md-9" />
+								<label id="competenceSelectLabel${loop.index}" class="col-md-1">Niveau
+									:</label>
+								<select id="competenceSelect${loop.index}"
+									name="competenceSelect" class="col-md-1">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
 								<a id="deleteCompetence${loop.index}" name="deleteCompetence"
-									class="btn btn-primary col-md-1"
-									onClick="suppressionChampEtBouton(competence${loop.index}, deleteCompetence${loop.index}); save('lesCompetences', 'saveCompetence');">-</a>
+									class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
+									onClick="suppressionChampEtBoutonCompetence(competence${loop.index}, deleteCompetence${loop.index}, competenceSelectLabel${loop.index}, competenceSelect${loop.index}); save('lesCompetences', 'saveCompetence');"></a>
 								</br>
 							</c:forEach>
 						</ul>
@@ -445,20 +518,19 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Formation</h2>
 					<div id="lesFormations" class="lesFormations">
-						<a class="btn btn-primary"
-							onClick="AddChamp('lesFormations', 'formation', 'deleteFormation','saveFormation()');">Ajouter
-							une formation</a><a class="btn btn-primary"
-							onClick="save('lesFormations', 'saveFormation');">Enregistrer</a>
-						<ul class="list-group">
-							<c:forEach items="${profil.profil.mesEcoles}" var="formation"
-								varStatus="loop">
-								<input id="formation${loop.index}" name="formation"
-									value="${formation.libelle}" class="col-md-11" />
-								<a id="deleteFormation${loop.index}" name="deleteFormation"
-									class="btn btn-primary col-md-1"
-									onClick="suppressionChampEtBouton(formation${loop.index}, deleteFormation${loop.index}); save('lesFormations', 'saveFormation');">-</a>
-							</c:forEach>
-						</ul>
+						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+							onClick="AddChamp('lesFormations', 'formation', 'deleteFormation','saveFormation()');"></a><a
+							class="btn btn-primary glyphicon glyphicon-floppy-disk"
+							onClick="save('lesFormations', 'saveFormation');">
+							Enregistrer</a>
+						<c:forEach items="${profil.profil.mesEcoles}" var="formation"
+							varStatus="loop">
+							<input id="formation${loop.index}" name="formation"
+								value="${formation.libelle}" class="col-md-11" />
+							<a id="deleteFormation${loop.index}" name="deleteFormation"
+								class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
+								onClick="suppressionChampEtBouton(formation${loop.index}, deleteFormation${loop.index}); save('lesFormations', 'saveFormation');"></a>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -466,18 +538,18 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Loisirs</h2>
 					<div id="lesLoisirs" class="lesLoisirs">
-						<a class="btn btn-primary"
-							onClick="AddChamp('lesLoisirs', 'loisir', 'deleteLoisir','saveLoisir()');">Ajouter
-							un loisir</a><a class="btn btn-primary"
-							onClick="save('lesLoisirs', 'saveLoisir');">Enregistrer</a>
+						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+							onClick="AddChamp('lesLoisirs', 'loisir', 'deleteLoisir','saveLoisir()');"></a><a
+							class="btn btn-primary glyphicon glyphicon-floppy-disk"
+							onClick="save('lesLoisirs', 'saveLoisir');"> Enregistrer</a>
 						<ul class="list-group">
 							<c:forEach items="${profil.profil.mesHobbies}" var="loisir"
 								varStatus="loop">
 								<input id="loisir${loop.index}" name="loisir"
 									value="${loisir.libelle}" class="col-md-11" />
 								<a id="deleteLoisir${loop.index}" name="deleteLoisir"
-									class="btn btn-primary col-md-1"
-									onClick="suppressionChampEtBouton(loisir${loop.index}, deleteLoisir${loop.index}); save('lesLoisirs', 'saveLoisir');">-</a>
+									class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
+									onClick="suppressionChampEtBouton(loisir${loop.index}, deleteLoisir${loop.index}); save('lesLoisirs', 'saveLoisir');"></a>
 							</c:forEach>
 						</ul>
 					</div>

@@ -53,7 +53,7 @@ public interface EtudiantCatalogRemote {
 	
 	public EtudiantDTO getEtudiant(int id);
 
-	public void addCompetence(EtudiantDTO eDTO, String competence);
+	public void addCompetence(EtudiantDTO eDTO, String competence, int niveau);
 
 	public List<CompetenceDTO> getCompetences(EtudiantDTO eDTO);
 

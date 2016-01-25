@@ -172,11 +172,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addCompetence(EtudiantDTO eDTO, String competence) {
+	public void addCompetence(EtudiantDTO eDTO, String competence, int niveau) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Competence c = new Competence();
 		c.setLibelle(competence);
+		c.setNiveau(niveau);
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesCompetences().add(c);
 		c.setProfil(ep);

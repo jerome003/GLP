@@ -22,6 +22,8 @@ public class Competence {
 
 	private String libelle;
 
+	private int niveau;
+
 	public int getId() {
 		return id;
 	}
@@ -50,12 +52,28 @@ public class Competence {
 		CompetenceDTO cDTO = new CompetenceDTO();
 		cDTO.setId(this.id);
 		cDTO.setLibelle(this.libelle);
+		cDTO.setNiveau(this.niveau);
 		return cDTO;
 	}
 
 	@Override
 	public String toString() {
 		return "Competence [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + ", libelle=" + libelle + "]";
+	}
+
+	/**
+	 * @return the niveau
+	 */
+	public int getNiveau() {
+		return niveau;
+	}
+
+	/**
+	 * @param niveau
+	 *            the niveau to set
+	 */
+	public void setNiveau(int niveau) {
+		this.niveau = niveau;
 	}
 
 }

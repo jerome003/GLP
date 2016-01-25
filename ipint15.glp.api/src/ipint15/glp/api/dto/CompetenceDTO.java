@@ -2,18 +2,20 @@ package ipint15.glp.api.dto;
 
 import java.io.Serializable;
 
-public class CompetenceDTO implements Serializable{
-	
+public class CompetenceDTO implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private int id;
-   
-    private EtudiantProfilDTO profil ;
-    
-    private String libelle;
+
+	private EtudiantProfilDTO profil;
+
+	private String libelle;
+
+	private int niveau;
 
 	public int getId() {
 		return id;
@@ -41,7 +43,22 @@ public class CompetenceDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil="+ ((profil!=null) ? "oui" : "non") + ", libelle=" + libelle + "]";
+		return "Competence [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + ", libelle=" + libelle + "]";
+	}
+
+	/**
+	 * @return the niveau
+	 */
+	public int getNiveau() {
+		return niveau;
+	}
+
+	/**
+	 * @param niveau
+	 *            the niveau to set
+	 */
+	public void setNiveau(int niveau) {
+		this.niveau = niveau;
 	}
 
 }
