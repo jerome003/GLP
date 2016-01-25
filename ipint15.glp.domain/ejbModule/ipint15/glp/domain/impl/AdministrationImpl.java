@@ -394,7 +394,34 @@ public class AdministrationImpl implements AdministrationRemote {
 		}
 
 	}
-
+	
+	@Override
+	public List<EtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id){
+		
+		Groupe g = getGroupeById(id);
+		List<Etudiant> EtudiantList = g.getEtudiants();
+		List<EtudiantDTO> EtudiantListDTO = new ArrayList<EtudiantDTO>();
+		
+		System.out.println("Taille liste etudiant :" +EtudiantList.size());
+		
+		for (Etudiant e : EtudiantList){
+			if (e.getValidation()){
+				EtudiantList.remove(e);
+			}
+		}
+		System.out.println("Taille liste etudiant :" +EtudiantList.size());
+		
+		for (Etudiant e : EtudiantList){
+			EtudiantListDTO.add(e.toEtudiantDTO());
+		}
+		
+		System.out.println("Taille liste etudiantDTO :" +EtudiantListDTO.size());
+		
+		return EtudiantListDTO;
+		
+		
+	}
+	
 	@Override
 	public void sendMailNewEtudiant(EtudiantDTO etu) {
 		final String username = "maxime.gidon";

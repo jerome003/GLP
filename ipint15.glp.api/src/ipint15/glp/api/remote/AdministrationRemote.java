@@ -52,5 +52,7 @@ public interface AdministrationRemote {
 
 	boolean connexionModerateur(String email, String password);
 
+	public List<EtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id);
+
 
 }

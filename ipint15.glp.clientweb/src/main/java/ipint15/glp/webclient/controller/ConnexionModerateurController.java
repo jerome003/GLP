@@ -1,7 +1,9 @@
 package ipint15.glp.webclient.controller;
 
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -20,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ipint15.glp.api.dto.AdminDTO;
 import ipint15.glp.api.dto.ConnexionCommand;
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 
@@ -60,6 +64,7 @@ public class ConnexionModerateurController {
 		
 		if (administrationBean.connexionModerateur(moderateur.getEmail(), moderateur.getPassword())){
 			ModerateurDTO modo = administrationBean.getModerateur(moderateur.getEmail());
+			System.out.println(modo.getGroupes());
 			HttpSession session = request.getSession();
 			session.setAttribute("user", modo);
 
@@ -68,6 +73,24 @@ public class ConnexionModerateurController {
 		return "redirect:moderateur";
 
 	}
+	
+	@RequestMapping(value = "/moderateur/validationGroup/{id}", method = RequestMethod.GET)
+	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,@PathVariable Map<String, String> pathVariables) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "groupes");
+		
+		int id = Integer.parseInt(pathVariables.get("id"));
+		
+		
+		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
+		for (EtudiantDTO e : listeResultat){
+			System.out.println(e);
+		}
+		ModelAndView modelView = new ModelAndView("validationInscription");
+		modelView.addObject("liste",listeResultat);
+		
+		return modelView;
+		}
 
 	/**
 	 * Deconnection d'un utilisateur.

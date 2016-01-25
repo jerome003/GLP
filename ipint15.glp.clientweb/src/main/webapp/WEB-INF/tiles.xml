@@ -143,4 +143,11 @@
         <put-attribute name="body" value="/WEB-INF/views/body/moderateur.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>
+    <definition name="validationInscription"
+        template="/WEB-INF/views/layout/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerModerateurConnect.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/body/validationInscription.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
+    </definition>
 </tiles-definitions>
