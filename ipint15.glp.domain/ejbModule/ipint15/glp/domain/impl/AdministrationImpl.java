@@ -302,8 +302,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		Moderateur m = getModerateurByMail(email);
 
 		if (m != null) {
-			ModerateurDTO mDTO = m.toModerateurDTO();
-			return mDTO;
+			return ce.MappingGroupeModerateur(m, m.getGroupes());
 		}
 		return null;
 	}
