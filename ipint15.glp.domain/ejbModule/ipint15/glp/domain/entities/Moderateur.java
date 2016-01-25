@@ -73,7 +73,7 @@ public class Moderateur implements Serializable {
 		return groupes;
 	}
 
-	public void setGroupe(List<Groupe> groupes) {
+	public void setGroupes(List<Groupe> groupes) {
 		this.groupes = groupes;
 	}
 
