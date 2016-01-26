@@ -53,7 +53,7 @@ function save(name, url){
  	for(i = 0 ; i< noeuds.length; i++){
  		tmp += noeuds[i].value+"%";
  	}
- 	alert(tmp);
+ 	//alert(tmp);
  	var res = { mail : mail.value,maListe : tmp } ; 	
  	$.ajax({
          type: "POST",
@@ -403,7 +403,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			<div class="row">
 				<div class="row">
 					<div class="col-md-12">
-						<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
+						<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
 						<div class="col-md-6">
 							<input type="hidden" id="idEtu" name="idEtu" value="${profil.id}" />
 							<label class="col-md-4">Poste actuel :</label> <input type="text"
@@ -499,15 +499,47 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 									:</label>
 								<select id="competenceSelect${loop.index}"
 									name="competenceSelect" class="col-md-1">
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
+									<c:choose>
+										<c:when test="${competence.niveau == 1}">
+											<option value="1" selected="selected">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</c:when>
+										<c:when test="${competence.niveau == 2}">
+											<option value="1">1</option>
+											<option value="2" selected="selected">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</c:when>
+										<c:when test="${competence.niveau == 3}">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3" selected="selected">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</c:when>
+										<c:when test="${competence.niveau == 4}">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4" selected="selected">4</option>
+											<option value="5">5</option>
+										</c:when>
+										<c:otherwise>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5" selected="selected">5</option>
+										</c:otherwise>
+									</c:choose>
 								</select>
 								<a id="deleteCompetence${loop.index}" name="deleteCompetence"
 									class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
-									onClick="suppressionChampEtBoutonCompetence(competence${loop.index}, deleteCompetence${loop.index}, competenceSelectLabel${loop.index}, competenceSelect${loop.index}); save('lesCompetences', 'saveCompetence');"></a>
+									onClick="suppressionChampEtBoutonCompetence(competence${loop.index}, deleteCompetence${loop.index}, competenceSelectLabel${loop.index}, competenceSelect${loop.index}); saveCompetence('lesCompetences', 'saveCompetence');"></a>
 								</br>
 							</c:forEach>
 						</ul>
