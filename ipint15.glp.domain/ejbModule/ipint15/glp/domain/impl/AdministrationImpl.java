@@ -2,6 +2,7 @@ package ipint15.glp.domain.impl;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -404,11 +405,15 @@ public class AdministrationImpl implements AdministrationRemote {
 		
 		System.out.println("Taille liste etudiant :" +EtudiantList.size());
 		
-		for (Etudiant e : EtudiantList){
+		Iterator<Etudiant> iter = EtudiantList.iterator();
+
+		while (iter.hasNext()) {
+			Etudiant e = iter.next();
 			if (e.getValidation()){
-				EtudiantList.remove(e);
+				iter.remove();
 			}
 		}
+		
 		System.out.println("Taille liste etudiant :" +EtudiantList.size());
 		
 		for (Etudiant e : EtudiantList){
@@ -468,6 +473,21 @@ public class AdministrationImpl implements AdministrationRemote {
 
 		}
 
+	}
+	
+	@Override
+	public void validationInscription (EtudiantDTO etudiantDTO){
+		Etudiant etu = getEtudiantById(etudiantDTO.getId());
+		sendMailEtudiantOK(etudiantDTO);
+		etu.setValidation(true);
+		em.merge(etu);
+	}
+
+	private Etudiant getEtudiantById(int id) {
+		Query q = em.createQuery("select o from Etudiant o WHERE o.id = :id");
+		q.setParameter("id", id);
+		Etudiant e = (Etudiant) q.getSingleResult();
+		return e;
 	}
 
 }
