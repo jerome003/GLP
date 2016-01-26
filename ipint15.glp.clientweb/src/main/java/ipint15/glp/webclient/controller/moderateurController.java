@@ -1,13 +1,10 @@
 package ipint15.glp.webclient.controller;
 
-
-
 import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,23 +19,22 @@ import ipint15.glp.api.remote.GroupeRemote;
 @Controller
 @SessionAttributes
 public class moderateurController {
-	
+
 	@Inject
 	protected GroupeRemote groupeBean;
-	
+
 	@Inject
 	protected AdministrationRemote administrationBean;
-	
-	
-	
+
 	@RequestMapping(value = "/moderateur", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
-	HttpSession sessionObj = request.getSession();
-	sessionObj.setAttribute("section", "accueilmoderateur");
-	return "moderateur";
+		HttpSession sessionObj = request.getSession();
+		if (sessionObj.getAttribute("type").equals("moderateur")) {
+			sessionObj.setAttribute("section", "accueilmoderateur");
+			return "moderateur";
+		} else {
+			return "errorAccesRole";
+		}
 	}
-	
 
-	
-	
 }

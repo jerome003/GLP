@@ -27,12 +27,13 @@ import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
+
 @Controller
 public class ConnexionModerateurController {
 	@Inject
 	protected AdministrationRemote administrationBean;
-	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
+
 
 	@RequestMapping(value = "/connexionModerateur", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
@@ -67,6 +68,7 @@ public class ConnexionModerateurController {
 			System.out.println(modo.getGroupes());
 			HttpSession session = request.getSession();
 			session.setAttribute("user", modo);
+			session.setAttribute("type", "moderateur");
 
 		}
 
@@ -78,16 +80,20 @@ public class ConnexionModerateurController {
 	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,
 			@PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
-		sessionObj.setAttribute("section", "groupes");
-
-		int id = Integer.parseInt(pathVariables.get("id"));
-		sessionObj.setAttribute("idGroupe", id);
-
-		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
-		ModelAndView modelView = new ModelAndView("validationInscription");
-		modelView.addObject("liste", listeResultat);
-
-		return modelView;
+		
+		if (sessionObj.getAttribute("type").equals("moderateur")) {
+			sessionObj.setAttribute("section", "groupes");
+			int id = Integer.parseInt(pathVariables.get("id"));
+			sessionObj.setAttribute("idGroupe", id);
+			List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
+			ModelAndView modelView = new ModelAndView("validationInscription");
+			modelView.addObject("liste", listeResultat);
+			return modelView;
+		} else {
+			ModelAndView modele = new ModelAndView("errorAccesRole");
+			return modele;
+		}
+		
 	}
 
 	@RequestMapping(value = "/moderateur/validationGroup/{idGroupe}/etudiantOK/{idEtu}", method = RequestMethod.GET)
@@ -139,6 +145,7 @@ public class ConnexionModerateurController {
 		sessionObj.setAttribute("user", null);
 		request.setAttribute("deco", "deco");
 		sessionObj.removeAttribute("user");
+		sessionObj.setAttribute("type", "");
 		return "redirect:connexionModerateur";
 	}
 }
