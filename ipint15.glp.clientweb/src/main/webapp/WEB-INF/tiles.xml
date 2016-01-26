@@ -153,7 +153,7 @@
         <definition name="errorAccesRole"
         template="/WEB-INF/views/layout/layout.jsp">
         <put-attribute name="title" value="" />
-        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerAdminConnect.jsp" />
+        <put-attribute name="header" value="" />
         <put-attribute name="body" value="/WEB-INF/views/body/errorAccesRole.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>

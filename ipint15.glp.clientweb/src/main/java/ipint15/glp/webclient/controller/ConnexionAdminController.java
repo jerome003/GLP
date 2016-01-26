@@ -66,7 +66,6 @@ public class ConnexionAdminController {
 			session.setAttribute("type", "admin");
 
 		}
-
 		return "redirect:admin";
 
 	}

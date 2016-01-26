@@ -1,6 +1,5 @@
 package ipint15.glp.webclient.controller;
 
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,12 +26,10 @@ import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 
-
 @Controller
 public class ConnexionModerateurController {
 	@Inject
 	protected AdministrationRemote administrationBean;
-
 
 	@RequestMapping(value = "/connexionModerateur", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
@@ -44,11 +41,11 @@ public class ConnexionModerateurController {
 	@RequestMapping(value = "/doConnexionModerateur", method = RequestMethod.POST)
 	public String connexion(@Valid @ModelAttribute("command") ConnexionCommand moderateur, BindingResult result,
 			HttpServletRequest request) {
-		
+
 		HttpSession sessionObj = request.getSession();
-		
+
 		sessionObj.setAttribute("section", "accueilmoderateur");
-		
+
 		if (result.hasErrors()) {
 			return "connexionModerateur";
 		}
@@ -61,36 +58,39 @@ public class ConnexionModerateurController {
 			result.rejectValue("password", null, "Ce n'est pas le bon mot de passe");
 			return "connexionModerateur";
 		}
-		
-		if (administrationBean.connexionModerateur(moderateur.getEmail(), moderateur.getPassword())){
+
+		if (administrationBean.connexionModerateur(moderateur.getEmail(), moderateur.getPassword())) {
 			ModerateurDTO modo = administrationBean.getModerateur(moderateur.getEmail());
 			System.out.println(modo.getGroupes());
 			HttpSession session = request.getSession();
 			session.setAttribute("user", modo);
+			session.setAttribute("type", "moderateur");
 
 		}
 
 		return "redirect:moderateur";
 
 	}
-	
+
 	@RequestMapping(value = "/moderateur/validationGroup/{id}", method = RequestMethod.GET)
-	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,@PathVariable Map<String, String> pathVariables) {
+	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
-		sessionObj.setAttribute("section", "groupes");
-		
-		int id = Integer.parseInt(pathVariables.get("id"));
-		
-		
-		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
-		for (EtudiantDTO e : listeResultat){
-			System.out.println(e);
+		if (sessionObj.getAttribute("type").equals("moderateur")) {
+			sessionObj.setAttribute("section", "groupes");
+			int id = Integer.parseInt(pathVariables.get("id"));
+			List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
+			for (EtudiantDTO e : listeResultat) {
+				System.out.println(e);
+			}
+			ModelAndView modelView = new ModelAndView("validationInscription");
+			modelView.addObject("liste", listeResultat);
+			return modelView;
+		} else {
+			ModelAndView modele = new ModelAndView("errorAccesRole");
+			return modele;
 		}
-		ModelAndView modelView = new ModelAndView("validationInscription");
-		modelView.addObject("liste",listeResultat);
-		
-		return modelView;
-		}
+	}
 
 	/**
 	 * Deconnection d'un utilisateur.
@@ -106,7 +106,7 @@ public class ConnexionModerateurController {
 		sessionObj.setAttribute("user", null);
 		request.setAttribute("deco", "deco");
 		sessionObj.removeAttribute("user");
+		sessionObj.setAttribute("type", "");
 		return "redirect:connexionModerateur";
 	}
 }
-
