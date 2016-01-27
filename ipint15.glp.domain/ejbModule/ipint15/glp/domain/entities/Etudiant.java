@@ -196,7 +196,7 @@ public class Etudiant implements Serializable {
 		pDTO.setCivilite(this.getCivilite());
 		pDTO.setEmail(this.getEmail());
 		pDTO.setNumTelephone(this.getNumTelephone());
-		pDTO.setPassword("password");
+		pDTO.setPassword(this.getPassword());
 		pDTO.setNaissance(this.getNaissance());
 
 		pDTO.setPosteActu(this.getPosteActu());

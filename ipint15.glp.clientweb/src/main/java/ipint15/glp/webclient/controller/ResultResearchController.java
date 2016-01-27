@@ -34,7 +34,6 @@ public class ResultResearchController {
 	
 	@RequestMapping(value = {"*/research","/research"}, method = RequestMethod.POST)
 	public ModelAndView recherche(@Valid HttpServletRequest request) {
-		System.out.println("POST");
 		String recherche = request.getParameter("recherche");
 		List<EtudiantDTO> listeResultat = rechercheBean.rechercherEtudiant(recherche);
 		List<GroupeDTO> listeResultatGroupe = rechercheBean.rechercherGroupe(recherche);

@@ -2,6 +2,7 @@ package ipint15.glp.domain.impl;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -78,6 +79,8 @@ public class AdministrationImpl implements AdministrationRemote {
 		m.setPassword(password);
 
 		m.setPrenom(prenom);
+		
+		System.out.println("Create Modo " + nom + " : " + password);
 
 		em.persist(m);
 
@@ -120,7 +123,6 @@ public class AdministrationImpl implements AdministrationRemote {
 
 			Transport.send(message);
 
-			System.out.println("Done");
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
@@ -189,11 +191,8 @@ public class AdministrationImpl implements AdministrationRemote {
 	public boolean connexionAdmin(String email, String password) {
 		Admin a = getAdminByMail(email);
 		if (a != null && (a.getPassword().equals(password))) {
-			System.out.println("connexion etablie");
 			return true;
 		}
-
-		System.out.println("connexion refusee");
 		return false;
 	}
 
@@ -201,11 +200,8 @@ public class AdministrationImpl implements AdministrationRemote {
 	public boolean connexionModerateur(String email, String password) {
 		Moderateur m = getModerateurByMail(email);
 		if (m != null && (m.getPassword().equals(password))) {
-			System.out.println("connexion etablie");
 			return true;
 		}
-
-		System.out.println("connexion refusee");
 		return false;
 	}
 
@@ -343,7 +339,6 @@ public class AdministrationImpl implements AdministrationRemote {
 
 			Transport.send(message);
 
-			System.out.println("Done");
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
@@ -387,7 +382,6 @@ public class AdministrationImpl implements AdministrationRemote {
 
 			Transport.send(message);
 
-			System.out.println("Done");
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
@@ -402,20 +396,19 @@ public class AdministrationImpl implements AdministrationRemote {
 		List<Etudiant> EtudiantList = g.getEtudiants();
 		List<EtudiantDTO> EtudiantListDTO = new ArrayList<EtudiantDTO>();
 		
-		System.out.println("Taille liste etudiant :" +EtudiantList.size());
 		
-		for (Etudiant e : EtudiantList){
+		Iterator<Etudiant> iter = EtudiantList.iterator();
+
+		while (iter.hasNext()) {
+			Etudiant e = iter.next();
 			if (e.getValidation()){
-				EtudiantList.remove(e);
+				iter.remove();
 			}
 		}
-		System.out.println("Taille liste etudiant :" +EtudiantList.size());
 		
 		for (Etudiant e : EtudiantList){
 			EtudiantListDTO.add(e.toEtudiantDTO());
 		}
-		
-		System.out.println("Taille liste etudiantDTO :" +EtudiantListDTO.size());
 		
 		return EtudiantListDTO;
 		
@@ -460,14 +453,39 @@ public class AdministrationImpl implements AdministrationRemote {
 
 				Transport.send(message);
 
-				System.out.println("Done");
-
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);
 			}
 
 		}
 
+	}
+	
+	@Override
+	public void validationInscription (EtudiantDTO etudiantDTO){
+		Etudiant etu = getEtudiantById(etudiantDTO.getId());
+		sendMailEtudiantOK(etudiantDTO);
+		etu.setValidation(true);
+		em.merge(etu);
+	}
+
+	private Etudiant getEtudiantById(int id) {
+		Query q = em.createQuery("select o from Etudiant o WHERE o.id = :id");
+		q.setParameter("id", id);
+		Etudiant e = (Etudiant) q.getSingleResult();
+		return e;
+	}
+	
+
+	
+	@Override
+	public void refusInscription (EtudiantDTO etudiantDTO, int idGroupe){
+		sendMailEtudiantKO(etudiantDTO);
+		Etudiant etu = getEtudiantById(etudiantDTO.getId());
+		Groupe g = getGroupeById(idGroupe);
+		g.getEtudiants().remove(etu);
+		em.remove(etu);
+		
 	}
 
 }

@@ -1,6 +1,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div class="section">
 	<div class="container">
+			<div class="row">
+			<div class="col-md-12">
+				<h1>Authentification d'un utilisateur</h1>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-sm-offset-2 col-md-8">
 				<form:form class="form-horizontal" role="form" method="post" commandName="command" action="connexionProfil">

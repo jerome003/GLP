@@ -1,6 +1,5 @@
 package ipint15.glp.webclient.controller;
 
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -26,12 +25,15 @@ import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
+import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
 
 @Controller
 public class ConnexionModerateurController {
 	@Inject
 	protected AdministrationRemote administrationBean;
+	@Inject
+	protected EtudiantCatalogRemote etudiantBean;
 
 
 	@RequestMapping(value = "/connexionModerateur", method = RequestMethod.GET)
@@ -44,11 +46,11 @@ public class ConnexionModerateurController {
 	@RequestMapping(value = "/doConnexionModerateur", method = RequestMethod.POST)
 	public String connexion(@Valid @ModelAttribute("command") ConnexionCommand moderateur, BindingResult result,
 			HttpServletRequest request) {
-		
+
 		HttpSession sessionObj = request.getSession();
-		
+
 		sessionObj.setAttribute("section", "accueilmoderateur");
-		
+
 		if (result.hasErrors()) {
 			return "connexionModerateur";
 		}
@@ -61,36 +63,76 @@ public class ConnexionModerateurController {
 			result.rejectValue("password", null, "Ce n'est pas le bon mot de passe");
 			return "connexionModerateur";
 		}
-		
-		if (administrationBean.connexionModerateur(moderateur.getEmail(), moderateur.getPassword())){
+
+		if (administrationBean.connexionModerateur(moderateur.getEmail(), moderateur.getPassword())) {
 			ModerateurDTO modo = administrationBean.getModerateur(moderateur.getEmail());
-			System.out.println(modo.getGroupes());
 			HttpSession session = request.getSession();
 			session.setAttribute("user", modo);
+			session.setAttribute("type", "moderateur");
 
 		}
 
 		return "redirect:moderateur";
 
 	}
-	
+
 	@RequestMapping(value = "/moderateur/validationGroup/{id}", method = RequestMethod.GET)
-	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,@PathVariable Map<String, String> pathVariables) {
+	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
-		sessionObj.setAttribute("section", "groupes");
 		
-		int id = Integer.parseInt(pathVariables.get("id"));
-		
-		
-		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
-		for (EtudiantDTO e : listeResultat){
-			System.out.println(e);
+		if (sessionObj.getAttribute("type").equals("moderateur")) {
+			sessionObj.setAttribute("section", "groupes");
+			int id = Integer.parseInt(pathVariables.get("id"));
+			sessionObj.setAttribute("idGroupe", id);
+			List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
+			ModelAndView modelView = new ModelAndView("validationInscription");
+			modelView.addObject("liste", listeResultat);
+			return modelView;
+		} else {
+			ModelAndView modele = new ModelAndView("errorAccesRole");
+			return modele;
 		}
+		
+	}
+
+	@RequestMapping(value = "/moderateur/validationGroup/{idGroupe}/etudiantOK/{idEtu}", method = RequestMethod.GET)
+	public ModelAndView valideInscription(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
+
+		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
+		EtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
+		administrationBean.validationInscription(etu);
+		
+		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("idGroupe", idGroupe);
+		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
+		// Modifier vue retourner pour que cela soit plus propre au niveau des urls.
 		ModelAndView modelView = new ModelAndView("validationInscription");
-		modelView.addObject("liste",listeResultat);
-		
+		modelView.addObject("liste", listeResultat);
+
 		return modelView;
-		}
+
+	}
+
+	@RequestMapping(value = "/moderateur/validationGroup/{idGroupe}/etudiantKO/{idEtu}", method = RequestMethod.GET)
+	public ModelAndView refuseInscription(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
+
+		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
+		EtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
+		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
+		administrationBean.refusInscription(etu,idGroupe);
+		
+
+		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
+		ModelAndView modelView = new ModelAndView("validationInscription");
+		modelView.addObject("liste", listeResultat);
+
+		return modelView;
+
+	}
 
 	/**
 	 * Deconnection d'un utilisateur.
@@ -106,7 +148,7 @@ public class ConnexionModerateurController {
 		sessionObj.setAttribute("user", null);
 		request.setAttribute("deco", "deco");
 		sessionObj.removeAttribute("user");
-		return "redirect:connexionModerateur";
+		sessionObj.setAttribute("type", "");
+		return "home";
 	}
 }
-

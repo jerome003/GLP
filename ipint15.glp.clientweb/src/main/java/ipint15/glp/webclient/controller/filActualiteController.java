@@ -47,7 +47,6 @@ public class filActualiteController {
 		List<PublicationDTO> myPublications = etudiantBean.getPublications();
 		Iterator it = myPublications.iterator();
 		while(it.hasNext()) {
-			System.out.println("Iterator :" +it.next().toString());
 		}
 		
 		/*

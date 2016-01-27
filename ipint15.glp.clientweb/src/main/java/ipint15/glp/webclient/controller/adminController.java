@@ -29,89 +29,97 @@ import ipint15.glp.api.remote.GroupeRemote;
 @Controller
 @SessionAttributes
 public class adminController {
-	
+
 	@Inject
 	protected GroupeRemote groupeBean;
-	
+
 	@Inject
 	protected AdministrationRemote administrationBean;
-	
+
 	@ModelAttribute("moderateurList")
-	public List<ModerateurDTO> getModerateur()
-	{
+	public List<ModerateurDTO> getModerateur() {
 		return administrationBean.getAllModerateur();
 	}
-	
+
 	@RequestMapping(value = "/admin/groupes", method = RequestMethod.GET)
 	public ModelAndView homeGroupes(Locale locale, Model model, HttpServletRequest request) {
-	HttpSession sessionObj = request.getSession();
-	sessionObj.setAttribute("section", "groupes");
-	
-	List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
-	ModelAndView modelView = new ModelAndView("adminGroupe", "command", new GroupeDTO());
-	modelView.addObject("liste",listeResultat);
-	model.addAttribute("myInjectedBean", groupeBean );
-	
-	return modelView;
+		HttpSession sessionObj = request.getSession();
+		if(sessionObj.getAttribute("type").equals("admin")){
+			sessionObj.setAttribute("section", "groupes");
+			List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+			ModelAndView modelView = new ModelAndView("adminGroupe", "command", new GroupeDTO());
+			modelView.addObject("liste", listeResultat);
+			model.addAttribute("myInjectedBean", groupeBean);
+			return modelView;
+		} else {
+			ModelAndView modelView = new ModelAndView("errorAccesRole");
+			return modelView;
+		}
 	}
-	
+
 	@RequestMapping(value = "/admin/moderateurs", method = RequestMethod.GET)
 	public ModelAndView homeModerateurs(Locale locale, Model model, HttpServletRequest request) {
-	HttpSession sessionObj = request.getSession();
-	sessionObj.setAttribute("section", "moderateurs");
-	
-	List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
-	ModelAndView modelView = new ModelAndView("adminModerateur", "command", new ModerateurDTO());
-	modelView.addObject("listeModo",listeResultat);
-	model.addAttribute("myInjectedBean", administrationBean );
-	System.out.println(listeResultat);
-	
-	return modelView;
+		HttpSession sessionObj = request.getSession();
+		if(sessionObj.getAttribute("type").equals("admin")){
+			sessionObj.setAttribute("section", "moderateurs");
+			List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
+			ModelAndView modelView = new ModelAndView("adminModerateur", "command", new ModerateurDTO());
+			modelView.addObject("listeModo", listeResultat);
+			model.addAttribute("myInjectedBean", administrationBean);
+			return modelView;
+		} else{
+			ModelAndView modelView = new ModelAndView("errorAccesRole");
+			return modelView;
+		}
 	}
-	
+
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
-	HttpSession sessionObj = request.getSession();
-	sessionObj.setAttribute("section", "accueilgroupes");
-	return "admin";
+		HttpSession sessionObj = request.getSession();
+		if (sessionObj.getAttribute("type").equals("admin")) {
+			sessionObj.setAttribute("section", "accueilgroupes");
+			return "admin";
+		} else {
+			return "errorAccesRole";
+		}
 	}
-	
 
 	@RequestMapping(value = "/admin/saveGroupe", method = RequestMethod.POST)
 	public ModelAndView saveGroupe(String nameGroupe, String descriptionGroupe, int modo) {
-		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe,descriptionGroupe);
+		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe);
 		ModerateurDTO mDTO = administrationBean.addGroupetoModo(modo, gDTO);
 		administrationBean.sendMailModoAssign(mDTO, gDTO);
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
 		ModelAndView modelView = new ModelAndView("redirect:groupes", "command", new GroupeDTO());
-		modelView.addObject("liste",listeResultat);
-		
+		modelView.addObject("liste", listeResultat);
 		return modelView;
 	}
-	
+
 	@RequestMapping(value = "/admin/saveModerateur", method = RequestMethod.POST)
 	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result) {
-		administrationBean.createModerateur(moderateur.getPrenom(), moderateur.getNom(), moderateur.getEmail(), administrationBean.generatePassword(8));
+		administrationBean.createModerateur(moderateur.getPrenom(), moderateur.getNom(), moderateur.getEmail(),
+				administrationBean.generatePassword(8));
 		List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
 		ModelAndView modelView = new ModelAndView("redirect:moderateurs", "command", new ModerateurDTO());
-		modelView.addObject("liste",listeResultat);
-		
+		modelView.addObject("liste", listeResultat);
+
 		return modelView;
 	}
 
 	@RequestMapping(value = "/admin/removeGroupe/{id}", method = RequestMethod.GET)
-	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,@PathVariable Map<String, String> pathVariables) {
+	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "groupes");
-		
+
 		int id = Integer.parseInt(pathVariables.get("id"));
 		groupeBean.removeGroupe(id);
-		
+
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
 		ModelAndView modelView = new ModelAndView("redirect:../groupes", "command", new GroupeDTO());
-		modelView.addObject("liste",listeResultat);
-		
+		modelView.addObject("liste", listeResultat);
+
 		return modelView;
-		}
-	
+	}
+
 }

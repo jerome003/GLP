@@ -37,7 +37,6 @@ public class RechercheImpl implements RechercheRemote {
 						|| e.getPrenom().toLowerCase().contains(recherches[i].toLowerCase())) {
 					EtudiantProfil ep = e.getProfil();
 					EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
-					System.out.println(eDTO);
 					if (!psDTO.contains(eDTO))
 							psDTO.add(eDTO);
 				}

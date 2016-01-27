@@ -29,9 +29,9 @@
 							<td>${results.prenom}</td>
 							<td>${results.diplome}</td>
 							<td>${results.anneeDiplome}</td>
-							<td><a href="#"><span class="glyphicon glyphicon-ok"></span>
+							<td><a href="${pageContext.request.contextPath}/moderateur/validationGroup/${idGroupe}/etudiantOK/${results.id}"><span class="glyphicon glyphicon-ok"></span>
 									Valider</a></td>
-							<td><a href="#"><span
+							<td><a href="${pageContext.request.contextPath}/moderateur/validationGroup/${idGroupe}/etudiantKO/${results.id}"><span
 									class="glyphicon glyphicon-remove"></span> Refuser</a></td>
 						</tr>
 					</c:forEach>

@@ -64,7 +64,6 @@ public class GroupeImpl implements GroupeRemote {
 	public List<GroupeDTO> getAllGroupe() {
 		List<Groupe> gList = em.createQuery("select o from Groupe o", Groupe.class).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
-		System.out.println(gList);
 		for(Groupe g : gList) {
 			gDTOList.add(g.toGroupeDTO());
 		}

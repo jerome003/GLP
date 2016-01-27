@@ -108,8 +108,12 @@
 							<tr>
 								<th>Poste</th>
 								<th>Entreprise</th>
+								<th>Ville</th>
+								<th>Région</th>
+								<th>Pays</th>
 								<th>Début</th>
-								<th>Durée</th>
+								<th>Fin</th>
+								<th>Description</th>
 							</tr>
 						</thead>
 						<c:forEach items="${profil.profil.mesExperiences}"
@@ -117,8 +121,12 @@
 							<tr>
 								<td>${experience.libelle}</td>
 								<td>${experience.entreprise}</td>
-								<td>${experience.anneeDebut}</td>
-								<td>${experience.duree}</td>
+								<td>${experience.ville}</td>
+								<td>${experience.region}</td>
+								<td>${experience.pays}</td>
+								<td>${experience.debut}</td>
+								<td>${experience.fin}</td>
+								<td>${experience.description}</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -133,12 +141,24 @@
 						<thead>
 							<tr>
 								<th>Formation</th>
+								<th>Etablissement</th>
+								<th>Début</th>
+								<th>Fin</th>
+								<th>Ville</th>
+								<th>Région</th>
+								<th>Pays</th>
 							</tr>
 						</thead>
 						<c:forEach items="${profil.profil.mesEcoles}" var="ecole"
 							varStatus="loop">
 							<tr>
 								<td>${ecole.libelle}</td>
+								<td>${ecole.etablissement}</td>
+								<td>${ecole.debut}</td>
+								<td>${ecole.fin}</td>
+								<td>${ecole.ville}</td>
+								<td>${ecole.region}</td>
+								<td>${ecole.pays}</td>
 							</tr>
 						</c:forEach>
 					</table>

@@ -54,5 +54,9 @@ public interface AdministrationRemote {
 
 	public List<EtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id);
 
+	void validationInscription(EtudiantDTO etudiantDTO);
+
+	void refusInscription(EtudiantDTO etudiantDTO, int idGroupe);
+
 
 }

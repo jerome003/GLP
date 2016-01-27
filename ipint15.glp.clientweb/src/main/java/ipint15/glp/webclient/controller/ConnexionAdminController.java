@@ -33,6 +33,7 @@ public class ConnexionAdminController {
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "connexion");
+		// variable type permettant de verifier le role de la personne qui tente de se connecter a une page
 		if (!adminBean.isThereAnAdmin()){
 			adminBean.createAdmin("admin@admin.fr", "password");
 		}
@@ -62,9 +63,9 @@ public class ConnexionAdminController {
 			AdminDTO ad = adminBean.getAdmin(admin.getEmail());
 			HttpSession session = request.getSession();
 			session.setAttribute("user", ad);
+			session.setAttribute("type", "admin");
 
 		}
-
 		return "redirect:admin";
 
 	}
@@ -83,7 +84,7 @@ public class ConnexionAdminController {
 		sessionObj.setAttribute("user", null);
 		request.setAttribute("deco", "deco");
 		sessionObj.removeAttribute("user");
-		return "redirect:connexionAdmin";
+		sessionObj.setAttribute("type", "");
+		return "home";
 	}
 }
-
