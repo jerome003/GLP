@@ -86,7 +86,7 @@ public class InscriptionController {
 		System.out.println("new groupe :" + newGroupe);
 
 		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),etudiant.getNumTelephone(),
-				etudiant.getPassword(), etudiant.getNaissance(),etudiant.getPosteActu(),etudiant.getVilleActu(),etudiant.getNomEntreprise(),etudiant.getDiplome(), etudiant.getAnneeDiplome(), newGroupe);
+				administrationBean.generatePassword(8), etudiant.getNaissance(),etudiant.getPosteActu(),etudiant.getVilleActu(),etudiant.getNomEntreprise(),etudiant.getDiplome(), etudiant.getAnneeDiplome(), newGroupe);
 		administrationBean.sendMailNewEtudiant(eDTO);
 		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
 		Iterator it = myPersons.iterator();

@@ -32,6 +32,7 @@ import ipint15.glp.api.remote.EtudiantCatalogRemote;
 public class ConnexionModerateurController {
 	@Inject
 	protected AdministrationRemote administrationBean;
+	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
 
 
