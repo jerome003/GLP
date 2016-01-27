@@ -79,6 +79,8 @@ public class AdministrationImpl implements AdministrationRemote {
 		m.setPassword(password);
 
 		m.setPrenom(prenom);
+		
+		System.out.println("Create Modo " + nom + " : " + password);
 
 		em.persist(m);
 
@@ -121,7 +123,6 @@ public class AdministrationImpl implements AdministrationRemote {
 
 			Transport.send(message);
 
-			System.out.println("Done");
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
@@ -190,11 +191,8 @@ public class AdministrationImpl implements AdministrationRemote {
 	public boolean connexionAdmin(String email, String password) {
 		Admin a = getAdminByMail(email);
 		if (a != null && (a.getPassword().equals(password))) {
-			System.out.println("connexion etablie");
 			return true;
 		}
-
-		System.out.println("connexion refusee");
 		return false;
 	}
 
@@ -202,11 +200,8 @@ public class AdministrationImpl implements AdministrationRemote {
 	public boolean connexionModerateur(String email, String password) {
 		Moderateur m = getModerateurByMail(email);
 		if (m != null && (m.getPassword().equals(password))) {
-			System.out.println("connexion etablie");
 			return true;
 		}
-
-		System.out.println("connexion refusee");
 		return false;
 	}
 
@@ -344,7 +339,6 @@ public class AdministrationImpl implements AdministrationRemote {
 
 			Transport.send(message);
 
-			System.out.println("Done");
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
@@ -388,7 +382,6 @@ public class AdministrationImpl implements AdministrationRemote {
 
 			Transport.send(message);
 
-			System.out.println("Done");
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
@@ -403,7 +396,6 @@ public class AdministrationImpl implements AdministrationRemote {
 		List<Etudiant> EtudiantList = g.getEtudiants();
 		List<EtudiantDTO> EtudiantListDTO = new ArrayList<EtudiantDTO>();
 		
-		System.out.println("Taille liste etudiant :" +EtudiantList.size());
 		
 		Iterator<Etudiant> iter = EtudiantList.iterator();
 
@@ -414,13 +406,9 @@ public class AdministrationImpl implements AdministrationRemote {
 			}
 		}
 		
-		System.out.println("Taille liste etudiant :" +EtudiantList.size());
-		
 		for (Etudiant e : EtudiantList){
 			EtudiantListDTO.add(e.toEtudiantDTO());
 		}
-		
-		System.out.println("Taille liste etudiantDTO :" +EtudiantListDTO.size());
 		
 		return EtudiantListDTO;
 		
@@ -464,8 +452,6 @@ public class AdministrationImpl implements AdministrationRemote {
 					modo.getPassword() +". \n\nA bientot sur le réseau d'ancien de Lille 1 !");
 
 				Transport.send(message);
-
-				System.out.println("Done");
 
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);

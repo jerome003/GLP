@@ -82,17 +82,10 @@ public class InscriptionController {
 		 }
 	
 		GroupeDTO newGroupe = groupeBean.getGroupeDTOById(etudiant.getGroupe().getId());
-		System.out.println("old groupe :" + etudiant.getGroupe());
-		System.out.println("new groupe :" + newGroupe);
 
 		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),etudiant.getNumTelephone(),
 				administrationBean.generatePassword(8), etudiant.getNaissance(),etudiant.getPosteActu(),etudiant.getVilleActu(),etudiant.getNomEntreprise(),etudiant.getDiplome(), etudiant.getAnneeDiplome(), newGroupe);
 		administrationBean.sendMailNewEtudiant(eDTO);
-		List<EtudiantDTO> myPersons = etudiantBean.listEtudiant();
-		Iterator it = myPersons.iterator();
-		while(it.hasNext()) {
-			System.out.println("Iterator :" +it.next().toString());
-		}
 		
 		/*
 		 //Ajout d'une compétence pour notre étudiant

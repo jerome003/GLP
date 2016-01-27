@@ -54,7 +54,6 @@ public class ConnexionController {
 			result.rejectValue("email", null, "Cette adresse mail n'existe pas");
 			return "connexion";
 		}
-		System.out.println(etudiant.getEmail());
 		if (!etudiantBean.isPasswordIsGood(etudiant.getEmail(), etudiant.getPassword())) {
 			result.rejectValue("password", null, "Ce n'est pas le bon mot de passe");
 			return "connexion";
@@ -64,7 +63,6 @@ public class ConnexionController {
 			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
 			HttpSession session = request.getSession();
 			session.setAttribute("etudiant", etu);
-			System.out.println("connexion controller"+etu.getId());
 			List<ExperienceDTO> listExpPro = etudiantBean.getExperiences(etu);
 			request.getSession().setAttribute("listExpPro", listExpPro);
 			List<CompetenceDTO> listCompetence = etudiantBean.getCompetences(etu);

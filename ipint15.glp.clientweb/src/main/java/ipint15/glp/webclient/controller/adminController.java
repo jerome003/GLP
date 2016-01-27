@@ -66,7 +66,6 @@ public class adminController {
 			ModelAndView modelView = new ModelAndView("adminModerateur", "command", new ModerateurDTO());
 			modelView.addObject("listeModo", listeResultat);
 			model.addAttribute("myInjectedBean", administrationBean);
-			System.out.println(listeResultat);
 			return modelView;
 		} else{
 			ModelAndView modelView = new ModelAndView("errorAccesRole");
@@ -81,7 +80,6 @@ public class adminController {
 			sessionObj.setAttribute("section", "accueilgroupes");
 			return "admin";
 		} else {
-			System.out.println("SBRAAA");
 			return "errorAccesRole";
 		}
 	}

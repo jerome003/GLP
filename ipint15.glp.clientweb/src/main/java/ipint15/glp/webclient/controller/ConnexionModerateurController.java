@@ -66,7 +66,6 @@ public class ConnexionModerateurController {
 
 		if (administrationBean.connexionModerateur(moderateur.getEmail(), moderateur.getPassword())) {
 			ModerateurDTO modo = administrationBean.getModerateur(moderateur.getEmail());
-			System.out.println(modo.getGroupes());
 			HttpSession session = request.getSession();
 			session.setAttribute("user", modo);
 			session.setAttribute("type", "moderateur");

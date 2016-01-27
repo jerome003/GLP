@@ -163,11 +163,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		Etudiant e = getEtudiantByMail(email);
 		if (e != null && (e.getPassword().equals(password))) {
-			System.out.println("connexion etablie");
 			return true;
 		}
-
-		System.out.println("connexion refusee");
 		return false;
 	}
 
@@ -336,9 +333,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 				.getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
-			System.out.println("Profil :" + p.getProfil());
 			PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(), p);
-			System.out.println("Profil DTO :" + cDTO.getProfil());
 			mesPublicationsDTO.add(cDTO);
 		}
 		return mesPublicationsDTO;
@@ -393,14 +388,10 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	@Override
 	public void deleteCompetenceList(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
-
 		List<Competence> mesCompetences = e.getProfil().getMesCompetences();
-		System.out.println("isEmpty : " + mesCompetences.isEmpty());
-		System.out.println(mesCompetences);
 		e.getProfil().setMesCompetences(new ArrayList<Competence>());
 		em.persist(e);
 		mesCompetences = e.getProfil().getMesCompetences();
-		System.out.println(mesCompetences);
 
 	}
 
