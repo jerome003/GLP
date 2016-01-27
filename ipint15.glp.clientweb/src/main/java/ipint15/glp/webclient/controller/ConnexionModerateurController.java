@@ -121,9 +121,7 @@ public class ConnexionModerateurController {
 			@PathVariable Map<String, String> pathVariables) {
 
 		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
-		System.out.println(idEtu);
 		EtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
-		System.out.println(etu);
 		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
 		administrationBean.refusInscription(etu,idGroupe);
 		
