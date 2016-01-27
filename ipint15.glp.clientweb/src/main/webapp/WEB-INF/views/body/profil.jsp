@@ -25,8 +25,8 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="col-md-7">
-					<div class="col-md-6">
+				<div class="col-md-9 nopadding">
+					<div class="col-md-6 nopadding">
 						<div class="well well-lg">
 							<div class="row">
 								<label class="control-label">Contact :</label>
@@ -83,7 +83,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-5">
+				<div class="col-md-3 nopadding">
 					<div class="well well-lg">
 						<label class="control-label">Groupes :</label> <br />
 						<c:if test="${not empty profil.groupe}">
@@ -93,10 +93,12 @@
 				</div>
 			</div>
 		</div>
-		<label class="row col-md-4">Ce que je recherche :</label>
-		<textarea readonly id="attentes" class="row col-md-12 well well-lg fixe" rows="4" cols="12">
-						${profil.attentes}
-		</textarea>
+		<div class="col-md-12">
+			<label class="row col-md-4">Ce que je recherche :</label>
+			<textarea readonly id="attentes" class="row col-md-12 well well-lg fixe" rows="4" cols="12">
+							${profil.attentes}
+			</textarea>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="well well-lg">

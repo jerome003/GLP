@@ -456,10 +456,12 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Expériences Professionnelles</h2>
 					<div class="lesExpPro" id="lesExpPro">
-						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
-							onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');"></a><a
-							class="btn btn-primary glyphicon glyphicon-floppy-disk"
-							onClick="saveExpPro();"> Enregistrer</a>
+						<div class="row">
+							<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+								onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');"></a><a
+								class="btn btn-primary glyphicon glyphicon-floppy-disk"
+								onClick="saveExpPro();"> Enregistrer</a>
+						</div>
 						<c:forEach items="${profil.profil.mesExperiences}"
 							var="experience" varStatus="loop">
 							<label id="labelExpProPoste${loop.index}"
@@ -492,11 +494,13 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Compétences</h2>
 					<div id="lesCompetences" class="lesCompetences">
+					<div class="row">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
 							onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');"></a><a
 							class="btn btn-primary glyphicon glyphicon-floppy-disk"
 							onClick="saveCompetence('lesCompetences', 'saveCompetence');">
 							Enregistrer</a>
+							</div>
 						<ul class="list-group">
 							<c:forEach items="${profil.profil.mesCompetences}"
 								var="competence" varStatus="loop">
@@ -557,11 +561,13 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Formation</h2>
 					<div id="lesFormations" class="lesFormations">
+					<div class="row">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
 							onClick="AddChamp('lesFormations', 'formation', 'deleteFormation','saveFormation()');"></a><a
 							class="btn btn-primary glyphicon glyphicon-floppy-disk"
 							onClick="save('lesFormations', 'saveFormation');">
 							Enregistrer</a>
+							</div>
 						<c:forEach items="${profil.profil.mesEcoles}" var="formation"
 							varStatus="loop">
 							<input id="formation${loop.index}" name="formation"
@@ -577,10 +583,12 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="well well-lg">
 					<h2>Loisirs</h2>
 					<div id="lesLoisirs" class="lesLoisirs">
+					<div class="row">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
 							onClick="AddChamp('lesLoisirs', 'loisir', 'deleteLoisir','saveLoisir()');"></a><a
 							class="btn btn-primary glyphicon glyphicon-floppy-disk"
 							onClick="save('lesLoisirs', 'saveLoisir');"> Enregistrer</a>
+							</div>
 						<ul class="list-group">
 							<c:forEach items="${profil.profil.mesHobbies}" var="loisir"
 								varStatus="loop">
