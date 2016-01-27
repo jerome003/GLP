@@ -23,10 +23,14 @@ public class Experience {
 	private String libelle;
 
 	private String entreprise;
+	private String ville;
+	private String region;
+	private String pays;
 
-	private String anneeDebut;
+	private String debut;
 
-	private String duree;
+	private String fin;
+	private String description;
 
 	public String getEntreprise() {
 		return entreprise;
@@ -36,21 +40,6 @@ public class Experience {
 		this.entreprise = entreprise;
 	}
 
-	public String getAnneeDebut() {
-		return anneeDebut;
-	}
-
-	public void setAnneeDebut(String anneeDebut) {
-		this.anneeDebut = anneeDebut;
-	}
-
-	public String getDuree() {
-		return duree;
-	}
-
-	public void setDuree(String duree) {
-		this.duree = duree;
-	}
 
 	public int getId() {
 		return id;
@@ -76,20 +65,69 @@ public class Experience {
 		this.libelle = libelle;
 	}
 
+	
+	
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getPays() {
+		return pays;
+	}
+
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
+
+	public String getDebut() {
+		return debut;
+	}
+
+	public void setDebut(String debut) {
+		this.debut = debut;
+	}
+
+	public String getFin() {
+		return fin;
+	}
+
+	public void setFin(String fin) {
+		this.fin = fin;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public ExperienceDTO toExperienceDTO() {
 		ExperienceDTO expDTO = new ExperienceDTO();
 		expDTO.setId(this.id);
 		expDTO.setLibelle(this.libelle);
-		expDTO.setDuree(duree);
+		expDTO.setFin(fin);
 		expDTO.setEntreprise(entreprise);
-		expDTO.setAnneeDebut(anneeDebut);
+		expDTO.setDebut(debut);
+		expDTO.setDescription(description);
+		expDTO.setVille(ville);
+		expDTO.setRegion(region);
+		expDTO.setPays(pays);
 		return expDTO;
 	}
 
-	@Override
-	public String toString() {
-		return "Experience [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + " libelle=" + libelle
-				+ ", entreprise=" + entreprise + ", anneeDebut=" + anneeDebut + ", duree=" + duree + "]";
-	}
 
 }

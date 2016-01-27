@@ -14,12 +14,13 @@ public class ExperienceDTO implements Serializable {
 	private EtudiantProfilDTO profil;
 
 	private String libelle;
-
 	private String entreprise;
-
-	private String anneeDebut;
-
-	private String duree;
+	private String ville;
+	private String region;
+	private String pays;
+	private String debut;
+	private String fin;
+	private String description;
 
 	public int getId() {
 		return id;
@@ -45,11 +46,7 @@ public class ExperienceDTO implements Serializable {
 		this.libelle = libelle;
 	}
 
-	@Override
-	public String toString() {
-		return "ExperienceDTO [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + " libelle=" + libelle
-				+ ", entreprise=" + entreprise + ", anneeDebut=" + anneeDebut + ", duree=" + duree + "]";
-	}
+
 
 	public String getEntreprise() {
 		return entreprise;
@@ -59,20 +56,61 @@ public class ExperienceDTO implements Serializable {
 		this.entreprise = entreprise;
 	}
 
-	public String getAnneeDebut() {
-		return anneeDebut;
+	public String getVille() {
+		return ville;
 	}
 
-	public void setAnneeDebut(String anneeDebut) {
-		this.anneeDebut = anneeDebut;
+	public void setVille(String ville) {
+		this.ville = ville;
 	}
 
-	public String getDuree() {
-		return duree;
+	public String getRegion() {
+		return region;
 	}
 
-	public void setDuree(String duree) {
-		this.duree = duree;
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
+	public String getPays() {
+		return pays;
+	}
+
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
+
+	public String getFin() {
+		return fin;
+	}
+
+	public void setFin(String fin) {
+		this.fin = fin;
+	}
+
+	public String getDebut() {
+		return debut;
+	}
+
+	public void setDebut(String debut) {
+		this.debut = debut;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "ExperienceDTO [id=" + id + ", libelle=" + libelle + ", entreprise=" + entreprise + ", ville=" + ville
+				+ ", region=" + region + ", pays=" + pays + ", debut=" + debut + ", fin=" + fin + ", description="
+				+ description + "]";
+	}
+	
 }

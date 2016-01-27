@@ -163,8 +163,11 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		Etudiant e = getEtudiantByMail(email);
 		if (e != null && (e.getPassword().equals(password))) {
+			System.out.println("connexion etablie");
 			return true;
 		}
+
+		System.out.println("connexion refusee");
 		return false;
 	}
 
@@ -202,7 +205,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addExperience(EtudiantDTO eDTO, String experience, String entreprise, String duree, String anneeDebut) {
+	public void addExperience(EtudiantDTO eDTO, String experience, String entreprise, String ville, String region, String pays, String debut, String fin, String description) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Experience exp = new Experience();
@@ -211,9 +214,13 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		ep.getMesExperiences().add(exp);
 		exp.setProfil(ep);
 		exp.setLibelle(experience);
-		exp.setDuree(duree);
 		exp.setEntreprise(entreprise);
-		exp.setAnneeDebut(anneeDebut);
+		exp.setVille(ville);
+		exp.setPays(pays);
+		exp.setRegion(region);
+		exp.setDebut(debut);
+		exp.setFin(fin);
+		exp.setDescription(description);
 		em.persist(exp);
 		em.merge(ep);
 		em.merge(e);
@@ -284,15 +291,25 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		return mesHobbiesDTO;
 	}
 
-	@Override
-	public void addEcole(EtudiantDTO eDTO, String ecole) {
+	
+	
+	///////////////////////////////// faire .....................
+	@Override 
+	public void addEcole(EtudiantDTO eDTO, String libelle, String etablissement, String debut, String fin, String ville, String region, String pays) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Ecole formation = new Ecole();
-		formation.setLibelle(ecole);
+		formation.setLibelle(libelle);
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesEcoles().add(formation);
 		formation.setProfil(ep);
+		formation.setLibelle(libelle);
+		formation.setEtablissement(etablissement);
+		formation.setDebut(debut);
+		formation.setFin(fin);
+		formation.setVille(ville);
+		formation.setRegion(region);
+		formation.setPays(pays);
 		em.persist(formation);
 		em.merge(ep);
 		em.merge(e);
@@ -333,7 +350,9 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 				.getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
+			System.out.println("Profil :" + p.getProfil());
 			PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(), p);
+			System.out.println("Profil DTO :" + cDTO.getProfil());
 			mesPublicationsDTO.add(cDTO);
 		}
 		return mesPublicationsDTO;
@@ -388,10 +407,14 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	@Override
 	public void deleteCompetenceList(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+
 		List<Competence> mesCompetences = e.getProfil().getMesCompetences();
+		System.out.println("isEmpty : " + mesCompetences.isEmpty());
+		System.out.println(mesCompetences);
 		e.getProfil().setMesCompetences(new ArrayList<Competence>());
 		em.persist(e);
 		mesCompetences = e.getProfil().getMesCompetences();
+		System.out.println(mesCompetences);
 
 	}
 
@@ -409,6 +432,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		// List<Ecole> mesFormations = e.getProfil().getMesEcoles();
 		e.getProfil().setMesEcoles(new ArrayList<Ecole>());
 		em.persist(e);
+		System.out.println("La liste est vide : -- >"+e.getProfil().getMesEcoles().isEmpty());
 	}
 
 	@Override
