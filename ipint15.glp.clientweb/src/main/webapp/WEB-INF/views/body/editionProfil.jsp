@@ -404,42 +404,46 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			<div class="row">
 				<div class="row">
 					<div class="col-md-12">
-						<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
-						<div class="col-md-6">
-							<input type="hidden" id="idEtu" name="idEtu" value="${profil.id}" />
-							<label class="col-md-4">Poste actuel :</label> <input type="text"
-								id="posteActu" name="posteActu" value="${profil.posteActu}"
-								class="col-md-8" /> <label class="col-md-4">Ville
-								Actuelle:</label> <input type="text" id="villeActu" name="villeActu"
-								value="${profil.villeActu}" class="col-md-8" /> <label
-								class="col-md-4">Nom de l'entreprise :</label> <input
-								type="text" id="nomEntreprise" name="nomEntreprise"
-								value="${profil.nomEntreprise}" class="col-md-8" /> <label
-								class="col-md-4">Mail :</label> <input type="mail" id="mail"
-								name="mail" value="${profil.email}" disabled="disabled"
-								class="col-md-8" /> <label class="col-md-4">Numéro de
-								téléphone : </label><input type="tel" id="numTelephone"
-								name="numTelephone" value="${profil.numTelephone}"
-								class="col-md-8" />
+					<div class="row">
+							<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
+							<div class="col-md-6">
+								<input type="hidden" id="idEtu" name="idEtu" value="${profil.id}" />
+								<label class="col-md-4">Poste actuel :</label> <input type="text"
+									id="posteActu" name="posteActu" value="${profil.posteActu}"
+									class="col-md-8" /> <label class="col-md-4">Ville
+									Actuelle:</label> <input type="text" id="villeActu" name="villeActu"
+									value="${profil.villeActu}" class="col-md-8" /> <label
+									class="col-md-4">Nom de l'entreprise :</label> <input
+									type="text" id="nomEntreprise" name="nomEntreprise"
+									value="${profil.nomEntreprise}" class="col-md-8" /> <label
+									class="col-md-4">Mail :</label> <input type="mail" id="mail"
+									name="mail" value="${profil.email}" disabled="disabled"
+									class="col-md-8" /> <label class="col-md-4">Numéro de
+									téléphone : </label><input type="tel" id="numTelephone"
+									name="numTelephone" value="${profil.numTelephone}"
+									class="col-md-8" />
+							</div>
+							<div class="col-md-6">
+								<label class="col-md-4">Facebook : </label><input type="text"
+									id="facebook" name="facebook" value="${profil.facebook}"
+									class="col-md-8" /> <label class="col-md-4">Twitter : </label><input
+									type="text" id="twitter" name="twitter"
+									value="${profil.twitter}" class="col-md-8" /> <label
+									class="col-md-4">Viadeo : </label><input type="text" id="viadeo"
+									name="viadeo" value="${profil.viadeo}" class="col-md-8" /> <label
+									class="col-md-4">Linkedin : </label><input type="text"
+									id="linkedin" name="linkedin" value="${profil.linkedin}"
+									class="col-md-8" />
+							</div>
 						</div>
-						<div class="col-md-6">
-							<label class="col-md-4">Facebook : </label><input type="text"
-								id="facebook" name="facebook" value="${profil.facebook}"
-								class="col-md-8" /> <label class="col-md-4">Twitter : </label><input
-								type="text" id="twitter" name="twitter"
-								value="${profil.twitter}" class="col-md-8" /> <label
-								class="col-md-4">Viadeo : </label><input type="text" id="viadeo"
-								name="viadeo" value="${profil.viadeo}" class="col-md-8" /> <label
-								class="col-md-4">Linkedin : </label><input type="text"
-								id="linkedin" name="linkedin" value="${profil.linkedin}"
-								class="col-md-8" />
+						<div class="col-md-12">
+							<label class="row col-md-4">Ce que je recherche :</label>
+							<textarea id="attentes" class="row col-md-12 fixe" rows="4" cols="1">
+									${profil.attentes}
+							</textarea>
 						</div>
 					</div>
 				</div>
-				<label class="row col-md-4">Ce que je recherche :</label>
-				<textarea id="attentes" class="row col-md-12 fixe" rows="4" cols="12">
-						${profil.attentes}
-				</textarea>
 				<div class="row">
 					<div class="col-sm-offset-5 col-sm-2 text-center">
 						<a
@@ -451,13 +455,11 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			<div class="row col-md-12">
 				<div class="well well-lg">
 					<h2>Expériences Professionnelles</h2>
-					<div class="row">
+					<div class="lesExpPro" id="lesExpPro">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
 							onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');"></a><a
 							class="btn btn-primary glyphicon glyphicon-floppy-disk"
 							onClick="saveExpPro();"> Enregistrer</a>
-					</div>
-					<div class="lesExpPro" id="lesExpPro">
 						<c:forEach items="${profil.profil.mesExperiences}"
 							var="experience" varStatus="loop">
 							<label id="labelExpProPoste${loop.index}"
