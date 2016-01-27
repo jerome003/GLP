@@ -52,6 +52,7 @@ public class EtudiantDTO implements Serializable {
 	private String twitter;
 	private String viadeo;
 	private String linkedin;
+	private String attentes;
 
 
 	
@@ -281,6 +282,18 @@ public class EtudiantDTO implements Serializable {
 		} else if (!villeActu.equals(other.villeActu))
 			return false;
 		return true;
+	}
+	/**
+	 * @return the attentes
+	 */
+	public String getAttentes() {
+		return attentes;
+	}
+	/**
+	 * @param attentes the attentes to set
+	 */
+	public void setAttentes(String attentes) {
+		this.attentes = attentes;
 	}
 
 	
