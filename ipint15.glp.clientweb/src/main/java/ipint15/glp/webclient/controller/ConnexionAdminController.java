@@ -85,6 +85,6 @@ public class ConnexionAdminController {
 		request.setAttribute("deco", "deco");
 		sessionObj.removeAttribute("user");
 		sessionObj.setAttribute("type", "");
-		return "redirect:connexionAdmin";
+		return "home";
 	}
 }
