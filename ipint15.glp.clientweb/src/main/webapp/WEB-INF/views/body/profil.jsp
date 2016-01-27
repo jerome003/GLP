@@ -25,8 +25,8 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="col-md-7">
-					<div class="col-md-6">
+				<div class="col-md-9 nopadding">
+					<div class="col-md-6 nopadding">
 						<div class="well well-lg">
 							<div class="row">
 								<label class="control-label">Contact :</label>
@@ -83,7 +83,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-5">
+				<div class="col-md-3 nopadding">
 					<div class="well well-lg">
 						<label class="control-label">Groupes :</label> <br />
 						<c:if test="${not empty profil.groupe}">
@@ -92,6 +92,12 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="col-md-12">
+			<label class="row col-md-4">Ce que je recherche :</label>
+			<textarea readonly id="attentes" class="row col-md-12 well well-lg fixe" rows="4" cols="12">
+							${profil.attentes}
+			</textarea>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
@@ -102,8 +108,12 @@
 							<tr>
 								<th>Poste</th>
 								<th>Entreprise</th>
+								<th>Ville</th>
+								<th>Région</th>
+								<th>Pays</th>
 								<th>Début</th>
-								<th>Durée</th>
+								<th>Fin</th>
+								<th>Description</th>
 							</tr>
 						</thead>
 						<c:forEach items="${profil.profil.mesExperiences}"
@@ -111,8 +121,12 @@
 							<tr>
 								<td>${experience.libelle}</td>
 								<td>${experience.entreprise}</td>
+								<td>${experience.ville}</td>
+								<td>${experience.region}</td>
+								<td>${experience.pays}</td>
 								<td>${experience.debut}</td>
 								<td>${experience.fin}</td>
+								<td>${experience.description}</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -127,12 +141,24 @@
 						<thead>
 							<tr>
 								<th>Formation</th>
+								<th>Etablissement</th>
+								<th>Début</th>
+								<th>Fin</th>
+								<th>Ville</th>
+								<th>Région</th>
+								<th>Pays</th>
 							</tr>
 						</thead>
 						<c:forEach items="${profil.profil.mesEcoles}" var="ecole"
 							varStatus="loop">
 							<tr>
 								<td>${ecole.libelle}</td>
+								<td>${ecole.etablissement}</td>
+								<td>${ecole.debut}</td>
+								<td>${ecole.fin}</td>
+								<td>${ecole.ville}</td>
+								<td>${ecole.region}</td>
+								<td>${ecole.pays}</td>
 							</tr>
 						</c:forEach>
 					</table>
