@@ -352,7 +352,8 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testUpdateEtudiant() {
-		etuBean.updateEtudiant(etu.getId(), "agriculteur", "Paris", "miage Corp","060606", "https://www.facebook.com/", "https://www.twitter.com/", "https://www.viadeo.com/","https://www.linkedin.com/");
+	
+		etuBean.updateEtudiant(etu.getId(), "agriculteur", "Paris", "miage Corp","060606", "https://www.facebook.com/", "https://www.twitter.com/", "https://www.viadeo.com/","https://www.linkedin.com/","Trouver un emploi");
 		etu = etuBean.getEtudiant(etu.getId());
 		assertEquals("agriculteur", etu.getPosteActu());
 		assertEquals("Paris", etu.getVilleActu());
@@ -362,6 +363,7 @@ public class EtudiantCatalogImplTest {
 		assertEquals("https://www.twitter.com/", etu.getTwitter());
 		assertEquals("https://www.viadeo.com/", etu.getViadeo());
 		assertEquals("https://www.linkedin.com/", etu.getLinkedin());
+		assertEquals("Trouver un emploi", etu.getAttentes());
 	}
 	
 	@Test
