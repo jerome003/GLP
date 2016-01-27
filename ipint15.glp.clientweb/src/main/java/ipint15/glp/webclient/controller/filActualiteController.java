@@ -26,57 +26,66 @@ import ipint15.glp.api.remote.EtudiantCatalogRemote;
 @Controller
 @SessionAttributes
 public class filActualiteController {
-	
+
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/fil-actualite", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
+		try {
+			if (sessionObj.getAttribute("type").equals("ancien")) {
 		sessionObj.setAttribute("section", "actualite");
 		model.addAttribute("myInjectedBean", etudiantBean );
 		EtudiantDTO etu = (EtudiantDTO) sessionObj.getAttribute("etudiant");
 		return new ModelAndView("fil-actualite", "command", new PublicationDTO());
+			} else {
+				ModelAndView modele = new ModelAndView("errorAccesRole");
+				return modele;
+			}
+		} catch(NullPointerException e){
+			ModelAndView modele = new ModelAndView("errorAccesRole");
+			return modele;
+		}
 	}
-	
+
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
-	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result, HttpServletRequest request) {
+	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result,
+			HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
 		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
 		List<PublicationDTO> myPublications = etudiantBean.getPublications();
 		Iterator it = myPublications.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 		}
-		
+
 		/*
-		 //Ajout d'une compétence pour notre étudiant
-		etudiantBean.addCompetence(eDTO, "Football");
-		
-		// Affichage de la liste des Compétences
-		List<CompetenceDTO> mesCompetences = etudiantBean.getCompetences(eDTO);
-		it = mesCompetences.iterator();
-		while(it.hasNext()) {
-			System.out.println("Mes compétences :" +it.next().toString());
-		}
-		*/
+		 * //Ajout d'une compétence pour notre étudiant
+		 * etudiantBean.addCompetence(eDTO, "Football");
+		 * 
+		 * // Affichage de la liste des Compétences List<CompetenceDTO>
+		 * mesCompetences = etudiantBean.getCompetences(eDTO); it =
+		 * mesCompetences.iterator(); while(it.hasNext()) { System.out.println(
+		 * "Mes compétences :" +it.next().toString()); }
+		 */
 		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 	}
-	
-	@RequestMapping(value = "/myPublication", method = RequestMethod.GET) 
+
+	@RequestMapping(value = "/myPublication", method = RequestMethod.GET)
 	public ModelAndView myPublication(HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("choixPublication", "mesPublications");
 		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
-		
+
 	}
-	
-	@RequestMapping(value = "/allPublication", method = RequestMethod.GET) 
+
+	@RequestMapping(value = "/allPublication", method = RequestMethod.GET)
 	public ModelAndView allPublication(HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("choixPublication", "lesPublications");
-		
+
 		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
-		
+
 	}
 }

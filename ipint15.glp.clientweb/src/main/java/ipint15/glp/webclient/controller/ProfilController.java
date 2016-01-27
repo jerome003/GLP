@@ -39,13 +39,15 @@ public class ProfilController {
 	// dans l'url /profil/{id}
 	@RequestMapping(value = "/profil/{id}", method = RequestMethod.GET)
 	public ModelAndView profilConsult(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
+		HttpSession sessionObj = request.getSession();
+		try {
+			if (sessionObj.getAttribute("type").equals("ancien")) {
 		int id = Integer.parseInt(pathVariables.get("id"));
 		EtudiantDTO etu = etudiantBean.getEtudiant(id);
 		etu.getProfil().setMesCompetences(etudiantBean.getCompetences(etu));
 		etu.getProfil().setMesEcoles(etudiantBean.getEcoles(etu));
 		etu.getProfil().setMesExperiences(etudiantBean.getExperiences(etu));
 		etu.getProfil().setMesHobbies(etudiantBean.getHobbies(etu));
-		HttpSession sessionObj = request.getSession();
 		EtudiantDTO etudiant = (EtudiantDTO) sessionObj.getAttribute("etudiant");
 		ModelAndView model = new ModelAndView();
 		if (etudiant.getId() == id) {
@@ -56,5 +58,13 @@ public class ProfilController {
 		sessionObj.setAttribute("profil", etu);
 		model.setViewName("profil");
 		return model;
+			}else{
+				ModelAndView model = new ModelAndView("errorAccesRole");
+				return model;
+			}
+			} catch (NullPointerException e){
+				ModelAndView model = new ModelAndView("errorAccesRole");
+				return model;
+			}
 	}
 }

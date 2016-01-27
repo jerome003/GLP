@@ -43,9 +43,17 @@ public class EditionProfilController {
 	@RequestMapping(value = "/editionProfil", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
+		try {
+			if (sessionObj.getAttribute("type").equals("ancien")) {
 		sessionObj.setAttribute("section", "profil");
 		model.addAttribute("myInjectedBean", etudiantBean);
 		return "editionProfil";
+		} else {
+			return "errorAccesRole";
+		}
+		} catch (NullPointerException e){
+			return "errorAccesRole";
+		}
 	}
 
 	@RequestMapping(value = "/modifyProfil", method = RequestMethod.POST)
