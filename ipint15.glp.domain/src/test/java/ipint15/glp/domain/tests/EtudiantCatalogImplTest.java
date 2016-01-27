@@ -126,22 +126,52 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testAddExperience() {
-		etuBean.addExperience(etudiant, "Stage", "Miage Corp", "6 mois", "2014");
+		
+		etuBean.addExperience(etudiant, "Stage", "Miage Corp", "Lille", "Nord", "France","2012", "2016", "mission de stage : dev");
 		etudiant = etuBean.getEtudiant(etudiant.getId());
 		List<ExperienceDTO> e = etuBean.getExperiences(etudiant);
-		assertEquals("Stage", e.get(2).getLibelle());
-		assertEquals(3, e.size());
+
+		assertEquals("Stage", e.get(4).getLibelle());
+		assertEquals("Miage Corp", e.get(4).getEntreprise());
+		assertEquals("Lille", e.get(4).getVille());
+		assertEquals("Nord", e.get(4).getRegion());
+		assertEquals("France", e.get(4).getPays());
+		assertEquals("2012", e.get(4).getDebut());
+		assertEquals("2016", e.get(4).getFin());
+		assertEquals("mission de stage : dev", e.get(4).getDescription());
+		assertEquals(5, e.size());
 	}
 	
 	
 	@Test
 	public void testGetExperiences () {
-		etuBean.addExperience(etudiant,"Stage2", "CapGemini","6 mois", "2013");
-		etuBean.addExperience(etudiant, "Stage3", "CGI", "5 mois", "2015");
+		etuBean.addExperience(etudiant,"Stage2", "CapGemini","Lille", "Nord", "France", "2012", "2013", "mission gestion de projet");
+		etuBean.addExperience(etudiant, "Stage3", "CGI", "Lille", "Nord", "France", "2015", "2015", "mission MOA");
 		etudiant = etuBean.getEtudiant(etudiant.getId());
 		List<ExperienceDTO> liste = etuBean.getExperiences(etudiant);
 		assertEquals("Stage2",liste.get(0).getLibelle());
+		assertEquals("CapGemini",liste.get(0).getEntreprise());
+		assertEquals("Lille",liste.get(0).getVille());
+		assertEquals("Nord",liste.get(0).getRegion());
+		assertEquals("France",liste.get(0).getPays());
+		assertEquals("2012",liste.get(0).getDebut());
+		assertEquals("2013",liste.get(0).getFin());
+		assertEquals("mission gestion de projet",liste.get(0).getDescription());
+		
+		
+		
 		assertEquals("Stage3",liste.get(1).getLibelle());
+		assertEquals("CGI",liste.get(1).getEntreprise());
+		assertEquals("Lille",liste.get(1).getVille());
+		assertEquals("Nord",liste.get(1).getRegion());
+		assertEquals("France",liste.get(1).getPays());
+		assertEquals("2015",liste.get(1).getDebut());
+		assertEquals("2015",liste.get(1).getFin());
+		assertEquals("mission MOA",liste.get(1).getDescription());
+	
+	
+		
+		
 		assertEquals(2,liste.size());
 	}
 	
@@ -183,23 +213,44 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testAddEcole() {
-		etuBean.addEcole(etudiant, "Universite lille1");
+		etuBean.addEcole(etudiant, "Formation","Universite", "2012", "2013", "Lille", "Nord", "France");
 		etudiant = etuBean.getEtudiant(etudiant.getId());
 		List<EcoleDTO> e = etuBean.getEcoles(etudiant);
-		assertEquals("Universite lille1", e.get(0).getLibelle());
+		
+		assertEquals("Formation", e.get(0).getLibelle());
+		assertEquals("Universite", e.get(0).getEtablissement());
+		assertEquals("2012", e.get(0).getDebut());
+		assertEquals("2013", e.get(0).getFin());
+		assertEquals("Lille",e.get(0).getVille());
+		assertEquals("Nord", e.get(0).getRegion());
+		assertEquals("France",e.get(0).getPays());
 		assertEquals(1, e.size());
 	}
 	
 	
 	@Test
 	public void testGetEcoles () {
-		etuBean.addEcole(etudiant, "ecole1");
-		etuBean.addEcole(etudiant, "ecole2");
+		etuBean.addEcole(etudiant, "info","paris8","2014","2015","Paris","Ile-De-France","France");
+		etuBean.addEcole(etudiant, "gestion","Créteil","2012","2013","Paris","Ile-De-France","France");
 		etudiant = etuBean.getEtudiant(etudiant.getId());
 		List<EcoleDTO> liste = etuBean.getEcoles(etudiant);
-		assertEquals("ecole1",liste.get(1).getLibelle());
-		assertEquals("ecole2",liste.get(2).getLibelle());
-		assertEquals(3,liste.size());
+		assertEquals("info",liste.get(3).getLibelle());
+		assertEquals("paris8",liste.get(3).getEtablissement());
+		assertEquals("2014",liste.get(3).getDebut());
+		assertEquals("2015",liste.get(3).getFin());
+		assertEquals("Paris",liste.get(3).getVille());
+		assertEquals("Ile-De-France",liste.get(3).getRegion());
+		assertEquals("France",liste.get(3).getPays());
+		
+		assertEquals("gestion",liste.get(4).getLibelle());
+		assertEquals("Créteil",liste.get(4).getEtablissement());
+		assertEquals("2012",liste.get(4).getDebut());
+		assertEquals("2013",liste.get(4).getFin());
+		assertEquals("Paris",liste.get(4).getVille());
+		assertEquals("Ile-De-France",liste.get(4).getRegion());
+		assertEquals("France",liste.get(4).getPays());
+		
+		assertEquals(5,liste.size());
 	}
 	
 	@Test
@@ -265,8 +316,9 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testDeleteExpProList() {
-		etuBean.addExperience(etu,"Stage2", "CapGemini","6 mois", "2013");
-		etuBean.addExperience(etu, "Stage3", "CGI", "5 mois", "2015");
+		etuBean.addExperience(etudiant,"Stage2", "CapGemini","Lille", "Nord", "France", "2012", "2013", "mission gestion de projet");
+		etuBean.addExperience(etudiant, "Stage3", "CGI", "Lille", "Nord", "France", "2015", "2015", "mission MOA");
+	
 		etuBean.deleteExpProList(etu);
 		etu = etuBean.getEtudiant(etu.getId());
 		List<ExperienceDTO> listeEtu = etuBean.getExperiences(etu);
@@ -278,8 +330,8 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testDeleteFormationList() {
-		etuBean.addEcole(etu, "ecole1");
-		etuBean.addEcole(etu, "ecole2");
+		etuBean.addEcole(etudiant, "info","paris8","2014","2015","Paris","Ile-De-France","France");
+		etuBean.addEcole(etudiant, "gestion","Créteil","2012","2013","Paris","Ile-De-France","France");
 		etuBean.deleteFormationList(etu);
 		etu = etuBean.getEtudiant(etu.getId());
 		List<EcoleDTO> listeEtu = etuBean.getEcoles(etu);
@@ -300,7 +352,8 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testUpdateEtudiant() {
-		etuBean.updateEtudiant(etu.getId(), "agriculteur", "Paris", "miage Corp","060606", "https://www.facebook.com/", "https://www.twitter.com/", "https://www.viadeo.com/","https://www.linkedin.com/");
+	
+		etuBean.updateEtudiant(etu.getId(), "agriculteur", "Paris", "miage Corp","060606", "https://www.facebook.com/", "https://www.twitter.com/", "https://www.viadeo.com/","https://www.linkedin.com/","Trouver un emploi");
 		etu = etuBean.getEtudiant(etu.getId());
 		assertEquals("agriculteur", etu.getPosteActu());
 		assertEquals("Paris", etu.getVilleActu());
@@ -310,6 +363,7 @@ public class EtudiantCatalogImplTest {
 		assertEquals("https://www.twitter.com/", etu.getTwitter());
 		assertEquals("https://www.viadeo.com/", etu.getViadeo());
 		assertEquals("https://www.linkedin.com/", etu.getLinkedin());
+		assertEquals("Trouver un emploi", etu.getAttentes());
 	}
 	
 	@Test

@@ -30,16 +30,13 @@ function saveExpPro(){
 		tmp += noeuds[i++].value+"|";
  		tmp += noeuds[i++].value+"%";
  	}
-	//var test = "toto";
-	//alert(tmp+" "+test);
+	
 	var res = { mail : mail.value,maListe : tmp } ; 	
  	$.ajax({
          type: "POST",
          url: url,
          data: res,
          success: function (result) {
-        	 //var id = document.getElementById('idEtu').value;
-        	 //window.location = "/ipint15.glp.clientweb/profil/"+id;
         	 alert ("Modifications enregistrées");
          },
          error: function (result) {
@@ -74,7 +71,6 @@ function saveFormation(){
          url: url,
          data: res,
          success: function (result) {
-        	 /*window.location = "/ipint15.glp.clientweb/profil/3";*/
         	 alert ("Modifications enregistrées");
          },
          error: function (result) {
@@ -94,15 +90,12 @@ function save(name, url){
  	for(i = 0 ; i< noeuds.length; i++){
  		tmp += noeuds[i].value+"%";
  	}
- 	//alert(tmp);
  	var res = { mail : mail.value,maListe : tmp } ; 	
  	$.ajax({
          type: "POST",
          url: url,
          data: res,
          success: function (result) {
-//         	 var id = document.getElementById('idEtu').value;
-//         	 window.location.replace("/ipint15.glp.clientweb/profil/"+id);
         	 alert ("Modifications enregistrées");
          },
          error: function (result) {
@@ -118,13 +111,6 @@ function saveCompetence(name, url){
  	var noeuds = maClass.getElementsByTagName('input'); 
  	var selects = maClass.getElementsByTagName('select');
  	for(i = 0 ; i< noeuds.length; i++){
- 		//alert($("#"+selects[i].id+" option:selected").val());
- 		//tmp += noeuds[i].value+"|"+selects[i].text()+"%";
- 		
- 		//TODO
- 		
- 		
- 		
  		tmp += noeuds[i].value+"|"+$("#"+selects[i].id+" option:selected").val()+"%";
  	}
  	var res = { mail : mail.value,maListe : tmp } ; 	
@@ -133,8 +119,7 @@ function saveCompetence(name, url){
          url: url,
          data: res,
          success: function (result) {
-//         	 var id = document.getElementById('idEtu').value;
-//         	 window.location.replace("/ipint15.glp.clientweb/profil/"+id);
+
         	 alert ("Modifications enregistrées");
          },
          error: function (result) {
@@ -317,7 +302,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			div.id = "divFormation"+nvId;
 			div.setAttribute("name", "divFormation");
 			createLabel("labelFormIntit"+nvId,"formIntit"+nvId, "Intitulé : ","lesFormations", div);
-			createInput("text", "expProPoste"+nvId, "formation", div);	
+			createInput("text", "formIntit"+nvId, "formation", div);	
 			
 			createLabel("labelFormEtabl"+nvId,"formEtabl"+nvId, "Établissement : ","lesFormations",div);
 			createInput("text", "formEtabl"+nvId, "formation", div);
@@ -411,7 +396,8 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	
 	/**
 	*Fonction qui permet la suppression d'une expérience professionnelle
-	*--> suppression des input et des labels
+	*--> suppression des input et des labe
+	s
 	*/
 	function suppressionChampEtBoutonExpPro(index, bouton){
 		var r = confirm("Voulez-vous réellement supprimer ce champ ?");
