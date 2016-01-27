@@ -44,14 +44,19 @@ public class adminController {
 	@RequestMapping(value = "/admin/groupes", method = RequestMethod.GET)
 	public ModelAndView homeGroupes(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
-		if(sessionObj.getAttribute("type").equals("admin")){
-			sessionObj.setAttribute("section", "groupes");
-			List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
-			ModelAndView modelView = new ModelAndView("adminGroupe", "command", new GroupeDTO());
-			modelView.addObject("liste", listeResultat);
-			model.addAttribute("myInjectedBean", groupeBean);
-			return modelView;
-		} else {
+		try {
+			if (sessionObj.getAttribute("type").equals("admin")) {
+				sessionObj.setAttribute("section", "groupes");
+				List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+				ModelAndView modelView = new ModelAndView("adminGroupe", "command", new GroupeDTO());
+				modelView.addObject("liste", listeResultat);
+				model.addAttribute("myInjectedBean", groupeBean);
+				return modelView;
+			} else {
+				ModelAndView modelView = new ModelAndView("errorAccesRole");
+				return modelView;
+			}
+		} catch (NullPointerException e) {
 			ModelAndView modelView = new ModelAndView("errorAccesRole");
 			return modelView;
 		}
@@ -60,14 +65,19 @@ public class adminController {
 	@RequestMapping(value = "/admin/moderateurs", method = RequestMethod.GET)
 	public ModelAndView homeModerateurs(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
-		if(sessionObj.getAttribute("type").equals("admin")){
-			sessionObj.setAttribute("section", "moderateurs");
-			List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
-			ModelAndView modelView = new ModelAndView("adminModerateur", "command", new ModerateurDTO());
-			modelView.addObject("listeModo", listeResultat);
-			model.addAttribute("myInjectedBean", administrationBean);
-			return modelView;
-		} else{
+		try {
+			if (sessionObj.getAttribute("type").equals("admin")) {
+				sessionObj.setAttribute("section", "moderateurs");
+				List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
+				ModelAndView modelView = new ModelAndView("adminModerateur", "command", new ModerateurDTO());
+				modelView.addObject("listeModo", listeResultat);
+				model.addAttribute("myInjectedBean", administrationBean);
+				return modelView;
+			} else {
+				ModelAndView modelView = new ModelAndView("errorAccesRole");
+				return modelView;
+			}
+		} catch (NullPointerException e) {
 			ModelAndView modelView = new ModelAndView("errorAccesRole");
 			return modelView;
 		}
@@ -76,10 +86,14 @@ public class adminController {
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
-		if (sessionObj.getAttribute("type").equals("admin")) {
-			sessionObj.setAttribute("section", "accueilgroupes");
-			return "admin";
-		} else {
+		try {
+			if (sessionObj.getAttribute("type").equals("admin")) {
+				sessionObj.setAttribute("section", "accueilgroupes");
+				return "admin";
+			} else {
+				return "errorAccesRole";
+			}
+		} catch (NullPointerException e) {
 			return "errorAccesRole";
 		}
 	}
