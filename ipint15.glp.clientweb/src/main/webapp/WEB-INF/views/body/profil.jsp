@@ -111,8 +111,8 @@
 							<tr>
 								<td>${experience.libelle}</td>
 								<td>${experience.entreprise}</td>
-								<td>${experience.anneeDebut}</td>
-								<td>${experience.duree}</td>
+								<td>${experience.debut}</td>
+								<td>${experience.fin}</td>
 							</tr>
 						</c:forEach>
 					</table>

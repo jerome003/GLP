@@ -75,6 +75,7 @@ function saveFormation(){
          data: res,
          success: function (result) {
         	 /*window.location = "/ipint15.glp.clientweb/profil/3";*/
+        	 alert ("Modifications enregistrées");
          },
          error: function (result) {
              // do something.
@@ -255,7 +256,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	
 	function AddExpPro(lesExpPro, expPro, deleteExpPro){
 		var taille = document.getElementsByName("divExpPro").length;
-		alert (taille);
+		
 		if (taille == 0){
 			var nvId=0;
 		}
@@ -304,7 +305,6 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	
 	function AddFormation(lesFormation, formation, deleteFormation){
 		var taille = document.getElementsByName("divFormation").length;
-		alert (taille);
 		if (taille == 0){
 			var nvId=0;
 		}
