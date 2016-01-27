@@ -489,5 +489,17 @@ public class AdministrationImpl implements AdministrationRemote {
 		Etudiant e = (Etudiant) q.getSingleResult();
 		return e;
 	}
+	
+
+	
+	@Override
+	public void refusInscription (EtudiantDTO etudiantDTO, int idGroupe){
+		sendMailEtudiantKO(etudiantDTO);
+		Etudiant etu = getEtudiantById(etudiantDTO.getId());
+		Groupe g = getGroupeById(idGroupe);
+		g.getEtudiants().remove(etu);
+		em.remove(etu);
+		
+	}
 
 }
