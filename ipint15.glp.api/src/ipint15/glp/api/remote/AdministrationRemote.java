@@ -56,5 +56,7 @@ public interface AdministrationRemote {
 
 	void validationInscription(EtudiantDTO etudiantDTO);
 
+	void refusInscription(EtudiantDTO etudiantDTO, int idGroupe);
+
 
 }
