@@ -29,10 +29,14 @@ public class moderateurController {
 	@RequestMapping(value = "/moderateur", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
-		if (sessionObj.getAttribute("type").equals("moderateur")) {
-			sessionObj.setAttribute("section", "accueilmoderateur");
-			return "moderateur";
-		} else {
+		try {
+			if (sessionObj.getAttribute("type").equals("moderateur")) {
+				sessionObj.setAttribute("section", "accueilmoderateur");
+				return "moderateur";
+			} else {
+				return "errorAccesRole";
+			}
+		} catch (NullPointerException e) {
 			return "errorAccesRole";
 		}
 	}

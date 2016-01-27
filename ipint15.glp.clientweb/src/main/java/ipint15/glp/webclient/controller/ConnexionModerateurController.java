@@ -27,14 +27,12 @@ import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
-
 @Controller
 public class ConnexionModerateurController {
 	@Inject
 	protected AdministrationRemote administrationBean;
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
-
 
 	@RequestMapping(value = "/connexionModerateur", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
@@ -80,20 +78,23 @@ public class ConnexionModerateurController {
 	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,
 			@PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
-		
-		if (sessionObj.getAttribute("type").equals("moderateur")) {
-			sessionObj.setAttribute("section", "groupes");
-			int id = Integer.parseInt(pathVariables.get("id"));
-			sessionObj.setAttribute("idGroupe", id);
-			List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
-			ModelAndView modelView = new ModelAndView("validationInscription");
-			modelView.addObject("liste", listeResultat);
-			return modelView;
-		} else {
+		try {
+			if (sessionObj.getAttribute("type").equals("moderateur")) {
+				sessionObj.setAttribute("section", "groupes");
+				int id = Integer.parseInt(pathVariables.get("id"));
+				sessionObj.setAttribute("idGroupe", id);
+				List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
+				ModelAndView modelView = new ModelAndView("validationInscription");
+				modelView.addObject("liste", listeResultat);
+				return modelView;
+			} else {
+				ModelAndView modele = new ModelAndView("errorAccesRole");
+				return modele;
+			}
+		} catch (NullPointerException e) {
 			ModelAndView modele = new ModelAndView("errorAccesRole");
 			return modele;
 		}
-		
 	}
 
 	@RequestMapping(value = "/moderateur/validationGroup/{idGroupe}/etudiantOK/{idEtu}", method = RequestMethod.GET)
@@ -103,12 +104,13 @@ public class ConnexionModerateurController {
 		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
 		EtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
 		administrationBean.validationInscription(etu);
-		
+
 		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("idGroupe", idGroupe);
 		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
-		// Modifier vue retourner pour que cela soit plus propre au niveau des urls.
+		// Modifier vue retourner pour que cela soit plus propre au niveau des
+		// urls.
 		ModelAndView modelView = new ModelAndView("validationInscription");
 		modelView.addObject("liste", listeResultat);
 
@@ -123,8 +125,7 @@ public class ConnexionModerateurController {
 		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
 		EtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
 		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
-		administrationBean.refusInscription(etu,idGroupe);
-		
+		administrationBean.refusInscription(etu, idGroupe);
 
 		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
 		ModelAndView modelView = new ModelAndView("validationInscription");
