@@ -44,17 +44,17 @@
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl"
 		business-interface="ipint15.glp.api.remote.EtudiantCatalogRemote">
 	</jee:remote-slsb>
-	
-		<jee:remote-slsb id="recherchebean"
+
+	<jee:remote-slsb id="recherchebean"
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/RechercheImpl"
 		business-interface="ipint15.glp.api.remote.RechercheRemote">
 	</jee:remote-slsb>
-	
+
 	<jee:remote-slsb id="groupebean"
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl"
 		business-interface="ipint15.glp.api.remote.GroupeRemote">
 	</jee:remote-slsb>
-	
+
 	<jee:remote-slsb id="administrationbean"
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/AdministrationImpl"
 		business-interface="ipint15.glp.api.remote.AdministrationRemote">

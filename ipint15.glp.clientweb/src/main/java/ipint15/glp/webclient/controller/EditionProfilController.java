@@ -43,9 +43,17 @@ public class EditionProfilController {
 	@RequestMapping(value = "/editionProfil", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
+		try {
+			if (sessionObj.getAttribute("type").equals("ancien")) {
 		sessionObj.setAttribute("section", "profil");
 		model.addAttribute("myInjectedBean", etudiantBean);
 		return "editionProfil";
+		} else {
+			return "errorAccesRole";
+		}
+		} catch (NullPointerException e){
+			return "errorAccesRole";
+		}
 	}
 
 	@RequestMapping(value = "/modifyProfil", method = RequestMethod.POST)
@@ -66,32 +74,32 @@ public class EditionProfilController {
 	 */
 	@RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
 	public ModelAndView saveProfil(int idEtu, String posteActu, String villeActu, String nomEntreprise, String mail,
-			String numTelephone, String facebook, String twitter, String viadeo, String linkedin) {
+			String numTelephone, String facebook, String twitter, String viadeo, String linkedin, String attentes) {
+		System.out.println(idEtu + posteActu + villeActu + nomEntreprise + mail + numTelephone);
 		etudiantBean.updateEtudiant(idEtu, posteActu, villeActu, nomEntreprise, numTelephone, facebook, twitter, viadeo,
-				linkedin);
+				linkedin, attentes);
 		return new ModelAndView("redirect:profil/" + idEtu, "command", new EtudiantDTO());
 	}
 
 	@RequestMapping(value = "/saveExpPro", method = RequestMethod.POST)
 	public ModelAndView saveExpPro(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
 			HttpServletRequest request) {
-		if (liste == null || liste.length() < 5) {
+
+		System.out.println(liste + " " + email);
+		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
+		etudiantBean.deleteExpProList(etudiantDTO);
+		if(liste == null || liste.length() < 9){
 			return null;
-		} else {
-			EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
-			etudiantBean.deleteExpProList(etudiantDTO);
+		}
+		else{
+
 			String tabExp[] = liste.split("%");
-
-			// TODO ajouter une exception, si le le tableau est vide on fait
-			// rien --> vérif avec le if !!
-
+			//TODO ajouter une exception, si le le tableau est vide on fait rien --> vérif avec le if !!
 			for (int i = 0; i < tabExp.length; i++) {
 				String tabExpTmp[] = tabExp[i].split("\\|");
-				etudiantBean.addExperience(etudiantDTO, tabExpTmp[0].replaceAll("|", ""),
-						tabExpTmp[1].replaceAll("|", ""), tabExpTmp[3].replaceAll("|", ""),
-						tabExpTmp[2].replaceAll("|", ""));
+				etudiantBean.addExperience(etudiantDTO, tabExpTmp[0].replaceAll("|", ""), tabExpTmp[1].replaceAll("|", ""),
+						tabExpTmp[2].replaceAll("|", ""), tabExpTmp[3].replaceAll("|", ""), tabExpTmp[4].replaceAll("|", ""), tabExpTmp[5].replaceAll("|", ""), tabExpTmp[6].replaceAll("|", ""), tabExpTmp[7].replaceAll("|", ""));
 			}
-
 			return mapCompetencesEtudiant(etudiantDTO, request);
 		}
 
@@ -105,21 +113,44 @@ public class EditionProfilController {
 		String tabExp[] = liste.split("%");
 		for (int i = 0; i < tabExp.length; i++) {
 			String tabExpTmp[] = tabExp[i].split("\\|");
+			System.out.println(tabExpTmp);
 			etudiantBean.addCompetence(etudiantDTO, tabExpTmp[0], Integer.parseInt(tabExpTmp[1]));
 		}
 		return mapCompetencesEtudiant(etudiantDTO, request);
 	}
 
+
+
+
+	/**
+	 * Permet de sauvegarder une formation ajouté par l'utilisateur 
+	 * @param email
+	 * @param liste
+	 * @param request
+	 * @return
+	 */
+
+
+
+
 	@RequestMapping(value = "/saveFormation", method = RequestMethod.POST)
 	public ModelAndView saveFormation(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
 			HttpServletRequest request) {
+		System.out.println(liste + " " + email);
 		EtudiantDTO etudiantDTO = etudiantBean.getEtudiant(email);
 		etudiantBean.deleteFormationList(etudiantDTO);
-		String tabExp[] = liste.split("%");
-		for (int i = 0; i < tabExp.length; i++) {
-			etudiantBean.addEcole(etudiantDTO, tabExp[i]);
+		if(liste == null || liste.length() < 7){
+			return null;
 		}
-		return mapCompetencesEtudiant(etudiantDTO, request);
+		else{
+
+			String tabEcole[] = liste.split("%");
+			for (int i = 0; i < tabEcole.length; i++) {
+				String tabEcoleTmp[] = tabEcole[i].split("\\|");
+				etudiantBean.addEcole(etudiantDTO, tabEcoleTmp[0].replaceAll("|", ""),tabEcoleTmp[1].replaceAll("|", ""),tabEcoleTmp[2].replaceAll("|", ""),tabEcoleTmp[3].replaceAll("|", ""),tabEcoleTmp[4].replaceAll("|", ""),tabEcoleTmp[5].replaceAll("|", ""),tabEcoleTmp[6].replaceAll("|", ""));
+			}
+			return mapCompetencesEtudiant(etudiantDTO, request);
+		}
 	}
 
 	@RequestMapping(value = "/saveLoisir", method = RequestMethod.POST)

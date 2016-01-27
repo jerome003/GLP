@@ -61,7 +61,7 @@ public interface EtudiantCatalogRemote {
 
 	void addPublication(EtudiantDTO eDTO, String titre, String message, Date date);
 
-	public void addExperience(EtudiantDTO eDTO, String experience, String entreprise, String duree, String anneeDebut);
+	public void addExperience(EtudiantDTO eDTO, String libelle, String entreprise, String ville, String region, String pays, String debut, String fin, String description);
 
 	public List<ExperienceDTO> getExperiences(EtudiantDTO eDTO);
 
@@ -69,7 +69,7 @@ public interface EtudiantCatalogRemote {
 
 	public List<HobbieDTO> getHobbies(EtudiantDTO eDTO);
 
-	public void addEcole(EtudiantDTO eDTO, String ecole);
+	public void addEcole(EtudiantDTO eDTO, String libelle, String etablissement, String debut, String fin, String ville, String region, String pays);
 
 	public List<EcoleDTO> getEcoles(EtudiantDTO eDTO);
 
@@ -102,9 +102,10 @@ public interface EtudiantCatalogRemote {
 	 * @param villeActu
 	 * @param nomEntreprise
 	 * @param numtelephone
+	 * @param attentes
 	 */
 	
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone, String facebook, String twitter, String viadeo, String linkedin);
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone, String facebook, String twitter, String viadeo, String linkedin, String attentes);
 
 
 	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO);

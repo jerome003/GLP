@@ -71,6 +71,7 @@ public class ConnexionController {
 			request.getSession().setAttribute("listEcole", listEcole);
 			List<HobbieDTO> listLoisir = etudiantBean.getHobbies(etu);
 			request.getSession().setAttribute("listLoisir", listLoisir);
+			request.getSession().setAttribute("type","ancien");
 		}
 
 		return "redirect:fil-actualite";
@@ -92,6 +93,7 @@ public class ConnexionController {
 		sessionObj.setAttribute("profil", null);
 		request.setAttribute("deco", "deco");
 		sessionObj.removeAttribute("etudiant");
+		sessionObj.setAttribute("type", "");
 		return "home";
 	}
 }

@@ -29,6 +29,8 @@
 			<a class="navbar-brand" href="#">Annuaire des anciens de
 				l'université de Lille<br>
 			</a>
+			<p class="text-primary">Connecté en tant que modérateur </p>
+			
 		</div>
 
 
