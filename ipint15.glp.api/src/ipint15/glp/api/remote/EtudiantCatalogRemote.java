@@ -102,9 +102,10 @@ public interface EtudiantCatalogRemote {
 	 * @param villeActu
 	 * @param nomEntreprise
 	 * @param numtelephone
+	 * @param attentes
 	 */
 	
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone, String facebook, String twitter, String viadeo, String linkedin);
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone, String facebook, String twitter, String viadeo, String linkedin, String attentes);
 
 
 	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO);

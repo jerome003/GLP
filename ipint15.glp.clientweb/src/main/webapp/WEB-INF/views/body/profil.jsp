@@ -93,6 +93,10 @@
 				</div>
 			</div>
 		</div>
+		<label class="row col-md-4">Ce que je recherche :</label>
+		<textarea readonly id="attentes" class="row col-md-12 well well-lg fixe" rows="4" cols="12">
+						${profil.attentes}
+		</textarea>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="well well-lg">

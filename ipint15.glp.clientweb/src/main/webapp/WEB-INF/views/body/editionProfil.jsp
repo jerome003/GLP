@@ -113,8 +113,9 @@ function saveProfil (){
 	var twitter = document.getElementById('twitter');
 	var viadeo = document.getElementById('viadeo');
 	var linkedin = document.getElementById('linkedin');
+	var attentes = document.getElementById('attentes');
 	
-	var res = { idEtu : idEtu.value, posteActu : posteActu.value, villeActu : villeActu.value, nomEntreprise : nomEntreprise.value, mail : mail.value, numTelephone : numTelephone.value, facebook : facebook.value, twitter : twitter.value, viadeo : viadeo.value, linkedin : linkedin.value} ;
+	var res = { idEtu : idEtu.value, posteActu : posteActu.value, villeActu : villeActu.value, nomEntreprise : nomEntreprise.value, mail : mail.value, numTelephone : numTelephone.value, facebook : facebook.value, twitter : twitter.value, viadeo : viadeo.value, linkedin : linkedin.value, attentes : attentes.value} ;
 	$.ajax({
         type: "POST",
         url: "saveProfile",
@@ -435,6 +436,10 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 						</div>
 					</div>
 				</div>
+				<label class="row col-md-4">Ce que je recherche :</label>
+				<textarea id="attentes" class="row col-md-12 fixe" rows="4" cols="12">
+						${profil.attentes}
+				</textarea>
 				<div class="row">
 					<div class="col-sm-offset-5 col-sm-2 text-center">
 						<a

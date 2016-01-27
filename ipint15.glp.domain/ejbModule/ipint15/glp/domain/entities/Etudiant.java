@@ -52,6 +52,7 @@ public class Etudiant implements Serializable {
 	private String facebook;
 	private String linkedin;
 	private String viadeo;
+	private String attentes;
 
 	private String diplome;
 	private int anneeDiplome;
@@ -210,7 +211,7 @@ public class Etudiant implements Serializable {
 		pDTO.setFacebook(this.getFacebook());
 		pDTO.setLinkedin(this.getLinkedin());
 		pDTO.setViadeo(this.getViadeo());
-
+		pDTO.setAttentes(this.attentes);
 		return pDTO;
 	}
 	
@@ -225,6 +226,18 @@ public class Etudiant implements Serializable {
 						+ ", monGroupe=" + groupe + ", villeActu=" + villeActu + ", posteActu=" + posteActu + ", nomEntreprise=" + nomEntreprise
 						 + "]";
 
+	}
+	/**
+	 * @return the attentes
+	 */
+	public String getAttentes() {
+		return attentes;
+	}
+	/**
+	 * @param attentes the attentes to set
+	 */
+	public void setAttentes(String attentes) {
+		this.attentes = attentes;
 	}
 	
 

@@ -429,13 +429,14 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone ,String facebook, String twitter, String viadeo, String linkedin) {
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone ,String facebook, String twitter, String viadeo, String linkedin, String attentes) {
 
 		Etudiant e = getEtudiantById(id);
 		e.setPosteActu(posteActu);
 		e.setVilleActu(villeActu);
 		e.setNomEntreprise(nomEntreprise);
 		e.setNumTelephone(numTelephone);
+		e.setAttentes(attentes);
 		if (valideLien(facebook, "facebook.com")) 
 			e.setFacebook(facebook);
 		if(valideLien(twitter, "twitter.com"))
