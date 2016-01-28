@@ -94,7 +94,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		e.setGroupe(p);
 		p.getEtudiants().add(e);
 
-
 		// Création du profil de l'étudiant
 		EtudiantProfil ep = new EtudiantProfil();
 
@@ -106,7 +105,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		em.persist(ep);
 		em.persist(e);
 		em.merge(p);
-		
+
 		p = getGroupeById(groupe.getId());
 
 		// Mapping EtudiantDTO et ProfilDTO pour retourner un etudiantDTO à la
@@ -205,7 +204,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addExperience(EtudiantDTO eDTO, String experience, String entreprise, String ville, String region, String pays, String debut, String fin, String description) {
+	public void addExperience(EtudiantDTO eDTO, String experience, String entreprise, String ville, String region,
+			String pays, String debut, String fin, String description) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Experience exp = new Experience();
@@ -291,11 +291,10 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		return mesHobbiesDTO;
 	}
 
-	
-	
 	///////////////////////////////// faire .....................
-	@Override 
-	public void addEcole(EtudiantDTO eDTO, String libelle, String etablissement, String debut, String fin, String ville, String region, String pays) {
+	@Override
+	public void addEcole(EtudiantDTO eDTO, String libelle, String etablissement, String debut, String fin, String ville,
+			String region, String pays) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Ecole formation = new Ecole();
@@ -407,21 +406,22 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	@Override
 	public void deleteCompetenceList(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
-
 		List<Competence> mesCompetences = e.getProfil().getMesCompetences();
-		System.out.println("isEmpty : " + mesCompetences.isEmpty());
-		System.out.println(mesCompetences);
+		for (Competence competence : mesCompetences) {
+			em.remove(competence);
+		}
 		e.getProfil().setMesCompetences(new ArrayList<Competence>());
 		em.persist(e);
 		mesCompetences = e.getProfil().getMesCompetences();
-		System.out.println(mesCompetences);
-
 	}
 
 	@Override
 	public void deleteExpProList(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
-		// List<Experience> mesExperiences = e.getProfil().getMesExperiences();
+		List<Experience> mesExperiences = e.getProfil().getMesExperiences();
+		for (Experience experience : mesExperiences) {
+			em.remove(experience);
+		}
 		e.getProfil().setMesExperiences(new ArrayList<Experience>());
 		em.persist(e);
 	}
@@ -429,22 +429,28 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	@Override
 	public void deleteFormationList(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
-		// List<Ecole> mesFormations = e.getProfil().getMesEcoles();
+		List<Ecole> mesFormations = e.getProfil().getMesEcoles();
+		for (Ecole ecole : mesFormations) {
+			em.remove(ecole);
+		}
 		e.getProfil().setMesEcoles(new ArrayList<Ecole>());
 		em.persist(e);
-		System.out.println("La liste est vide : -- >"+e.getProfil().getMesEcoles().isEmpty());
 	}
 
 	@Override
 	public void deleteLoisirList(EtudiantDTO eDTO) {
 		Etudiant e = getEtudiantByMail(eDTO.getEmail());
-		// List<Hobbie> mesLoisirs = e.getProfil().getMesHobbies();
+		List<Hobbie> mesLoisirs = e.getProfil().getMesHobbies();
+		for (Hobbie hobbie : mesLoisirs) {
+			em.remove(hobbie);
+		}
 		e.getProfil().setMesHobbies(new ArrayList<Hobbie>());
 		em.persist(e);
 	}
 
 	@Override
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone ,String facebook, String twitter, String viadeo, String linkedin, String attentes) {
+	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone,
+			String facebook, String twitter, String viadeo, String linkedin, String attentes) {
 
 		Etudiant e = getEtudiantById(id);
 		e.setPosteActu(posteActu);
@@ -452,17 +458,16 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		e.setNomEntreprise(nomEntreprise);
 		e.setNumTelephone(numTelephone);
 		e.setAttentes(attentes);
-		if (valideLien(facebook, "facebook.com")) 
+		if (valideLien(facebook, "facebook.com"))
 			e.setFacebook(facebook);
-		if(valideLien(twitter, "twitter.com"))
+		if (valideLien(twitter, "twitter.com"))
 			e.setTwitter(twitter);
-		if(valideLien(viadeo, "viadeo.com"))
+		if (valideLien(viadeo, "viadeo.com"))
 			e.setViadeo(viadeo);
 		if (valideLien(linkedin, "linkedin.com"))
 			e.setLinkedin(linkedin);
-		em.persist(e);	
+		em.persist(e);
 	}
-
 
 	@Override
 	public boolean valideLien(String lien, String site) {
