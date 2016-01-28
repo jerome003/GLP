@@ -378,7 +378,7 @@ public class AdministrationImpl implements AdministrationRemote {
 			message.setText("Bonjour, "
 					+ "\n\nVotre inscription vient d'être refusé pour le groupe " + etu.getGroupe().getName() +
 					" : " + etu.getGroupe().getDescription()+ " \nVotre compte a été supprimé, vous pouvez me contacter pour plus de détails." +
-					etu.getPassword() +". \n\nA bientot sur le réseau d'ancien de Lille 1 !");
+					". \n\nA bientot sur le réseau d'ancien de Lille 1 !");
 
 			Transport.send(message);
 
