@@ -94,11 +94,13 @@ public class EditionProfilController {
 			// rien --> vérif avec le if !!
 			for (int i = 0; i < tabExp.length; i++) {
 				String tabExpTmp[] = tabExp[i].split("\\|");
-				etudiantBean.addExperience(etudiantDTO, tabExpTmp[0].replaceAll("|", ""),
-						tabExpTmp[1].replaceAll("|", ""), tabExpTmp[2].replaceAll("|", ""),
-						tabExpTmp[3].replaceAll("|", ""), tabExpTmp[4].replaceAll("|", ""),
-						tabExpTmp[5].replaceAll("|", ""), tabExpTmp[6].replaceAll("|", ""),
-						tabExpTmp[7].replaceAll("|", ""));
+				if (tabExpTmp.length == 8) {
+					etudiantBean.addExperience(etudiantDTO, tabExpTmp[0].replaceAll("|", ""),
+							tabExpTmp[1].replaceAll("|", ""), tabExpTmp[2].replaceAll("|", ""),
+							tabExpTmp[3].replaceAll("|", ""), tabExpTmp[4].replaceAll("|", ""),
+							tabExpTmp[5].replaceAll("|", ""), tabExpTmp[6].replaceAll("|", ""),
+							tabExpTmp[7].replaceAll("|", ""));
+				}
 			}
 			return mapCompetencesEtudiant(etudiantDTO, request);
 		}
@@ -139,7 +141,7 @@ public class EditionProfilController {
 			String tabEcole[] = liste.split("%");
 			for (int i = 0; i < tabEcole.length; i++) {
 				String tabEcoleTmp[] = tabEcole[i].split("\\|");
-				if (tabEcoleTmp.length == 2) {
+				if (tabEcoleTmp.length == 7) {
 					etudiantBean.addEcole(etudiantDTO, tabEcoleTmp[0].replaceAll("|", ""),
 							tabEcoleTmp[1].replaceAll("|", ""), tabEcoleTmp[2].replaceAll("|", ""),
 							tabEcoleTmp[3].replaceAll("|", ""), tabEcoleTmp[4].replaceAll("|", ""),

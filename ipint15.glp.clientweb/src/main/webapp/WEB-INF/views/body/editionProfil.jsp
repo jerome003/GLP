@@ -171,6 +171,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	input.type = "text";
 	input.id=champId+nvId;
 	input.name=champId;
+	input.setAttribute("maxlength","20");
 	document.getElementById(divId).appendChild(input);
 	
 	if(divId==="lesCompetences"){
@@ -223,6 +224,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 
 	function createInput(type, id, name, eltDiv){
 		var input = document.createElement("input");
+		input.setAttribute("maxlength","15");
 		input.type = type;
 		input.id= id;
 		input.name= name;
@@ -453,18 +455,18 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				<div class="row">
 					<div class="col-md-12">
 						<div class="row">
-							<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
+							<h2 id="UserName">${etudiant.prenom} ${etudiant.nom}</h2>
 							<div class="col-md-6">
 								<input type="hidden" id="idEtu" name="idEtu"
 									value="${profil.id}" /> <label class="col-md-4">Poste
 									actuel :</label> <input type="text" id="posteActu" name="posteActu"
-									value="${profil.posteActu}" class="col-md-8" /> <label
+									value="${profil.posteActu}" class="col-md-8" maxlength="20"/> <label
 									class="col-md-4">Ville Actuelle:</label> <input type="text"
 									id="villeActu" name="villeActu" value="${profil.villeActu}"
-									class="col-md-8" /> <label class="col-md-4">Nom de
+									class="col-md-8" maxlength="20"/> <label class="col-md-4">Nom de
 									l'entreprise :</label> <input type="text" id="nomEntreprise"
 									name="nomEntreprise" value="${profil.nomEntreprise}"
-									class="col-md-8" /> <label class="col-md-4">Mail :</label> <input
+									class="col-md-8" maxlength="20"/> <label class="col-md-4">Mail :</label> <input
 									type="mail" id="mail" name="mail" value="${profil.email}"
 									disabled="disabled" class="col-md-8" /> <label
 									class="col-md-4">Numéro de téléphone : </label><input
@@ -511,51 +513,53 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 							onClick="saveExpPro();"> Enregistrer</a>
 						<c:forEach items="${profil.profil.mesExperiences}"
 							var="experience" varStatus="loop">
-							<label id="labelExpProPoste${loop.index}"
-								for="expProPoste${loop.index}">Poste :</label>
-							<input id="expProPoste${loop.index}" name="expPro"
-								value="${experience.libelle}">
-
-							<label id="labelExpProEntreprise${loop.index}"
-								for="expProEntreprise${loop.index}">Entreprise :</label>
-							<input id="expProEntreprise${loop.index}" name="expPro"
-								value="${experience.entreprise}">
-
-							<label id="labelExpProVille${loop.index}"
-								for="expProVille${loop.index}">Ville :</label>
-							<input id="expProVille${loop.index}" name="expPro"
-								value="${experience.ville}">
-
-							<label id="labelExpProRegion${loop.index}"
-								for="expProRegion${loop.index}">Région :</label>
-							<input id="expProRegion${loop.index}" name="expPro"
-								value="${experience.region}">
-
-							<label id="labelExpProPays${loop.index}"
-								for="expProPays${loop.index}">Pays :</label>
-							<input id="expProPays${loop.index}" name="expPro"
-								value="${experience.pays}">
-							</br>
-							<label id="labelExpProDebut${loop.index}"
-								for="expProDebut${loop.index}">Début :</label>
-							<input id="expProDebut${loop.index}" name="expPro"
-								value="${experience.debut}">
-
-							<label id="labelExpProFin${loop.index}"
-								for="expProFin${loop.index}">Fin :</label>
-							<input id="expProFin${loop.index}" name="expPro"
-								value="${experience.fin}">
-
-							<label id="labelExpProDescription${loop.index}"
-								for="expProDescription${loop.index}">Description :</label>
-							<input id="expProDescription${loop.index}" name="expPro"
-								value="${experience.description}">
-
-							<a id="deleteExpPro${loop.index}" name="deleteExpPro"
-								class="btn btn-primary  glyphicon glyphicon-minus-sign"
-								onClick='suppressionChampEtBoutonExpPro(${loop.index},
-												deleteExpPro${loop.index}); saveExpPro();'></a>
-							</br>
+							<div class="row col-md-12">
+								<label id="labelExpProPoste${loop.index}"
+									for="expProPoste${loop.index}" class="col-md-2">Poste :</label>
+								<input id="expProPoste${loop.index}" name="expPro"
+									value="${experience.libelle}" maxlength="15" class="col-md-4">
+	
+								<label id="labelExpProEntreprise${loop.index}"
+									for="expProEntreprise${loop.index}" class="col-md-2">Entreprise :</label>
+								<input id="expProEntreprise${loop.index}" name="expPro"
+									value="${experience.entreprise}" maxlength="15" class="col-md-4">
+							</div>
+							<div class="row col-md-12">
+								<label id="labelExpProVille${loop.index}"
+									for="expProVille${loop.index}" class="col-md-2">Ville :</label>
+								<input id="expProVille${loop.index}" name="expPro"
+									value="${experience.ville}" maxlength="15" class="col-md-2">
+	
+								<label id="labelExpProRegion${loop.index}"
+									for="expProRegion${loop.index}" class="col-md-2">Région :</label>
+								<input id="expProRegion${loop.index}" name="expPro"
+									value="${experience.region}" maxlength="15" class="col-md-2">
+								<label id="labelExpProPays${loop.index}"
+									for="expProPays${loop.index}" class="col-md-2">Pays :</label>
+								<input id="expProPays${loop.index}" name="expPro"
+									value="${experience.pays}" maxlength="15" class="col-md-2">
+							</div>
+							<div class="row col-md-12">
+								<label id="labelExpProDebut${loop.index}"
+									for="expProDebut${loop.index}" class="col-md-1">Début :</label>
+								<input id="expProDebut${loop.index}" name="expPro"
+									value="${experience.debut}" maxlength="15" class="col-md-2">
+	
+								<label id="labelExpProFin${loop.index}"
+									for="expProFin${loop.index}" class="col-md-1">Fin :</label>
+								<input id="expProFin${loop.index}" name="expPro"
+									value="${experience.fin}" maxlength="15" class="col-md-2">
+	
+								<label id="labelExpProDescription${loop.index}"
+									for="expProDescription${loop.index}" class="col-md-2">Description :</label>
+								<input id="expProDescription${loop.index}" name="expPro"
+									value="${experience.description}" maxlength="15" class="col-md-3">
+	
+								<a id="deleteExpPro${loop.index}" name="deleteExpPro"
+									class="btn btn-primary  glyphicon glyphicon-minus-sign col-md-1"
+									onClick='suppressionChampEtBoutonExpPro(${loop.index},
+													deleteExpPro${loop.index}); saveExpPro();'></a>
+							</div>
 						</c:forEach>
 					</div>
 				</div>
@@ -573,7 +577,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 							<c:forEach items="${profil.profil.mesCompetences}"
 								var="competence" varStatus="loop">
 								<input id="competence${loop.index}" name="competence"
-									value="${competence.libelle}" class="col-md-9" />
+									value="${competence.libelle}" class="col-md-9" maxlength="15"/>
 								<label id="competenceSelectLabel${loop.index}" class="col-md-1">Niveau
 									:</label>
 								<select id="competenceSelect${loop.index}"
@@ -639,37 +643,37 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 							<label id="labelFormIntit${loop.index}"
 								for="formIntit${loop.index}">Intitulé :</label>
 							<input id="formIntit${loop.index}" name="formation"
-								value="${ecole.libelle}">
+								value="${ecole.libelle}" maxlength="15">
 
 							<label id="labelFormEtabl${loop.index}"
 								for="formEtabl${loop.index}">Établissement :</label>
 							<input id="formEtabl${loop.index}" name="formation"
-								value="${ecole.etablissement}">
+								value="${ecole.etablissement}" maxlength="15">
 
 							<label id="labelFormDebut${loop.index}"
 								for="formDebut${loop.index}">Début :</label>
 							<input id="formDebut${loop.index}" name="formation"
-								value="${ecole.debut}">
+								value="${ecole.debut}" maxlength="15">
 
 							<label id="labelFormFin${loop.index}" for="formFin${loop.index}">Fin
 								:</label>
 							<input id="formFin${loop.index}" name="formation"
-								value="${ecole.fin}">
+								value="${ecole.fin}" maxlength="15">
 
 							<label id="labelFormVille${loop.index}"
 								for="formVille${loop.index}">Ville :</label>
 							<input id="formVille${loop.index}" name="formation"
-								value="${ecole.ville}">
+								value="${ecole.ville}" maxlength="15">
 
 							<label id="labelFormRegion${loop.index}"
 								for="formRegion${loop.index}">Région :</label>
 							<input id="formRegion${loop.index}" name="formation"
-								value="${ecole.region}">
+								value="${ecole.region}" maxlength="15">
 
 							<label id="labelFormPays${loop.index}"
 								for="formPays${loop.index}">Pays :</label>
 							<input id="formPays${loop.index}" name="formation"
-								value="${ecole.pays}">
+								value="${ecole.pays}" maxlength="15">
 							<a id="deleteFormation${loop.index}" name="deleteFormation"
 								class="btn btn-primary  glyphicon glyphicon-minus-sign"
 								onClick='suppressionChampEtBoutonFormation(${loop.index},
@@ -691,7 +695,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 							<c:forEach items="${profil.profil.mesHobbies}" var="loisir"
 								varStatus="loop">
 								<input id="loisir${loop.index}" name="loisir"
-									value="${loisir.libelle}" class="col-md-11" />
+									value="${loisir.libelle}" class="col-md-11" maxlength="15"/>
 								<a id="deleteLoisir${loop.index}" name="deleteLoisir"
 									class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
 									onClick="suppressionChampEtBouton(loisir${loop.index}, deleteLoisir${loop.index}); save('lesLoisirs', 'saveLoisir');"></a>
