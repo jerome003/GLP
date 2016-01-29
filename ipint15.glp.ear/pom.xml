@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ipint15.glp.ear</groupId>
+	<artifactId>ipint15.glp.ear</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>ear</packaging>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.10</version>
+				<configuration>
+					<!-- <earSourceDirectory>EarContent</earSourceDirectory> -->
+					<generateApplicationXml>true</generateApplicationXml>
+					<version>7</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+
+					<!-- <modules> -->
+					<!-- <webModule> -->
+					<!-- <groupId>ipint.glp.web</groupId> -->
+					<!-- <artifactId>ipint.glp.web</artifactId> -->
+					<!-- <bundleFileName>ipint.glp.web-0.0.1-SNAPSHOT.war</bundleFileName> -->
+					<!-- </webModule> -->
+					<!-- <jarModule> -->
+					<!-- <groupId>ipint.glp.api</groupId> -->
+					<!-- <artifactId>ipint.glp.api</artifactId> -->
+					<!-- <bundleFileName>ipint.glp.api-0.0.1-SNAPSHOT.jar</bundleFileName> -->
+					<!-- </jarModule> -->
+					<!-- <ejbModule> -->
+					<!-- <groupId>ipint.glp.domain</groupId> -->
+					<!-- <artifactId>ipint.glp.domain</artifactId> -->
+					<!-- <bundleFileName>ipint.glp.domain-0.0.1-SNAPSHOT.jar</bundleFileName> -->
+					<!-- </ejbModule> -->
+					<!-- </modules> -->
+
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.glassfish.maven.plugin</groupId>
+				<artifactId>maven-glassfish-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<glassfishDirectory>/opt/glassfish4</glassfishDirectory>
+					<user>admin</user>
+					<adminPassword>miage2016</adminPassword>
+					<domain>
+						<name>domain1</name>
+						<httpPort>8080</httpPort>
+						<adminPort>4848</adminPort>
+					</domain>
+					<components>
+						<component>
+							<name>${project.artifactId}</name>
+							<artifact>target/${project.build.finalName}.ear</artifact>
+						</component>
+					</components>
+					<debug>true</debug>
+					<terse>false</terse>
+					<echo>true</echo>
+				</configuration>
+			</plugin>
+
+
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>ipint15.glp</groupId>
+			<artifactId>glp</artifactId>
+			<version>1.0.0-BUILD-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>ipint15.glp.domain</groupId>
+			<artifactId>ipint15.glp.domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
+	</dependencies>
+</project>
