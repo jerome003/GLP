@@ -4,13 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+
+
 public class GroupeDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private int id;
+	@NotEmpty( message = "Veuillez saisir un nom de groupe")
 	private String name;
 	private List<EtudiantDTO> etudiants ;
 	private List<ModerateurDTO> moderateurs ;
+	@NotEmpty( message = "Veuillez saisir une description du groupe")
 	private String description;
 	
 	public int getId() {
