@@ -136,7 +136,7 @@ public class ConnexionModerateurController {
 	}
 
 	/**
-	 * Deconnection d'un utilisateur.
+	 * Deconnection d'un utilisateur .
 	 * 
 	 * @param locale
 	 * @param model
