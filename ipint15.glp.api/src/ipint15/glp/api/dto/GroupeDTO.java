@@ -14,7 +14,7 @@ public class GroupeDTO implements Serializable {
 	private int id;
 	@NotEmpty( message = "Veuillez saisir un nom de groupe")
 	private String name;
-	private List<EtudiantDTO> etudiants ;
+	private List<AncienEtudiantDTO> etudiants ;
 	private List<ModerateurDTO> moderateurs ;
 	@NotEmpty( message = "Veuillez saisir une description du groupe")
 	private String description;
@@ -40,13 +40,13 @@ public class GroupeDTO implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<EtudiantDTO> getEtudiants() {
+	public List<AncienEtudiantDTO> getEtudiants() {
 		if (etudiants == null) {
-			this.etudiants = new ArrayList<EtudiantDTO>();
+			this.etudiants = new ArrayList<AncienEtudiantDTO>();
 		}
 		return etudiants;
 	}
-	public void setEtudiants(List<EtudiantDTO> etudiants) {
+	public void setEtudiants(List<AncienEtudiantDTO> etudiants) {
 		this.etudiants = etudiants;
 	}
 	

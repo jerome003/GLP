@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.AdminDTO;
 import ipint15.glp.api.dto.ConnexionCommand;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 
 

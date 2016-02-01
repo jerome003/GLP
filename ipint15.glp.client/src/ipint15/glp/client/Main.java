@@ -7,7 +7,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import ipint15.glp.api.dto.Civilite;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.RechercheRemote;
 
@@ -30,7 +30,7 @@ public class Main {
 						
 						
 						//List<EtudiantDTO> myPersons = catalog.listEtudiant();
-						List<EtudiantDTO> myRecherche = recherche.rechercherEtudiant("max");
+						List<AncienEtudiantDTO> myRecherche = recherche.rechercherEtudiant("max");
 						Iterator it = myRecherche.iterator();
 						while(it.hasNext()) {
 							System.out.println(it.next().toString());

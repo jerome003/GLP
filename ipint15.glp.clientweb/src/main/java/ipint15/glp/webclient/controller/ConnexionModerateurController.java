@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.AdminDTO;
 import ipint15.glp.api.dto.ConnexionCommand;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
@@ -83,7 +83,7 @@ public class ConnexionModerateurController {
 				sessionObj.setAttribute("section", "groupes");
 				int id = Integer.parseInt(pathVariables.get("id"));
 				sessionObj.setAttribute("idGroupe", id);
-				List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
+				List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
 				ModelAndView modelView = new ModelAndView("validationInscription");
 				modelView.addObject("liste", listeResultat);
 				return modelView;
@@ -102,13 +102,13 @@ public class ConnexionModerateurController {
 			@PathVariable Map<String, String> pathVariables) {
 
 		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
-		EtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
+		AncienEtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
 		administrationBean.validationInscription(etu);
 
 		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("idGroupe", idGroupe);
-		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
+		List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
 		// Modifier vue retourner pour que cela soit plus propre au niveau des
 		// urls.
 		ModelAndView modelView = new ModelAndView("validationInscription");
@@ -123,11 +123,11 @@ public class ConnexionModerateurController {
 			@PathVariable Map<String, String> pathVariables) {
 
 		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
-		EtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
+		AncienEtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
 		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
 		administrationBean.refusInscription(etu, idGroupe);
 
-		List<EtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
+		List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
 		ModelAndView modelView = new ModelAndView("validationInscription");
 		modelView.addObject("liste", listeResultat);
 

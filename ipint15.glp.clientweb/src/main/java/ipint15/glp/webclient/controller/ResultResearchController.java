@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.RechercheRemote;
@@ -35,7 +35,7 @@ public class ResultResearchController {
 	@RequestMapping(value = {"*/research","/research"}, method = RequestMethod.POST)
 	public ModelAndView recherche(@Valid HttpServletRequest request) {
 		String recherche = request.getParameter("recherche");
-		List<EtudiantDTO> listeResultat = rechercheBean.rechercherEtudiant(recherche);
+		List<AncienEtudiantDTO> listeResultat = rechercheBean.rechercherEtudiant(recherche);
 		List<GroupeDTO> listeResultatGroupe = rechercheBean.rechercherGroupe(recherche);
 		ModelAndView model = new ModelAndView();
 		model.addObject("recherche",request.getParameter("recherche"));

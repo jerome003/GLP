@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
 @Controller
@@ -29,7 +29,7 @@ public class ContactController {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "contact");
 		
-		EtudiantDTO etu = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+		AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 		if (etu == null) return "contactDisconnect";
 		else return "contactConnect";
 	

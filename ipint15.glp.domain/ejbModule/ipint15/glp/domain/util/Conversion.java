@@ -5,7 +5,7 @@ import java.util.List;
 
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.EtudiantProfilDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
@@ -14,7 +14,7 @@ import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.domain.entities.Competence;
 import ipint15.glp.domain.entities.Ecole;
-import ipint15.glp.domain.entities.Etudiant;
+import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Publication;
 import ipint15.glp.domain.entities.Experience;
@@ -23,7 +23,7 @@ import ipint15.glp.domain.entities.Hobbie;
 import ipint15.glp.domain.entities.Moderateur;
 public class Conversion {
 	
-public EtudiantDTO MappingEtudiantProfilGroupe(Etudiant e, EtudiantProfil ep, Groupe g){
+public AncienEtudiantDTO MappingEtudiantProfilGroupe(AncienEtudiant e, EtudiantProfil ep, Groupe g){
 		
 		// Conversion de l'étudiantProfil en EtudiantProfilDTO et de l'étudiant en EtudiantDTO
 		GroupeDTO groupe = g.toGroupeDTO();
@@ -31,7 +31,7 @@ public EtudiantDTO MappingEtudiantProfilGroupe(Etudiant e, EtudiantProfil ep, Gr
 			groupe.getModerateurs().add(MappingGroupeModerateur(m, g));
 		}
 		EtudiantProfilDTO epDTO = ep.toEtudiantProfilDTO();
-		EtudiantDTO eDTO = e.toEtudiantDTO();
+		AncienEtudiantDTO eDTO = e.toEtudiantDTO();
 		
 		// Mapping de l'étudiantDTO avec son profilDTO
 		eDTO.setGroupe(groupe);
@@ -40,11 +40,11 @@ public EtudiantDTO MappingEtudiantProfilGroupe(Etudiant e, EtudiantProfil ep, Gr
 		return eDTO;
 	}
 	
-	public EtudiantDTO MappingEtudiantProfil(Etudiant e, EtudiantProfil ep){
+	public AncienEtudiantDTO MappingEtudiantProfil(AncienEtudiant e, EtudiantProfil ep){
 		
 		// Conversion de l'étudiantProfil en EtudiantProfilDTO et de l'étudiant en EtudiantDTO
 		EtudiantProfilDTO epDTO = ep.toEtudiantProfilDTO();
-		EtudiantDTO eDTO = e.toEtudiantDTO();
+		AncienEtudiantDTO eDTO = e.toEtudiantDTO();
 		
 		// Mapping de l'étudiantDTO avec son profilDTO
 		eDTO.setProfil(epDTO);
@@ -118,9 +118,9 @@ public EtudiantDTO MappingEtudiantProfilGroupe(Etudiant e, EtudiantProfil ep, Gr
 		return ecoleDTO;
 	}
 	
-	public GroupeDTO MappingEtudiantGroupe (Etudiant e, Groupe g){
+	public GroupeDTO MappingEtudiantGroupe (AncienEtudiant e, Groupe g){
 		
-		EtudiantDTO eDto = e.toEtudiantDTO();
+		AncienEtudiantDTO eDto = e.toEtudiantDTO();
 		GroupeDTO gDTO = g.toGroupeDTO();
 		
 		// Mapping du profil avec sa compétence

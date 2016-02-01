@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
 @Controller
@@ -31,7 +31,7 @@ public class ProfilController {
 		sessionObj.setAttribute("consultation", false);
 		sessionObj.setAttribute("section", "profil");
 		model.addAttribute("myInjectedBean", etudiantBean);
-		return new ModelAndView("profil", "command", new EtudiantDTO());
+		return new ModelAndView("profil", "command", new AncienEtudiantDTO());
 
 	}
 
@@ -43,12 +43,12 @@ public class ProfilController {
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien")) {
 		int id = Integer.parseInt(pathVariables.get("id"));
-		EtudiantDTO etu = etudiantBean.getEtudiant(id);
+		AncienEtudiantDTO etu = etudiantBean.getEtudiant(id);
 		etu.getProfil().setMesCompetences(etudiantBean.getCompetences(etu));
 		etu.getProfil().setMesEcoles(etudiantBean.getEcoles(etu));
 		etu.getProfil().setMesExperiences(etudiantBean.getExperiences(etu));
 		etu.getProfil().setMesHobbies(etudiantBean.getHobbies(etu));
-		EtudiantDTO etudiant = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+		AncienEtudiantDTO etudiant = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 		ModelAndView model = new ModelAndView();
 		if (etudiant.getId() == id) {
 			sessionObj.setAttribute("consultation", false);

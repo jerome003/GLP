@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.ConnexionCommand;
 import ipint15.glp.api.dto.EcoleDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
@@ -35,7 +35,7 @@ public class ConnexionController {
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "connexion");
-		return new ModelAndView("connexion", "command", new EtudiantDTO());
+		return new ModelAndView("connexion", "command", new AncienEtudiantDTO());
 	}
 
 	@RequestMapping(value = "/connexionProfil", method = RequestMethod.POST)
@@ -60,7 +60,7 @@ public class ConnexionController {
 		}
 
 		if (etudiantBean.connexion(etudiant.getEmail(), etudiant.getPassword())) {
-			EtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
+			AncienEtudiantDTO etu = etudiantBean.getEtudiant(etudiant.getEmail());
 			HttpSession session = request.getSession();
 			session.setAttribute("etudiant", etu);
 			List<ExperienceDTO> listExpPro = etudiantBean.getExperiences(etu);

@@ -9,30 +9,29 @@
 			</div>
 		</div>
 		<div class="row">
-			<form:form class="form-horizontal" role="form" method="post"
-				commandName="command" action="saveGroupe">
+			<form class="form-horizontal" role="form" method="post"
+				action="saveGroupe">
 				<div class="form-group">
 					<div class="col-sm-2">
-						<form:label path="name" class="control-label">Nom du groupe :</form:label>
+						<label class="control-label">Nom du groupe :</label>
 					</div>
 					<div class="col-sm-6">
-						<form:input path="name" type="text" class="form-control" />
-						<form:errors path="name" />
+						<input id="nameGroupe" name="nameGroupe" type="text"
+							class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2"> 
+						<label class="control-label">Description du groupe :</label>
+					</div>
+					<div class="col-sm-6">
+						<input id="descriptionGroupe" name="descriptionGroupe" type="text"
+							class="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2">
-						<form:label path="description" class="control-label">Description du groupe :</form:label>
-					</div>
-					<div class="col-sm-6">
-						<form:input path="description" type="text" class="form-control" />
-						<form:errors path="description" />
-
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-2">
-						<form:label path="" class="control-label">Moderateur :</form:label>
+						<label class="control-label">Moderateur :</label>
 					</div>
 					<div class="col-sm-3">
 						<div class="form-inline">
@@ -42,7 +41,6 @@
 									<option value="${item.id}">${item.email}</option>
 								</c:forEach>
 							</select>
-
 						</div>
 					</div>
 					<div class="col-sm-1">
@@ -57,43 +55,43 @@
 							<input type="submit" value="Enregistrer" />
 						</div>
 					</div>
-				</div>
-			</form:form>
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<h1>Liste des groupes</h1>
-			</div>
-		</div>
-		<div class="row">
-			<table class="table table-striped table-hover table-users">
-				<thead>
-					<tr>
-						<th>Nom du groupe (nb)</th>
-						<th>Description</th>
-						<th></th>
-						<th></th>
-					</tr>
-				</thead>
-
-				<tbody>
-					<c:forEach items="${liste}" var="results">
-						<tr>
-							<td>${results.name}
-								(${myInjectedBean.getGroupeSize(results.id)})</td>
-							<td>${results.description}</td>
-							<td><a class="btn mini blue-stripe"
-								href="${pageContext.request.contextPath}/admin/editGroupe/${results.id}"><span
-									class="glyphicon glyphicon-pencil"></span> Edit</a></td>
-							<td><a
-								href="${pageContext.request.contextPath}/admin/removeGroupe/${results.id}"
-								class="confirm-delete btn mini red-stripe" role="button"><span
-									class="glyphicon glyphicon-trash"></span> Delete</a></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-
-			</table>
+			</form>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<h1>Liste des groupes</h1>
+		</div>
+	</div>
+	<div class="row">
+		<table class="table table-striped table-hover table-users">
+			<thead>
+				<tr>
+					<th>Nom du groupe (nb)</th>
+					<th>Description</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<c:forEach items="${liste}" var="results">
+					<tr>
+						<td>${results.name}
+							(${myInjectedBean.getGroupeSize(results.id)})</td>
+						<td>${results.description}</td>
+						<td><a class="btn mini blue-stripe"
+							href="${pageContext.request.contextPath}/admin/editGroupe/${results.id}"><span
+								class="glyphicon glyphicon-pencil"></span> Edit</a></td>
+						<td><a
+							href="${pageContext.request.contextPath}/admin/removeGroupe/${results.id}"
+							class="confirm-delete btn mini red-stripe" role="button"><span
+								class="glyphicon glyphicon-trash"></span> Delete</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+
+		</table>
+	</div>
+</div>
 </div>

@@ -13,7 +13,7 @@ import javax.naming.NamingException;
 
 
 import ipint15.glp.api.dto.Civilite;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
@@ -57,32 +57,32 @@ public class RechercheImplTest {
 	
 	@Test
 	public void testRechercheEtudiant () throws NamingException {
-		EtudiantDTO etu = new EtudiantDTO();
+		AncienEtudiantDTO etu = new AncienEtudiantDTO();
 		
-		List<EtudiantDTO> res = rechBean.rechercherEtudiant("Hardy");
+		List<AncienEtudiantDTO> res = rechBean.rechercherEtudiant("Hardy");
 		
-		for (EtudiantDTO e : res){
+		for (AncienEtudiantDTO e : res){
 			if (e.getNom().equals("Hardy"))
 				etu = e;
 		}
 		assertEquals("Hardy", etu.getNom());
 		
 		res = rechBean.rechercherEtudiant("Tom");
-		for (EtudiantDTO e : res){
+		for (AncienEtudiantDTO e : res){
 			if (e.getPrenom().equals("Tom"))
 				etu = e;
 		}
 		assertEquals("Tom", etu.getPrenom());
 		
 		res = rechBean.rechercherEtudiant("Mireille");
-		for (EtudiantDTO e : res){
+		for (AncienEtudiantDTO e : res){
 			if (e.getPrenom().equals("Mireille"))
 				etu = e;
 		}
 		assertEquals("Mireille", etu.getPrenom());
 		
 		res = rechBean.rechercherEtudiant("Delpeche");
-		for (EtudiantDTO e : res){
+		for (AncienEtudiantDTO e : res){
 			if (e.getNom().equals("Delepeche"))
 				etu = e;
 		}
@@ -90,7 +90,7 @@ public class RechercheImplTest {
 		
 		etu = null;
 		res = rechBean.rechercherEtudiant("Paul");
-		for (EtudiantDTO e : res){
+		for (AncienEtudiantDTO e : res){
 			if (e.getNom().equals("Paul"))
 				etu = e;
 		}

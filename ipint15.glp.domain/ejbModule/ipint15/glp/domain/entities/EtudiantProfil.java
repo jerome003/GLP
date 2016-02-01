@@ -21,7 +21,7 @@ public class EtudiantProfil {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@OneToOne(mappedBy = "profil")
-	private Etudiant etudiant;
+	private AncienEtudiant etudiant;
 
 	@OneToMany(mappedBy = "profil", orphanRemoval = true, cascade = CascadeType.REMOVE)
 	private List<Competence> mesCompetences;
@@ -46,11 +46,11 @@ public class EtudiantProfil {
 		this.id = id;
 	}
 
-	public Etudiant getEtudiant() {
+	public AncienEtudiant getEtudiant() {
 		return etudiant;
 	}
 
-	public void setEtudiant(Etudiant etudiant) {
+	public void setEtudiant(AncienEtudiant etudiant) {
 		this.etudiant = etudiant;
 	}
 

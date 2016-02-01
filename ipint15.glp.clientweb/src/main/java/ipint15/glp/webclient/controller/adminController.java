@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
@@ -40,12 +39,11 @@ public class adminController {
 		return administrationBean.getAllModerateur();
 	}
 
-
 	@RequestMapping(value = "/admin/groupes", method = RequestMethod.GET)
-	public ModelAndView homeGroupes( Locale locale, Model model, HttpServletRequest request) {
+	public ModelAndView homeGroupes(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		try {
-			
+
 			if (sessionObj.getAttribute("type").equals("admin")) {
 				sessionObj.setAttribute("section", "groupes");
 				List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
@@ -99,65 +97,43 @@ public class adminController {
 		}
 	}
 
-//	@RequestMapping(value = "/admin/saveGroupe", method = RequestMethod.POST)
-//	public ModelAndView saveGroupe(String nameGroupe, String descriptionGroupe, int modo) {
-//		
-////		ModelAndView modelView;
-////		
-////		if (result.hasErrors()) {
-////			modelView = new ModelAndView("adminGroupe");
-////			return modelView;
-////		}
-////		else {
-//			GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe);
-//			ModerateurDTO mDTO = administrationBean.addGroupetoModo(modo, gDTO);
-//			administrationBean.sendMailModoAssign(mDTO, gDTO);
-//			List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
-//			ModelAndView modelView = new ModelAndView("redirect:groupes", "command", new GroupeDTO());
-//			modelView.addObject("liste", listeResultat);
-////		}
-//		return modelView;
-//	}
-	
 	@RequestMapping(value = "/admin/saveGroupe", method = RequestMethod.POST)
-	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") GroupeDTO groupe, BindingResult result) {
-		
+	public ModelAndView saveGroupe(String nameGroupe, String descriptionGroupe, int modo) {
+
 		ModelAndView modelView;
-		
-		if (result.hasErrors()) {
+
+		if (nameGroupe.length() <= 0) {
 			modelView = new ModelAndView("adminGroupe");
 			return modelView;
 		}
-		else {
-			GroupeDTO gDTO = groupeBean.createGroupe(groupe.getName(), groupe.getDescription());
-			ModerateurDTO mDTO = administrationBean.addGroupetoModo(groupe.getModerateurs().get(0).getId(), gDTO);
-			administrationBean.sendMailModoAssign(mDTO, gDTO);
-			List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
-			modelView = new ModelAndView("redirect:groupes", "command", new GroupeDTO());
-			modelView.addObject("liste", listeResultat);
-		
+		if (descriptionGroupe.length() <= 0) {
+			modelView = new ModelAndView("adminGroupe");
+			return modelView;
 		}
-
+		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe);
+		ModerateurDTO mDTO = administrationBean.addGroupetoModo(modo, gDTO);
+		administrationBean.sendMailModoAssign(mDTO, gDTO);
+		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+		modelView = new ModelAndView("redirect:groupes", "command", new GroupeDTO());
+		modelView.addObject("liste", listeResultat);
 		return modelView;
 	}
 
 	@RequestMapping(value = "/admin/saveModerateur", method = RequestMethod.POST)
 	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result) {
-		
+
 		ModelAndView modelView;
-		
+
 		if (result.hasErrors()) {
 			modelView = new ModelAndView("adminModerateur");
 			return modelView;
 		}
-		if (!administrationBean.isMailExistsForModerateur(moderateur.getEmail())) {
-			result.rejectValue("email", null, "Cette adresse mail n'existe pas");
+		if (administrationBean.isMailExistsForModerateur(moderateur.getEmail())) {
+			result.rejectValue("email", null, "Cette adresse existe déjà");
 			modelView = new ModelAndView("adminModerateur");
 			return modelView;
-		}
-		else {
-		
-			
+		} else {
+
 			administrationBean.createModerateur(moderateur.getPrenom(), moderateur.getNom(), moderateur.getEmail(),
 					administrationBean.generatePassword(8));
 			List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
