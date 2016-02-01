@@ -7,7 +7,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import ipint15.glp.api.dto.AdminDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 
@@ -44,19 +44,19 @@ public interface AdministrationRemote {
 
 	public void sendMailModoAssign(ModerateurDTO modo, GroupeDTO groupe);
 	
-	public void sendMailEtudiantOK(EtudiantDTO etu);
+	public void sendMailEtudiantOK(AncienEtudiantDTO etu);
 	
-	public void sendMailEtudiantKO(EtudiantDTO etu);
+	public void sendMailEtudiantKO(AncienEtudiantDTO etu);
 	
-	public void sendMailNewEtudiant(EtudiantDTO etu);
+	public void sendMailNewEtudiant(AncienEtudiantDTO etu);
 
 	boolean connexionModerateur(String email, String password);
 
-	public List<EtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id);
+	public List<AncienEtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id);
 
-	void validationInscription(EtudiantDTO etudiantDTO);
+	void validationInscription(AncienEtudiantDTO etudiantDTO);
 
-	void refusInscription(EtudiantDTO etudiantDTO, int idGroupe);
+	void refusInscription(AncienEtudiantDTO etudiantDTO, int idGroupe);
 
 
 }

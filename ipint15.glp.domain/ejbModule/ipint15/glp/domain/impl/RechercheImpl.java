@@ -9,10 +9,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.RechercheRemote;
-import ipint15.glp.domain.entities.Etudiant;
+import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.util.Conversion;
@@ -25,18 +25,18 @@ public class RechercheImpl implements RechercheRemote {
 	EntityManager em;
 
 	@Override
-	public List<EtudiantDTO> rechercherEtudiant(String recherche) {
-		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
-		List<EtudiantDTO> psDTO = new ArrayList<EtudiantDTO>();
+	public List<AncienEtudiantDTO> rechercherEtudiant(String recherche) {
+		List<AncienEtudiant> ps = em.createQuery("select o from AncienEtudiant o").getResultList();
+		List<AncienEtudiantDTO> psDTO = new ArrayList<AncienEtudiantDTO>();
 		String[] recherches = recherche.split(" ");
 
-		for (Etudiant e : ps) {
+		for (AncienEtudiant e : ps) {
 			for (int i = 0; i < recherches.length; i++) {
 
 				if (e.getNom().toLowerCase().contains(recherches[i].toLowerCase())
 						|| e.getPrenom().toLowerCase().contains(recherches[i].toLowerCase())) {
 					EtudiantProfil ep = e.getProfil();
-					EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+					AncienEtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 					if (!psDTO.contains(eDTO))
 							psDTO.add(eDTO);
 				}

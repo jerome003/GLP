@@ -7,7 +7,7 @@ import javax.ejb.Remote;
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
@@ -31,7 +31,7 @@ public interface EtudiantCatalogRemote {
 	 * @param nomEntreprise
 	 * @return
 	 */
-	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
+	public AncienEtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
 			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe);
 
 
@@ -39,7 +39,7 @@ public interface EtudiantCatalogRemote {
 	 * 
 	 * @return
 	 */
-	public List<EtudiantDTO> listEtudiant();
+	public List<AncienEtudiantDTO> listEtudiant();
 
 	/**
 	 * 
@@ -49,29 +49,29 @@ public interface EtudiantCatalogRemote {
 	 */
 	public boolean connexion(String email, String password);
 
-	public EtudiantDTO getEtudiant(String email);
+	public AncienEtudiantDTO getEtudiant(String email);
 	
-	public EtudiantDTO getEtudiant(int id);
+	public AncienEtudiantDTO getEtudiant(int id);
 
-	public void addCompetence(EtudiantDTO eDTO, String competence, int niveau);
+	public void addCompetence(AncienEtudiantDTO eDTO, String competence, int niveau);
 
-	public List<CompetenceDTO> getCompetences(EtudiantDTO eDTO);
+	public List<CompetenceDTO> getCompetences(AncienEtudiantDTO eDTO);
 
-	public List<PublicationDTO> getPublications(EtudiantDTO eDTO);
+	public List<PublicationDTO> getPublications(AncienEtudiantDTO eDTO);
 
-	void addPublication(EtudiantDTO eDTO, String titre, String message, Date date);
+	void addPublication(AncienEtudiantDTO eDTO, String titre, String message, Date date);
 
-	public void addExperience(EtudiantDTO eDTO, String libelle, String entreprise, String ville, String region, String pays, String debut, String fin, String description);
+	public void addExperience(AncienEtudiantDTO eDTO, String libelle, String entreprise, String ville, String region, String pays, String debut, String fin, String description);
 
-	public List<ExperienceDTO> getExperiences(EtudiantDTO eDTO);
+	public List<ExperienceDTO> getExperiences(AncienEtudiantDTO eDTO);
 
-	public void addHobbie(EtudiantDTO eDTO, String hobbie);
+	public void addHobbie(AncienEtudiantDTO eDTO, String hobbie);
 
-	public List<HobbieDTO> getHobbies(EtudiantDTO eDTO);
+	public List<HobbieDTO> getHobbies(AncienEtudiantDTO eDTO);
 
-	public void addEcole(EtudiantDTO eDTO, String libelle, String etablissement, String debut, String fin, String ville, String region, String pays);
+	public void addEcole(AncienEtudiantDTO eDTO, String libelle, String etablissement, String debut, String fin, String ville, String region, String pays);
 
-	public List<EcoleDTO> getEcoles(EtudiantDTO eDTO);
+	public List<EcoleDTO> getEcoles(AncienEtudiantDTO eDTO);
 
 	List<PublicationDTO> getPublications();
 
@@ -79,20 +79,20 @@ public interface EtudiantCatalogRemote {
 
 	public boolean isPasswordIsGood(String mail, String password);
 
-	public void deleteExpProList(EtudiantDTO eDTO);
+	public void deleteExpProList(AncienEtudiantDTO eDTO);
 
-	public void deleteCompetenceList(EtudiantDTO eDTO);
+	public void deleteCompetenceList(AncienEtudiantDTO eDTO);
 
 	/**
 	 * Permet de supprimer la liste des formations d'un étudiant
 	 * @param eDTO
 	 */
-	public void deleteFormationList(EtudiantDTO eDTO);
+	public void deleteFormationList(AncienEtudiantDTO eDTO);
 	/**
 	 * permet de supprimer la liste des loisir d'un étudiant
 	 * @param eDTO
 	 */
-	public void deleteLoisirList(EtudiantDTO eDTO);
+	public void deleteLoisirList(AncienEtudiantDTO eDTO);
 
 	
 	/**
@@ -108,10 +108,10 @@ public interface EtudiantCatalogRemote {
 	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone, String facebook, String twitter, String viadeo, String linkedin, String attentes);
 
 
-	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO);
+	public void setGroupe(AncienEtudiantDTO eDTO, GroupeDTO gDTO);
 
 
-	public GroupeDTO getGroupe(EtudiantDTO eDTO);
+	public GroupeDTO getGroupe(AncienEtudiantDTO eDTO);
 
 
 	boolean valideLien(String lien, String site);

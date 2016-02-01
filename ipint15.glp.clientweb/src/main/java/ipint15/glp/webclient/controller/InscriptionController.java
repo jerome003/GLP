@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
@@ -58,12 +58,12 @@ public class InscriptionController {
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "inscription");
-		return new ModelAndView("inscription", "command", new EtudiantDTO());
+		return new ModelAndView("inscription", "command", new AncienEtudiantDTO());
 	}
 
 	@RequestMapping(value = "/addEtudiant", method = RequestMethod.POST)
 
-	public String addEtudiant(@Valid @ModelAttribute("command") EtudiantDTO etudiant, BindingResult result) {
+	public String addEtudiant(@Valid @ModelAttribute("command") AncienEtudiantDTO etudiant, BindingResult result) {
 		
 		if (result.hasErrors()) {
 			return "inscription";
@@ -83,7 +83,7 @@ public class InscriptionController {
 	
 		GroupeDTO newGroupe = groupeBean.getGroupeDTOById(etudiant.getGroupe().getId());
 
-		EtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),etudiant.getNumTelephone(),
+		AncienEtudiantDTO eDTO = etudiantBean.createEtudiant(etudiant.getPrenom(), etudiant.getNom(), etudiant.getCivilite(), etudiant.getEmail(),etudiant.getNumTelephone(),
 				administrationBean.generatePassword(8), etudiant.getNaissance(),etudiant.getPosteActu(),etudiant.getVilleActu(),etudiant.getNomEntreprise(),etudiant.getDiplome(), etudiant.getAnneeDiplome(), newGroupe);
 		administrationBean.sendMailNewEtudiant(eDTO);
 		

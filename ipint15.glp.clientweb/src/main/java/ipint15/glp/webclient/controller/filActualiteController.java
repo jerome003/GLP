@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 
@@ -37,7 +37,7 @@ public class filActualiteController {
 			if (sessionObj.getAttribute("type").equals("ancien")) {
 		sessionObj.setAttribute("section", "actualite");
 		model.addAttribute("myInjectedBean", etudiantBean );
-		EtudiantDTO etu = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+		AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 		return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			} else {
 				ModelAndView modele = new ModelAndView("errorAccesRole");
@@ -53,7 +53,7 @@ public class filActualiteController {
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result,
 			HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
-		EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
 		List<PublicationDTO> myPublications = etudiantBean.getPublications();
 		Iterator it = myPublications.iterator();

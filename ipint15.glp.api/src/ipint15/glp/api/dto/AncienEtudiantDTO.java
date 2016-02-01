@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author kabri
  *
  */
-public class EtudiantDTO implements Serializable {
+public class AncienEtudiantDTO implements Serializable {
 	
 	/**
 	 * 
@@ -231,7 +231,7 @@ public class EtudiantDTO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EtudiantDTO other = (EtudiantDTO) obj;
+		AncienEtudiantDTO other = (AncienEtudiantDTO) obj;
 		if (civilite != other.civilite)
 			return false;
 		if (email == null) {

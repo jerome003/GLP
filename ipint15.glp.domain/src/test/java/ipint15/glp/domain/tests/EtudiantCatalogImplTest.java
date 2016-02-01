@@ -17,7 +17,7 @@ import org.junit.Test;
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
@@ -33,8 +33,8 @@ public class EtudiantCatalogImplTest {
 	private static InitialContext ctx;
 	private static EtudiantCatalogRemote etuBean ;
 	private static GroupeRemote groupBean;
-	private static EtudiantDTO etudiant;
-	private static EtudiantDTO etu;
+	private static AncienEtudiantDTO etudiant;
+	private static AncienEtudiantDTO etu;
 	private static GroupeDTO groupe;
 	private static GroupeDTO groupe2;
 	
@@ -68,7 +68,7 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testGetEtudiantByMail() {
-		EtudiantDTO etu = etuBean.getEtudiant("roberto@gmail.com");
+		AncienEtudiantDTO etu = etuBean.getEtudiant("roberto@gmail.com");
 		assertEquals(etudiant.getNom(), etu.getNom());
 		assertEquals(etudiant.getPrenom(), etu.getPrenom());
 		assertEquals(etudiant.getDiplome(), etu.getDiplome());
@@ -77,7 +77,7 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testGetEtudiantById () {
-		EtudiantDTO etu = etuBean.getEtudiant(etudiant.getId());
+		AncienEtudiantDTO etu = etuBean.getEtudiant(etudiant.getId());
 		assertEquals(etudiant.getNom(), etu.getNom());
 		assertEquals(etudiant.getPrenom(), etu.getPrenom());
 		assertEquals(etudiant.getDiplome(), etu.getDiplome());
@@ -86,7 +86,7 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testListEtudiant() {
-		List<EtudiantDTO> liste = etuBean.listEtudiant();
+		List<AncienEtudiantDTO> liste = etuBean.listEtudiant();
 		assertEquals("Hardy",liste.get(0).getNom());
 		assertEquals("Matisse",liste.get(1).getNom());
 		assertEquals("Sanchez",liste.get(2).getNom());
@@ -273,7 +273,7 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testAddPublication() {
-		EtudiantDTO etu = etuBean.createEtudiant("Henry", "Matisse", Civilite.M, "henry@yahoo.fr", "0000000", "password", new Date(), "Cp", "Lille", "miage Corp", "miage", 2006, groupe);
+		AncienEtudiantDTO etu = etuBean.createEtudiant("Henry", "Matisse", Civilite.M, "henry@yahoo.fr", "0000000", "password", new Date(), "Cp", "Lille", "miage Corp", "miage", 2006, groupe);
 		etuBean.addPublication(etu, "publication1","pub", new Date());
 		etu= etuBean.getEtudiant(etu.getId());
 		List<PublicationDTO> e = etuBean.getPublications(etu);

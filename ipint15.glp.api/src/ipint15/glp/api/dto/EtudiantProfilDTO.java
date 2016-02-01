@@ -12,7 +12,7 @@ public class EtudiantProfilDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
-    private EtudiantDTO etudiant ;
+    private AncienEtudiantDTO etudiant ;
     
     private List<CompetenceDTO> mesCompetences ;
     
@@ -30,10 +30,10 @@ public class EtudiantProfilDTO implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public EtudiantDTO getEtudiant() {
+	public AncienEtudiantDTO getEtudiant() {
 		return etudiant;
 	}
-	public void setEtudiant(EtudiantDTO etudiant) {
+	public void setEtudiant(AncienEtudiantDTO etudiant) {
 		this.etudiant = etudiant;
 	}
 	public List<CompetenceDTO> getMesCompetences() {

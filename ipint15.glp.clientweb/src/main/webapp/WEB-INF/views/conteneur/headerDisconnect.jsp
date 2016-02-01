@@ -1,5 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@page import="ipint15.glp.api.dto.EtudiantDTO"%>
+<%@page import="ipint15.glp.api.dto.AncienEtudiantDTO"%>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript"

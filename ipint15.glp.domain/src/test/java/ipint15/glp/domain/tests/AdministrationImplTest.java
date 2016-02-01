@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import ipint15.glp.api.dto.AdminDTO;
 import ipint15.glp.api.dto.Civilite;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
@@ -32,8 +32,8 @@ public class AdministrationImplTest {
 	private static ModerateurDTO moderateur;
 	private static AdminDTO ad ;
 	private static GroupeDTO groupe;
-	private static EtudiantDTO etu;
-	private static EtudiantDTO etu2;
+	private static AncienEtudiantDTO etu;
+	private static AncienEtudiantDTO etu2;
 	
 	
 	
@@ -201,7 +201,7 @@ public class AdministrationImplTest {
 	
 	@Test
 	public void testGetEtudiantsNonInscritByIdGroupe () {
-		List<EtudiantDTO> list = adminBean.getEtudiantsNonInscritByIdGroupe(groupe.getId());
+		List<AncienEtudiantDTO> list = adminBean.getEtudiantsNonInscritByIdGroupe(groupe.getId());
 		assertEquals(list.size(),1);
 		assertEquals(list.get(0).getNom(),"Durand");
 		
@@ -222,7 +222,7 @@ public class AdministrationImplTest {
 	public void testRefusInscription() {
 		adminBean.refusInscription(etu2, groupe.getId());
 		assertEquals(groupe.getEtudiants().size(),0);
-		List<EtudiantDTO> list = new ArrayList<EtudiantDTO>();
+		List<AncienEtudiantDTO> list = new ArrayList<AncienEtudiantDTO>();
 		assertEquals(groupe.getEtudiants(),list);
 		
 	}

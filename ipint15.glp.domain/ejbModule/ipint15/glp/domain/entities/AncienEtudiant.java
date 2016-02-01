@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import ipint15.glp.api.dto.Civilite;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 
 
 /**
@@ -25,7 +25,7 @@ import ipint15.glp.api.dto.EtudiantDTO;
  */
 @Entity
 @Table(name = "ETUDIANT")
-public class Etudiant implements Serializable {
+public class AncienEtudiant implements Serializable {
 	
 	/**
 	 * 
@@ -188,8 +188,8 @@ public class Etudiant implements Serializable {
 	public void setViadeo(String viadeo) {
 		this.viadeo = viadeo;
 	}
-	public EtudiantDTO toEtudiantDTO() {
-		EtudiantDTO pDTO = new EtudiantDTO();
+	public AncienEtudiantDTO toEtudiantDTO() {
+		AncienEtudiantDTO pDTO = new AncienEtudiantDTO();
 		pDTO.setId(this.getId());
 		pDTO.setPrenom(this.getPrenom());
 		pDTO.setNom(this.getNom());

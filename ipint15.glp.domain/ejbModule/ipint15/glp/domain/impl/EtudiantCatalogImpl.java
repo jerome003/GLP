@@ -18,7 +18,7 @@ import javax.transaction.UserTransaction;
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
@@ -26,7 +26,7 @@ import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.domain.entities.Competence;
 import ipint15.glp.domain.entities.Ecole;
-import ipint15.glp.domain.entities.Etudiant;
+import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Publication;
 import ipint15.glp.domain.entities.Experience;
@@ -44,19 +44,19 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	public EtudiantCatalogImpl() {
 	}
 
-	private Etudiant getEtudiantByMail(String mail) {
+	private AncienEtudiant getEtudiantByMail(String mail) {
 
-		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
+		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.email = :email");
 		q.setParameter("email", mail);
-		Etudiant e = (Etudiant) q.getSingleResult();
+		AncienEtudiant e = (AncienEtudiant) q.getSingleResult();
 
 		return e;
 	}
 
-	private Etudiant getEtudiantById(int id) {
-		Query q = em.createQuery("select o from Etudiant o WHERE o.id = :id");
+	private AncienEtudiant getEtudiantById(int id) {
+		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.id = :id");
 		q.setParameter("id", id);
-		Etudiant e = (Etudiant) q.getSingleResult();
+		AncienEtudiant e = (AncienEtudiant) q.getSingleResult();
 		return e;
 	}
 
@@ -68,11 +68,11 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public EtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
+	public AncienEtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
 			String numTelephone, String password, Date naissance, String posteActu, String villeActu,
 			String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
 		// Création de l'étudiant
-		Etudiant e = new Etudiant();
+		AncienEtudiant e = new AncienEtudiant();
 		e.setPrenom(firstname);
 		e.setNom(lastname);
 		e.setCivilite(civilite);
@@ -110,18 +110,18 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 		// Mapping EtudiantDTO et ProfilDTO pour retourner un etudiantDTO à la
 		// couche présentation
-		EtudiantDTO eDTO = ce.MappingEtudiantProfilGroupe(e, ep, p);
+		AncienEtudiantDTO eDTO = ce.MappingEtudiantProfilGroupe(e, ep, p);
 		return eDTO;
 
 	}
 
 	@Override
-	public EtudiantDTO getEtudiant(String email) {
-		Etudiant e = getEtudiantByMail(email);
+	public AncienEtudiantDTO getEtudiant(String email) {
+		AncienEtudiant e = getEtudiantByMail(email);
 
 		if (e != null) {
 			EtudiantProfil ep = e.getProfil();
-			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+			AncienEtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 			return eDTO;
 		}
 
@@ -131,11 +131,11 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public EtudiantDTO getEtudiant(int id) {
-		Etudiant e = getEtudiantById(id);
+	public AncienEtudiantDTO getEtudiant(int id) {
+		AncienEtudiant e = getEtudiantById(id);
 		if (e != null) {
 			EtudiantProfil ep = e.getProfil();
-			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+			AncienEtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 			return eDTO;
 		}
 		// a remplacer par le renvoie d'une exception lorsqu'aucun id ne
@@ -145,13 +145,13 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public List<EtudiantDTO> listEtudiant() {
-		List<Etudiant> ps = em.createQuery("select o from Etudiant o").getResultList();
-		List<EtudiantDTO> psDTO = new ArrayList<EtudiantDTO>();
+	public List<AncienEtudiantDTO> listEtudiant() {
+		List<AncienEtudiant> ps = em.createQuery("select o from AncienEtudiant o").getResultList();
+		List<AncienEtudiantDTO> psDTO = new ArrayList<AncienEtudiantDTO>();
 
-		for (Etudiant e : ps) {
+		for (AncienEtudiant e : ps) {
 			EtudiantProfil ep = e.getProfil();
-			EtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+			AncienEtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 			psDTO.add(eDTO);
 		}
 		return psDTO;
@@ -160,7 +160,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	@Override
 	public boolean connexion(String email, String password) {
 
-		Etudiant e = getEtudiantByMail(email);
+		AncienEtudiant e = getEtudiantByMail(email);
 		if (e != null && (e.getPassword().equals(password))) {
 			System.out.println("connexion etablie");
 			return true;
@@ -171,8 +171,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addCompetence(EtudiantDTO eDTO, String competence, int niveau) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public void addCompetence(AncienEtudiantDTO eDTO, String competence, int niveau) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Competence c = new Competence();
 		c.setLibelle(competence);
@@ -187,9 +187,9 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public List<CompetenceDTO> getCompetences(EtudiantDTO eDTO) {
+	public List<CompetenceDTO> getCompetences(AncienEtudiantDTO eDTO) {
 
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
 		List<Competence> mesCompetences = e.getProfil().getMesCompetences();
 		List<CompetenceDTO> mesCompetencesDTO = new ArrayList<CompetenceDTO>();
@@ -204,9 +204,9 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addExperience(EtudiantDTO eDTO, String experience, String entreprise, String ville, String region,
+	public void addExperience(AncienEtudiantDTO eDTO, String experience, String entreprise, String ville, String region,
 			String pays, String debut, String fin, String description) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Experience exp = new Experience();
 		exp.setLibelle(experience);
@@ -228,8 +228,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public List<ExperienceDTO> getExperiences(EtudiantDTO eDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public List<ExperienceDTO> getExperiences(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
 		List<Experience> mesExperiences = e.getProfil().getMesExperiences();
 		List<ExperienceDTO> mesExperiencesDTO = new ArrayList<ExperienceDTO>();
@@ -242,8 +242,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public GroupeDTO getGroupe(EtudiantDTO eDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public GroupeDTO getGroupe(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
 		Groupe monGroupe = e.getGroupe();
 		GroupeDTO monGroupeDTO = ce.MappingEtudiantGroupe(e, monGroupe);
@@ -251,8 +251,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void setGroupe(EtudiantDTO eDTO, GroupeDTO gDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public void setGroupe(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		Groupe grp = getGroupeById(gDTO.getId());
 
 		e.setGroupe(grp);
@@ -264,8 +264,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addHobbie(EtudiantDTO eDTO, String hobbie) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public void addHobbie(AncienEtudiantDTO eDTO, String hobbie) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Hobbie h = new Hobbie();
 		h.setLibelle(hobbie);
@@ -278,8 +278,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public List<HobbieDTO> getHobbies(EtudiantDTO eDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public List<HobbieDTO> getHobbies(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
 		List<Hobbie> mesHobbies = e.getProfil().getMesHobbies();
 		List<HobbieDTO> mesHobbiesDTO = new ArrayList<HobbieDTO>();
@@ -293,9 +293,9 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	///////////////////////////////// faire .....................
 	@Override
-	public void addEcole(EtudiantDTO eDTO, String libelle, String etablissement, String debut, String fin, String ville,
+	public void addEcole(AncienEtudiantDTO eDTO, String libelle, String etablissement, String debut, String fin, String ville,
 			String region, String pays) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Ecole formation = new Ecole();
 		formation.setLibelle(libelle);
@@ -316,8 +316,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public List<EcoleDTO> getEcoles(EtudiantDTO eDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public List<EcoleDTO> getEcoles(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
 		List<Ecole> mesEcoles = e.getProfil().getMesEcoles();
 		List<EcoleDTO> mesEcolesDTO = new ArrayList<EcoleDTO>();
@@ -330,8 +330,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public List<PublicationDTO> getPublications(EtudiantDTO eDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public List<PublicationDTO> getPublications(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
 		List<Publication> mesPublications = e.getProfil().getMesPublications();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
@@ -359,8 +359,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addPublication(EtudiantDTO eDTO, String titre, String message, Date date) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public void addPublication(AncienEtudiantDTO eDTO, String titre, String message, Date date) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer cas si e = null
 		Publication c = new Publication();
 		c.setTitre(titre);
@@ -378,11 +378,11 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	@Override
 	public boolean isMailExists(String mail) {
 
-		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
+		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.email = :email");
 		q.setParameter("email", mail);
-		Etudiant e;
+		AncienEtudiant e;
 		try {
-			e = (Etudiant) q.getSingleResult();
+			e = (AncienEtudiant) q.getSingleResult();
 		} catch (NoResultException e1) {
 			return false;
 		}
@@ -391,12 +391,12 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public boolean isPasswordIsGood(String mail, String password) {
-		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email and o.password = :password ");
+		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.email = :email and o.password = :password ");
 		q.setParameter("email", mail);
 		q.setParameter("password", password);
-		Etudiant e;
+		AncienEtudiant e;
 		try {
-			e = (Etudiant) q.getSingleResult();
+			e = (AncienEtudiant) q.getSingleResult();
 		} catch (NoResultException e1) {
 			return false;
 		}
@@ -404,8 +404,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void deleteCompetenceList(EtudiantDTO eDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public void deleteCompetenceList(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		List<Competence> mesCompetences = e.getProfil().getMesCompetences();
 		for (Competence competence : mesCompetences) {
 			em.remove(competence);
@@ -416,8 +416,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void deleteExpProList(EtudiantDTO eDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public void deleteExpProList(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		List<Experience> mesExperiences = e.getProfil().getMesExperiences();
 		for (Experience experience : mesExperiences) {
 			em.remove(experience);
@@ -427,8 +427,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void deleteFormationList(EtudiantDTO eDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public void deleteFormationList(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		List<Ecole> mesFormations = e.getProfil().getMesEcoles();
 		for (Ecole ecole : mesFormations) {
 			em.remove(ecole);
@@ -438,8 +438,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 
 	@Override
-	public void deleteLoisirList(EtudiantDTO eDTO) {
-		Etudiant e = getEtudiantByMail(eDTO.getEmail());
+	public void deleteLoisirList(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		List<Hobbie> mesLoisirs = e.getProfil().getMesHobbies();
 		for (Hobbie hobbie : mesLoisirs) {
 			em.remove(hobbie);
@@ -452,7 +452,7 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone,
 			String facebook, String twitter, String viadeo, String linkedin, String attentes) {
 
-		Etudiant e = getEtudiantById(id);
+		AncienEtudiant e = getEtudiantById(id);
 		e.setPosteActu(posteActu);
 		e.setVilleActu(villeActu);
 		e.setNomEntreprise(nomEntreprise);

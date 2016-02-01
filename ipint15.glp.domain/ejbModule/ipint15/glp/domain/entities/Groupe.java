@@ -20,7 +20,7 @@ public class Groupe {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@OneToMany(mappedBy="groupe")
-    private List<Etudiant> etudiants ;
+    private List<AncienEtudiant> etudiants ;
 	@ManyToMany(mappedBy="groupes")
     private List<Moderateur> moderateurs ;
 	private String description;
@@ -32,10 +32,10 @@ public class Groupe {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public List<Etudiant> getEtudiants() {
+	public List<AncienEtudiant> getEtudiants() {
 		return etudiants;
 	}
-	public void setEtudiants(List<Etudiant> etudiants) {
+	public void setEtudiants(List<AncienEtudiant> etudiants) {
 		this.etudiants = etudiants;
 	}
 	public String getName() {

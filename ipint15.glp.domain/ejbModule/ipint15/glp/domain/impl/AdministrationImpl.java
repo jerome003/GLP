@@ -22,12 +22,12 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import ipint15.glp.api.dto.AdminDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.domain.entities.Admin;
-import ipint15.glp.domain.entities.Etudiant;
+import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Moderateur;
@@ -304,7 +304,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	}
 
 	@Override
-	public void sendMailEtudiantOK(EtudiantDTO etu) {
+	public void sendMailEtudiantOK(AncienEtudiantDTO etu) {
 		final String username = "maxime.gidon";
 		final String password = "Miage2016";
 
@@ -347,7 +347,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	}
 
 	@Override
-	public void sendMailEtudiantKO(EtudiantDTO etu) {
+	public void sendMailEtudiantKO(AncienEtudiantDTO etu) {
 		final String username = "maxime.gidon";
 		final String password = "Miage2016";
 
@@ -390,23 +390,23 @@ public class AdministrationImpl implements AdministrationRemote {
 	}
 	
 	@Override
-	public List<EtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id){
+	public List<AncienEtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id){
 		
 		Groupe g = getGroupeById(id);
-		List<Etudiant> EtudiantList = g.getEtudiants();
-		List<EtudiantDTO> EtudiantListDTO = new ArrayList<EtudiantDTO>();
+		List<AncienEtudiant> EtudiantList = g.getEtudiants();
+		List<AncienEtudiantDTO> EtudiantListDTO = new ArrayList<AncienEtudiantDTO>();
 		
 		
-		Iterator<Etudiant> iter = EtudiantList.iterator();
+		Iterator<AncienEtudiant> iter = EtudiantList.iterator();
 
 		while (iter.hasNext()) {
-			Etudiant e = iter.next();
+			AncienEtudiant e = iter.next();
 			if (e.getValidation()){
 				iter.remove();
 			}
 		}
 		
-		for (Etudiant e : EtudiantList){
+		for (AncienEtudiant e : EtudiantList){
 			EtudiantListDTO.add(e.toEtudiantDTO());
 		}
 		
@@ -416,7 +416,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	}
 	
 	@Override
-	public void sendMailNewEtudiant(EtudiantDTO etu) {
+	public void sendMailNewEtudiant(AncienEtudiantDTO etu) {
 		final String username = "maxime.gidon";
 		final String password = "Miage2016";
 
@@ -462,26 +462,26 @@ public class AdministrationImpl implements AdministrationRemote {
 	}
 	
 	@Override
-	public void validationInscription (EtudiantDTO etudiantDTO){
-		Etudiant etu = getEtudiantById(etudiantDTO.getId());
+	public void validationInscription (AncienEtudiantDTO etudiantDTO){
+		AncienEtudiant etu = getEtudiantById(etudiantDTO.getId());
 		sendMailEtudiantOK(etudiantDTO);
 		etu.setValidation(true);
 		em.merge(etu);
 	}
 
-	private Etudiant getEtudiantById(int id) {
-		Query q = em.createQuery("select o from Etudiant o WHERE o.id = :id");
+	private AncienEtudiant getEtudiantById(int id) {
+		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.id = :id");
 		q.setParameter("id", id);
-		Etudiant e = (Etudiant) q.getSingleResult();
+		AncienEtudiant e = (AncienEtudiant) q.getSingleResult();
 		return e;
 	}
 	
 
 	
 	@Override
-	public void refusInscription (EtudiantDTO etudiantDTO, int idGroupe){
+	public void refusInscription (AncienEtudiantDTO etudiantDTO, int idGroupe){
 		sendMailEtudiantKO(etudiantDTO);
-		Etudiant etu = getEtudiantById(etudiantDTO.getId());
+		AncienEtudiant etu = getEtudiantById(etudiantDTO.getId());
 		Groupe g = getGroupeById(idGroupe);
 		g.getEtudiants().remove(etu);
 		em.remove(etu);
