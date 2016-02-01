@@ -393,7 +393,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	public List<AncienEtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id){
 		
 		Groupe g = getGroupeById(id);
-		List<AncienEtudiant> EtudiantList = g.getEtudiants();
+		List<AncienEtudiant> EtudiantList = g.getAncienEtudiants();
 		List<AncienEtudiantDTO> EtudiantListDTO = new ArrayList<AncienEtudiantDTO>();
 		
 		
@@ -483,7 +483,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		sendMailEtudiantKO(etudiantDTO);
 		AncienEtudiant etu = getEtudiantById(etudiantDTO.getId());
 		Groupe g = getGroupeById(idGroupe);
-		g.getEtudiants().remove(etu);
+		g.getAncienEtudiants().remove(etu);
 		em.remove(etu);
 		
 	}

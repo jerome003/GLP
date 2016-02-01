@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.RechercheRemote;
 
 @Controller
@@ -28,7 +28,7 @@ import ipint15.glp.api.remote.RechercheRemote;
 public class ResultResearchController {
 
 	@Inject
-	protected EtudiantCatalogRemote etudiantBean;
+	protected AncienEtudiantCatalogRemote etudiantBean;
 	@Inject
 	protected RechercheRemote rechercheBean;
 	

@@ -23,14 +23,14 @@ import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.HobbieDTO;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 
 @Controller
 @SessionAttributes
 public class EditionProfilController {
 
 	@Inject
-	protected EtudiantCatalogRemote etudiantBean;
+	protected AncienEtudiantCatalogRemote etudiantBean;
 
 	/**
 	 * Permet la redirection vers la page d'edition de profil

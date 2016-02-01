@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 
 
 
@@ -24,7 +24,7 @@ import ipint15.glp.api.remote.EtudiantCatalogRemote;
 public class HomeController {
 	
 	@Inject
-	protected EtudiantCatalogRemote etudiantbean;
+	protected AncienEtudiantCatalogRemote etudiantbean;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	

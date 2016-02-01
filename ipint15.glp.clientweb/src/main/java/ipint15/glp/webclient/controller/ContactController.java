@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 
 @Controller
 @SessionAttributes
 public class ContactController {
 	@Inject
-	protected EtudiantCatalogRemote etudiantBean;
+	protected AncienEtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {

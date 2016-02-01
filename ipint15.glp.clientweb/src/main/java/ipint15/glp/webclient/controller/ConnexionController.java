@@ -23,13 +23,13 @@ import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.HobbieDTO;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 
 @Controller
 @SessionAttributes
 public class ConnexionController {
 	@Inject
-	protected EtudiantCatalogRemote etudiantBean;
+	protected AncienEtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/connexion", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {

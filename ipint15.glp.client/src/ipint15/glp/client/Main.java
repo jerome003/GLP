@@ -8,7 +8,7 @@ import javax.naming.NamingException;
 
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.RechercheRemote;
 
 
@@ -21,7 +21,7 @@ public class Main {
 			// création du "contexte initial" = de la connexion à l'annuaire du serveur
 						InitialContext context = new InitialContext();
 						// requête sur le nom de la ressource que l'on veut, ici notre EJB
-						EtudiantCatalogRemote catalog =(EtudiantCatalogRemote)context.lookup("ipint15.glp.api.remote.EtudiantCatalogRemote");
+						AncienEtudiantCatalogRemote catalog =(AncienEtudiantCatalogRemote)context.lookup("ipint15.glp.api.remote.EtudiantCatalogRemote");
 						RechercheRemote recherche =(RechercheRemote)context.lookup("ipint15.glp.api.remote.RechercheRemote");
 						catalog.createEtudiant("Maxime", "Delporte", Civilite.M, "maximus@gmail.com","0654897514","toto", new Date(),"Développeur", "Lille","Wordline","miage",2015);
 						catalog.createEtudiant("Maximus", "Delporte", Civilite.M, "maximus@gmail.com","0568547895","toto", new Date(),"MOA","Lille","CGI","miage",2016);

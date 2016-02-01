@@ -31,7 +31,7 @@ import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.api.remote.RechercheRemote;
 
@@ -40,7 +40,7 @@ import ipint15.glp.api.remote.RechercheRemote;
 public class InscriptionController {
 
 	@Inject
-	protected EtudiantCatalogRemote etudiantBean;
+	protected AncienEtudiantCatalogRemote etudiantBean;
 	@Inject
 	protected RechercheRemote rechercheBean;
 	@Inject

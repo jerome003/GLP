@@ -24,7 +24,7 @@ import ipint15.glp.api.dto.AncienEtudiantDTO;
  *
  */
 @Entity
-@Table(name = "ETUDIANT")
+@Table(name = "ANCIENETUDIANT")
 public class AncienEtudiant implements Serializable {
 	
 	/**

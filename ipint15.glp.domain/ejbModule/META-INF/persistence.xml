@@ -6,6 +6,7 @@
 		transaction-type="JTA">	
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>jdbc/newResource</jta-data-source>
+		<class>ipint15.glp.domain.entities.AncienEtudiant</class>
 		<class>ipint15.glp.domain.entities.Etudiant</class>
 		<class>ipint15.glp.domain.entities.EtudiantProfil</class>
 		<class>ipint15.glp.domain.entities.Competence</class>
