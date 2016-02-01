@@ -6,6 +6,7 @@
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script type="text/javascript"
 	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/alertify.js"></script>
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
@@ -13,6 +14,11 @@
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/resources/css/moncss.css" rel="stylesheet" >
+
+<!-- include the core styles -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/alertify.core.css" />
+<!-- include a theme, can be included into the core instead of 2 separate files -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/alertify.default.css" />
 
 
 <%
@@ -46,6 +52,7 @@
 				<li <%if (section.equals("connexion")) {%> class="active" <% } %>>
 				<a href="${pageContext.request.contextPath}/connexion">Connexion<br></a>
 				</li>
+				
 			</ul>
 		</div>
 	</div>
