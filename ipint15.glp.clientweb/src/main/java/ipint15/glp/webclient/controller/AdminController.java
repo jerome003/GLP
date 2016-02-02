@@ -1,6 +1,5 @@
 package ipint15.glp.webclient.controller;
 
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,7 +26,7 @@ import ipint15.glp.api.remote.GroupeRemote;
 
 @Controller
 @SessionAttributes
-public class adminController {
+public class AdminController {
 
 	@Inject
 	protected GroupeRemote groupeBean;

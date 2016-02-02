@@ -25,7 +25,7 @@ import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 
 @Controller
 @SessionAttributes
-public class filActualiteController {
+public class FilActualiteController {
 
 	@Inject
 	protected AncienEtudiantCatalogRemote etudiantBean;

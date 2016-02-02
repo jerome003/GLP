@@ -13,75 +13,104 @@ import javax.persistence.TemporalType;
 
 import ipint15.glp.api.dto.PublicationDTO;
 
-	@Entity
-	@Table(name = "PUBLICATION")
-	public class Publication {
-		
-		@Id
-		@GeneratedValue(strategy = GenerationType.AUTO)
-		private int id;
-	   
-	    @ManyToOne
-	    private EtudiantProfil profil ;
-	    
-	    private String titre;
+@Entity
+@Table(name = "PUBLICATION")
+public class Publication {
 
-	    private String message;
-	    
-		@Temporal(TemporalType.TIME)
-		private Date date;
-	    
-		public int getId() {
-			return id;
-		}
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 
-		public void setId(int id) {
-			this.id = id;
-		}
+	@ManyToOne
+	private EtudiantProfil profil;
 
-		public EtudiantProfil getProfil() {
-			return profil;
-		}
+	private String titre;
 
-		public void setProfil(EtudiantProfil profil) {
-			this.profil = profil;
-		}
-		public String getTitre() {
-			return titre;
-		}
+	private String message;
 
-		public void setTitre(String titre) {
-			this.titre = titre;
-		}
+	@Temporal(TemporalType.TIME)
+	private Date date;
 
-		public String getMessage() {
-			return message;
-		}
+	@ManyToOne
+	private Groupe groupe;
 
-		public void setMessage(String message) {
-			this.message = message;
-		}
-		
-		
-		
-		public Date getDate() {
-			return date;
-		}
+	private boolean isPublic;
 
-		public void setDate(Date date) {
-			this.date = date;
-		}
+	public int getId() {
+		return id;
+	}
 
-		public PublicationDTO toPublicationDTO() {
-			PublicationDTO cDTO = new PublicationDTO();
-			cDTO.setId(this.id);
-			cDTO.setTitre(this.titre);
-			cDTO.setMessage(this.message);
-			cDTO.setDate(this.date);
-			return cDTO;
-		}
-		@Override
-		public String toString() {
-			return "Competence [id=" + id + ", profil="  + ((profil!=null) ? "oui" : "non") + ", libelle=" + titre + ", message ="+message +"]";
-		}
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public EtudiantProfil getProfil() {
+		return profil;
+	}
+
+	public void setProfil(EtudiantProfil profil) {
+		this.profil = profil;
+	}
+
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Groupe getGroupe() {
+		return groupe;
+	}
+
+	public void setGroupe(Groupe groupe) {
+		this.groupe = groupe;
+	}
+
+	public PublicationDTO toPublicationDTO() {
+		PublicationDTO cDTO = new PublicationDTO();
+		cDTO.setId(this.id);
+		cDTO.setTitre(this.titre);
+		cDTO.setMessage(this.message);
+		cDTO.setDate(this.date);
+		return cDTO;
+	}
+
+	@Override
+	public String toString() {
+		return "Competence [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + ", libelle=" + titre
+				+ ", message =" + message + "]";
+	}
+
+	/**
+	 * @return the isPublic
+	 */
+	public boolean isPublic() {
+		return isPublic;
+	}
+
+	/**
+	 * @param isPublic
+	 *            the isPublic to set
+	 */
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
+	}
 }

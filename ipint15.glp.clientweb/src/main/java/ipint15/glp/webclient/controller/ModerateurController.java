@@ -18,7 +18,7 @@ import ipint15.glp.api.remote.GroupeRemote;
 
 @Controller
 @SessionAttributes
-public class moderateurController {
+public class ModerateurController {
 
 	@Inject
 	protected GroupeRemote groupeBean;
