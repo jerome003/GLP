@@ -114,7 +114,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/saveModerateur", method = RequestMethod.POST)
-	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result) {
+	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result, HttpServletRequest request) {
 
 		ModelAndView modelView;
 
@@ -134,7 +134,7 @@ public class AdminController {
 			modelView = new ModelAndView("redirect:moderateurs", "command", new ModerateurDTO());
 			modelView.addObject("liste", listeResultat);
 		}
-
+		modelView.addObject("creation", "ok");
 		return modelView;
 	}
 

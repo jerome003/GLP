@@ -1,6 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+<%if (request.getParameter("creation") != null && request.getParameter("creation").equals("ok")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.log('Modérateur Créé !');
+	};
+</script> 
+
+<%} %>
+	
+
+
 <div class="section">
 	<div class="container">
 		<div class="row">
