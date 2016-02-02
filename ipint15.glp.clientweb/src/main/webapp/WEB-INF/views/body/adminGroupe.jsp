@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+
+
 <div class="section">
 	<div class="container">
 		<div class="row">
@@ -9,7 +11,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<form class="form-horizontal" role="form" method="post"
+			<form name='form1'  class="form-horizontal" role="form" method="post"  
 				action="saveGroupe">
 				<div class="form-group">
 					<div class="col-sm-2">
@@ -17,7 +19,8 @@
 					</div>
 					<div class="col-sm-6">
 						<input id="nameGroupe" name="nameGroupe" type="text"
-							class="form-control" />
+							class="form-control" required="required" />
+						
 					</div>
 				</div>
 				<div class="form-group">
@@ -26,7 +29,7 @@
 					</div>
 					<div class="col-sm-6">
 						<input id="descriptionGroupe" name="descriptionGroupe" type="text"
-							class="form-control" />
+							class="form-control" required="required" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -52,7 +55,7 @@
 					<div class="form-group">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-3">
-							<input type="submit" value="Enregistrer" />
+							<input id ="valider" type="submit" value="Enregistrer" />
 						</div>
 					</div>
 			</form>
