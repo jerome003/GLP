@@ -44,17 +44,25 @@ public class Main {
 			groupe = groupBean.createGroupe("Miage","Groupe Miage");
 			groupe2 = groupBean.createGroupe("Elfe", "Ecole des Elfes");
 			
+			System.out.println("moderateur du groupe  "+ groupe.getName()+" : "+ moderateur.getEmail()+ " son mot de passe est : "+ moderateur.getPassword());
+			System.out.println("moderateur du groupe  "+ groupe2.getName()+" : "+ moderateur2.getEmail()+ " son mot de passe est : "+ moderateur2.getPassword());
+			
 			adminBean.addGroupetoModo(moderateur.getId(), groupe);
 			adminBean.addGroupetoModo(moderateur2.getId(), groupe2);
 			
-			etudiant =etuBean.createEtudiant("Sarra", "Bahbah", Civilite.Mme, "bahbahsara@yahoo.fr","000000",adminBean.generatePassword(8), 
+			etudiant =etuBean.createEtudiant("Sarra", "Bahbah", Civilite.Mme, "sara@gmail.com","000000",adminBean.generatePassword(8), 
 					new Date(),"Dev", "Paris", "CGI","miage", 2015, groupe);
-			etudiant2 =etuBean.createEtudiant("Jerome", "Delporte", Civilite.M, "jerome.delporte003@gmail.com","000000", 
+			etudiant2 =etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@gmail.com","000000", 
 					adminBean.generatePassword(8), new Date(),"Dev", "Lille", "CGI","miage", 2015, groupe);
-			etudiant3 =etuBean.createEtudiant("Maxime", "Gidon", Civilite.M, "gidon.maxime@gmail.com","000000", 
+			etudiant3 =etuBean.createEtudiant("Maxime", "Gidon", Civilite.M, "maxime@gmail.com","000000", 
 					adminBean.generatePassword(8), new Date(),"Dev", "Lyon", "Worldline","miage", 2015, groupe2);
-			etudiant4 =etuBean.createEtudiant("Camille", "Marquette", Civilite.M, "camille.marquette1@gmail.com","000000",
+			etudiant4 =etuBean.createEtudiant("Paolo", "Delpiro", Civilite.M, "paolo@gmail.com","000000",
 					adminBean.generatePassword(8), new Date(),"Dev", "Lille", "CGI","miage", 2015, groupe2);
+			
+			System.out.println("etudiant 1 est : "+ etudiant.getPrenom()+" "+etudiant.getNom()+" son adresse mail : "+etudiant.getEmail()+" et son mot de passe : "+etudiant.getPassword());
+			System.out.println("etudiant 2 est : "+ etudiant2.getPrenom()+" "+etudiant2.getNom()+" son adresse mail : "+etudiant2.getEmail()+" et son mot de passe : "+etudiant2.getPassword());
+			System.out.println("etudiant 3 est : "+ etudiant3.getPrenom()+" "+etudiant3.getNom()+" son adresse mail : "+etudiant3.getEmail()+" et son mot de passe : "+etudiant3.getPassword());
+			System.out.println("etudiant 4 est : "+ etudiant4.getPrenom()+" "+etudiant4.getNom()+" son adresse mail : "+etudiant4.getEmail()+" et son mot de passe : "+etudiant4.getPassword());
 			
 
 		} catch (NamingException e) {
