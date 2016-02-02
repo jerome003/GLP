@@ -19,7 +19,7 @@ import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 
 public class AdministrationImplTest {
@@ -27,7 +27,7 @@ public class AdministrationImplTest {
 	private static InitialContext ctx;
 	private static AdministrationRemote adminBean;
 	private static GroupeRemote groupeBean;
-	private static EtudiantCatalogRemote etuBean;
+	private static AncienEtudiantCatalogRemote etuBean;
 	private static ModerateurDTO modo;
 	private static ModerateurDTO moderateur;
 	private static AdminDTO ad ;
@@ -42,7 +42,7 @@ public class AdministrationImplTest {
 		ctx= new InitialContext();
 		adminBean = (AdministrationRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AdministrationImpl");
 		groupeBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
-		etuBean = (EtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
+		etuBean = (AncienEtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
 		
 		groupe= groupeBean.createGroupe("Miage","groupe miage de l'universite de lille 1");
 		moderateur = adminBean.createModerateur("Mike", "Ross", "mike@gmail.com", "password");

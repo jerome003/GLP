@@ -22,7 +22,7 @@ import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.dto.PublicationDTO;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 
 
@@ -31,7 +31,7 @@ public class EtudiantCatalogImplTest {
 
 
 	private static InitialContext ctx;
-	private static EtudiantCatalogRemote etuBean ;
+	private static AncienEtudiantCatalogRemote etuBean ;
 	private static GroupeRemote groupBean;
 	private static AncienEtudiantDTO etudiant;
 	private static AncienEtudiantDTO etu;
@@ -41,7 +41,7 @@ public class EtudiantCatalogImplTest {
 	@BeforeClass
 	public static  void setUp() throws NamingException{
 		ctx= new InitialContext();
-		etuBean = (EtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
+		etuBean = (AncienEtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
 		groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 		
 		groupe = groupBean.createGroupe("miage","groupeMiage");

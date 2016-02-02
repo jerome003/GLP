@@ -15,7 +15,7 @@ import javax.naming.NamingException;
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.api.remote.RechercheRemote;
 
@@ -31,7 +31,7 @@ public class RechercheImplTest {
 	
 	private static InitialContext ctx;
 	private static RechercheRemote rechBean;
-	private static EtudiantCatalogRemote etuBean ;
+	private static AncienEtudiantCatalogRemote etuBean ;
 	private static GroupeRemote groupBean;
 	
 	@BeforeClass
@@ -39,7 +39,7 @@ public class RechercheImplTest {
 		
 		ctx= new InitialContext();
 		rechBean = (RechercheRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/RechercheImpl");
-		etuBean = (EtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
+		etuBean = (AncienEtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
 		groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 		
 		

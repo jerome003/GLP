@@ -21,14 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.PublicationDTO;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 
 @Controller
 @SessionAttributes
 public class filActualiteController {
 
 	@Inject
-	protected EtudiantCatalogRemote etudiantBean;
+	protected AncienEtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/fil-actualite", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {

@@ -75,7 +75,7 @@ public class GroupeImpl implements GroupeRemote {
 	@Override
 	public int getGroupeSize(int id) {
 		Groupe g = getGroupeById(id);
-		return g.getEtudiants().size();
+		return g.getAncienEtudiants().size();
 	}
 
 	@Override
