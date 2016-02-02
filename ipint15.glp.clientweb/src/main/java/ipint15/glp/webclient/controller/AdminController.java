@@ -1,6 +1,5 @@
 package ipint15.glp.webclient.controller;
 
-
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,7 +26,7 @@ import ipint15.glp.api.remote.GroupeRemote;
 
 @Controller
 @SessionAttributes
-public class adminController {
+public class AdminController {
 
 	@Inject
 	protected GroupeRemote groupeBean;
@@ -115,7 +114,7 @@ public class adminController {
 	}
 
 	@RequestMapping(value = "/admin/saveModerateur", method = RequestMethod.POST)
-	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result) {
+	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result, HttpServletRequest request) {
 
 		ModelAndView modelView;
 
@@ -135,7 +134,7 @@ public class adminController {
 			modelView = new ModelAndView("redirect:moderateurs", "command", new ModerateurDTO());
 			modelView.addObject("liste", listeResultat);
 		}
-
+		modelView.addObject("creation", "ok");
 		return modelView;
 	}
 

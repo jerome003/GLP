@@ -25,7 +25,7 @@ import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 
 @Controller
 @SessionAttributes
-public class filActualiteController {
+public class FilActualiteController {
 
 	@Inject
 	protected AncienEtudiantCatalogRemote etudiantBean;
@@ -56,9 +56,6 @@ public class filActualiteController {
 		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
 		List<PublicationDTO> myPublications = etudiantBean.getPublications();
-		Iterator it = myPublications.iterator();
-		while (it.hasNext()) {
-		}
 
 		/*
 		 * //Ajout d'une compétence pour notre étudiant

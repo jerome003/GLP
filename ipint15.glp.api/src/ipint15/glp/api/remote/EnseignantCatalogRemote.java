@@ -1,7 +1,10 @@
 package ipint15.glp.api.remote;
 
+import javax.ejb.Remote;
+
 import ipint15.glp.api.dto.EnseignantDTO;
 
+@Remote
 public interface EnseignantCatalogRemote {
 	
 	/**

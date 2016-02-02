@@ -28,6 +28,8 @@ public class Groupe {
 	private List<Etudiant> etudiants;
 	@ManyToMany(mappedBy = "groupes")
 	private List<Enseignant> enseignant;
+	@OneToMany(mappedBy = "groupe")
+	private List<Publication> publications;
 
 	private String name;
 
@@ -86,6 +88,14 @@ public class Groupe {
 
 	public void setEnseignant(List<Enseignant> enseignant) {
 		this.enseignant = enseignant;
+	}
+
+	public List<Publication> getPublications() {
+		return publications;
+	}
+
+	public void setPublications(List<Publication> publications) {
+		this.publications = publications;
 	}
 
 	public GroupeDTO toGroupeDTO() {
