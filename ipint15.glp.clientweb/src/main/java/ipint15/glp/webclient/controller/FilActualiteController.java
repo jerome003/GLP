@@ -56,9 +56,6 @@ public class FilActualiteController {
 		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
 		List<PublicationDTO> myPublications = etudiantBean.getPublications();
-		Iterator it = myPublications.iterator();
-		while (it.hasNext()) {
-		}
 
 		/*
 		 * //Ajout d'une compétence pour notre étudiant
