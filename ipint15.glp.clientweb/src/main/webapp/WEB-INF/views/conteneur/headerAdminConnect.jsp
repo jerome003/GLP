@@ -12,6 +12,14 @@
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css">
+<!-- libraries pour les alertes  -->
+<script
+	src="${pageContext.request.contextPath}/resources/js/alertify.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/alertify.core.css" />
+<!-- include a theme, can be included into the core instead of 2 separate files -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/alertify.default.css" />
 
 <%
 	String section = (String) session.getAttribute("section");
