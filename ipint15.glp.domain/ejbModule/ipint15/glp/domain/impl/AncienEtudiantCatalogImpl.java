@@ -44,7 +44,7 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 	public AncienEtudiantCatalogImpl() {
 	}
 
-	private AncienEtudiant getEtudiantByMail(String mail) {
+	AncienEtudiant getEtudiantByMail(String mail) {
 
 		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.email = :email");
 		q.setParameter("email", mail);
@@ -327,52 +327,6 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 			mesEcolesDTO.add(ecoleDTO);
 		}
 		return mesEcolesDTO;
-	}
-
-	@Override
-	public List<PublicationDTO> getPublications(AncienEtudiantDTO eDTO) {
-		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
-		// TODO gérer le cas si e = null
-		List<Publication> mesPublications = e.getProfil().getMesPublications();
-		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
-		for (Publication c : mesPublications) {
-			PublicationDTO cDTO = ce.MappingProfilPublication(e.getProfil(), c);
-			mesPublicationsDTO.add(cDTO);
-		}
-		return mesPublicationsDTO;
-
-	}
-
-	@Override
-	public List<PublicationDTO> getPublications() {
-		List<Publication> mesPublications = em.createQuery("select p from Publication p order by p.date desc")
-				.getResultList();
-		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
-		for (Publication p : mesPublications) {
-			System.out.println("Profil :" + p.getProfil());
-			PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(), p);
-			System.out.println("Profil DTO :" + cDTO.getProfil());
-			mesPublicationsDTO.add(cDTO);
-		}
-		return mesPublicationsDTO;
-
-	}
-
-	@Override
-	public void addPublication(AncienEtudiantDTO eDTO, String titre, String message, Date date) {
-		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
-		// TODO gérer cas si e = null
-		Publication c = new Publication();
-		c.setTitre(titre);
-		c.setMessage(message);
-		c.setDate(date);
-		EtudiantProfil ep = e.getProfil();
-		ep.getMesPublications().add(c);
-		c.setProfil(ep);
-		em.persist(c);
-		em.merge(ep);
-		em.merge(e);
-
 	}
 
 	@Override

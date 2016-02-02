@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,6 +17,7 @@ import ipint15.glp.api.dto.PublicationDTO;
 
 @Entity
 @Table(name = "PUBLICATION")
+@NamedQueries({ @NamedQuery(name = "selectAllPublicationOfAncienEtudiant", query = "select o from Publication o WHERE o.profil.etudiant.id = :id") })
 public class Publication {
 
 	@Id

@@ -2,13 +2,13 @@ package ipint15.glp.api.remote;
 
 import java.util.Date;
 import java.util.List;
+
 import javax.ejb.Remote;
 
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
-import ipint15.glp.api.dto.AncienEtudiantDTO;
-import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
@@ -57,10 +57,6 @@ public interface AncienEtudiantCatalogRemote {
 
 	public List<CompetenceDTO> getCompetences(AncienEtudiantDTO eDTO);
 
-	public List<PublicationDTO> getPublications(AncienEtudiantDTO eDTO);
-
-	void addPublication(AncienEtudiantDTO eDTO, String titre, String message, Date date);
-
 	public void addExperience(AncienEtudiantDTO eDTO, String libelle, String entreprise, String ville, String region, String pays, String debut, String fin, String description);
 
 	public List<ExperienceDTO> getExperiences(AncienEtudiantDTO eDTO);
@@ -72,8 +68,6 @@ public interface AncienEtudiantCatalogRemote {
 	public void addEcole(AncienEtudiantDTO eDTO, String libelle, String etablissement, String debut, String fin, String ville, String region, String pays);
 
 	public List<EcoleDTO> getEcoles(AncienEtudiantDTO eDTO);
-
-	List<PublicationDTO> getPublications();
 
 	public boolean isMailExists(String mail);
 
@@ -115,4 +109,5 @@ public interface AncienEtudiantCatalogRemote {
 
 
 	boolean valideLien(String lien, String site);
+	
 }

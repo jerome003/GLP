@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
+import ipint15.glp.api.remote.PublicationRemote;
 
 @Controller
 @SessionAttributes
@@ -29,6 +30,8 @@ public class FilActualiteController {
 
 	@Inject
 	protected AncienEtudiantCatalogRemote etudiantBean;
+	@Inject
+	protected PublicationRemote publicationBean;
 
 	@RequestMapping(value = "/fil-actualite", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
@@ -36,7 +39,7 @@ public class FilActualiteController {
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien")) {
 		sessionObj.setAttribute("section", "actualite");
-		model.addAttribute("myInjectedBean", etudiantBean );
+		model.addAttribute("myInjectedBean", publicationBean );
 		AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 		return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			} else {
@@ -54,8 +57,8 @@ public class FilActualiteController {
 			HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
-		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
-		List<PublicationDTO> myPublications = etudiantBean.getPublications();
+		publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
+		List<PublicationDTO> myPublications = publicationBean.getPublications();
 
 		/*
 		 * //Ajout d'une compétence pour notre étudiant
