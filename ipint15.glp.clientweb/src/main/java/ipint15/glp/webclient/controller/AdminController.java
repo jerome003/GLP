@@ -26,7 +26,7 @@ import ipint15.glp.api.remote.GroupeRemote;
 
 @Controller
 @SessionAttributes
-public class adminController {
+public class AdminController {
 
 	@Inject
 	protected GroupeRemote groupeBean;
