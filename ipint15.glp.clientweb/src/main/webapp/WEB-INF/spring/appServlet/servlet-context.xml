@@ -49,6 +49,11 @@
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl"
 		business-interface="ipint15.glp.api.remote.EtudiantCatalogRemote">
 	</jee:remote-slsb>
+	
+	<jee:remote-slsb id="enseignantbean"
+		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/EnseignantCatalogImpl"
+		business-interface="ipint15.glp.api.remote.EnseignantCatalogRemote">
+	</jee:remote-slsb>
 
 	<jee:remote-slsb id="recherchebean"
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/RechercheImpl"

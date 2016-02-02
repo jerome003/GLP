@@ -22,7 +22,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public EtudiantDTO createEtudiant(String nom, String prenom, String mail) {
-		// TODO Auto-generated method stub
 		Etudiant e = new Etudiant();
 		e.setNom(nom);
 		e.setPrenom(prenom);

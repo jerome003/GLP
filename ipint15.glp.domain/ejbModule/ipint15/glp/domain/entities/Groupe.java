@@ -15,41 +15,50 @@ import ipint15.glp.api.dto.GroupeDTO;
 @Entity
 @Table(name = "GROUPE")
 public class Groupe {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@OneToMany(mappedBy="groupe")
-    private List<AncienEtudiant> ancienEtudiants ;
-	@ManyToMany(mappedBy="groupes")
-    private List<Moderateur> moderateurs ;
+	@OneToMany(mappedBy = "groupe")
+	private List<AncienEtudiant> ancienEtudiants;
+	@ManyToMany(mappedBy = "groupes")
+	private List<Moderateur> moderateurs;
 	private String description;
-	@ManyToMany(mappedBy="groupes")
-    private List<Etudiant> etudiants ;
+	@ManyToMany(mappedBy = "groupes")
+	private List<Etudiant> etudiants;
+	@ManyToMany(mappedBy = "groupes")
+	private List<Enseignant> enseignant;
 
 	private String name;
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public List<AncienEtudiant> getEtudiants() {
+
+	public List<AncienEtudiant> getAncienEtudiant() {
 		return ancienEtudiants;
 	}
-	public void setEtudiants(List<AncienEtudiant> etudiants) {
+
+	public void setAncienEtudiant(List<AncienEtudiant> etudiants) {
 		this.ancienEtudiants = etudiants;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public List<Moderateur> getModerateurs() {
 		return moderateurs;
 	}
+
 	public void setModerateurs(List<Moderateur> moderateurs) {
 		this.moderateurs = moderateurs;
 	}
@@ -57,16 +66,28 @@ public class Groupe {
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	@Override
 	public String toString() {
 		return "Groupe [id=" + id + ", name=" + name + "]";
 	}
+
 	public List<AncienEtudiant> getAncienEtudiants() {
 		return ancienEtudiants;
 	}
+
+	public List<Enseignant> getEnseignant() {
+		return enseignant;
+	}
+
+	public void setEnseignant(List<Enseignant> enseignant) {
+		this.enseignant = enseignant;
+	}
+
 	public GroupeDTO toGroupeDTO() {
 
 		GroupeDTO gDTO = new GroupeDTO();
@@ -76,5 +97,5 @@ public class Groupe {
 		return gDTO;
 
 	}
-	
+
 }
