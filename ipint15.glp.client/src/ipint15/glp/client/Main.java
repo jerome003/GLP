@@ -1,5 +1,6 @@
 package ipint15.glp.client;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -50,13 +51,13 @@ public class Main {
 			adminBean.addGroupetoModo(moderateur.getId(), groupe);
 			adminBean.addGroupetoModo(moderateur2.getId(), groupe2);
 			
-			etudiant =etuBean.createEtudiant("Sarra", "Bahbah", Civilite.Mme, "sara@gmail.com","000000",adminBean.generatePassword(8), 
+			etudiant =etuBean.createEtudiant("Sarra", "Bahbah", Civilite.Mme, "sara@googleNON.bla","000000",adminBean.generatePassword(8), 
 					new Date(),"Dev", "Paris", "CGI","miage", 2015, groupe);
-			etudiant2 =etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@gmail.com","000000", 
+			etudiant2 =etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@googleNON.bla","000000", 
 					adminBean.generatePassword(8), new Date(),"Dev", "Lille", "CGI","miage", 2015, groupe);
-			etudiant3 =etuBean.createEtudiant("Maxime", "Gidon", Civilite.M, "maxime@gmail.com","000000", 
+			etudiant3 =etuBean.createEtudiant("Maxime", "Gidon", Civilite.M, "maxime@googleNON.bla","000000", 
 					adminBean.generatePassword(8), new Date(),"Dev", "Lyon", "Worldline","miage", 2015, groupe2);
-			etudiant4 =etuBean.createEtudiant("Paolo", "Delpiro", Civilite.M, "paolo@gmail.com","000000",
+			etudiant4 =etuBean.createEtudiant("Paolo", "Delpiro", Civilite.M, "paolo@googleNON.bla","000000",
 					adminBean.generatePassword(8), new Date(),"Dev", "Lille", "CGI","miage", 2015, groupe2);
 			
 			System.out.println("etudiant 1 est : "+ etudiant.getPrenom()+" "+etudiant.getNom()+" son adresse mail : "+etudiant.getEmail()+" et son mot de passe : "+etudiant.getPassword());
@@ -64,10 +65,15 @@ public class Main {
 			System.out.println("etudiant 3 est : "+ etudiant3.getPrenom()+" "+etudiant3.getNom()+" son adresse mail : "+etudiant3.getEmail()+" et son mot de passe : "+etudiant3.getPassword());
 			System.out.println("etudiant 4 est : "+ etudiant4.getPrenom()+" "+etudiant4.getNom()+" son adresse mail : "+etudiant4.getEmail()+" et son mot de passe : "+etudiant4.getPassword());
 			
+			adminBean.validationInscription(etudiant);
+			adminBean.validationInscription(etudiant3);
+			
+			
+			System.out.println("Etudiant 1 et etudiant 3 leurs inscription est validée ");
 
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
-//	public Main() { super(); }
+
 }
