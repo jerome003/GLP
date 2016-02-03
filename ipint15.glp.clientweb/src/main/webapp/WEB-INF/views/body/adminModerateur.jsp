@@ -4,7 +4,14 @@
 <%if (request.getParameter("creation") != null && request.getParameter("creation").equals("ok")) { %>
 	<script>
 	window.onload = function(e) {
-		alertify.log('Modérateur Créé !');
+		alertify.success('Le modérateur a bien été créé');
+	};
+</script> 
+
+<%} else if (request.getParameter("creation") != null && request.getParameter("creation").equals("ko")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.error('Impossible : Cette adresse existe déjà');
 	};
 </script> 
 

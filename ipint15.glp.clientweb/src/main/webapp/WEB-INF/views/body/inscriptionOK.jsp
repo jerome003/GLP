@@ -1,6 +1,6 @@
 <script>
 window.onload = function(e) {
-	alertify.log('Inscription réussie !');
+	alertify.success('Inscription réussie !');
 };
 </script>
 
