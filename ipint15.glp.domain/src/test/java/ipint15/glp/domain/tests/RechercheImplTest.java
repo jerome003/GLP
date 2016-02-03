@@ -59,7 +59,7 @@ public class RechercheImplTest {
 	public void testRechercheEtudiant () throws NamingException {
 		AncienEtudiantDTO etu = new AncienEtudiantDTO();
 		
-		List<AncienEtudiantDTO> res = rechBean.rechercherEtudiant("Hardy");
+		List<AncienEtudiantDTO> res = rechBean.rechercherAncienEtudiant("Hardy");
 		
 		for (AncienEtudiantDTO e : res){
 			if (e.getNom().equals("Hardy"))
@@ -67,21 +67,21 @@ public class RechercheImplTest {
 		}
 		assertEquals("Hardy", etu.getNom());
 		
-		res = rechBean.rechercherEtudiant("Tom");
+		res = rechBean.rechercherAncienEtudiant("Tom");
 		for (AncienEtudiantDTO e : res){
 			if (e.getPrenom().equals("Tom"))
 				etu = e;
 		}
 		assertEquals("Tom", etu.getPrenom());
 		
-		res = rechBean.rechercherEtudiant("Mireille");
+		res = rechBean.rechercherAncienEtudiant("Mireille");
 		for (AncienEtudiantDTO e : res){
 			if (e.getPrenom().equals("Mireille"))
 				etu = e;
 		}
 		assertEquals("Mireille", etu.getPrenom());
 		
-		res = rechBean.rechercherEtudiant("Delpeche");
+		res = rechBean.rechercherAncienEtudiant("Delpeche");
 		for (AncienEtudiantDTO e : res){
 			if (e.getNom().equals("Delepeche"))
 				etu = e;
@@ -89,7 +89,7 @@ public class RechercheImplTest {
 		assertEquals("Delpeche", etu.getNom());
 		
 		etu = null;
-		res = rechBean.rechercherEtudiant("Paul");
+		res = rechBean.rechercherAncienEtudiant("Paul");
 		for (AncienEtudiantDTO e : res){
 			if (e.getNom().equals("Paul"))
 				etu = e;
