@@ -124,7 +124,10 @@ public class AdminController {
 		}
 		if (administrationBean.isMailExistsForModerateur(moderateur.getEmail())) {
 			result.rejectValue("email", null, "Cette adresse existe déjà");
-			modelView = new ModelAndView("adminModerateur");
+			List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
+			modelView = new ModelAndView("redirect:moderateurs", "command", new ModerateurDTO());
+			modelView.addObject("liste", listeResultat);
+			modelView.addObject("creation", "ko");
 			return modelView;
 		} else {
 
