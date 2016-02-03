@@ -52,7 +52,7 @@
 						<form:label path="email" class="control-label">Email :</form:label>
 					</div>
 					<div class="col-sm-6">
-						<form:input path="email" type="text" class="form-control" />
+						<form:input path="email" type="email" class="form-control" />
 						<form:errors path="email" />
 					</div>
 
