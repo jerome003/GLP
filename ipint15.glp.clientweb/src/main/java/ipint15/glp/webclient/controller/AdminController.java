@@ -109,6 +109,7 @@ public class AdminController {
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
 		modelView = new ModelAndView("redirect:groupes", "command", new GroupeDTO());
 		modelView.addObject("liste", listeResultat);
+		modelView.addObject("creation", "ok");
 		return modelView;
 
 	}
@@ -154,6 +155,7 @@ public class AdminController {
 		ModelAndView modelView = new ModelAndView("redirect:../groupes", "command", new GroupeDTO());
 		modelView.addObject("liste", listeResultat);
 
+		modelView.addObject("delete", "ok");
 		return modelView;
 	}
 
