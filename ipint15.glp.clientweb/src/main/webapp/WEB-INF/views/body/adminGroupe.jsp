@@ -20,6 +20,21 @@
 <%} %>
 
 
+<%if (request.getParameter("delete") != null && request.getParameter("delete").equals("ok")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.success('Le groupe a bien été supprimé');
+	};
+</script> 
+
+<%} else if (request.getParameter("delete") != null && request.getParameter("delete").equals("ko")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.error('Impossible : le groupe n\'est pas vide');
+	};
+</script> 
+
+<%} %>	
 
 <div class="section">
 	<div class="container">

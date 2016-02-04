@@ -1,6 +1,6 @@
 package ipint15.glp.client;
 import java.util.Date;
-import java.util.List;
+
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -27,8 +27,13 @@ public class Main {
 	private static AncienEtudiantDTO etudiant4;
 	private static GroupeDTO groupe;
 	private static GroupeDTO groupe2;
+	private static GroupeDTO groupe3;
+	private static GroupeDTO groupe4;
 	private static ModerateurDTO moderateur;
 	private static ModerateurDTO moderateur2;
+	private static ModerateurDTO modo;
+	private static ModerateurDTO modo2;
+	private static ModerateurDTO modo3;
 
 	public static void main(String[] args) {
 		try {
@@ -41,12 +46,20 @@ public class Main {
 
 			moderateur = adminBean.createModerateur("Sarra", "Bahbah", "bahbahsara@yahoo.fr", adminBean.generatePassword(8));
 			moderateur2 = adminBean.createModerateur("Maxime", "Gidon", "gidon.maxime@gmail.com", adminBean.generatePassword(8));
+			modo = adminBean.createModerateur("bla", "bla", "email@bla.bla", adminBean.generatePassword(8));
+			modo2 = adminBean.createModerateur("bla2", "bla2", "email2@bla.bla", adminBean.generatePassword(8));
+			modo3 = adminBean.createModerateur("bla3", "bla3", "email3@bla.bla", adminBean.generatePassword(8));
 			
 			groupe = groupBean.createGroupe("Miage","Groupe Miage");
 			groupe2 = groupBean.createGroupe("Elfe", "Ecole des Elfes");
+			groupe3 = groupBean.createGroupe("Test", "description");
+			groupe4 = groupBean.createGroupe("Test2", "description");
 			
 			System.out.println("moderateur du groupe  "+ groupe.getName()+" : "+ moderateur.getEmail()+ " son mot de passe est : "+ moderateur.getPassword());
 			System.out.println("moderateur du groupe  "+ groupe2.getName()+" : "+ moderateur2.getEmail()+ " son mot de passe est : "+ moderateur2.getPassword());
+			System.out.println("moderateur sans groupe : "+ modo.getEmail()+ " son mot de passe est : "+ modo.getPassword());
+			System.out.println("moderateur sans groupe : "+ modo2.getEmail()+ " son mot de passe est : "+ modo2.getPassword());
+			System.out.println("moderateur sans groupe : "+ modo3.getEmail()+ " son mot de passe est : "+ modo3.getPassword());
 			
 			adminBean.addGroupetoModo(moderateur.getId(), groupe);
 			adminBean.addGroupetoModo(moderateur2.getId(), groupe2);
