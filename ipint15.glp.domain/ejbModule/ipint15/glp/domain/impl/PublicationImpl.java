@@ -11,11 +11,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.PublicationRemote;
 import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
+import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Publication;
 import ipint15.glp.domain.util.Conversion;
 
@@ -25,14 +27,14 @@ public class PublicationImpl implements PublicationRemote {
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
-	
-//	@Inject
-//	protected AncienEtudiantCatalogRemote etudiantBean;
+
+	// @Inject
+	// protected AncienEtudiantCatalogRemote etudiantBean;
 
 	public PublicationImpl() {
 		super();
 	}
-	
+
 	private AncienEtudiant getEtudiantByMail(String mail) {
 
 		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.email = :email");
@@ -40,6 +42,13 @@ public class PublicationImpl implements PublicationRemote {
 		AncienEtudiant e = (AncienEtudiant) q.getSingleResult();
 
 		return e;
+	}
+
+	private Groupe getGroupeById(int id) {
+		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
+		q.setParameter("id", id);
+		Groupe g = (Groupe) q.getSingleResult();
+		return g;
 	}
 
 	@Override
@@ -72,13 +81,20 @@ public class PublicationImpl implements PublicationRemote {
 	}
 
 	@Override
-	public void addPublication(AncienEtudiantDTO eDTO, String titre, String message, Date date) {
+	public void addPublication(AncienEtudiantDTO eDTO, String titre, String message, Date date, boolean isPublic,
+			GroupeDTO groupe) {
 		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
-		// TODO gérer cas si e = null
 		Publication c = new Publication();
+		if (groupe != null) {
+			Groupe g = getGroupeById(groupe.getId());
+			c.setGroupe(g);
+			System.out.println("groupe : " + g);
+		}
+		// TODO gérer cas si e = null
 		c.setTitre(titre);
 		c.setMessage(message);
 		c.setDate(date);
+		c.setPublic(isPublic);
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesPublications().add(c);
 		c.setProfil(ep);

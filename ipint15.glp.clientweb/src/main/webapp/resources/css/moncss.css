@@ -16,3 +16,11 @@ div.nopadding {
     padding-bottom: 0px;
     padding-left: 0px;
 }
+
+span.pull-right {
+  float: right !important;
+}
+
+span.bold-font{
+  font-weight: bold;
+}

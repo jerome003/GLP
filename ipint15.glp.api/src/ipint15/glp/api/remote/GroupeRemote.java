@@ -25,6 +25,6 @@ public interface GroupeRemote {
 
 	int getGroupeSize(int id);
 
-	
+	List<GroupeDTO> getGroupesOfAncienByIdAncien (int id);
 
 }
