@@ -44,8 +44,8 @@ public class Main {
 			adminBean = (AdministrationRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AdministrationImpl");
 
 
-			moderateur = adminBean.createModerateur("Sarra", "Bahbah", "bahbahsara@yahoo.fr", adminBean.generatePassword(8));
-			moderateur2 = adminBean.createModerateur("Maxime", "Gidon", "gidon.maxime@gmail.com", adminBean.generatePassword(8));
+			moderateur = adminBean.createModerateur("Sarra", "Bahbah", "sara@googleNON.bla", adminBean.generatePassword(8));
+			moderateur2 = adminBean.createModerateur("Maxime", "Gidon", "maxime@googleNON.bla", adminBean.generatePassword(8));
 			modo = adminBean.createModerateur("bla", "bla", "email@bla.bla", adminBean.generatePassword(8));
 			modo2 = adminBean.createModerateur("bla2", "bla2", "email2@bla.bla", adminBean.generatePassword(8));
 			modo3 = adminBean.createModerateur("bla3", "bla3", "email3@bla.bla", adminBean.generatePassword(8));
