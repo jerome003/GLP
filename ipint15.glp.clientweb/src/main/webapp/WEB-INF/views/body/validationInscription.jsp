@@ -21,7 +21,7 @@ function validation(x) {
 		} else {
 			alertify.error('La validation d\'inscription n\'a pas eu lieu');
 		}
-	}, "Motif de refus");
+	});
 }
 </script>
 

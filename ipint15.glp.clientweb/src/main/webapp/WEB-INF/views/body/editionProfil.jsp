@@ -37,10 +37,10 @@ function saveExpPro(){
          url: url,
          data: res,
          success: function (result) {
-        	 alert ("Modifications enregistrées");
+        	 alertify.success("Les modifications ont bien été enregistré");
          },
          error: function (result) {
-        	 window.location = "/ipint15.glp.clientweb/error";
+        	 alertify.error("Les modifications n'ont pas pu être enregistré");
         }
      });
 }
@@ -71,10 +71,10 @@ function saveFormation(){
          url: url,
          data: res,
          success: function (result) {
-        	 alert ("Modifications enregistrées");
+        	 alertify.success("Les modifications ont bien été enregistré");
          },
          error: function (result) {
-             // do something.
+        	 alertify.error("Les modifications n'ont pas pu être enregistré");
         }
      });
 }
@@ -93,10 +93,10 @@ function save(name, url){
          url: url,
          data: res,
          success: function (result) {
-        	 alert ("Modifications enregistrées");
+        	 alertify.success("Les modifications ont bien été enregistré");
          },
          error: function (result) {
-        	 window.location = "/ipint15.glp.clientweb/error";
+        	 alertify.error("Les modifications n'ont pas pu être enregistré");
         }
      });
 }
@@ -116,11 +116,10 @@ function saveCompetence(name, url){
          url: url,
          data: res,
          success: function (result) {
-
-        	 alert ("Modifications enregistrées");
+        	 alertify.success("Les modifications ont bien été enregistré");
          },
          error: function (result) {
-        	 window.location = "/ipint15.glp.clientweb/error";
+        	 alertify.error("Les modifications n'ont pas pu être enregistré");
         }
      });
 }
@@ -144,10 +143,10 @@ function saveProfil (){
         url: "saveProfile",
         data: res,
         success: function (result) {
-       	 alert ("Modifications enregistrées");
+       	 alertify.success("Les modifications ont bien été enregistré");
         },
         error: function (result) {
-       	 window.location = "/ipint15.glp.clientweb/error";
+       	 alertify.error("Les modifications n'ont pas pu être enregistré");
        }
     });
 }
@@ -343,23 +342,28 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	*@param bouton le bouton de suppression
 	*/
 	function suppressionChampEtBouton(champ, bouton) {
-		var r = confirm("Voulez-vous réellement supprimer ce champ ?");
-		if(r == true){
-			champ.parentNode.removeChild(champ);
-			bouton.parentNode.removeChild(bouton);
-		}
-		
+		alertify.confirm('Voulez-vous réellement supprimer ce champ ?', function (e) {
+			if (e) {
+				champ.parentNode.removeChild(champ);
+				bouton.parentNode.removeChild(bouton);
+			} else {
+				
+			}
+		});
+
 	}
 	
 	function suppressionChampEtBoutonCompetence(champ, bouton, label, select) {
-		var r = confirm("Voulez-vous réellement supprimer ce champ ?");
-		if(r == true){
-			champ.parentNode.removeChild(champ);
-			bouton.parentNode.removeChild(bouton);
-			label.parentNode.removeChild(label);
-			select.parentNode.removeChild(select);
-		}
-		
+		alertify.confirm('Voulez-vous réellement supprimer ce champ ?', function (e) {
+			if (e) {
+				champ.parentNode.removeChild(champ);
+				bouton.parentNode.removeChild(bouton);
+				label.parentNode.removeChild(label);
+				select.parentNode.removeChild(select);
+			} else {
+				
+			}
+		});			
 	}
 	
 	/**
@@ -376,18 +380,20 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	*Fonction permettant de supprimer une formation
 	*/
 	function suppressionChampEtBoutonFormation(index, bouton){
-		var r = confirm("Voulez-vous réellement supprimer ce champ ?");
-		if(r == true){
-			suppressionInputlab("formIntit"+index,"labelFormIntit"+index);
-			suppressionInputlab("formEtabl"+index, "labelFormEtabl"+index);
-			suppressionInputlab("formDebut"+index, "labelFormDebut"+index);
-			suppressionInputlab("formFin"+index, "labelFormFin"+index);
-			suppressionInputlab("formVille"+index, "labelFormVille"+index);
-			suppressionInputlab("formRegion"+index, "labelFormRegion"+index);
-			suppressionInputlab("formPays"+index, "labelFormPays"+index);
-			bouton.parentNode.removeChild(bouton);
-		}
-		
+		alertify.confirm('Voulez-vous réellement supprimer ce champ ?', function (e) {
+			if (e) {
+				suppressionInputlab("formIntit"+index,"labelFormIntit"+index);
+				suppressionInputlab("formEtabl"+index, "labelFormEtabl"+index);
+				suppressionInputlab("formDebut"+index, "labelFormDebut"+index);
+				suppressionInputlab("formFin"+index, "labelFormFin"+index);
+				suppressionInputlab("formVille"+index, "labelFormVille"+index);
+				suppressionInputlab("formRegion"+index, "labelFormRegion"+index);
+				suppressionInputlab("formPays"+index, "labelFormPays"+index);
+				bouton.parentNode.removeChild(bouton);
+			} else {
+				
+			}
+		});		
 	}
 	
 	
@@ -397,19 +403,21 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	s
 	*/
 	function suppressionChampEtBoutonExpPro(index, bouton){
-		var r = confirm("Voulez-vous réellement supprimer ce champ ?");
-		if(r == true){
-			suppressionInputlab("expProPoste"+index,"labelExpProPoste"+index);
-			suppressionInputlab("expProEntreprise"+index, "labelExpProEntreprise"+index);
-			suppressionInputlab("expProVille"+index, "labelExpProVille"+index);
-			suppressionInputlab("expProRegion"+index, "labelExpProRegion"+index);
-			suppressionInputlab("expProPays"+index, "labelExpProPays"+index);
-			suppressionInputlab("expProDebut"+index, "labelExpProDebut"+index);
-			suppressionInputlab("expProFin"+index, "labelExpProFin"+index);
-			suppressionInputlab("expProDescription"+index, "labelExpProDescription"+index);
-			bouton.parentNode.removeChild(bouton);
-		}
-		
+		alertify.confirm('Voulez-vous réellement supprimer ce champ ?', function (e) {
+			if (e) {
+				suppressionInputlab("expProPoste"+index,"labelExpProPoste"+index);
+				suppressionInputlab("expProEntreprise"+index, "labelExpProEntreprise"+index);
+				suppressionInputlab("expProVille"+index, "labelExpProVille"+index);
+				suppressionInputlab("expProRegion"+index, "labelExpProRegion"+index);
+				suppressionInputlab("expProPays"+index, "labelExpProPays"+index);
+				suppressionInputlab("expProDebut"+index, "labelExpProDebut"+index);
+				suppressionInputlab("expProFin"+index, "labelExpProFin"+index);
+				suppressionInputlab("expProDescription"+index, "labelExpProDescription"+index);
+				bouton.parentNode.removeChild(bouton);
+			} else {
+				
+			}
+		});				
 	}
 	
 	window.onbeforeunload = function(){
