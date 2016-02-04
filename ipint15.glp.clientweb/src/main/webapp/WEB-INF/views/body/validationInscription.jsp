@@ -1,6 +1,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+<script>
+function maFonction(x) {
+	alertify.prompt("Veuillez saisir le motif du refus :", function (e, str) {
+		if (e) {
+			window.location.href = '${pageContext.request.contextPath}/moderateur/validationGroup/${idGroupe}/etudiantKO/' + x + '?motif='+ str;
+			alertify.success('Refus de l\'inscription reussi');
+		} else {
+			alertify.error('Le refus d\'inscription n\'a pas eu lieu');
+		}
+	}, "Motif de refus");
+}
+</script>
+
 <div class="section">
 	<div class="container">
 
@@ -31,7 +44,7 @@
 							<td>${results.anneeDiplome}</td>
 							<td><a href="${pageContext.request.contextPath}/moderateur/validationGroup/${idGroupe}/etudiantOK/${results.id}"><span class="glyphicon glyphicon-ok"></span>
 									Valider</a></td>
-							<td><a href="${pageContext.request.contextPath}/moderateur/validationGroup/${idGroupe}/etudiantKO/${results.id}"><span
+							<td><a href='javascript:maFonction(${results.id})'><span
 									class="glyphicon glyphicon-remove"></span> Refuser</a></td>
 						</tr>
 					</c:forEach>
