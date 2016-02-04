@@ -41,12 +41,20 @@ public class Groupe {
 		this.id = id;
 	}
 
-	public List<AncienEtudiant> getAncienEtudiant() {
+	public List<AncienEtudiant> getAncienEtudiants() {
 		return ancienEtudiants;
 	}
 
-	public void setAncienEtudiant(List<AncienEtudiant> etudiants) {
-		this.ancienEtudiants = etudiants;
+	public void setAncienEtudiants(List<AncienEtudiant> ancienEtudiants) {
+		this.ancienEtudiants = ancienEtudiants;
+	}
+
+	public List<Etudiant> getEtudiants() {
+		return etudiants;
+	}
+
+	public void setEtudiants(List<Etudiant> etudiants) {
+		this.etudiants = etudiants;
 	}
 
 	public String getName() {
@@ -78,9 +86,6 @@ public class Groupe {
 		return "Groupe [id=" + id + ", name=" + name + "]";
 	}
 
-	public List<AncienEtudiant> getAncienEtudiants() {
-		return ancienEtudiants;
-	}
 
 	public List<Enseignant> getEnseignant() {
 		return enseignant;

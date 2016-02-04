@@ -46,7 +46,7 @@ public interface AdministrationRemote {
 	
 	public void sendMailEtudiantOK(AncienEtudiantDTO etu);
 	
-	public void sendMailEtudiantKO(AncienEtudiantDTO etu);
+	public void sendMailEtudiantKO(AncienEtudiantDTO etu, String motif);
 	
 	public void sendMailNewEtudiant(AncienEtudiantDTO etu);
 
@@ -56,7 +56,8 @@ public interface AdministrationRemote {
 
 	void validationInscription(AncienEtudiantDTO etudiantDTO);
 
-	void refusInscription(AncienEtudiantDTO etudiantDTO, int idGroupe);
+	void refusInscription(AncienEtudiantDTO etudiantDTO, int idGroupe, String motif);
 
+	public boolean removeModerateur(int id);
 
 }

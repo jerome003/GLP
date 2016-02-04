@@ -147,15 +147,44 @@ public class AdminController {
 			@PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "groupes");
+		
+		ModelAndView modelView ;
+		modelView = new ModelAndView("redirect:../groupes");
 
 		int id = Integer.parseInt(pathVariables.get("id"));
-		groupeBean.removeGroupe(id);
+		if (groupeBean.removeGroupe(id)) {
+	
+			List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+			modelView = new ModelAndView("redirect:../groupes", "command", new GroupeDTO());
+			modelView.addObject("liste", listeResultat);
+	
+			modelView.addObject("delete", "ok");
+			return modelView;
+		}
+		
+		modelView.addObject("delete", "ko");
+		return modelView;
+	}
+	
+	@RequestMapping(value = "/admin/removeModerateur/{id}", method = RequestMethod.GET)
+	public ModelAndView removeModerateur(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "moderateurs");
+		
+		ModelAndView modelView ;
+		modelView = new ModelAndView("redirect:../moderateurs");
 
-		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
-		ModelAndView modelView = new ModelAndView("redirect:../groupes", "command", new GroupeDTO());
-		modelView.addObject("liste", listeResultat);
-
-		modelView.addObject("delete", "ok");
+		int id = Integer.parseInt(pathVariables.get("id"));
+		
+		if (administrationBean.removeModerateur(id)){
+			List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
+			modelView = new ModelAndView("redirect:../moderateurs", "command", new ModerateurDTO());
+			modelView.addObject("liste", listeResultat);
+			modelView.addObject("delete", "ok");
+			return modelView;
+		}
+		modelView.addObject("delete", "ko");
 		return modelView;
 	}
 

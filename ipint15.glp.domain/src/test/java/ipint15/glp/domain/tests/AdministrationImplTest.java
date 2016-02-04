@@ -220,7 +220,7 @@ public class AdministrationImplTest {
 	
 	@Test 
 	public void testRefusInscription() {
-		adminBean.refusInscription(etu2, groupe.getId());
+		adminBean.refusInscription(etu2, groupe.getId(),"t'es nul");
 		assertEquals(groupe.getEtudiants().size(),0);
 		List<AncienEtudiantDTO> list = new ArrayList<AncienEtudiantDTO>();
 		assertEquals(groupe.getEtudiants(),list);

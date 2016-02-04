@@ -28,7 +28,6 @@ import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.domain.entities.Admin;
 import ipint15.glp.domain.entities.AncienEtudiant;
-import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Moderateur;
 import ipint15.glp.domain.util.Conversion;
@@ -347,7 +346,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	}
 
 	@Override
-	public void sendMailEtudiantKO(AncienEtudiantDTO etu) {
+	public void sendMailEtudiantKO(AncienEtudiantDTO etu, String motif) {
 		final String username = "maxime.gidon";
 		final String password = "Miage2016";
 
@@ -377,7 +376,7 @@ public class AdministrationImpl implements AdministrationRemote {
 			message.setSubject("[Lille1] Refus de votre inscription");
 			message.setText("Bonjour, "
 					+ "\n\nVotre inscription vient d'être refusé pour le groupe " + etu.getGroupe().getName() +
-					" : " + etu.getGroupe().getDescription()+ " \nVotre compte a été supprimé, vous pouvez me contacter pour plus de détails." +
+					" : " + etu.getGroupe().getDescription()+ "\n\nMotif : "+ motif + " \n\nVotre compte a été supprimé, vous pouvez me contacter pour plus de détails." +
 					". \n\nA bientot sur le réseau d'ancien de Lille 1 !");
 
 			Transport.send(message);
@@ -479,13 +478,27 @@ public class AdministrationImpl implements AdministrationRemote {
 
 	
 	@Override
-	public void refusInscription (AncienEtudiantDTO etudiantDTO, int idGroupe){
-		sendMailEtudiantKO(etudiantDTO);
+	public void refusInscription (AncienEtudiantDTO etudiantDTO, int idGroupe, String motif){
+		sendMailEtudiantKO(etudiantDTO, motif);
 		AncienEtudiant etu = getEtudiantById(etudiantDTO.getId());
 		Groupe g = getGroupeById(idGroupe);
 		g.getAncienEtudiants().remove(etu);
 		em.remove(etu);
 		
 	}
+
+	@Override
+	public boolean removeModerateur(int id) {
+		Moderateur m = getModerateurById(id);
+		List<Groupe> listeGroupe = m.getGroupes();
+		if (listeGroupe.isEmpty()){
+			em.remove(m);
+			return true;
+		}
+		return false;
+		
+	}
+	
+	
 
 }

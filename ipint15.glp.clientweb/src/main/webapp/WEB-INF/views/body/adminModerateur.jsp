@@ -16,7 +16,22 @@
 </script> 
 
 <%} %>
-	
+
+<%if (request.getParameter("delete") != null && request.getParameter("delete").equals("ok")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.success('Le modérateur a bien été supprimé');
+	};
+</script> 
+
+<%} else if (request.getParameter("delete") != null && request.getParameter("delete").equals("ko")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.error('Impossible : le modérateur est assigné à un groupe');
+	};
+</script> 
+
+<%} %>	
 
 
 <div class="section">
@@ -91,6 +106,11 @@
 								${resultsGroupe.name}
 							</c:forEach>
 							</td>
+							<td>
+							<a
+							 href="${pageContext.request.contextPath}/admin/removeModerateur/${results.id}" 
+							class="confirm-delete btn mini red-stripe" role="button"> 
+							<span class="glyphicon glyphicon-trash"></span> Delete</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
