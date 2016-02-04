@@ -58,5 +58,6 @@ public interface AdministrationRemote {
 
 	void refusInscription(AncienEtudiantDTO etudiantDTO, int idGroupe, String motif);
 
+	public boolean removeModerateur(int id);
 
 }

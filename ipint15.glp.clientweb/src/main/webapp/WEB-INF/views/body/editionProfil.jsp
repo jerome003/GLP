@@ -507,7 +507,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				</div>
 			</div>
 			<div class="row col-md-12">
-				<h2>Expériences Professionnelles</h2>
+				<h3>Expériences Professionnelles</h3>
 				<div class="well well-lg" id="lesExpPro">
 					<a class="btn btn-primary glyphicon glyphicon-plus-sign"
 						onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');"></a> <a
@@ -571,7 +571,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 
 			</div>
 			<div class="row col-md-12">
-				<h2>Compétences</h2>
+				<h3>Compétences</h3>
 				<div class="well well-lg">
 					<div id="lesCompetences" class="lesCompetences">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
@@ -588,43 +588,11 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 									:</label>
 								<select id="competenceSelect${loop.index}"
 									name="competenceSelect" class="col-md-1">
-									<c:choose>
-										<c:when test="${competence.niveau == 1}">
-											<option value="1" selected="selected">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-										</c:when>
-										<c:when test="${competence.niveau == 2}">
-											<option value="1">1</option>
-											<option value="2" selected="selected">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-										</c:when>
-										<c:when test="${competence.niveau == 3}">
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3" selected="selected">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-										</c:when>
-										<c:when test="${competence.niveau == 4}">
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4" selected="selected">4</option>
-											<option value="5">5</option>
-										</c:when>
-										<c:otherwise>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5" selected="selected">5</option>
-										</c:otherwise>
-									</c:choose>
+									<option value="1" ${competence.niveau == '1' ? 'selected' : ''}>1</option>
+									<option value="2" ${competence.niveau == '2' ? 'selected' : ''}>2</option>
+									<option value="3" ${competence.niveau == '3' ? 'selected' : ''}>3</option>
+									<option value="4" ${competence.niveau == '4' ? 'selected' : ''}>4</option>
+									<option value="5" ${competence.niveau == '5' ? 'selected' : ''}>5</option>
 								</select>
 								<a id="deleteCompetence${loop.index}" name="deleteCompetence"
 									class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
@@ -636,7 +604,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				</div>
 			</div>
 			<div class="row col-md-12">
-				<h2>Formations</h2>
+				<h3>Formations</h3>
 				<div class="well well-lg">
 					<div class="lesFormations" id="lesFormations">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
@@ -694,7 +662,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				</div>
 			</div>
 			<div class="row col-md-12">
-				<h2>Loisirs</h2>
+				<h3>Loisirs</h3>
 				<div class="well well-lg">
 					<div id="lesLoisirs" class="lesLoisirs">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"

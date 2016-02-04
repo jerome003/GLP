@@ -28,7 +28,6 @@ import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.domain.entities.Admin;
 import ipint15.glp.domain.entities.AncienEtudiant;
-import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Moderateur;
 import ipint15.glp.domain.util.Conversion;
@@ -487,5 +486,19 @@ public class AdministrationImpl implements AdministrationRemote {
 		em.remove(etu);
 		
 	}
+
+	@Override
+	public boolean removeModerateur(int id) {
+		Moderateur m = getModerateurById(id);
+		List<Groupe> listeGroupe = m.getGroupes();
+		if (listeGroupe.isEmpty()){
+			em.remove(m);
+			return true;
+		}
+		return false;
+		
+	}
+	
+	
 
 }
