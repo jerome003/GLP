@@ -448,123 +448,122 @@ window.onload = function(){
 	<div class="section">
 		<div class="container">
 			<div class="row">
-				<div class="row">
-					<form action="#" method="post">
-						<legend>Informations personelles</legend>
-						<fieldset>
-							<div class='row'>
-								<div class='col-sm-4'>
-									<div class='form-group'>
+				<form action="#" method="post">
+					<legend>Informations personelles</legend>
+					<fieldset>
+						<div class='row'>
+							<div class='col-sm-4'>
+								<div class='form-group'>
 									<input type="hidden" id="idEtu" name="idEtu"
-									value="${profil.id}" /> 
-										<label for="mail">Mail</label> <input class="form-control"
-											id="mail" value="${profil.email}" name="mail"
-											disabled="disabled" required="true" size="30" type="text" />
-									</div>
-								</div>
-								<div class='col-sm-4'>
-									<div class='form-group'>
-										<label for="numTelephone">Téléphone</label> <input
-											class="form-control" id="numTelephone"
-											value="${profil.numTelephone}" name="numTelephone"
-											required="true" size="30" type="text" />
-									</div>
+										value="${profil.id}" /> <label for="mail">Mail</label> <input
+										class="form-control" id="mail" value="${profil.email}"
+										name="mail" disabled="disabled" required="true" size="30"
+										type="text" />
 								</div>
 							</div>
-							<div class='row'>
-								<div class='col-sm-8'>
-									<div class="form-group">
-										<label for="attentes">Ce que je recherche</label>
-										<textarea class="form-control" id="attentes"><c:out value="${profil.attentes}"/></textarea>
-									</div>
+							<div class='col-sm-4'>
+								<div class='form-group'>
+									<label for="numTelephone">Téléphone</label> <input
+										class="form-control" id="numTelephone"
+										value="${profil.numTelephone}" name="numTelephone"
+										required="true" size="30" type="text" />
 								</div>
 							</div>
-						</fieldset>
-						<legend>Situation actuelle</legend>
-						<fieldset>
-							<div class="row">
-								<div class='col-sm-4'>
-									<div class='form-group'>
-										<label class="radio-inline"><input type="radio"
-											name="optradio">En emploi</label> <label class="radio-inline"><input
-											type="radio" name="optradio">Sans emploi</label> <label
-											class="radio-inline"><input type="radio"
-											name="optradio">Freelance</label>
-									</div>
+						</div>
+						<div class='row'>
+							<div class='col-sm-8'>
+								<div class="form-group">
+									<label for="attentes">Ce que je recherche</label>
+									<textarea class="form-control" id="attentes"><c:out
+											value="${profil.attentes}" /></textarea>
 								</div>
 							</div>
-							<div class='row'>
-								<div class='col-sm-4'>
-									<div class='form-group'>
-										<label for="posteActu">Poste</label> <input
-											class="form-control" id="posteActu"
-											value="${profil.posteActu}" name="posteActu" required="true"
-											size="30" type="text" />
-									</div>
-								</div>
-								<div class='col-sm-4'>
-									<div class='form-group'>
-										<label for="villeActu">Ville actuelle</label> <input
-											class="form-control" id="villeActu"
-											value="${profil.villeActu}" name="villeActu" required="true"
-											size="30" type="text" />
-									</div>
-								</div>
-								<div class='col-sm-4'>
-									<div class='form-group'>
-										<label for="nomEntreprise">Nom de l'entreprise</label> <input
-											class="form-control" id="nomEntreprise"
-											value="${profil.nomEntreprise}" name="nomEntreprise"
-											required="true" size="30" type="text" />
-									</div>
+						</div>
+					</fieldset>
+					<legend>Situation actuelle</legend>
+					<fieldset>
+						<div class="row">
+							<div class='col-sm-4'>
+								<div class='form-group'>
+									<label class="radio-inline"><input type="radio"
+										name="optradio">En emploi</label> <label class="radio-inline"><input
+										type="radio" name="optradio">Sans emploi</label> <label
+										class="radio-inline"><input type="radio"
+										name="optradio">Freelance</label>
 								</div>
 							</div>
-						</fieldset>
-						<legend>Réseaux sociaux</legend>
-						<fieldset>
-							<div class='row'>
-								<div class='col-sm-3'>
-									<div class='form-group'>
-										<label for="twitter">Twitter</label> <input
-											class="form-control" id="twitter" value="${profil.twitter}"
-											name="twitter" required="true" size="30" type="text" />
-									</div>
-								</div>
-								<div class='col-sm-3'>
-									<div class='form-group'>
-										<label for="facebook">Facebook</label> <input
-											class="form-control" id="facebook" value="${profil.facebook}"
-											name="facebook" required="true" size="30" type="text" />
-									</div>
-								</div>
-								<div class='col-sm-3'>
-									<div class='form-group'>
-										<label for="viadeo">Viadeo</label> <input class="form-control"
-											id="viadeo" value="${profil.viadeo}" name="viadeo"
-											required="true" size="30" type="text" />
-									</div>
-								</div>
-								<div class='col-sm-3'>
-									<div class='form-group'>
-										<label for="linkedin">Linkedin</label> <input
-											class="form-control" id="linkedin" value="${profil.linkedin}"
-											name="linkedin" required="true" size="30" type="text" />
-									</div>
+						</div>
+						<div class='row'>
+							<div class='col-sm-4'>
+								<div class='form-group'>
+									<label for="posteActu">Poste</label> <input
+										class="form-control" id="posteActu"
+										value="${profil.posteActu}" name="posteActu" required="true"
+										size="30" type="text" />
 								</div>
 							</div>
-						</fieldset>
-					</form>
-				</div>
-				<div class="row">
-					<div class="col-sm-offset-5 col-sm-2 text-center">
-						<a
-							class="btn btn-primary center-block  glyphicon glyphicon-floppy-disk"
-							onClick="saveProfil();"> Enregistrer</a>
-					</div>
+							<div class='col-sm-4'>
+								<div class='form-group'>
+									<label for="villeActu">Ville actuelle</label> <input
+										class="form-control" id="villeActu"
+										value="${profil.villeActu}" name="villeActu" required="true"
+										size="30" type="text" />
+								</div>
+							</div>
+							<div class='col-sm-4'>
+								<div class='form-group'>
+									<label for="nomEntreprise">Nom de l'entreprise</label> <input
+										class="form-control" id="nomEntreprise"
+										value="${profil.nomEntreprise}" name="nomEntreprise"
+										required="true" size="30" type="text" />
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<legend>Réseaux sociaux</legend>
+					<fieldset>
+						<div class='row'>
+							<div class='col-sm-3'>
+								<div class='form-group'>
+									<label for="twitter">Twitter</label> <input
+										class="form-control" id="twitter" value="${profil.twitter}"
+										name="twitter" required="true" size="30" type="text" />
+								</div>
+							</div>
+							<div class='col-sm-3'>
+								<div class='form-group'>
+									<label for="facebook">Facebook</label> <input
+										class="form-control" id="facebook" value="${profil.facebook}"
+										name="facebook" required="true" size="30" type="text" />
+								</div>
+							</div>
+							<div class='col-sm-3'>
+								<div class='form-group'>
+									<label for="viadeo">Viadeo</label> <input class="form-control"
+										id="viadeo" value="${profil.viadeo}" name="viadeo"
+										required="true" size="30" type="text" />
+								</div>
+							</div>
+							<div class='col-sm-3'>
+								<div class='form-group'>
+									<label for="linkedin">Linkedin</label> <input
+										class="form-control" id="linkedin" value="${profil.linkedin}"
+										name="linkedin" required="true" size="30" type="text" />
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="row">
+				<div class="col-sm-offset-5 col-sm-2 text-center">
+					<a
+						class="btn btn-primary center-block  glyphicon glyphicon-floppy-disk"
+						onClick="saveProfil();"> Enregistrer</a>
 				</div>
 			</div>
 			<div class="row">
-				<h3>Expériences Professionnelles</h3>
+				<legend>Expériences Professionnelles</legend>
 				<div class="well well-lg" id="lesExpPro">
 					<a class="btn btn-primary glyphicon glyphicon-plus-sign"
 						onClick="AddExpPro();"></a> <a
@@ -626,8 +625,8 @@ window.onload = function(){
 					</c:forEach>
 				</div>
 			</div>
-			<div class="row col-md-12">
-				<h3>Compétences</h3>
+			<div class="row">
+				<legend>Compétences</legend>
 				<div id="lesCompetences" class="well well-lg">
 					<a class="btn btn-primary glyphicon glyphicon-plus-sign"
 						onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');"></a><a
@@ -657,8 +656,8 @@ window.onload = function(){
 					</ul>
 				</div>
 			</div>
-			<div class="row col-md-12">
-				<h3>Formations</h3>
+			<div class="row">
+				<legend>Formations</legend>
 				<div class="well well-lg">
 					<div class="lesFormations" id="lesFormations">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
@@ -715,8 +714,8 @@ window.onload = function(){
 					</div>
 				</div>
 			</div>
-			<div class="row col-md-12">
-				<h3>Loisirs</h3>
+			<div class="row">
+				<legend>Loisirs</legend>
 				<div class="well well-lg">
 					<div id="lesLoisirs" class="lesLoisirs">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
