@@ -58,9 +58,6 @@
 					</div>
 					<div class="col-md-6">
 						<div class="row">
-							<label class="control-label">Actuellement :</label>
-						</div>
-						<div class="row">
 							<label class="col-md-5 intitule">Poste :</label> <label
 								class="col-md-7">${profil.posteActu}</label>
 						</div>

@@ -79,9 +79,6 @@ function saveFormation(){
      });
 }
 
-
-
-
 function save(name, url){
 	var mail = document.getElementById('mail');	
 	var tmp = "";	
@@ -246,10 +243,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 		return row;
 	}
 	
-
-	
-	
-	function AddExpPro(lesExpPro, expPro, deleteExpPro){
+	function AddExpPro(){
 		var taille = document.getElementsByName("divExpPro").length;
 		
 		if (taille == 0){
@@ -294,9 +288,6 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			document.getElementById("lesExpPro").appendChild(div);
 		}
 
-	
-	
-	
 	/**
 	*Fonction qui permet l'ajout d'une formation
 	*/
@@ -344,10 +335,6 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			div.appendChild(document.createElement("br"));
 			document.getElementById("lesFormations").appendChild(div);		
 	}
-	
-	
-	
-
 
 	/**
 	* Suppression d'un textarea et du bouton de suppression
@@ -450,53 +437,123 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"
 	rel="stylesheet" type="text/css">
 </head>
+<script type="text/javascript">
+window.onload = function(){
+	var elem = document.getElementById('attentes');
+	elem.focus();
+	elem.selectionStart = elem.value.length;
+}
+</script>
 <body>
 	<div class="section">
 		<div class="container">
 			<div class="row">
 				<div class="row">
-					<div class="col-md-12">
-						<div class="row">
-							<h2 id="UserName">${etudiant.prenom}${etudiant.nom}</h2>
-							<div class="col-md-6">
-								<input type="hidden" id="idEtu" name="idEtu"
-									value="${profil.id}" /> <label class="col-md-4">Poste
-									actuel :</label> <input type="text" id="posteActu" name="posteActu"
-									value="${profil.posteActu}" class="col-md-8" maxlength="20" />
-								<label class="col-md-4">Ville Actuelle:</label> <input
-									type="text" id="villeActu" name="villeActu"
-									value="${profil.villeActu}" class="col-md-8" maxlength="20" />
-								<label class="col-md-4">Nom de l'entreprise :</label> <input
-									type="text" id="nomEntreprise" name="nomEntreprise"
-									value="${profil.nomEntreprise}" class="col-md-8" maxlength="20" />
-								<label class="col-md-4">Mail :</label> <input type="mail"
-									id="mail" name="mail" value="${profil.email}"
-									disabled="disabled" class="col-md-8" /> <label
-									class="col-md-4">Numéro de téléphone : </label><input
-									type="tel" id="numTelephone" name="numTelephone"
-									value="${profil.numTelephone}" class="col-md-8" />
+					<form action="#" method="post">
+						<legend>Informations personelles</legend>
+						<fieldset>
+							<div class='row'>
+								<div class='col-sm-4'>
+									<div class='form-group'>
+									<input type="hidden" id="idEtu" name="idEtu"
+									value="${profil.id}" /> 
+										<label for="mail">Mail</label> <input class="form-control"
+											id="mail" value="${profil.email}" name="mail"
+											disabled="disabled" required="true" size="30" type="text" />
+									</div>
+								</div>
+								<div class='col-sm-4'>
+									<div class='form-group'>
+										<label for="numTelephone">Téléphone</label> <input
+											class="form-control" id="numTelephone"
+											value="${profil.numTelephone}" name="numTelephone"
+											required="true" size="30" type="text" />
+									</div>
+								</div>
 							</div>
-							<div class="col-md-6">
-								<label class="col-md-4">Facebook : </label><input type="text"
-									id="facebook" name="facebook" value="${profil.facebook}"
-									class="col-md-8" /> <label class="col-md-4">Twitter :
-								</label><input type="text" id="twitter" name="twitter"
-									value="${profil.twitter}" class="col-md-8" /> <label
-									class="col-md-4">Viadeo : </label><input type="text"
-									id="viadeo" name="viadeo" value="${profil.viadeo}"
-									class="col-md-8" /> <label class="col-md-4">Linkedin :
-								</label><input type="text" id="linkedin" name="linkedin"
-									value="${profil.linkedin}" class="col-md-8" />
+							<div class='row'>
+								<div class='col-sm-8'>
+									<div class="form-group">
+										<label for="attentes">Ce que je recherche</label>
+										<textarea class="form-control" id="attentes"><c:out value="${profil.attentes}"/></textarea>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-12">
-							<label class="row col-md-4">Ce que je recherche :</label>
-							<textarea id="attentes" class="row col-md-12 fixe" rows="4"
-								cols="1">
-									${profil.attentes}
-							</textarea>
-						</div>
-					</div>
+						</fieldset>
+						<legend>Situation actuelle</legend>
+						<fieldset>
+							<div class="row">
+								<div class='col-sm-4'>
+									<div class='form-group'>
+										<label class="radio-inline"><input type="radio"
+											name="optradio">En emploi</label> <label class="radio-inline"><input
+											type="radio" name="optradio">Sans emploi</label> <label
+											class="radio-inline"><input type="radio"
+											name="optradio">Freelance</label>
+									</div>
+								</div>
+							</div>
+							<div class='row'>
+								<div class='col-sm-4'>
+									<div class='form-group'>
+										<label for="posteActu">Poste</label> <input
+											class="form-control" id="posteActu"
+											value="${profil.posteActu}" name="posteActu" required="true"
+											size="30" type="text" />
+									</div>
+								</div>
+								<div class='col-sm-4'>
+									<div class='form-group'>
+										<label for="villeActu">Ville actuelle</label> <input
+											class="form-control" id="villeActu"
+											value="${profil.villeActu}" name="villeActu" required="true"
+											size="30" type="text" />
+									</div>
+								</div>
+								<div class='col-sm-4'>
+									<div class='form-group'>
+										<label for="nomEntreprise">Nom de l'entreprise</label> <input
+											class="form-control" id="nomEntreprise"
+											value="${profil.nomEntreprise}" name="nomEntreprise"
+											required="true" size="30" type="text" />
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						<legend>Réseaux sociaux</legend>
+						<fieldset>
+							<div class='row'>
+								<div class='col-sm-3'>
+									<div class='form-group'>
+										<label for="twitter">Twitter</label> <input
+											class="form-control" id="twitter" value="${profil.twitter}"
+											name="twitter" required="true" size="30" type="text" />
+									</div>
+								</div>
+								<div class='col-sm-3'>
+									<div class='form-group'>
+										<label for="facebook">Facebook</label> <input
+											class="form-control" id="facebook" value="${profil.facebook}"
+											name="facebook" required="true" size="30" type="text" />
+									</div>
+								</div>
+								<div class='col-sm-3'>
+									<div class='form-group'>
+										<label for="viadeo">Viadeo</label> <input class="form-control"
+											id="viadeo" value="${profil.viadeo}" name="viadeo"
+											required="true" size="30" type="text" />
+									</div>
+								</div>
+								<div class='col-sm-3'>
+									<div class='form-group'>
+										<label for="linkedin">Linkedin</label> <input
+											class="form-control" id="linkedin" value="${profil.linkedin}"
+											name="linkedin" required="true" size="30" type="text" />
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</form>
 				</div>
 				<div class="row">
 					<div class="col-sm-offset-5 col-sm-2 text-center">
@@ -506,16 +563,16 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 					</div>
 				</div>
 			</div>
-			<div class="row col-md-12">
+			<div class="row">
 				<h3>Expériences Professionnelles</h3>
 				<div class="well well-lg" id="lesExpPro">
 					<a class="btn btn-primary glyphicon glyphicon-plus-sign"
-						onClick="AddExpPro('lesExpPro', 'expPro', 'deleteExpPro');"></a> <a
+						onClick="AddExpPro();"></a> <a
 						class="btn btn-primary glyphicon glyphicon-floppy-disk"
 						onClick="saveExpPro();"> Enregistrer</a>
 					<c:forEach items="${profil.profil.mesExperiences}" var="experience"
 						varStatus="loop">
-						<div class="divExpPro" name="divExpPro">
+						<div id="divExpPro${loop.index}" name="divExpPro">
 							<div class="row">
 								<label id="labelExpProPoste${loop.index}"
 									for="expProPoste${loop.index}" class="col-md-2">Poste :</label>
@@ -568,39 +625,36 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 						</div>
 					</c:forEach>
 				</div>
-
 			</div>
 			<div class="row col-md-12">
 				<h3>Compétences</h3>
-				<div class="well well-lg">
-					<div id="lesCompetences" class="lesCompetences">
-						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
-							onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');"></a><a
-							class="btn btn-primary glyphicon glyphicon-floppy-disk"
-							onClick="saveCompetence('lesCompetences', 'saveCompetence');">
-							Enregistrer</a>
-						<ul class="list-group">
-							<c:forEach items="${profil.profil.mesCompetences}"
-								var="competence" varStatus="loop">
-								<input id="competence${loop.index}" name="competence"
-									value="${competence.libelle}" class="col-md-9" maxlength="15" />
-								<label id="competenceSelectLabel${loop.index}" class="col-md-1">Niveau
-									:</label>
-								<select id="competenceSelect${loop.index}"
-									name="competenceSelect" class="col-md-1">
-									<option value="1" ${competence.niveau == '1' ? 'selected' : ''}>1</option>
-									<option value="2" ${competence.niveau == '2' ? 'selected' : ''}>2</option>
-									<option value="3" ${competence.niveau == '3' ? 'selected' : ''}>3</option>
-									<option value="4" ${competence.niveau == '4' ? 'selected' : ''}>4</option>
-									<option value="5" ${competence.niveau == '5' ? 'selected' : ''}>5</option>
-								</select>
-								<a id="deleteCompetence${loop.index}" name="deleteCompetence"
-									class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
-									onClick="suppressionChampEtBoutonCompetence(competence${loop.index}, deleteCompetence${loop.index}, competenceSelectLabel${loop.index}, competenceSelect${loop.index}); saveCompetence('lesCompetences', 'saveCompetence');"></a>
-								</br>
-							</c:forEach>
-						</ul>
-					</div>
+				<div id="lesCompetences" class="well well-lg">
+					<a class="btn btn-primary glyphicon glyphicon-plus-sign"
+						onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');"></a><a
+						class="btn btn-primary glyphicon glyphicon-floppy-disk"
+						onClick="saveCompetence('lesCompetences', 'saveCompetence');">
+						Enregistrer</a>
+					<ul class="list-group">
+						<c:forEach items="${profil.profil.mesCompetences}"
+							var="competence" varStatus="loop">
+							<input id="competence${loop.index}" name="competence"
+								value="${competence.libelle}" class="col-md-9" maxlength="15" />
+							<label id="competenceSelectLabel${loop.index}" class="col-md-1">Niveau
+								:</label>
+							<select id="competenceSelect${loop.index}"
+								name="competenceSelect" class="col-md-1">
+								<option value="1" ${competence.niveau == '1' ? 'selected' : ''}>1</option>
+								<option value="2" ${competence.niveau == '2' ? 'selected' : ''}>2</option>
+								<option value="3" ${competence.niveau == '3' ? 'selected' : ''}>3</option>
+								<option value="4" ${competence.niveau == '4' ? 'selected' : ''}>4</option>
+								<option value="5" ${competence.niveau == '5' ? 'selected' : ''}>5</option>
+							</select>
+							<a id="deleteCompetence${loop.index}" name="deleteCompetence"
+								class="btn btn-primary col-md-1 glyphicon glyphicon-minus-sign"
+								onClick="suppressionChampEtBoutonCompetence(competence${loop.index}, deleteCompetence${loop.index}, competenceSelectLabel${loop.index}, competenceSelect${loop.index}); saveCompetence('lesCompetences', 'saveCompetence');"></a>
+							</br>
+						</c:forEach>
+					</ul>
 				</div>
 			</div>
 			<div class="row col-md-12">
