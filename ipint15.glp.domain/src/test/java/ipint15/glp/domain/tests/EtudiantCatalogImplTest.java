@@ -46,7 +46,7 @@ public class EtudiantCatalogImplTest {
 		
 		groupe = groupBean.createGroupe("miage","groupeMiage");
 		groupe2 = groupBean.createGroupe("fil","groupeFil");
-		etu =etuBean.createEtudiant("Tom", "Hardy", Civilite.M, "tom@gmail.com","000000", "password", new Date(), "Dev", "Lille", "Advens","miage", 2008, groupe2);
+		etu =etuBean.createEtudiant("Tom", "Hardy", Civilite.M, "tom@gmail.com","000000", "password", new Date(), "Sans emploi","Dev", "Lille", "Advens","miage", 2008, groupe2);
 		
 	}
 	
@@ -58,7 +58,7 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testCreateEtudiant() {
-		etudiant = etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@gmail.com","00000000", "password", new Date(), "Dev","Lille", "CGI", "miage",2008, groupe);
+		etudiant = etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@gmail.com","00000000", "password", new Date(),"Sans emploi", "Dev","Lille", "CGI", "miage",2008, groupe);
 		assertEquals("Roberto", etudiant.getPrenom());
 		assertEquals("Sanchez", etudiant.getNom());
 		assertEquals("roberto@gmail.com", etudiant.getEmail());
@@ -273,7 +273,7 @@ public class EtudiantCatalogImplTest {
 	
 	@Test
 	public void testAddPublication() {
-		AncienEtudiantDTO etu = etuBean.createEtudiant("Henry", "Matisse", Civilite.M, "henry@yahoo.fr", "0000000", "password", new Date(), "Cp", "Lille", "miage Corp", "miage", 2006, groupe);
+		AncienEtudiantDTO etu = etuBean.createEtudiant("Henry", "Matisse", Civilite.M, "henry@yahoo.fr", "0000000", "password", new Date(),"Sans emploi", "Cp", "Lille", "miage Corp", "miage", 2006, groupe);
 		etuBean.addPublication(etu, "publication1","pub", new Date());
 		etu= etuBean.getEtudiant(etu.getId());
 		List<PublicationDTO> e = etuBean.getPublications(etu);
@@ -353,7 +353,7 @@ public class EtudiantCatalogImplTest {
 	@Test
 	public void testUpdateEtudiant() {
 	
-		etuBean.updateEtudiant(etu.getId(), "agriculteur", "Paris", "miage Corp","060606", "https://www.facebook.com/", "https://www.twitter.com/", "https://www.viadeo.com/","https://www.linkedin.com/","Trouver un emploi");
+		etuBean.updateEtudiant(etu.getId(), "Sans emploi","agriculteur", "Paris", "miage Corp","060606", "https://www.facebook.com/", "https://www.twitter.com/", "https://www.viadeo.com/","https://www.linkedin.com/","Trouver un emploi");
 		etu = etuBean.getEtudiant(etu.getId());
 		assertEquals("agriculteur", etu.getPosteActu());
 		assertEquals("Paris", etu.getVilleActu());

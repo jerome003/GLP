@@ -69,7 +69,7 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 
 	@Override
 	public AncienEtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email,
-			String numTelephone, String password, Date naissance, String posteActu, String villeActu,
+			String numTelephone, String password, Date naissance,String statut, String posteActu, String villeActu,
 			String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
 		// Création de l'étudiant
 		AncienEtudiant e = new AncienEtudiant();
@@ -81,7 +81,7 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 		e.setNumTelephone(numTelephone);
 		e.setPassword(password);
 		e.setNaissance(naissance);
-
+		e.setStatut(statut);
 		e.setPosteActu(posteActu);
 		e.setVilleActu(villeActu);
 		e.setNomEntreprise(nomEntreprise);
@@ -449,10 +449,11 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 	}
 
 	@Override
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numTelephone,
+	public void updateEtudiant(int id, String statut, String posteActu, String villeActu, String nomEntreprise, String numTelephone,
 			String facebook, String twitter, String viadeo, String linkedin, String attentes) {
 
 		AncienEtudiant e = getEtudiantById(id);
+		e.setStatut(statut);
 		e.setPosteActu(posteActu);
 		e.setVilleActu(villeActu);
 		e.setNomEntreprise(nomEntreprise);

@@ -57,6 +57,7 @@
 						</div>
 					</div>
 					<div class="col-md-6">
+					<c:if test = "${profil.statut == 'En emploi'}">
 						<div class="row">
 							<label class="col-md-5 intitule">Poste :</label> <label
 								class="col-md-7">${profil.posteActu}</label>
@@ -69,6 +70,19 @@
 							<label class="col-md-5 intitule">Entreprise : </label> <label
 								class="col-md-7">${profil.nomEntreprise}</label>
 						</div>
+					</c:if> 
+					<c:if test = "${profil.statut == 'Freelance'}">
+						<div class="row">
+							<label class="col-md-5 intitule">Situation Actuelle :</label> <label
+								class="col-md-7">${profil.statut}</label>
+						</div>
+					</c:if> 
+					<c:if test = "${profil.statut == 'Sans emploi'}">
+						<div class="row">
+							<label class="col-md-5 intitule">Situation Actuelle :</label> <label
+								class="col-md-7">${profil.statut}</label>
+						</div>
+					</c:if> 
 					</div>
 				</div>
 			</div>

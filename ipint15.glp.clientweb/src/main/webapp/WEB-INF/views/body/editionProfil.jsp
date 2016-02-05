@@ -126,6 +126,14 @@ function saveCompetence(name, url){
 
 function saveProfil (){
 	var idEtu = document.getElementById('idEtu');
+	var radios = document.getElementsByName('statut');
+	var statut;
+	for (var i = 0, length = radios.length; i < length; i++) {
+	    if (radios[i].checked) {
+	        statut = radios[i].value;
+	        break;
+	    }
+	}
 	var posteActu = document.getElementById('posteActu');
 	var villeActu = document.getElementById('villeActu');
 	var nomEntreprise = document.getElementById('nomEntreprise');
@@ -137,7 +145,7 @@ function saveProfil (){
 	var linkedin = document.getElementById('linkedin');
 	var attentes = document.getElementById('attentes');
 	
-	var res = { idEtu : idEtu.value, posteActu : posteActu.value, villeActu : villeActu.value, nomEntreprise : nomEntreprise.value, mail : mail.value, numTelephone : numTelephone.value, facebook : facebook.value, twitter : twitter.value, viadeo : viadeo.value, linkedin : linkedin.value, attentes : attentes.value} ;
+	var res = { idEtu : idEtu.value, statut : statut, posteActu : posteActu.value, villeActu : villeActu.value, nomEntreprise : nomEntreprise.value, mail : mail.value, numTelephone : numTelephone.value, facebook : facebook.value, twitter : twitter.value, viadeo : viadeo.value, linkedin : linkedin.value, attentes : attentes.value} ;
 	$.ajax({
         type: "POST",
         url: "saveProfile",
@@ -463,11 +471,11 @@ window.onload = function(){
 							<div class='row'>
 								<div class='col-sm-4'>
 									<div class='form-group'>
-									<input type="hidden" id="idEtu" name="idEtu"
-									value="${profil.id}" /> 
-										<label for="mail">Mail</label> <input class="form-control"
-											id="mail" value="${profil.email}" name="mail"
-											disabled="disabled" required="true" size="30" type="text" />
+										<input type="hidden" id="idEtu" name="idEtu"
+											value="${profil.id}" /> <label for="mail">Mail</label> <input
+											class="form-control" id="mail" value="${profil.email}"
+											name="mail" disabled="disabled" required="true" size="30"
+											type="text" />
 									</div>
 								</div>
 								<div class='col-sm-4'>
@@ -483,7 +491,8 @@ window.onload = function(){
 								<div class='col-sm-8'>
 									<div class="form-group">
 										<label for="attentes">Ce que je recherche</label>
-										<textarea class="form-control" id="attentes"><c:out value="${profil.attentes}"/></textarea>
+										<textarea class="form-control" id="attentes"><c:out
+												value="${profil.attentes}" /></textarea>
 									</div>
 								</div>
 							</div>
@@ -494,10 +503,11 @@ window.onload = function(){
 								<div class='col-sm-4'>
 									<div class='form-group'>
 										<label class="radio-inline"><input type="radio"
-											name="optradio">En emploi</label> <label class="radio-inline"><input
-											type="radio" name="optradio">Sans emploi</label> <label
+											name="statut" value="En emploi" ${profil.statut == 'En emploi' ? 'checked' : ''}>En emploi</label> <label
 											class="radio-inline"><input type="radio"
-											name="optradio">Freelance</label>
+											name="statut" value="Sans emploi" ${profil.statut == 'Sans emploi' ? 'checked' : ''}>Sans emploi</label> <label
+											class="radio-inline"><input type="radio"
+											name="statut" value="Freelance" ${profil.statut == 'Freelance' ? 'checked' : ''}>Freelance</label>
 									</div>
 								</div>
 							</div>

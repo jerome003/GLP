@@ -73,9 +73,10 @@ public class EditionProfilController {
 	 * @return
 	 */
 	@RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
-	public ModelAndView saveProfil(int idEtu, String posteActu, String villeActu, String nomEntreprise, String mail,
+	public ModelAndView saveProfil(int idEtu, String statut, String posteActu, String villeActu, String nomEntreprise, String mail,
 			String numTelephone, String facebook, String twitter, String viadeo, String linkedin, String attentes) {
-		etudiantBean.updateEtudiant(idEtu, posteActu, villeActu, nomEntreprise, numTelephone, facebook, twitter, viadeo,
+		System.out.println("Statut : " + statut);
+		etudiantBean.updateEtudiant(idEtu, statut, posteActu, villeActu, nomEntreprise, numTelephone, facebook, twitter, viadeo,
 				linkedin, attentes);
 		return new ModelAndView("redirect:profil/" + idEtu, "command", new AncienEtudiantDTO());
 	}
