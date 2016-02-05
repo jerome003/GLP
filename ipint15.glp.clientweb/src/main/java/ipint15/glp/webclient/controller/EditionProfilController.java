@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -63,22 +64,27 @@ public class EditionProfilController {
 		return "editionProfil";
 	}
 
-	/**
-	 * Permet d'enregistrer les nouvelles données correspondant à un étudiant
-	 * 
-	 * @param posteActu
-	 * @param lieu
-	 * @param entreprise
-	 * @param mail
-	 * @return
-	 */
-	@RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
-	public ModelAndView saveProfil(int idEtu, String posteActu, String villeActu, String nomEntreprise, String mail,
-			String numTelephone, String facebook, String twitter, String viadeo, String linkedin, String attentes) {
+	@RequestMapping(value = "/saveProfil", method = RequestMethod.POST)
+	public ModelAndView saveProfil(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		int idEtu =  Integer.parseInt(request.getParameter("idEtu"));
+		String numTelephone = request.getParameter("numTelephone");
+		String nomEntreprise = request.getParameter("nomEntreprise");
+		String posteActu = request.getParameter("posteActu");
+		String villeActu = request.getParameter("villeActu");
+		String facebook = request.getParameter("facebook");
+		String twitter = request.getParameter("twitter");
+		String viadeo = request.getParameter("viadeo");
+		String linkedin = request.getParameter("linkedin");
+		String attentes = request.getParameter("attentes");
+
 		etudiantBean.updateEtudiant(idEtu, posteActu, villeActu, nomEntreprise, numTelephone, facebook, twitter, viadeo,
 				linkedin, attentes);
+
 		return new ModelAndView("redirect:profil/" + idEtu, "command", new AncienEtudiantDTO());
+
 	}
+
 
 	@RequestMapping(value = "/saveExpPro", method = RequestMethod.POST)
 	public ModelAndView saveExpPro(@RequestParam("mail") String email, @RequestParam("maListe") String liste,
