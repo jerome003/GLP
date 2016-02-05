@@ -21,6 +21,10 @@ div.nopadding {
     padding-left: 0px;
 }
 
+div.paddingBottom {
+	padding-bottom: 20px;
+}
+
 span.pull-right {
   float: right !important;
 }

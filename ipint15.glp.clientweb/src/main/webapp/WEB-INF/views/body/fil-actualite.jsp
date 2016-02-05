@@ -17,24 +17,7 @@
 
 <div class="section">
 	<div class="container">
-		<div class="row">
-			<!-- 			<div class="col-md-12"> -->
-			<%-- 				<% --%>
-			<!-- // 					if (choix.equals("lesPublications")) { -->
-			<%-- 				%> --%>
-			<!-- 				<h1>Fil d'actualité : Toutes les publications</h1> -->
-			<!-- 				<br> -->
-
-			<%-- 				<% --%>
-			<!-- // 					} else { -->
-			<%-- 				%> --%>
-			<!-- 				<h1>Fil d'actualité : Toutes mes publications</h1> -->
-			<!-- 				<br> -->
-			<%-- 				<% --%>
-			<!-- // 					} -->
-			<%-- 				%> --%>
-			<!-- 			</div> -->
-		</div>
+		<div class="row"></div>
 		<div class="row">
 			<div class="col-md-12">
 				<h3>Créer une publication</h3>
@@ -92,48 +75,79 @@
 					</div>
 				</form:form>
 			</div>
-			<div class="col-md-2">
-				<p>
-					<form:form role="form" method="get" commandName="choixPublication"
-						action="getPublication">
-						<label> <input type="radio" name="myPublications"
-							value="true" checked="checked" /> <i>Mes publications</i>
-						</label>
-						<label> <input type="radio" name="myPublications"
-							value="false" /> <i>Les publications</i>
-						</label>
-						<select id="groupes" name="idGroupe">
-							<c:forEach items="${listeGroupes}" var="groupe">
-								<option value="-2" label="------------" />
-								<option value="-1" label="Tout le monde" />
-								<option value="${groupe.id}">${groupe.name}</option>
-							</c:forEach>
-						</select>
-						<button type="submit" class="btn btn-primary">Filtrer</button>
-					</form:form>
-				</p>
-<!-- 				<p> -->
-<%-- 					<form:form role="form" method="get" commandName="choixPublication" --%>
-<%-- 						action="myPublication"> --%>
-<!-- 						<button type="submit" class="btn btn-primary">Mes -->
-<!-- 							Publications</button> -->
-<%-- 					</form:form> --%>
-<!-- 				</p> -->
-<!-- 				<p> -->
-<%-- 					<form:form role="form" method="get" commandName="choixPublication" --%>
-<%-- 						action="allPublication"> --%>
-<!-- 						<button type="submit" class="btn btn-secondary">Les -->
-<!-- 							Publications</button> -->
-<%-- 					</form:form> --%>
-<!-- 				</p> -->
+		</div>
+		<div class="row paddingBottom">
+			<div class="col-md-7 col-md-offset-2">
+				<form:form role="form" method="get" commandName="choixPublication"
+					action="getPublication" class="row col-md-12">
+					<div class="col-md-10">
+						<div class="form-group">
+							<div class="col-md-12">
+								<%
+									if (choix.equals("lesPublications")) {
+								%>
+								<label class="col-md-6"> <input type="radio"
+									name="myPublications" value="true" class="form-group col-md-2" />
+									<i class="col-md-10">Mes publications</i>
+								</label> <label class="col-md-6"> <input type="radio"
+									checked="checked" name="myPublications" value="false"
+									class="col-md-2"
+									${choix.equals("lesPublications") ? 'checked="checked"' : ''} />
+									<i class="col-md-10">Les publications</i>
+								</label>
+								<%
+									} else {
+								%>
+								<label class="col-md-6"> <input type="radio"
+									name="myPublications" value="true" class="form-group col-md-2"
+									checked="checked" /> <i class="col-md-10">Mes publications</i>
+								</label> <label class="col-md-6"> <input type="radio"
+									name="myPublications" value="false" class="col-md-2"
+									${choix.equals("lesPublications") ? 'checked="checked"' : ''} />
+									<i class="col-md-10">Les publications</i>
+								</label>
+								<%
+									}
+								%>
+							</div>
+						</div>
+						<div class="form-group">
+							<select id="groupes" name="idGroupe"
+								class="col-md-6 col-md-offset-3">
+									<option value="-2" label="------------------" ${idGroupe == '-2' ? 'selected' : ''}/>
+									<option value="-1" label="Tout le monde" ${idGroupe == '-1' ? 'selected' : ''}/>
+								<c:forEach items="${listeGroupes}" var="groupe">
+									<option value="${groupe.id}" ${idGroupe == groupe.id ? 'selected' : ''}>${groupe.name}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</div>
+					<button type="submit" class="col-md-2 btn btn-primary">Filtrer</button>
+				</form:form>
+				<!-- 				<p> -->
+				<%-- 					<form:form role="form" method="get" commandName="choixPublication" --%>
+				<%-- 						action="myPublication"> --%>
+				<!-- 						<button type="submit" class="btn btn-primary">Mes -->
+				<!-- 							Publications</button> -->
+				<%-- 					</form:form> --%>
+				<!-- 				</p> -->
+				<!-- 				<p> -->
+				<%-- 					<form:form role="form" method="get" commandName="choixPublication" --%>
+				<%-- 						action="allPublication"> --%>
+				<!-- 						<button type="submit" class="btn btn-secondary">Les -->
+				<!-- 							Publications</button> -->
+				<%-- 					</form:form> --%>
+				<!-- 				</p> -->
 			</div>
 		</div>
+
 	</div>
 </div>
 <%
 	if (choix.equals("lesPublications")) {
 %>
-<c:forEach items="${myInjectedBean.getAllPublications(etudiant, idGroupe)}"
+<c:forEach
+	items="${myInjectedBean.getAllPublications(etudiant, idGroupe)}"
 	var="publication">
 	<div class="section">
 		<div class="container">
@@ -173,7 +187,8 @@
 <%
 	} else {
 %>
-<c:forEach items="${myInjectedBean.getMyPublications(etudiant, idGroupe)}"
+<c:forEach
+	items="${myInjectedBean.getMyPublications(etudiant, idGroupe)}"
 	var="publication">
 	<div class="section">
 		<div class="container">
