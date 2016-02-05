@@ -15,16 +15,33 @@
 	AncienEtudiantDTO etudiant = (AncienEtudiantDTO) session.getAttribute("etudiant");
 %>
 
+<script type="text/javascript">
+	/** Fonction basculant la visibilité d'un élément dom
+	 * @parameter anId string l'identificateur de la cible à montrer, cacher
+	 */
+	function toggle(anId) {
+		node = document.getElementById(anId);
+		if (node.style.display == "none") {
+			// Contenu caché, le montrer
+			node.style.display = "block";
+			node.style.height = "auto"; // Optionnel rétablir la hauteur
+		} else {
+			// Contenu visible, le cacher
+			node.style.display = "none";
+			node.style.height = "0"; // Optionnel libérer l'espace
+		}
+	}
+</script>
+
 <div class="section">
 	<div class="container">
 		<div class="row"></div>
 		<div class="row">
 			<div class="col-md-12">
-				<h3>Créer une publication</h3>
-				<br>
+				<a onclick="toggle('formulaire')">Créer une publication</a> <br>
 			</div>
 		</div>
-		<div class="row">
+		<div id="formulaire" style="display: none; height: 0px;">
 			<div class="col-md-10">
 				<form:form class="form-horizontal" role="form" method="post"
 					commandName="command" action="addPublication">
@@ -77,34 +94,32 @@
 			</div>
 		</div>
 		<div class="row paddingBottom">
-			<div class="col-md-7 col-md-offset-2">
+			<div class="col-md-7 col-md-offset-3">
 				<form:form role="form" method="get" commandName="choixPublication"
 					action="getPublication" class="row col-md-12">
-					<div class="col-md-10">
+					<div class="col-md-8">
 						<div class="form-group">
-							<div class="col-md-12">
+							<div class="col-md-10 col-md-offset-2">
 								<%
 									if (choix.equals("lesPublications")) {
 								%>
-								<label class="col-md-6"> <input type="radio"
-									name="myPublications" value="true" class="form-group col-md-2" />
-									<i class="col-md-10">Mes publications</i>
-								</label> <label class="col-md-6"> <input type="radio"
+								<label class="radio-inline"> <input type="radio"
+									name="myPublications" value="true" /> Mes publications
+								</label> <label class="radio-inline"> <input type="radio"
 									checked="checked" name="myPublications" value="false"
-									class="col-md-2"
 									${choix.equals("lesPublications") ? 'checked="checked"' : ''} />
-									<i class="col-md-10">Les publications</i>
+									Les publications
 								</label>
 								<%
 									} else {
 								%>
-								<label class="col-md-6"> <input type="radio"
-									name="myPublications" value="true" class="form-group col-md-2"
-									checked="checked" /> <i class="col-md-10">Mes publications</i>
-								</label> <label class="col-md-6"> <input type="radio"
-									name="myPublications" value="false" class="col-md-2"
+								<label class="radio-inline"> <input type="radio"
+									name="myPublications" value="true" checked="checked" />Mes
+									publications
+								</label> <label class="radio-inline"> <input type="radio"
+									name="myPublications" value="false" class="radio-inline"
 									${choix.equals("lesPublications") ? 'checked="checked"' : ''} />
-									<i class="col-md-10">Les publications</i>
+									Les publications
 								</label>
 								<%
 									}
@@ -114,10 +129,13 @@
 						<div class="form-group">
 							<select id="groupes" name="idGroupe"
 								class="col-md-6 col-md-offset-3">
-									<option value="-2" label="------------------" ${idGroupe == '-2' ? 'selected' : ''}/>
-									<option value="-1" label="Tout le monde" ${idGroupe == '-1' ? 'selected' : ''}/>
+								<option value="-2" label="------------------"
+									${idGroupe == '-2' ? 'selected' : ''} />
+								<option value="-1" label="Tout le monde"
+									${idGroupe == '-1' ? 'selected' : ''} />
 								<c:forEach items="${listeGroupes}" var="groupe">
-									<option value="${groupe.id}" ${idGroupe == groupe.id ? 'selected' : ''}>${groupe.name}</option>
+									<option value="${groupe.id}"
+										${idGroupe == groupe.id ? 'selected' : ''}>${groupe.name}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -155,23 +173,24 @@
 				<div class="panel-heading">
 					<p class="">
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"><fmt:formatDate type="both"
-								dateStyle="short" timeStyle="short" value="${publication.date}" />
+							class="pull-right"> <a
+							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
+							class="glyphicon glyphicon-share-alt linkUser ">${publication.profil.etudiant.prenom}
+								${publication.profil.etudiant.nom}</a> <c:if
+								test="${publication.groupeDTO != null}">
+								<a href="#" class="glyphicon glyphicon-share-alt linkGroup ">${publication.groupeDTO.name}</a>
+							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
+									timeStyle="short" value="${publication.date}" /></span>
 						</span>
 					</p>
 				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="btn-group btn-group-justified">
-								<a
-									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-									class="btn btn-info">${publication.profil.etudiant.nom}
-									${publication.profil.etudiant.prenom}</a>
-								<c:if test="${publication.groupeDTO != null}">
-									<a href="#" class="btn btn-default">${publication.groupeDTO.name}</a>
-								</c:if>
-							</div>
+							<!-- 							<div class="btn-group btn-group-justified"> -->
+
+
+							<!-- 							</div> -->
 						</div>
 					</div>
 					<div class="row">
@@ -196,23 +215,24 @@
 				<div class="panel-heading">
 					<p class="">
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"><fmt:formatDate type="both"
-								dateStyle="short" timeStyle="short" value="${publication.date}" />
+							class="pull-right"> <a
+							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
+							class="glyphicon glyphicon-share-alt linkUser ">${publication.profil.etudiant.prenom}
+								${publication.profil.etudiant.nom}</a> <c:if
+								test="${publication.groupeDTO != null}">
+								<a href="#" class="glyphicon glyphicon-share-alt linkGroup ">${publication.groupeDTO.name}</a>
+							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
+									timeStyle="short" value="${publication.date}" /></span>
 						</span>
 					</p>
 				</div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="btn-group btn-group-justified">
-								<a
-									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-									class="btn btn-info">${publication.profil.etudiant.nom}
-									${publication.profil.etudiant.prenom}</a>
-								<c:if test="${publication.groupeDTO != null}">
-									<a href="#" class="btn btn-default">${publication.groupeDTO.name}</a>
-								</c:if>
-							</div>
+							<!-- 							<div class="btn-group btn-group-justified"> -->
+
+
+							<!-- 							</div> -->
 						</div>
 					</div>
 					<div class="row">

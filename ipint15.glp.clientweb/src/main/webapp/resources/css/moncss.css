@@ -1,9 +1,10 @@
-h3{
+h3 {
 	font-family: Verdana, sans-serif;
 }
 
 .home_box.well:hover {
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
 }
 
 label.intitule {
@@ -14,11 +15,21 @@ textarea.fixe {
 	resize: none;
 }
 
+a.linkUser {
+	color: white;
+	padding-right: 20px;
+}
+
+a.linkGroup {
+	color: white;
+	padding-right: 20px;
+}
+
 div.nopadding {
 	padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
 }
 
 div.paddingBottom {
@@ -26,24 +37,24 @@ div.paddingBottom {
 }
 
 span.pull-right {
-  float: right !important;
+	float: right !important;
 }
 
-span.bold-font{
-  font-weight: bold;
+span.bold-font {
+	font-weight: bold;
 }
 
-div.navbar-brand{
-	font-size : small;
+div.navbar-brand {
+	font-size: small;
 }
 
-.navbar-fixed-bottom{
-	    padding-right: 10px;
+.navbar-fixed-bottom {
+	padding-right: 10px;
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
 }
