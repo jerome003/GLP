@@ -67,7 +67,8 @@ public class EditionProfilController {
 
 	@RequestMapping(value = "/saveProfil", method = RequestMethod.POST)
 	public ModelAndView saveProfil(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		
+		//Infos perso
 		int idEtu =  Integer.parseInt(request.getParameter("idEtu"));
 		String numTelephone = request.getParameter("numTelephone");
 		String nomEntreprise = request.getParameter("nomEntreprise");
@@ -79,9 +80,26 @@ public class EditionProfilController {
 		String linkedin = request.getParameter("linkedin");
 		String attentes = request.getParameter("attentes");
 		String statut = request.getParameter("statut");
-
+		
 		etudiantBean.updateEtudiant(idEtu, statut, posteActu, villeActu, nomEntreprise, numTelephone, facebook, twitter, viadeo,
 				linkedin, attentes);
+		
+		//Experience pro
+		String[] postes = request.getParameterValues("poste");
+		String[] entreprises = request.getParameterValues("entreprise");
+		String[] villes = request.getParameterValues("ville");
+		String[] regions = request.getParameterValues("region");
+		String[] pays = request.getParameterValues("pays");
+		String[] debuts = request.getParameterValues("debut");
+		String[] fins = request.getParameterValues("fin");
+		String[] descriptions = request.getParameterValues("description");
+		
+		AncienEtudiantDTO monEtudiant = etudiantBean.getEtudiant(idEtu);
+		etudiantBean.deleteExpProList(monEtudiant);
+		
+		for(int i=0;i<postes.length;i++){
+			etudiantBean.addExperience(monEtudiant, postes[i], entreprises[i], villes[i], regions[i], pays[i], debuts[i], fins[i], descriptions[i]);
+		}
 
 		return new ModelAndView("redirect:profil/" + idEtu, "command", new AncienEtudiantDTO());
 
