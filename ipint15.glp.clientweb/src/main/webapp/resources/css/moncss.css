@@ -20,3 +20,15 @@ div.nopadding {
     padding-bottom: 0px;
     padding-left: 0px;
 }
+
+div.navbar-brand{
+	font-size : small;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+
+}
