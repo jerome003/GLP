@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
+import ipint15.glp.api.remote.GroupeRemote;
+import ipint15.glp.api.remote.PublicationRemote;
 
 @Controller
 @SessionAttributes
@@ -29,21 +32,27 @@ public class FilActualiteController {
 
 	@Inject
 	protected AncienEtudiantCatalogRemote etudiantBean;
+	@Inject
+	protected PublicationRemote publicationBean;
+	@Inject
+	protected GroupeRemote groupeBean;
 
 	@RequestMapping(value = "/fil-actualite", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien")) {
-		sessionObj.setAttribute("section", "actualite");
-		model.addAttribute("myInjectedBean", etudiantBean );
-		AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
-		return new ModelAndView("fil-actualite", "command", new PublicationDTO());
+				sessionObj.setAttribute("section", "actualite");
+				model.addAttribute("myInjectedBean", publicationBean);
+				AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+				List<GroupeDTO> listeGroupes = groupeBean.getGroupesOfAncienByIdAncien(etu.getId());
+				model.addAttribute("listeGroupes", listeGroupes);
+				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			} else {
 				ModelAndView modele = new ModelAndView("errorAccesRole");
 				return modele;
 			}
-		} catch(NullPointerException e){
+		} catch (NullPointerException e) {
 			ModelAndView modele = new ModelAndView("errorAccesRole");
 			return modele;
 		}
@@ -52,10 +61,21 @@ public class FilActualiteController {
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result,
 			HttpServletRequest request) {
+		System.out.println(publication);
+		System.out.println("grp : " + publication.getGroupeDTO());
 		HttpSession sessionObj = request.getSession();
 		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
-		etudiantBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date());
-		List<PublicationDTO> myPublications = etudiantBean.getPublications();
+		// publicationBean.addPublication(eDTO, publication.getTitre(),
+		// publication.getMessage(), new Date(),
+		// publication.isPublicationPublic());
+		if (publication.getGroupeDTO().getId() == -1) {
+			publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
+					null);
+		} else {
+			publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
+					publication.getGroupeDTO());
+		}
+		List<PublicationDTO> myPublications = publicationBean.getAllPublications(null, -1);
 
 		/*
 		 * //Ajout d'une compétence pour notre étudiant
@@ -82,6 +102,20 @@ public class FilActualiteController {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("choixPublication", "lesPublications");
 
+		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+
+	}
+
+	@RequestMapping(value = "/getPublication", method = RequestMethod.GET)
+	public ModelAndView getPublication(HttpServletRequest request, int idGroupe, boolean myPublications) {
+		System.out.println("idGrp : " + idGroupe + " bool : " + myPublications);
+		HttpSession sessionObj = request.getSession();
+		if (myPublications) {
+			sessionObj.setAttribute("choixPublication", "mesPublications");
+		} else {
+			sessionObj.setAttribute("choixPublication", "lesPublications");
+		}
+		sessionObj.setAttribute("idGroupe", idGroupe);
 		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 
 	}
