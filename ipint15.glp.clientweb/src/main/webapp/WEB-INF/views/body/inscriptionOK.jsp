@@ -1,3 +1,9 @@
+<script>
+window.onload = function(e) {
+	alertify.success('Inscription réussie !');
+};
+</script>
+
 <div class="section">
 	<div class="container">
 		<div class="row">

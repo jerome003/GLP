@@ -1,6 +1,39 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+<%if (request.getParameter("creation") != null && request.getParameter("creation").equals("ok")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.success('Le modérateur a bien été créé');
+	};
+</script> 
+
+<%} else if (request.getParameter("creation") != null && request.getParameter("creation").equals("ko")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.error('Impossible : Cette adresse existe déjà');
+	};
+</script> 
+
+<%} %>
+
+<%if (request.getParameter("delete") != null && request.getParameter("delete").equals("ok")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.success('Le modérateur a bien été supprimé');
+	};
+</script> 
+
+<%} else if (request.getParameter("delete") != null && request.getParameter("delete").equals("ko")) { %>
+	<script>
+	window.onload = function(e) {
+		alertify.error('Impossible : le modérateur est assigné à un groupe');
+	};
+</script> 
+
+<%} %>	
+
+
 <div class="section">
 	<div class="container">
 		<div class="row">
@@ -34,7 +67,7 @@
 						<form:label path="email" class="control-label">Email :</form:label>
 					</div>
 					<div class="col-sm-6">
-						<form:input path="email" type="text" class="form-control" />
+						<form:input path="email" type="email" class="form-control" />
 						<form:errors path="email" />
 					</div>
 
@@ -73,6 +106,11 @@
 								${resultsGroupe.name}
 							</c:forEach>
 							</td>
+							<td>
+							<a
+							 href="${pageContext.request.contextPath}/admin/removeModerateur/${results.id}" 
+							class="confirm-delete btn mini red-stripe" role="button"> 
+							<span class="glyphicon glyphicon-trash"></span> Delete</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

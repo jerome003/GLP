@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -120,12 +121,12 @@ public class ConnexionModerateurController {
 
 	@RequestMapping(value = "/moderateur/validationGroup/{idGroupe}/etudiantKO/{idEtu}", method = RequestMethod.GET)
 	public ModelAndView refuseInscription(Locale locale, Model model, HttpServletRequest request,
-			@PathVariable Map<String, String> pathVariables) {
+			@PathVariable Map<String, String> pathVariables, @RequestParam(value = "motif") String motif ) {
 
 		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
 		AncienEtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
 		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
-		administrationBean.refusInscription(etu, idGroupe);
+		administrationBean.refusInscription(etu, idGroupe, motif);
 
 		List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
 		ModelAndView modelView = new ModelAndView("validationInscription");

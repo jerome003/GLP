@@ -109,12 +109,13 @@ public class AdminController {
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
 		modelView = new ModelAndView("redirect:groupes", "command", new GroupeDTO());
 		modelView.addObject("liste", listeResultat);
+		modelView.addObject("creation", "ok");
 		return modelView;
 
 	}
 
 	@RequestMapping(value = "/admin/saveModerateur", method = RequestMethod.POST)
-	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result) {
+	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result, HttpServletRequest request) {
 
 		ModelAndView modelView;
 
@@ -124,7 +125,10 @@ public class AdminController {
 		}
 		if (administrationBean.isMailExistsForModerateur(moderateur.getEmail())) {
 			result.rejectValue("email", null, "Cette adresse existe déjà");
-			modelView = new ModelAndView("adminModerateur");
+			List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
+			modelView = new ModelAndView("redirect:moderateurs", "command", new ModerateurDTO());
+			modelView.addObject("liste", listeResultat);
+			modelView.addObject("creation", "ko");
 			return modelView;
 		} else {
 
@@ -134,7 +138,7 @@ public class AdminController {
 			modelView = new ModelAndView("redirect:moderateurs", "command", new ModerateurDTO());
 			modelView.addObject("liste", listeResultat);
 		}
-
+		modelView.addObject("creation", "ok");
 		return modelView;
 	}
 
@@ -143,14 +147,44 @@ public class AdminController {
 			@PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("section", "groupes");
+		
+		ModelAndView modelView ;
+		modelView = new ModelAndView("redirect:../groupes");
 
 		int id = Integer.parseInt(pathVariables.get("id"));
-		groupeBean.removeGroupe(id);
+		if (groupeBean.removeGroupe(id)) {
+	
+			List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+			modelView = new ModelAndView("redirect:../groupes", "command", new GroupeDTO());
+			modelView.addObject("liste", listeResultat);
+	
+			modelView.addObject("delete", "ok");
+			return modelView;
+		}
+		
+		modelView.addObject("delete", "ko");
+		return modelView;
+	}
+	
+	@RequestMapping(value = "/admin/removeModerateur/{id}", method = RequestMethod.GET)
+	public ModelAndView removeModerateur(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
+		HttpSession sessionObj = request.getSession();
+		sessionObj.setAttribute("section", "moderateurs");
+		
+		ModelAndView modelView ;
+		modelView = new ModelAndView("redirect:../moderateurs");
 
-		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
-		ModelAndView modelView = new ModelAndView("redirect:../groupes", "command", new GroupeDTO());
-		modelView.addObject("liste", listeResultat);
-
+		int id = Integer.parseInt(pathVariables.get("id"));
+		
+		if (administrationBean.removeModerateur(id)){
+			List<ModerateurDTO> listeResultat = administrationBean.getAllModerateur();
+			modelView = new ModelAndView("redirect:../moderateurs", "command", new ModerateurDTO());
+			modelView.addObject("liste", listeResultat);
+			modelView.addObject("delete", "ok");
+			return modelView;
+		}
+		modelView.addObject("delete", "ko");
 		return modelView;
 	}
 

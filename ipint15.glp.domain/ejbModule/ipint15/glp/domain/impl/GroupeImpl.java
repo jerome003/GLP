@@ -5,14 +5,16 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.GroupeRemote;
+import ipint15.glp.domain.entities.AncienEtudiant;
+import ipint15.glp.domain.entities.Enseignant;
+import ipint15.glp.domain.entities.Etudiant;
 import ipint15.glp.domain.entities.Groupe;
+import ipint15.glp.domain.entities.Moderateur;
 import ipint15.glp.domain.util.Conversion;
 
 @Stateless
@@ -78,9 +80,18 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
-	public void removeGroupe(int id) {
+	public boolean removeGroupe(int id) {
 		Groupe g = getGroupeById(id);
-		em.remove(g);
+		List<Moderateur> listeModo = g.getModerateurs();
+		List<AncienEtudiant> listeAncienEtu = g.getAncienEtudiants();
+		List<Etudiant> listeEtu = g.getEtudiants();
+		List<Enseignant> listeEnseign = g.getEnseignant();
+		if ((listeModo.isEmpty()) && (listeAncienEtu.isEmpty()) && (listeEtu.isEmpty()) && (listeEnseign.isEmpty())){
+			em.remove(g);
+			return true;
+		}
+		return false;
+		
 	}
 
 	@Override

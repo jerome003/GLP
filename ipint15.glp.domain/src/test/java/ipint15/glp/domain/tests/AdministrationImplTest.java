@@ -47,9 +47,9 @@ public class AdministrationImplTest {
 		groupe= groupeBean.createGroupe("Miage","groupe miage de l'universite de lille 1");
 		moderateur = adminBean.createModerateur("Mike", "Ross", "mike@gmail.com", "password");
 		ad = adminBean.createAdmin("admin@admin.fr", "password");
-		etu = etuBean.createEtudiant("Hervey", "Specter", Civilite.M, "hervey@gmail.com","00000000", "password", new Date(), "CP", "Paris", "CGI", "miage", 2008, groupe);
-		etu2= etuBean.createEtudiant("Jack", "Dawson", Civilite.M, "jack@gmail.com", "0000000", "password", new Date(), "Dev", "Lille", "Sopra", "miage", 2011, groupe);
-		etuBean.createEtudiant("Rose", "Durand", Civilite.Mme, "rose@gmail.com","00000000", "password", new Date(), "Dav", "Lille", "CGI", "miage", 2010, groupe);
+		etu = etuBean.createEtudiant("Hervey", "Specter", Civilite.M, "hervey@gmail.com","00000000", "password", new Date(), "Sans emploi", "CP", "Paris", "CGI", "miage", 2008, groupe);
+		etu2= etuBean.createEtudiant("Jack", "Dawson", Civilite.M, "jack@gmail.com", "0000000", "password", new Date(), "Sans emploi","Dev", "Lille", "Sopra", "miage", 2011, groupe);
+		etuBean.createEtudiant("Rose", "Durand", Civilite.Mme, "rose@gmail.com","00000000", "password", new Date(), "Sans emploi","Dav", "Lille", "CGI", "miage", 2010, groupe);
 		
 	}
 	
@@ -220,7 +220,7 @@ public class AdministrationImplTest {
 	
 	@Test 
 	public void testRefusInscription() {
-		adminBean.refusInscription(etu2, groupe.getId());
+		adminBean.refusInscription(etu2, groupe.getId(),"t'es nul");
 		assertEquals(groupe.getEtudiants().size(),0);
 		List<AncienEtudiantDTO> list = new ArrayList<AncienEtudiantDTO>();
 		assertEquals(groupe.getEtudiants(),list);
