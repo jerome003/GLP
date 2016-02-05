@@ -38,7 +38,7 @@
 		<div class="row"></div>
 		<div class="row">
 			<div class="col-md-12">
-				<a onclick="toggle('formulaire')">Créer une publication</a> <br>
+				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover" onclick="toggle('formulaire')">Créer une publication</a> <br>
 			</div>
 		</div>
 		<div id="formulaire" style="display: none; height: 0px;">
@@ -58,7 +58,7 @@
 							<form:label path="message" class="control-label">Message</form:label>
 						</div>
 						<div class="col-sm-8">
-							<form:input path="message" type="text" class="form-control" />
+							<form:textarea path="message" rows="5" cols="30" class="form-control" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -173,12 +173,12 @@
 				<div class="panel-heading">
 					<p class="">
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"> <a
+							class="pull-right"> <span class="glyphicon glyphicon-share-alt linkGroup" ></span><a
 							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-							class="glyphicon glyphicon-share-alt linkUser ">${publication.profil.etudiant.prenom}
+							class="linkUser ">${publication.profil.etudiant.prenom}
 								${publication.profil.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
-								<a href="#" class="glyphicon glyphicon-share-alt linkGroup ">${publication.groupeDTO.name}</a>
+								<span class="glyphicon glyphicon-share-alt linkGroup" ></span><a href="#" class="linkGroup ">${publication.groupeDTO.name}</a>
 							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>
 						</span>
