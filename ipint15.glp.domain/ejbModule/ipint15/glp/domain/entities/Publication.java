@@ -17,7 +17,15 @@ import ipint15.glp.api.dto.PublicationDTO;
 
 @Entity
 @Table(name = "PUBLICATION")
-@NamedQueries({ @NamedQuery(name = "selectAllPublicationOfAncienEtudiant", query = "select o from Publication o WHERE o.profil.etudiant.id = :id") })
+@NamedQueries({
+		@NamedQuery(name = "selectAllPublicationOfAncienEtudiant", query = "select o from Publication o WHERE o.profil.etudiant.id = :id order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationGroupOfAncienEtudiant", query = "select o from Publication o WHERE o.profil.etudiant.id = :idetu AND o.groupe.id = :idgroupe order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationGroup", query = "select o from Publication o WHERE o.groupe.id = :idgroupe order by o.date desc"),
+		// select o from Publication o left join o.groupe.ancienEtudiants a
+		// WHERE o.groupe = null OR a.id = :idetu order by o.date desc
+		@NamedQuery(name = "selectAllPublicationForAncienEtudiant", query = "select o from Publication o WHERE o.groupe = null OR EXISTS (SELECT a FROM o.groupe.ancienEtudiants a WHERE a.id = :idetu) order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationPublic", query = "select o from Publication o WHERE o.groupe = null order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationPublicOfAncienEtudiant", query = "select o from Publication o WHERE o.groupe = null AND o.profil.etudiant.id = :idetu order by o.date desc") })
 public class Publication {
 
 	@Id

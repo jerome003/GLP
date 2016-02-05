@@ -52,10 +52,25 @@ public class PublicationImpl implements PublicationRemote {
 	}
 
 	@Override
-	public List<PublicationDTO> getPublications(AncienEtudiantDTO eDTO) {
+	public List<PublicationDTO> getMyPublications(AncienEtudiantDTO eDTO, int idGroupe) {
+		// TODO
+		System.out.println(idGroupe);
 		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
-		List<Publication> mesPublications = e.getProfil().getMesPublications();
+		List<Publication> mesPublications;
+		if (idGroupe == -2) {
+			// Recherche des publications pour tout le monde + groupes
+			mesPublications = e.getProfil().getMesPublications();
+
+		} else if (idGroupe <= 0) {
+			// Recherche des publications pour tout le monde
+			mesPublications = em.createNamedQuery("selectAllPublicationPublicOfAncienEtudiant", Publication.class)
+					.setParameter("idetu", eDTO.getId()).getResultList();
+		} else {
+			// Recherche pour un groupe
+			mesPublications = em.createNamedQuery("selectAllPublicationGroupOfAncienEtudiant", Publication.class)
+					.setParameter("idgroupe", idGroupe).setParameter("idetu", eDTO.getId()).getResultList();
+		}
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication c : mesPublications) {
 			PublicationDTO cDTO = ce.MappingProfilPublication(e.getProfil(), c);
@@ -66,9 +81,24 @@ public class PublicationImpl implements PublicationRemote {
 	}
 
 	@Override
-	public List<PublicationDTO> getPublications() {
-		List<Publication> mesPublications = em.createQuery("select p from Publication p order by p.date desc")
-				.getResultList();
+	public List<PublicationDTO> getAllPublications(AncienEtudiantDTO eDTO, int idGroupe) {
+		// TODO
+		System.out.println(idGroupe);
+		List<Publication> mesPublications;
+		if (idGroupe == -2) {
+			// Recherche des publications pour tout le monde + groupes
+			mesPublications = em.createNamedQuery("selectAllPublicationForAncienEtudiant", Publication.class)
+					.setParameter("idetu", eDTO.getId()).getResultList();
+		} else if (idGroupe <= 0) {
+			// Recherche des publications pour tout le monde
+			mesPublications = em.createNamedQuery("selectAllPublicationPublic", Publication.class).getResultList();
+		} else {
+			// Recherche pour un groupe
+			mesPublications = em.createNamedQuery("selectAllPublicationGroup", Publication.class)
+					.setParameter("idgroupe", idGroupe).getResultList();
+		}
+		// mesPublications = em.createQuery("select p from Publication p order
+		// by p.date desc").getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
 			System.out.println("Profil :" + p.getProfil());

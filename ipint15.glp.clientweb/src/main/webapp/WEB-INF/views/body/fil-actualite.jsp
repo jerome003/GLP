@@ -1,44 +1,46 @@
+<%@page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="ipint15.glp.api.dto.AncienEtudiantDTO"%>
 <%
 	String choix = (String) session.getAttribute("choixPublication");
+	Integer idGroupe = (Integer) session.getAttribute("idGroupe");
 	if (choix == null) {
 		choix = "lesPublications";
+	}
+	if (idGroupe == null || idGroupe == 0) {
+		idGroupe = -1;
 	}
 	AncienEtudiantDTO etudiant = (AncienEtudiantDTO) session.getAttribute("etudiant");
 %>
 
-
 <div class="section">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
-				<%
-					if (choix.equals("lesPublications")) {
-				%>
-				<h1>Fil d'actualité : Toutes les publications</h1>
-				<br>
+			<!-- 			<div class="col-md-12"> -->
+			<%-- 				<% --%>
+			<!-- // 					if (choix.equals("lesPublications")) { -->
+			<%-- 				%> --%>
+			<!-- 				<h1>Fil d'actualité : Toutes les publications</h1> -->
+			<!-- 				<br> -->
 
-				<%
-					} else {
-				%>
-				<h1>Fil d'actualité : Toutes mes publications</h1>
-				<br>
-				<%
-					}
-				%>
-			</div>
+			<%-- 				<% --%>
+			<!-- // 					} else { -->
+			<%-- 				%> --%>
+			<!-- 				<h1>Fil d'actualité : Toutes mes publications</h1> -->
+			<!-- 				<br> -->
+			<%-- 				<% --%>
+			<!-- // 					} -->
+			<%-- 				%> --%>
+			<!-- 			</div> -->
 		</div>
-
 		<div class="row">
 			<div class="col-md-12">
 				<h3>Créer une publication</h3>
 				<br>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col-md-10">
 				<form:form class="form-horizontal" role="form" method="post"
@@ -90,33 +92,49 @@
 					</div>
 				</form:form>
 			</div>
-
 			<div class="col-md-2">
 				<p>
 					<form:form role="form" method="get" commandName="choixPublication"
-						action="myPublication">
-						<button type="submit" class="btn btn-primary">Mes
-							Publications</button>
+						action="getPublication">
+						<label> <input type="radio" name="myPublications"
+							value="true" checked="checked" /> <i>Mes publications</i>
+						</label>
+						<label> <input type="radio" name="myPublications"
+							value="false" /> <i>Les publications</i>
+						</label>
+						<select id="groupes" name="idGroupe">
+							<c:forEach items="${listeGroupes}" var="groupe">
+								<option value="-2" label="------------" />
+								<option value="-1" label="Tout le monde" />
+								<option value="${groupe.id}">${groupe.name}</option>
+							</c:forEach>
+						</select>
+						<button type="submit" class="btn btn-primary">Filtrer</button>
 					</form:form>
 				</p>
-				<p>
-					<form:form role="form" method="get" commandName="choixPublication"
-						action="allPublication">
-						<button type="submit" class="btn btn-secondary">Les
-							Publications</button>
-					</form:form>
-
-				</p>
+<!-- 				<p> -->
+<%-- 					<form:form role="form" method="get" commandName="choixPublication" --%>
+<%-- 						action="myPublication"> --%>
+<!-- 						<button type="submit" class="btn btn-primary">Mes -->
+<!-- 							Publications</button> -->
+<%-- 					</form:form> --%>
+<!-- 				</p> -->
+<!-- 				<p> -->
+<%-- 					<form:form role="form" method="get" commandName="choixPublication" --%>
+<%-- 						action="allPublication"> --%>
+<!-- 						<button type="submit" class="btn btn-secondary">Les -->
+<!-- 							Publications</button> -->
+<%-- 					</form:form> --%>
+<!-- 				</p> -->
 			</div>
 		</div>
 	</div>
-
 </div>
 <%
 	if (choix.equals("lesPublications")) {
 %>
-<c:forEach items="${myInjectedBean.getPublications()}" var="publication">
-
+<c:forEach items="${myInjectedBean.getAllPublications(etudiant, idGroupe)}"
+	var="publication">
 	<div class="section">
 		<div class="container">
 			<div class="panel panel-primary">
@@ -151,36 +169,12 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- 	<div class="section"> -->
-	<!-- 		<div class="container"> -->
-	<!-- 			<div class="row"> -->
-	<!-- 				<div class="col-md-12"> -->
-	<!-- 					<div class="btn-group btn-group-justified"> -->
-	<!-- 						<a -->
-	<%-- 							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}" --%>
-	<%-- 							class="btn btn-info">${publication.profil.etudiant.nom} --%>
-	<%-- 							${publication.profil.etudiant.prenom}</a> <a href="#" --%>
-	<%-- 							class="btn btn-default"><fmt:formatDate type="both" --%>
-	<%-- 								dateStyle="short" timeStyle="short" value="${publication.date}" /> --%>
-	<%-- 							: ${publication.titre}</a> --%>
-	<!-- 					</div> -->
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-	<!-- 			<div class="row"> -->
-	<!-- 				<div class="col-md-12"> -->
-	<%-- 					<p>${publication.message}</p> --%>
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
 </c:forEach>
 <%
 	} else {
 %>
-<c:forEach items="${myInjectedBean.getPublications(etudiant)}"
+<c:forEach items="${myInjectedBean.getMyPublications(etudiant, idGroupe)}"
 	var="publication">
-
 	<div class="section">
 		<div class="container">
 			<div class="panel panel-primary">
@@ -220,5 +214,4 @@
 	}
 %>
 </body>
-
 </html>
