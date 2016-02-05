@@ -12,7 +12,6 @@
 <!-- -----------------------------Code JS----------------------------------- -->
 <!-- ----------------------------------------------------------------------- -->
 <script type="text/javascript">
-
 function saveExpPro(){
 	var name = 'lesExpPro';
 	var url = 'saveExpPro';
@@ -44,11 +43,6 @@ function saveExpPro(){
         }
      });
 }
-
-
-
-
-
 function saveFormation(){
 	var name = 'lesFormations';
 	var url = 'saveFormation';
@@ -78,7 +72,6 @@ function saveFormation(){
         }
      });
 }
-
 function save(name, url){
 	var mail = document.getElementById('mail');	
 	var tmp = "";	
@@ -100,7 +93,6 @@ function save(name, url){
         }
      });
 }
-
 function saveCompetence(name, url){
 	var mail = document.getElementById('mail');	
 	var tmp = "";	
@@ -122,33 +114,6 @@ function saveCompetence(name, url){
         	 alertify.error("Les modifications n'ont pas pu être enregistré");
         }
      });
-}
-
-function saveProfil (){
-	var idEtu = document.getElementById('idEtu');
-	var posteActu = document.getElementById('posteActu');
-	var villeActu = document.getElementById('villeActu');
-	var nomEntreprise = document.getElementById('nomEntreprise');
-	var mail = document.getElementById('mail');	
-	var numTelephone = document.getElementById('numTelephone');
-	var facebook = document.getElementById('facebook');
-	var twitter = document.getElementById('twitter');
-	var viadeo = document.getElementById('viadeo');
-	var linkedin = document.getElementById('linkedin');
-	var attentes = document.getElementById('attentes');
-	
-	var res = { idEtu : idEtu.value, posteActu : posteActu.value, villeActu : villeActu.value, nomEntreprise : nomEntreprise.value, mail : mail.value, numTelephone : numTelephone.value, facebook : facebook.value, twitter : twitter.value, viadeo : viadeo.value, linkedin : linkedin.value, attentes : attentes.value} ;
-	$.ajax({
-        type: "POST",
-        url: "saveProfile",
-        data: res,
-        success: function (result) {
-       	 alertify.success("Les modifications ont bien été enregistré");
-        },
-        error: function (result) {
-       	 alertify.error("Les modifications n'ont pas pu être enregistré");
-       }
-    });
 }
 
 function AddChamp(divId, champId, boutonId, fctSave) {
@@ -217,7 +182,6 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	}
 	
 }
-
 	function createInput(type, id, name, eltDiv, colsize){
 		var input = document.createElement("input");
 		input.setAttribute("maxlength","15");
@@ -275,7 +239,6 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			createInput("text", "expProFin"+nvId, "expPro", row4, "col-md-4");			
 			createLabel("labelExpProDescription"+nvId,"expProDescription"+nvId, "Description : ","lesExpPro",row4, "col-md-2");
 			createInput("text", "expProDescription"+nvId, "expPro", row4, "col-md-3");		
-
 			var adresse = document.createElement("a");
 			var link = document.createTextNode("");
 			adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
@@ -286,7 +249,6 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			row4.appendChild(adresse);
 			document.getElementById("lesExpPro").appendChild(div);
 		}
-
 	/**
 	*Fonction qui permet l'ajout d'une formation
 	*/
@@ -334,7 +296,6 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			div.appendChild(document.createElement("br"));
 			document.getElementById("lesFormations").appendChild(div);		
 	}
-
 	/**
 	* Suppression d'un textarea et du bouton de suppression
 	*
@@ -350,7 +311,6 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 				
 			}
 		});
-
 	}
 	
 	function suppressionChampEtBoutonCompetence(champ, bouton, label, select) {
@@ -457,17 +417,17 @@ window.onload = function(){
 		<div class="container">
 			<div class="row">
 				<div class="row">
-					<form action="#" method="post">
+					<form action="saveProfil" method="post">
 						<legend>Informations personelles</legend>
 						<fieldset>
 							<div class='row'>
 								<div class='col-sm-4'>
 									<div class='form-group'>
-									<input type="hidden" id="idEtu" name="idEtu"
-									value="${profil.id}" /> 
-										<label for="mail">Mail</label> <input class="form-control"
-											id="mail" value="${profil.email}" name="mail"
-											disabled="disabled" required="true" size="30" type="text" />
+										<input type="hidden" id="idEtu" name="idEtu"
+											value="${profil.id}" /> <label for="mail">Mail</label> <input
+											class="form-control" id="mail" value="${profil.email}"
+											name="mail" disabled="disabled" required="true" size="30"
+											type="text" />
 									</div>
 								</div>
 								<div class='col-sm-4'>
@@ -483,7 +443,9 @@ window.onload = function(){
 								<div class='col-sm-8'>
 									<div class="form-group">
 										<label for="attentes">Ce que je recherche</label>
-										<textarea class="form-control" id="attentes"><c:out value="${profil.attentes}"/></textarea>
+
+										<textarea class="form-control" id="attentes" name="attentes"><c:out
+												value="${profil.attentes}" /></textarea>
 									</div>
 								</div>
 							</div>
@@ -493,11 +455,18 @@ window.onload = function(){
 							<div class="row">
 								<div class='col-sm-4'>
 									<div class='form-group'>
-										<label class="radio-inline"><input type="radio"
-											name="optradio">En emploi</label> <label class="radio-inline"><input
-											type="radio" name="optradio">Sans emploi</label> <label
-											class="radio-inline"><input type="radio"
-											name="optradio">Freelance</label>
+										<label class="radio-inline"> <input type="radio"
+											name="statut" value="En emploi"
+											${profil.statut == 'En emploi' ? 'checked' : ''}>En
+											emploi
+										</label> <label class="radio-inline"> <input type="radio"
+											name="statut" value="Sans emploi"
+											${profil.statut == 'Sans emploi' ? 'checked' : ''}>Sans
+											emploi
+										</label> <label class="radio-inline"> <input type="radio"
+											name="statut" value="Freelance"
+											${profil.statut == 'Freelance' ? 'checked' : ''}>Freelance
+										</label>
 									</div>
 								</div>
 							</div>
@@ -506,16 +475,16 @@ window.onload = function(){
 									<div class='form-group'>
 										<label for="posteActu">Poste</label> <input
 											class="form-control" id="posteActu"
-											value="${profil.posteActu}" name="posteActu" required="true"
-											size="30" type="text" />
+											value="${profil.posteActu}" name="posteActu" size="30"
+											type="text" />
 									</div>
 								</div>
 								<div class='col-sm-4'>
 									<div class='form-group'>
 										<label for="villeActu">Ville actuelle</label> <input
 											class="form-control" id="villeActu"
-											value="${profil.villeActu}" name="villeActu" required="true"
-											size="30" type="text" />
+											value="${profil.villeActu}" name="villeActu" size="30"
+											type="text" />
 									</div>
 								</div>
 								<div class='col-sm-4'>
@@ -523,7 +492,7 @@ window.onload = function(){
 										<label for="nomEntreprise">Nom de l'entreprise</label> <input
 											class="form-control" id="nomEntreprise"
 											value="${profil.nomEntreprise}" name="nomEntreprise"
-											required="true" size="30" type="text" />
+											size="30" type="text" />
 									</div>
 								</div>
 							</div>
@@ -535,41 +504,40 @@ window.onload = function(){
 									<div class='form-group'>
 										<label for="twitter">Twitter</label> <input
 											class="form-control" id="twitter" value="${profil.twitter}"
-											name="twitter" required="true" size="30" type="text" />
+											name="twitter" size="30" type="text" />
 									</div>
 								</div>
 								<div class='col-sm-3'>
 									<div class='form-group'>
 										<label for="facebook">Facebook</label> <input
 											class="form-control" id="facebook" value="${profil.facebook}"
-											name="facebook" required="true" size="30" type="text" />
+											name="facebook" size="30" type="text" />
 									</div>
 								</div>
 								<div class='col-sm-3'>
 									<div class='form-group'>
 										<label for="viadeo">Viadeo</label> <input class="form-control"
-											id="viadeo" value="${profil.viadeo}" name="viadeo"
-											required="true" size="30" type="text" />
+											id="viadeo" value="${profil.viadeo}" name="viadeo" size="30"
+											type="text" />
 									</div>
 								</div>
 								<div class='col-sm-3'>
 									<div class='form-group'>
 										<label for="linkedin">Linkedin</label> <input
 											class="form-control" id="linkedin" value="${profil.linkedin}"
-											name="linkedin" required="true" size="30" type="text" />
+											name="linkedin" size="30" type="text" />
 									</div>
 								</div>
 							</div>
 						</fieldset>
+						<div class="row">
+							<div class="col-sm-offset-5 col-sm-2 text-center">
+								<button type="submit" class="btn btn-success">Enregistrer</button>
+							</div>
+						</div>
 					</form>
 				</div>
-				<div class="row">
-					<div class="col-sm-offset-5 col-sm-2 text-center">
-						<a
-							class="btn btn-primary center-block  glyphicon glyphicon-floppy-disk"
-							onClick="saveProfil();"> Enregistrer</a>
-					</div>
-				</div>
+
 			</div>
 			<div class="row">
 				<h3>Expériences Professionnelles</h3>

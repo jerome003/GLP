@@ -44,7 +44,7 @@ public class AncienEtudiant implements Serializable {
 	private String numTelephone;
 	@Temporal(TemporalType.TIME)
 	private Date naissance;
-
+	private String statut;
 	private String villeActu;
 	private String posteActu;
 	private String nomEntreprise;
@@ -188,6 +188,14 @@ public class AncienEtudiant implements Serializable {
 	public void setViadeo(String viadeo) {
 		this.viadeo = viadeo;
 	}
+	
+	
+	public String getStatut() {
+		return statut;
+	}
+	public void setStatut(String statut) {
+		this.statut = statut;
+	}
 	public AncienEtudiantDTO toEtudiantDTO() {
 		AncienEtudiantDTO pDTO = new AncienEtudiantDTO();
 		pDTO.setId(this.getId());
@@ -205,6 +213,7 @@ public class AncienEtudiant implements Serializable {
 
 		pDTO.setDiplome(this.getDiplome());
 		pDTO.setAnneeDiplome(this.anneeDiplome);
+		pDTO.setStatut(this.getStatut());
 		
 		pDTO.setGroupe(this.groupe.toGroupeDTO());
 		pDTO.setTwitter(this.getTwitter());

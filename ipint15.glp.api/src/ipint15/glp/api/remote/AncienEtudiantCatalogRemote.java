@@ -32,7 +32,7 @@ public interface AncienEtudiantCatalogRemote {
 	 * @return
 	 */
 	public AncienEtudiantDTO createEtudiant(String firstname, String lastname, Civilite civilite, String email, String numTelephone,
-			String password, Date naissance, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe);
+			String password, Date naissance,String statut, String posteActu, String villeActu, String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe);
 
 
 	/**
@@ -105,7 +105,7 @@ public interface AncienEtudiantCatalogRemote {
 	 * @param attentes
 	 */
 	
-	public void updateEtudiant(int id, String posteActu, String villeActu, String nomEntreprise, String numtelephone, String facebook, String twitter, String viadeo, String linkedin, String attentes);
+	public void updateEtudiant(int id, String statut, String posteActu, String villeActu, String nomEntreprise, String numtelephone, String facebook, String twitter, String viadeo, String linkedin, String attentes);
 
 
 	public void setGroupe(AncienEtudiantDTO eDTO, GroupeDTO gDTO);

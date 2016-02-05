@@ -37,8 +37,8 @@ public class GroupeImplTest {
 		groupe = groupBean.createGroupe("Miage","groupeMiage");
 		groupe3 = groupBean.createGroupe("bidule","groupeBidule");
 		
-		etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@gmail.com","00000000", "password",new Date(), "prof","Lille", "Université lille", "miage",1980, groupe );
-		etuBean.createEtudiant("Steven", "Dupont", Civilite.M, "steven@gmail.com","000000", "password", new Date(), "CP", "Paris","Miage Corp", "miage",2006, groupe);
+		etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@gmail.com","00000000", "password",new Date(),"Sans emploi", "prof","Lille", "Université lille", "miage",1980, groupe );
+		etuBean.createEtudiant("Steven", "Dupont", Civilite.M, "steven@gmail.com","000000", "password", new Date(),"Sans emploi", "CP", "Paris","Miage Corp", "miage",2006, groupe);
 	}
 
 	@AfterClass
