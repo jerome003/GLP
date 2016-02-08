@@ -17,7 +17,7 @@ import ipint15.glp.api.dto.GroupeDTO;
 @Entity
 @Table(name = "GROUPE")
 @NamedQueries({
-		@NamedQuery(name = "getGroupesOfAncienByIdAncien", query = "select g from Groupe g join g.ancienEtudiants a where a.id = :id") })
+		@NamedQuery(name = "getGroupesOfAncienByIdAncien", query = "select g from Groupe g join g.ancienEtudiants a where a.id = :id")})
 public class Groupe {
 
 	@Id
@@ -89,7 +89,6 @@ public class Groupe {
 	public String toString() {
 		return "Groupe [id=" + id + ", name=" + name + "]";
 	}
-
 
 	public List<Enseignant> getEnseignant() {
 		return enseignant;

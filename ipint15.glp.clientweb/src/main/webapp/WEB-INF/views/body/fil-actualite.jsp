@@ -178,7 +178,7 @@
 							class="linkUser ">${publication.profil.etudiant.prenom}
 								${publication.profil.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
-								<span class="glyphicon glyphicon-share-alt linkGroup" ></span><a href="#" class="linkGroup ">${publication.groupeDTO.name}</a>
+								<span class="glyphicon glyphicon-share-alt linkGroup" ></span><a href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}" class="linkGroup ">${publication.groupeDTO.name}</a>
 							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>
 						</span>
