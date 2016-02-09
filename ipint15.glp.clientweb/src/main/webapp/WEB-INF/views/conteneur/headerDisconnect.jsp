@@ -18,6 +18,8 @@
 <!-- libraries pour les alertes  -->
 <script
 	src="${pageContext.request.contextPath}/resources/js/alertify.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/edition.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/alertify.core.css" />
 <!-- include a theme, can be included into the core instead of 2 separate files -->
