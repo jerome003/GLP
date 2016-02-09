@@ -65,7 +65,7 @@ public class EditionProfilController {
 	}
 
 
-	@RequestMapping(value = "/saveProfil", method = RequestMethod.POST)
+	@RequestMapping(value = "/editionProfil", method = RequestMethod.POST)
 	public ModelAndView saveProfil(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		//Infos perso
@@ -97,9 +97,13 @@ public class EditionProfilController {
 		AncienEtudiantDTO monEtudiant = etudiantBean.getEtudiant(idEtu);
 		etudiantBean.deleteExpProList(monEtudiant);
 		
-		for(int i=0;i<postes.length;i++){
-			etudiantBean.addExperience(monEtudiant, postes[i], entreprises[i], villes[i], regions[i], pays[i], debuts[i], fins[i], descriptions[i]);
+		if (postes!=null){
+
+			for(int i=0;i<postes.length;i++){
+				etudiantBean.addExperience(monEtudiant, postes[i], entreprises[i], villes[i], regions[i], pays[i], debuts[i], fins[i], descriptions[i]);
+			}
 		}
+		
 
 		return new ModelAndView("redirect:profil/" + idEtu, "command", new AncienEtudiantDTO());
 

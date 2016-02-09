@@ -207,7 +207,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 	}
 	
 	
-	function AddExpPro2(){
+	function AddExpPro(){
 		var taille = document.getElementsByName("ExpPro").length;
 		
 		var div = document.createElement("div");
@@ -217,8 +217,12 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 		document.getElementById("Experiences").appendChild(div);
 		
 		var legend = document.createElement("legend");
-		legend.innerHTML = "Experience";
+		legend.innerHTML = "Experience ";
 		div.appendChild(legend);
+		var boutonSupression = document.createElement("a");
+		boutonSupression.setAttribute("class","btn btn-default glyphicon glyphicon-minus-sign");
+		boutonSupression.setAttribute("onClick","suprrimerExp("+taille+");")
+		legend.appendChild(boutonSupression);
 		
 		var div2 = document.createElement("div");
 		div2.setAttribute("class","form-group");
@@ -320,7 +324,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 		//Ligne 3
 		var divPays = document.createElement("div");
 		divPays.setAttribute("class","col-sm-6");
-		row2.appendChild(divPays);
+		row3.appendChild(divPays);
 
 		//Pays
 		var divLabelPays = document.createElement("div");
@@ -332,7 +336,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 		var labelPays = document.createElement("label");
 		labelPays.htmlFor = "pays";
 		labelPays.innerHTML = "Pays";
-		divLabelPays.appendChild(labelRegion);
+		divLabelPays.appendChild(labelPays);
 		var inputPays = document.createElement("input");
 		inputPays.id= "expProPays"+taille;
 		inputPays.name= "pays";
@@ -400,49 +404,17 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 		
 	}
 	
-	function AddExpPro(){
-		var taille = document.getElementsByName("divExpPro").length;
+	function suprrimerExp(id){
+		alertify.confirm('Voulez-vous réellement supprimer ce champ ?', function (e) {
+			if (e) {
+				document.getElementById("MonExperience"+id).remove();
+			} else {
+				
+			}
+		});			
 		
-		if (taille == 0){
-			var nvId=0;
-		}
-		else{
-			var element = document.getElementsByName("divExpPro");
-			var nvId = element.length;	
-		}		
-			var div = document.createElement("div");
-			div.id = "divExpPro"+nvId;
-			div.setAttribute("name", "divExpPro");
-			var row = createRow(div);
-			createLabel("labelExpProPoste"+nvId,"expProPoste"+nvId, "Poste : ","lesExpPro", row, "col-md-2");
-			createInput("text", "expProPoste"+nvId, "expPro", row, "col-md-4");	
-			createLabel("labelExpProEntreprise"+nvId,"expProEntreprise"+nvId, "Entreprise : ","lesExpPro",row, "col-md-2");
-			createInput("text", "expProEntreprise"+nvId, "expPro", row, "col-md-4");
-			var row2 = createRow(div);
-			createLabel("labelExpProVille"+nvId,"expProVille"+nvId, "Ville : ","lesExpPro", row2, "col-md-2");
-			createInput("text", "expProVille"+nvId, "expPro", row2, "col-md-4");
-			createLabel("labelExpProRegion"+nvId,"expProRegion"+nvId, "Région : ","lesExpPro", row2, "col-md-2");
-			createInput("text", "expProRegion"+nvId, "expPro", row2, "col-md-4");
-			var row3 = createRow(div);
-			createLabel("labelExpProPays"+nvId,"expProPays"+nvId, "Pays : ","lesExpPro", row3, "col-md-2");
-			createInput("text", "expProPays"+nvId, "expPro", row3, "col-md-4");			
-			createLabel("labelExpProDebut"+nvId,"expProDebut"+nvId, "Début : ","lesExpPro", row3, "col-md-2");
-			createInput("text", "expProDebut"+nvId, "expPro", row3, "col-md-4");	
-			var row4 = createRow(div);
-			createLabel("labelExpProFin"+nvId,"expProFin"+nvId, "Fin : ","lesExpPro",row4, "col-md-2");
-			createInput("text", "expProFin"+nvId, "expPro", row4, "col-md-4");			
-			createLabel("labelExpProDescription"+nvId,"expProDescription"+nvId, "Description : ","lesExpPro",row4, "col-md-2");
-			createInput("text", "expProDescription"+nvId, "expPro", row4, "col-md-3");		
-			var adresse = document.createElement("a");
-			var link = document.createTextNode("");
-			adresse.setAttribute("class", "btn btn-primary col-md-1 glyphicon glyphicon-minus-sign");
-			adresse.setAttribute("id","deleteExpPro"+nvId);
-			adresse.setAttribute("name","deleteExpPro");
-			adresse.setAttribute("onClick","suppressionChampEtBoutonExpPro("+nvId+", deleteExpPro"+nvId+"); saveExpPro");
-			adresse.appendChild(link);
-			row4.appendChild(adresse);
-			document.getElementById("lesExpPro").appendChild(div);
-		}
+	}
+	
 	/**
 	*Fonction qui permet l'ajout d'une formation
 	*/
@@ -549,8 +521,7 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 			}
 		});		
 	}
-	
-	
+
 	/**
 	*Fonction qui permet la suppression d'une expérience professionnelle
 	*--> suppression des input et des labe
@@ -574,9 +545,10 @@ function AddChamp(divId, champId, boutonId, fctSave) {
 		});				
 	}
 	
-	window.onbeforeunload = function(){
-		  return 'Les modifications non enregistrées seront perdues';
-		};
+	function SoumettreFormulaire(){  
+				document.forms["modif_form"].submit();
+	 }
+	
 </script>
 <!-- ----------------------------------------------------------------------- -->
 <!-- ----------------------------------------------------------------------- -->
@@ -592,10 +564,9 @@ window.onload = function(){
 <body>
 	<div class="section">
 		<div class="container">
-			<form action="saveProfil" method="post">
+			<form action="" method="post" onsubmit="return confirm('Voulez vous vraiment enregistrer ?');" name="modif_form">
 				<div class="row">
 					<div class="row">
-
 						<legend>Informations personelles</legend>
 						<fieldset>
 							<div class='row'>
@@ -710,181 +681,125 @@ window.onload = function(){
 						</fieldset>
 						<div class="row">
 							<div class="col-sm-offset-5 col-sm-2 text-center">
-								<button type="submit" class="btn btn-success">Enregistrer</button>
+								<button type="submit" onclick="SoumettreFormulaire();"
+									class="btn btn-success">Enregistrer</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<h3>Expériences Professionnelles <a class="btn btn-default glyphicon glyphicon-plus-sign"
-							onClick="AddExpPro2();"></a></h3>
-					<div class="row" id="Experiences">
-						<c:forEach items="${profil.profil.mesExperiences}"
-							var="experience" varStatus="loop">
-							<div class="well well-lg" id="MonExperience${loop.index}" name="ExpPro">
-								<legend>Experience</legend>
-								<div class='form-group'>
-									<div class="row">
-										<div class='col-sm-6'>
-											<div class='col-sm-2'>
-												<label for="poste">Poste</label>
-											</div>
-											<div class='col-sm-10'>
-												<input id="expProPoste${loop.index}" name="poste"
-													value="${experience.libelle}" maxlength="15"
-													class="form-control">
-											</div>
+				<h3>
+					Expériences Professionnelles <a
+						class="btn btn-default glyphicon glyphicon-plus-sign"
+						onClick="AddExpPro();"></a>
+				</h3>
+				<div class="row" id="Experiences">
+					<c:forEach items="${profil.profil.mesExperiences}" var="experience"
+						varStatus="loop">
+						<div class="well well-lg" id="MonExperience${loop.index}"
+							name="ExpPro">
+							<legend>
+								Experience <a
+									class="btn btn-default glyphicon glyphicon-minus-sign"
+									onClick="suprrimerExp(${loop.index});"></a>
+							</legend>
+							<div class='form-group'>
+								<div class="row">
+									<div class='col-sm-6'>
+										<div class='col-sm-2'>
+											<label for="poste">Poste</label>
 										</div>
-										<div class='col-sm-6'>
-											<div class='col-sm-2'>
-												<label for="entreprise">Entreprise</label>
-											</div>
-											<div class='col-sm-10'>
-												<input id="expProEntreprise${loop.index}" name="entreprise"
-													value="${experience.entreprise}" maxlength="15"
-													class="form-control">
-											</div>
+										<div class='col-sm-10'>
+											<input id="expProPoste${loop.index}" name="poste"
+												value="${experience.libelle}" maxlength="15"
+												class="form-control">
 										</div>
 									</div>
-									<br>
-									<div class="row">
-										<div class='col-sm-6'>
-											<div class='col-sm-2'>
-												<label for="ville">Ville</label>
-											</div>
-											<div class='col-sm-10'>
-												<input id="expProVille${loop.index}" name="ville"
-													value="${experience.ville}" maxlength="15"
-													class="form-control">
-											</div>
+									<div class='col-sm-6'>
+										<div class='col-sm-2'>
+											<label for="entreprise">Entreprise</label>
 										</div>
-										<div class='col-sm-6'>
-											<div class='col-sm-2'>
-												<label for="region">Region</label>
-											</div>
-											<div class='col-sm-10'>
-												<input id="expProRegion${loop.index}" name="region"
-													value="${experience.region}" maxlength="15"
-													class="form-control">
-											</div>
+										<div class='col-sm-10'>
+											<input id="expProEntreprise${loop.index}" name="entreprise"
+												value="${experience.entreprise}" maxlength="15"
+												class="form-control">
 										</div>
 									</div>
-									<div class="row">
-										<div class='col-sm-6'>
-											<div class='col-sm-2'>
-												<label for="ville">Pays</label>
-											</div>
-											<div class='col-sm-10'>
-												<input id="expProPays${loop.index}" name="pays"
-													value="${experience.pays}" maxlength="15"
-													class="form-control">
-											</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class='col-sm-6'>
+										<div class='col-sm-2'>
+											<label for="ville">Ville</label>
+										</div>
+										<div class='col-sm-10'>
+											<input id="expProVille${loop.index}" name="ville"
+												value="${experience.ville}" maxlength="15"
+												class="form-control">
 										</div>
 									</div>
-									<br>
-									<div class="row">
-										<div class='col-sm-6'>
-											<div class='col-sm-2'>
-												<label for="ville">Date début</label>
-											</div>
-											<div class='col-sm-10'>
-												<input id="expProDebut${loop.index}" name="debut"
-													value="${experience.debut}" maxlength="15"
-													class="form-control">
-											</div>
+									<div class='col-sm-6'>
+										<div class='col-sm-2'>
+											<label for="region">Region</label>
 										</div>
-										<div class='col-sm-6'>
-											<div class='col-sm-2'>
-												<label for="ville">Date fin</label>
-											</div>
-											<div class='col-sm-10'>
-												<input id="expProFin${loop.index}" name="fin"
-													value="${experience.fin}" maxlength="15"
-													class="form-control">
-											</div>
+										<div class='col-sm-10'>
+											<input id="expProRegion${loop.index}" name="region"
+												value="${experience.region}" maxlength="15"
+												class="form-control">
 										</div>
 									</div>
-									<br>
-									<div class="row">
-										<div class='col-sm-1'>
-											<label for="ville">Description</label>
+								</div>
+								<div class="row">
+									<div class='col-sm-6'>
+										<div class='col-sm-2'>
+											<label for="ville">Pays</label>
 										</div>
-										<div class='col-sm-11'>
-											<textarea class="form-control"
-												id="expProDescription${loop.index}" name="description"><c:out
-													value="${experience.description}" /></textarea>
+										<div class='col-sm-10'>
+											<input id="expProPays${loop.index}" name="pays"
+												value="${experience.pays}" maxlength="15"
+												class="form-control">
 										</div>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class='col-sm-6'>
+										<div class='col-sm-2'>
+											<label for="ville">Date début</label>
+										</div>
+										<div class='col-sm-10'>
+											<input id="expProDebut${loop.index}" name="debut"
+												value="${experience.debut}" maxlength="15"
+												class="form-control">
+										</div>
+									</div>
+									<div class='col-sm-6'>
+										<div class='col-sm-2'>
+											<label for="ville">Date fin</label>
+										</div>
+										<div class='col-sm-10'>
+											<input id="expProFin${loop.index}" name="fin"
+												value="${experience.fin}" maxlength="15"
+												class="form-control">
+										</div>
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class='col-sm-1'>
+										<label for="ville">Description</label>
+									</div>
+									<div class='col-sm-11'>
+										<textarea class="form-control"
+											id="expProDescription${loop.index}" name="description"><c:out
+												value="${experience.description}" /></textarea>
 									</div>
 								</div>
 							</div>
-						</c:forEach>
-					</div>
+						</div>
+					</c:forEach>
 				</div>
+				<h3>Compétences</h3>
 				<div class="row">
-					<h3>Expériences Professionnelles</h3>
-					<div class="well well-lg" id="lesExpPro">
-						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
-							onClick="AddExpPro();"></a> <a
-							class="btn btn-primary glyphicon glyphicon-floppy-disk"
-							onClick="saveExpPro();"> Enregistrer</a>
-						<c:forEach items="${profil.profil.mesExperiences}"
-							var="experience" varStatus="loop">
-							<div id="divExpPro${loop.index}" name="divExpPro">
-								<div class="row">
-									<label id="labelExpProPoste${loop.index}"
-										for="expProPoste${loop.index}" class="col-md-2">Poste
-										:</label> <input id="expProPoste${loop.index}" name="expPro"
-										value="${experience.libelle}" maxlength="15" class="col-md-4">
-
-									<label id="labelExpProEntreprise${loop.index}"
-										for="expProEntreprise${loop.index}" class="col-md-2">Entreprise
-										:</label> <input id="expProEntreprise${loop.index}" name="expPro"
-										value="${experience.entreprise}" maxlength="15"
-										class="col-md-4">
-								</div>
-								<div class="row">
-									<label id="labelExpProVille${loop.index}"
-										for="expProVille${loop.index}" class="col-md-2">Ville
-										:</label> <input id="expProVille${loop.index}" name="expPro"
-										value="${experience.ville}" maxlength="15" class="col-md-4">
-
-									<label id="labelExpProRegion${loop.index}"
-										for="expProRegion${loop.index}" class="col-md-2">Région
-										:</label> <input id="expProRegion${loop.index}" name="expPro"
-										value="${experience.region}" maxlength="15" class="col-md-4">
-								</div>
-								<div class="row">
-									<label id="labelExpProPays${loop.index}"
-										for="expProPays${loop.index}" class="col-md-2">Pays :</label>
-									<input id="expProPays${loop.index}" name="expPro"
-										value="${experience.pays}" maxlength="15" class="col-md-4">
-									<label id="labelExpProDebut${loop.index}"
-										for="expProDebut${loop.index}" class="col-md-2">Début
-										:</label> <input id="expProDebut${loop.index}" name="expPro"
-										value="${experience.debut}" maxlength="15" class="col-md-4">
-								</div>
-								<div class="row">
-									<label id="labelExpProFin${loop.index}"
-										for="expProFin${loop.index}" class="col-md-2">Fin :</label> <input
-										id="expProFin${loop.index}" name="expPro"
-										value="${experience.fin}" maxlength="15" class="col-md-4">
-
-									<label id="labelExpProDescription${loop.index}"
-										for="expProDescription${loop.index}" class="col-md-2">Description
-										:</label> <input id="expProDescription${loop.index}" name="expPro"
-										value="${experience.description}" maxlength="15"
-										class="col-md-3"> <a id="deleteExpPro${loop.index}"
-										name="deleteExpPro"
-										class="btn btn-primary  glyphicon glyphicon-minus-sign col-md-1"
-										onClick='suppressionChampEtBoutonExpPro(${loop.index},
-													deleteExpPro${loop.index}); saveExpPro();'></a>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-				</div>
-				<div class="row col-md-12">
-					<h3>Compétences</h3>
 					<div id="lesCompetences" class="well well-lg">
 						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
 							onClick="AddChamp('lesCompetences', 'competence', 'deleteCompetence','saveCompetence()');"></a><a
