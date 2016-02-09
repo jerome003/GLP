@@ -66,13 +66,13 @@ public class Main {
 			adminBean.addGroupetoModo(moderateur2.getId(), groupe2);
 			
 			etudiant =etuBean.createEtudiant("Sarra", "Bahbah", Civilite.Mme, "sara@googleNON.bla","000000",adminBean.generatePassword(8), 
-					new Date(),"Dev", "Paris", "CGI","miage", 2015, groupe);
+					new Date(),"Sans emploi","Dev", "Paris", "CGI","miage", 2015, groupe);
 			etudiant2 =etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@googleNON.bla","000000", 
-					adminBean.generatePassword(8), new Date(),"Dev", "Lille", "CGI","miage", 2015, groupe);
+					adminBean.generatePassword(8), new Date(),"Sans emploi","Dev", "Lille", "CGI","miage", 2015, groupe);
 			etudiant3 =etuBean.createEtudiant("Maxime", "Gidon", Civilite.M, "maxime@googleNON.bla","000000", 
-					adminBean.generatePassword(8), new Date(),"Dev", "Lyon", "Worldline","miage", 2015, groupe2);
+					adminBean.generatePassword(8), new Date(),"Sans emploi","Dev", "Lyon", "Worldline","miage", 2015, groupe2);
 			etudiant4 =etuBean.createEtudiant("Paolo", "Delpiro", Civilite.M, "paolo@googleNON.bla","000000",
-					adminBean.generatePassword(8), new Date(),"Dev", "Lille", "CGI","miage", 2015, groupe2);
+					adminBean.generatePassword(8), new Date(),"Sans emploi","Dev", "Lille", "CGI","miage", 2015, groupe2);
 			
 			System.out.println("etudiant 1 est : "+ etudiant.getPrenom()+" "+etudiant.getNom()+" son adresse mail : "+etudiant.getEmail()+" et son mot de passe : "+etudiant.getPassword());
 			System.out.println("etudiant 2 est : "+ etudiant2.getPrenom()+" "+etudiant2.getNom()+" son adresse mail : "+etudiant2.getEmail()+" et son mot de passe : "+etudiant2.getPassword());

@@ -2,18 +2,7 @@
 <%@ page session="false"%>
 <div class="container">
 	<div class="row">
-		<div class="col-md-12">
-			<div class="col-sm-2">
-				<a class="btn mini blue-stripe"
-					href="${pageContext.request.contextPath}/connexionAdmin">Connexion
-					Admin</a>
-			</div>
-			<div class="col-sm-2">
-				<a class="btn mini blue-stripe"
-					href="${pageContext.request.contextPath}/connexionModerateur">Connexion
-					Moderateur</a>
-			</div>
-		</div>
+		
 		<div class="col-md-12">
 
 			<img class="img-responsive"

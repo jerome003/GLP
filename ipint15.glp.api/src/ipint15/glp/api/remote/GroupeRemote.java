@@ -25,6 +25,6 @@ public interface GroupeRemote {
 
 	public void editGroupe(int id, String description);
 
-	
+	List<GroupeDTO> getGroupesOfAncienByIdAncien (int id);
 
 }

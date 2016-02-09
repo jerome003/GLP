@@ -46,8 +46,8 @@ public class RechercheImplTest {
 		
 		GroupeDTO groupe = groupBean.createGroupe("miage","groupeMiage");
 		groupBean.createGroupe("info","groupeInfo");
-		etuBean.createEtudiant("Mireille", "Delpeche", Civilite.Mme, "mireille@gmail.com","00000000", "password",new Date(), "prof","Lille", "Université lille", "miage",1980, groupe );
-		etuBean.createEtudiant("Tom", "Hardy", Civilite.M, "tom@gmail.com","000000", "password", new Date(), "CP", "Paris","Miage Corp", "miage",2006, groupe);
+		etuBean.createEtudiant("Mireille", "Delpeche", Civilite.Mme, "mireille@gmail.com","00000000", "password",new Date(), "Sans emploi","prof","Lille", "Université lille", "miage",1980, groupe );
+		etuBean.createEtudiant("Tom", "Hardy", Civilite.M, "tom@gmail.com","000000", "password", new Date(),"Sans emploi", "CP", "Paris","Miage Corp", "miage",2006, groupe);
 	}
 	
 	@AfterClass

@@ -38,6 +38,7 @@ public class AncienEtudiantDTO implements Serializable {
 	@Past (message= "Veuillez saisir une date de naissance valide")
 	private Date naissance;
 	
+	private String statut;
 	private String villeActu;
 	private String posteActu;
 	private String nomEntreprise;
@@ -187,6 +188,13 @@ public class AncienEtudiantDTO implements Serializable {
 	}
 	public void setLinkedin(String linkedin) {
 		this.linkedin = linkedin;
+	}
+	
+	public String getStatut() {
+		return statut;
+	}
+	public void setStatut(String statut) {
+		this.statut = statut;
 	}
 	@Override
 	public String toString() {
