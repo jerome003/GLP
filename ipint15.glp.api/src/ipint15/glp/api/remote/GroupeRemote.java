@@ -21,7 +21,9 @@ public interface GroupeRemote {
 
 	public GroupeDTO getGroupeDTOById(int id);
 
-	int getGroupeSize(int id);
+	public int getGroupeSize(int id);
+
+	public void editGroupe(int id, String description);
 
 	
 

@@ -143,6 +143,13 @@
         <put-attribute name="body" value="/WEB-INF/views/body/moderateur.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>
+     <definition name="editerGroupe"
+       template="/WEB-INF/views/layout/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerAdminConnect.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/body/editerGroupe.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
+    </definition>
     <definition name="validationInscription"
         template="/WEB-INF/views/layout/layout.jsp">
         <put-attribute name="title" value="" />

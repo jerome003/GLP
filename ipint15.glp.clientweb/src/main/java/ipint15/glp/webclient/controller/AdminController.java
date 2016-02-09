@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -115,7 +116,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/saveModerateur", method = RequestMethod.POST)
-	public ModelAndView saveGroupe(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result, HttpServletRequest request) {
+	public ModelAndView saveModerateur(@Valid @ModelAttribute("command") ModerateurDTO moderateur, BindingResult result, HttpServletRequest request) {
 
 		ModelAndView modelView;
 
@@ -188,7 +189,109 @@ public class AdminController {
 		return modelView;
 	}
 
+	@RequestMapping(value = "/admin/editerGroupe/{id}", method = RequestMethod.GET)
+	public ModelAndView editerGroupe(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
+		HttpSession sessionObj = request.getSession();
+		
+		try {
+			if (sessionObj.getAttribute("type").equals("admin")) {
+				sessionObj.setAttribute("section", "groupe");
+				int id = Integer.parseInt(pathVariables.get("id"));
+				GroupeDTO groupe = groupeBean.getGroupeDTOById(id);
+				sessionObj.setAttribute("groupe", groupe);
+				List<ModerateurDTO> listeResultat = administrationBean.getModerateursDuGroupe(id);
+				ModelAndView modelView = new ModelAndView("editerGroupe", "command", new GroupeDTO());
+				modelView.addObject("listeModo", listeResultat);
+				model.addAttribute("myInjectedBean", administrationBean);
+				return modelView;
+			} else {
+				ModelAndView modelView = new ModelAndView("errorAccesRole");
+				return modelView;
+			}	
+		} catch (NullPointerException e) {
+			ModelAndView modelView = new ModelAndView("errorAccesRole");
+			return modelView;
+		}
+	}
+	
+	@RequestMapping(value = "admin/editerGroupe/editGroupe1/{id}", method = RequestMethod.POST)
+	public ModelAndView saveEditGroupe(String descriptionGroupe,
+			@PathVariable Map<String, String> pathVariables) {
 
+
+		int id =(Integer)Integer.parseInt(pathVariables.get("id"));
+		ModelAndView modelView = new ModelAndView("redirect:/admin/editerGroupe/"+id);
+		
+		GroupeDTO groupe = groupeBean.getGroupeDTOById(id);
+		
+		if( groupe.getDescription().equals(descriptionGroupe)) {
+			modelView.addObject("edition1", "ko");
+			return modelView;
+		}
+		else {
+			
+			groupeBean.editGroupe(id, descriptionGroupe);
+			List<ModerateurDTO> listeResultat = administrationBean.getModerateursDuGroupe(id);
+			modelView = new ModelAndView("redirect:/admin/editerGroupe/"+id, "command", new GroupeDTO());
+			modelView.addObject("listeModo", listeResultat);
+			modelView.addObject("edition1", "ok");
+			return modelView;
+		}
+			
+		
+		
+	}
+
+	@RequestMapping(value = "admin/editerGroupe/editGroupe2/{id}", method = RequestMethod.POST)
+	public ModelAndView saveEditGroupe2( int modo,
+			@PathVariable Map<String, String> pathVariables) {
+
+
+		int id =(Integer)Integer.parseInt(pathVariables.get("id"));
+		ModelAndView modelView = new ModelAndView("redirect:/admin/editerGroupe/"+id);
+		
+		GroupeDTO groupe = groupeBean.getGroupeDTOById(id);
+		
+		if(administrationBean.isModerateurOfGroupe(modo, id)) {
+			modelView.addObject("edition2", "ko");
+			return modelView;
+		}
+		else {
+				ModerateurDTO mDTO = administrationBean.addGroupetoModo(modo, groupe);
+				administrationBean.sendMailModoAssign(mDTO, groupe);
+				List<ModerateurDTO> listeResultat = administrationBean.getModerateursDuGroupe(id);
+				modelView = new ModelAndView("redirect:/admin/editerGroupe/"+id, "command", new GroupeDTO());
+				modelView.addObject("listeModo", listeResultat);
+				modelView.addObject("edition2", "ok");
+				return modelView;
+			}
+		
+	}
+	
+	@RequestMapping(value = "/admin/editerGroupe/removeModerateurFromGroupe/Modo={id}/Groupe={id2}", method = RequestMethod.GET)
+	public ModelAndView removeModerateurFromGroupe(Locale locale, Model model,
+			@PathVariable Map<String, String> pathVariables) {
+		
+		
+		ModelAndView modelView ;
+
+		int idModo = Integer.parseInt(pathVariables.get("id"));
+		int idGroupe = Integer.parseInt(pathVariables.get("id2"));
+		System.out.println("id Modo : "+idModo);
+		System.out.println("id Groupe : "+idGroupe);
+		modelView = new ModelAndView("redirect:/admin/editerGroupe/"+idGroupe);
+		
+		if (administrationBean.removeModerateurFromGroupe(idModo,idGroupe)){
+			List<ModerateurDTO> listeResultat = administrationBean.getModerateursDuGroupe(idGroupe);
+			modelView = new ModelAndView("redirect:/admin/editerGroupe/"+idGroupe, "command", new ModerateurDTO());
+			modelView.addObject("listeModo", listeResultat);
+			modelView.addObject("delete", "ok");
+			return modelView;
+		}
+		modelView.addObject("delete","ko");
+		return modelView;
+	}
 
 
 }
