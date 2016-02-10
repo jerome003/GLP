@@ -28,6 +28,7 @@ import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.domain.entities.Admin;
 import ipint15.glp.domain.entities.AncienEtudiant;
+import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Moderateur;
 import ipint15.glp.domain.util.Conversion;
@@ -204,7 +205,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		return false;
 	}
 
-	@Override
+	
 	public boolean isThereAnAdmin() {
 		Query q = em.createQuery("select o from Admin o  ");
 
@@ -498,6 +499,51 @@ public class AdministrationImpl implements AdministrationRemote {
 		return false;
 		
 	}
+
+	@Override
+	public List<ModerateurDTO> getModerateursDuGroupe(int id) {
+		Groupe groupe = getGroupeById(id);
+		List<Moderateur> mList = groupe.getModerateurs();
+		List<ModerateurDTO> mDTOList = new ArrayList<ModerateurDTO>();
+		for(Moderateur m : mList) {
+			if (!m.getGroupes().isEmpty()) {
+				mDTOList.add(ce.MappingGroupeModerateur(m, m.getGroupes()));
+
+			}else {
+				mDTOList.add(m.toModerateurDTO());
+			}
+		}
+		return mDTOList;
+		
+	}
+
+	@Override
+	public boolean isModerateurOfGroupe(int idModo, int idGroupe) {
+		Groupe g = getGroupeById(idGroupe);
+		Moderateur m = getModerateurById(idModo);
+		if (g.getModerateurs().contains(m)){
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean removeModerateurFromGroupe(int idModo, int idGroupe) {
+		Moderateur m = getModerateurById(idModo);
+		Groupe g = getGroupeById(idGroupe);
+		List<Moderateur> listeModo = g.getModerateurs();
+		List<Groupe> listeGroupe = m.getGroupes();
+		if (listeModo.size()>1 && listeModo.contains(m)){
+			listeGroupe.remove(g);
+			listeModo.remove(m);
+			em.merge(m);
+			return true;
+		}
+		return false;
+	}
+	
+	
 	
 	
 

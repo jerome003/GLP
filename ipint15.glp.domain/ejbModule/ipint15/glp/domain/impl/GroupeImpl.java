@@ -60,6 +60,15 @@ public class GroupeImpl implements GroupeRemote {
 		em.merge(g);
 
 	}
+	
+	@Override
+	public void editGroupe(int id, String description) {
+		Groupe g = getGroupeById(id);
+		g.setDescription(description);
+
+		em.merge(g);
+
+	}
 
 	@Override
 	public List<GroupeDTO> getAllGroupe() {

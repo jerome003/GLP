@@ -49,6 +49,7 @@ public class Main {
 			modo = adminBean.createModerateur("bla", "bla", "email@bla.bla", adminBean.generatePassword(8));
 			modo2 = adminBean.createModerateur("bla2", "bla2", "email2@bla.bla", adminBean.generatePassword(8));
 			modo3 = adminBean.createModerateur("bla3", "bla3", "email3@bla.bla", adminBean.generatePassword(8));
+		
 			
 			groupe = groupBean.createGroupe("Miage","Groupe Miage");
 			groupe2 = groupBean.createGroupe("Elfe", "Ecole des Elfes");
