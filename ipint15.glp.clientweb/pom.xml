@@ -183,6 +183,24 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+				<!-- Connexion CAS -->
+        <dependency>
+            <groupId>org.jasig.cas.client</groupId>
+            <artifactId>cas-client-core</artifactId>
+            <version>3.4.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jasig.cas.client</groupId>
+            <artifactId>cas-client-support-saml</artifactId>
+            <version>3.4.1</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<plugins>

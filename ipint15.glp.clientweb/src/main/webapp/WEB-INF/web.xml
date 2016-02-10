@@ -48,4 +48,67 @@
 		<location>/WEB-INF/views/body/layout-error.jsp</location>
 	</error-page>
 
+	<filter>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+		<init-param>
+			<param-name>casServerLoginUrl</param-name>
+			<param-value>https://sso-cas.univ-lille1.fr/login</param-value>
+		</init-param>
+		<init-param>
+			<param-name>serverName</param-name>
+			<param-value>b12p9.fil.univ-lille1.fr:8080/</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>CAS Validation Filter</filter-name>
+		<filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
+		<init-param>
+			<param-name>casServerUrlPrefix</param-name>
+			<param-value>https://sso-cas.univ-lille1.fr</param-value>
+		</init-param>
+		<init-param>
+			<param-name>serverName</param-name>
+			<param-value>b12p9.fil.univ-lille1.fr:8080/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>redirectAfterValidation</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<!-- Adjust to accommodate clock drift between client/server. Increasing 
+				tolerance has security consequences, so it is preferable to correct the source 
+				of clock drift instead. -->
+			<param-name>tolerance</param-name>
+			<param-value>5000</param-value>
+		</init-param>
+		<!-- <init-param> <param-name>useSession</param-name> <param-value>true</param-value> 
+			</init-param> <init-param> <param-name>acceptAnyProxy</param-name> <param-value>true</param-value> 
+			</init-param> <init-param> <param-name>proxyReceptorUrl</param-name> <param-value>http://localhost:8080/ipint15.glp.clientweb/</param-value> 
+			</init-param> <init-param> <param-name>proxyCallbackUrl</param-name> <param-value>http://localhost:8080/ipint15.glp.clientweb/</param-value> 
+			</init-param> -->
+	</filter>
+
+	<filter>
+		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+		<filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CAS Validation Filter</filter-name>
+		<url-pattern>/azeaze</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<url-pattern>/azeaze</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+		<url-pattern>/azeaze</url-pattern>
+		
+	</filter-mapping>
+
 </web-app>
