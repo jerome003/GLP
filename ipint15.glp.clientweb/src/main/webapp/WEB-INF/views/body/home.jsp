@@ -24,7 +24,7 @@
 						<li>Contactez les pour obtenir des informations</li>
 					</ul>
 					<a class="btn btn-lg btn-primary  btn-block"
-						href="${pageContext.request.contextPath}/connexion"><span
+						href="${pageContext.request.contextPath}/connexionEtudiant"><span
 						class="glyphicon glyphicon-log-in"></span> Identifiez-vous !</a>
 			</div>
 		</div>

@@ -278,11 +278,12 @@ public class AdminController {
 
 		int idModo = Integer.parseInt(pathVariables.get("id"));
 		int idGroupe = Integer.parseInt(pathVariables.get("id2"));
-		System.out.println("id Modo : "+idModo);
-		System.out.println("id Groupe : "+idGroupe);
+		ModerateurDTO mod = administrationBean.getModerateurDTOById(idModo);
+		GroupeDTO groupe = groupeBean.getGroupeDTOById(idGroupe);
 		modelView = new ModelAndView("redirect:/admin/editerGroupe/"+idGroupe);
 		
 		if (administrationBean.removeModerateurFromGroupe(idModo,idGroupe)){
+			administrationBean.sendMailModoUnassign(mod, groupe);
 			List<ModerateurDTO> listeResultat = administrationBean.getModerateursDuGroupe(idGroupe);
 			modelView = new ModelAndView("redirect:/admin/editerGroupe/"+idGroupe, "command", new ModerateurDTO());
 			modelView.addObject("listeModo", listeResultat);
