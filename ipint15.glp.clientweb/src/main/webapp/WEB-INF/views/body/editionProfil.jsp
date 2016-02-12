@@ -21,7 +21,7 @@
 									<input type="hidden" id="idEtu" name="idEtu"
 										value="${profil.id}" /> <label for="mail">Mail</label> <input
 										class="form-control" id="mail" value="${profil.email}"
-										name="mail" disabled="disabled" required="true" size="30"
+										name="mail" disabled="true" required="true" size="30"
 										type="text" />
 								</div>
 							</div>
@@ -196,12 +196,18 @@
 							<div class="row">
 								<div class='col-sm-6'>
 									<div class='col-sm-2'>
-										<label for="ville">Pays</label>
+										<label for="pays">Pays</label>
 									</div>
 									<div class='col-sm-10'>
-										<input id="expProPays${loop.index}" name="pays"
-											value="${experience.pays}" maxlength="15"
-											class="form-control">
+										<select class="form-control" id="expProPays${loop.index}"
+											name="pays" onchange="changementVilleExp(${loop.index})">
+											<option value="France"
+												${experience.pays == 'France' ? 'selected' : ''}>France</option>
+											<option value="Royaume-Unis"
+												${experience.pays == 'Royaume-Unis' ? 'selected' : ''}>Royaume-Unis</option>
+											<option value="Belgique"
+												${experience.pays == 'Belgique' ? 'selected' : ''}>Belgique</option>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -209,7 +215,7 @@
 							<div class="row">
 								<div class='col-sm-6'>
 									<div class='col-sm-2'>
-										<label for="ville">Date début</label>
+										<label for="dateDebut">Date début</label>
 									</div>
 									<div class='col-sm-10'>
 										<input id="expProDebut${loop.index}" name="debut"
@@ -219,7 +225,7 @@
 								</div>
 								<div class='col-sm-6'>
 									<div class='col-sm-2'>
-										<label for="ville">Date fin</label>
+										<label for="dateFin">Date fin</label>
 									</div>
 									<div class='col-sm-10'>
 										<input id="expProFin${loop.index}" name="fin"
@@ -230,7 +236,7 @@
 							<br>
 							<div class="row">
 								<div class='col-sm-1'>
-									<label for="ville">Description</label>
+									<label for="description">Description</label>
 								</div>
 								<div class='col-sm-11'>
 									<textarea class="form-control"
@@ -276,65 +282,103 @@
 					</div>
 				</c:forEach>
 			</div>
-			<h3>Formations</h3>
-			<div class="row">
-				<div class="well well-lg">
-					<div class="lesFormations" id="lesFormations">
-						<a class="btn btn-primary glyphicon glyphicon-plus-sign"
-							onClick="AddFormation('lesFormations', 'formations', 'deleteFormation');"></a>
-						<a class="btn btn-primary glyphicon glyphicon-floppy-disk"
-							onClick="saveFormation();"> Enregistrer</a>
-
-						<c:forEach items="${profil.profil.mesEcoles}" var="ecole"
-							varStatus="loop">
-							<div class="divFormation" name="divFormation">
-								<div class="row">
-									<label id="labelFormIntit${loop.index}"
-										for="formIntit${loop.index}" class="col-md-2">Intitulé
-										:</label> <input id="formIntit${loop.index}" name="formation"
-										value="${ecole.libelle}" maxlength="15" class="col-md-2">
-
-									<label id="labelFormEtabl${loop.index}"
-										for="formEtabl${loop.index}" class="col-md-2">Établissement
-										:</label> <input id="formEtabl${loop.index}" name="formation"
-										value="${ecole.etablissement}" maxlength="15" class="col-md-2">
-									<label id="labelFormDebut${loop.index}"
-										for="formDebut${loop.index}" class="col-md-2">Début :</label>
-									<input id="formDebut${loop.index}" name="formation"
-										value="${ecole.debut}" maxlength="15" class="col-md-2">
+			<h3>
+				Formations <a class="btn btn-default glyphicon glyphicon-plus-sign"
+					onClick="AddFormation();"></a>
+			</h3>
+			<div class="row" id="Formations">
+				<c:forEach items="${profil.profil.mesEcoles}" var="ecole"
+					varStatus="loop">
+					<div class="well well-lg" id="MaFormation${loop.index}"
+						name="Formation">
+						<legend>
+							Formation <a
+								class="btn btn-default glyphicon glyphicon-minus-sign"
+								onClick="suprrimerFormation(${loop.index});"></a>
+						</legend>
+						<div class='form-group'>
+							<div class="row">
+								<div class='col-sm-6'>
+									<div class='col-sm-2'>
+										<label for="intitule">Intitulé</label>
+									</div>
+									<div class='col-sm-10'>
+										<input id="formationIntitule${loop.index}" name="intitule"
+											value="${ecole.libelle}" maxlength="15" class="form-control">
+									</div>
 								</div>
-								<div class="row">
-									<label id="labelFormFin${loop.index}"
-										for="formFin${loop.index}" class="col-md-2">Fin :</label> <input
-										id="formFin${loop.index}" name="formation"
-										value="${ecole.fin}" maxlength="15" class="col-md-2">
-									<label id="labelFormVille${loop.index}"
-										for="formVille${loop.index}" class="col-md-2">Ville :</label>
-									<input id="formVille${loop.index}" name="formation"
-										value="${ecole.ville}" maxlength="15" class="col-md-2">
-
-									<label id="labelFormRegion${loop.index}"
-										for="formRegion${loop.index}" class="col-md-2">Région
-										:</label> <input id="formRegion${loop.index}" name="formation"
-										value="${ecole.region}" maxlength="15" class="col-md-2">
-								</div>
-								<div class="row">
-									<label id="labelFormPays${loop.index}"
-										for="formPays${loop.index}" class="col-md-2">Pays :</label> <input
-										id="formPays${loop.index}" name="formation"
-										value="${ecole.pays}" maxlength="15" class="col-md-2">
-									<a id="deleteFormation${loop.index}" name="deleteFormation"
-										class="btn btn-primary  glyphicon glyphicon-minus-sign col-md-1 col-sm-offset-7"
-										onClick='suppressionChampEtBoutonFormation(${loop.index},
-													deleteFormation${loop.index}); saveFormation();'></a>
+								<div class='col-sm-6'>
+									<div class='col-sm-3'>
+										<label for="etablissement">Etablissement</label>
+									</div>
+									<div class='col-sm-9'>
+										<input id="formationEtablissement${loop.index}"
+											name="etablissement" value="${ecole.etablissement}"
+											maxlength="15" class="form-control">
+									</div>
 								</div>
 							</div>
-						</c:forEach>
+							<br>
+							<div class="row">
+								<div class='col-sm-6'>
+									<div class='col-sm-2'>
+										<label for="dateDebut">Date début</label>
+									</div>
+									<div class='col-sm-10'>
+										<input id="formationDebut${loop.index}" name="debutForm"
+											value="${ecole.debut}" maxlength="15" class="form-control">
+									</div>
+								</div>
+								<div class='col-sm-6'>
+									<div class='col-sm-3'>
+										<label for="dateFin">Date fin</label>
+									</div>
+									<div class='col-sm-9'>
+										<input id="formationFin${loop.index}" name="finForm"
+											value="${ecole.fin}" maxlength="15" class="form-control">
+									</div>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class='col-sm-6'>
+									<div class='col-sm-2'>
+										<label for="ville">Ville</label>
+									</div>
+									<div class='col-sm-10'>
+										<input id="formationVille${loop.index}" name="villeForm"
+											value="${ecole.ville}" maxlength="15" class="form-control">
+									</div>
+								</div>
+								<div class='col-sm-6'>
+									<div class='col-sm-2'>
+										<label for="region">Region</label>
+									</div>
+									<div class='col-sm-10'>
+										<input id="formationRegion${loop.index}" name="regionForm"
+											value="${ecole.region}" maxlength="15" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class='col-sm-6'>
+									<div class='col-sm-2'>
+										<label for="pays">Pays</label>
+									</div>
+									<div class='col-sm-10'>
+										<input id="formationPays${loop.index}" name="paysForm"
+											value="${ecole.pays}" maxlength="15" class="form-control">
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
+				</c:forEach>
 			</div>
-			<h3>Loisirs <a class="btn btn-default glyphicon glyphicon-plus-sign"
-					onClick="AddLoisir();"></a></h3>
+			<h3>
+				Loisirs <a class="btn btn-default glyphicon glyphicon-plus-sign"
+					onClick="AddLoisir();"></a>
+			</h3>
 			<div class="row" id="Loisirs">
 				<c:forEach items="${profil.profil.mesHobbies}" var="loisir"
 					varStatus="loop">

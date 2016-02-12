@@ -116,6 +116,23 @@ public class EditionProfilController {
 			}
 		}
 		
+		//Formations
+		String[] intitules = request.getParameterValues("intitule");
+		String[] etablissements = request.getParameterValues("etablissement");
+		String[] debutForms = request.getParameterValues("debutForm");
+		String[] finForms = request.getParameterValues("finForm");
+		String[] villeForms = request.getParameterValues("villeForm");
+		String[] regionForms = request.getParameterValues("regionForm");
+		String[] paysForms = request.getParameterValues("paysForm");
+		
+		etudiantBean.deleteFormationList(monEtudiant);
+		if (intitules!=null){
+
+			for(int i=0;i<intitules.length;i++){
+				etudiantBean.addEcole(monEtudiant, intitules[i], etablissements[i], debutForms[i], finForms[i], villeForms[i], regionForms[i], paysForms[i]);
+			}
+		}
+		
 		//Loisirs
 		String[] loisirNoms = request.getParameterValues("loisirNom");
 		

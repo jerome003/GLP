@@ -310,12 +310,23 @@ function AddExpPro() {
 	labelPays.htmlFor = "pays";
 	labelPays.innerHTML = "Pays";
 	divLabelPays.appendChild(labelPays);
-	var inputPays = document.createElement("input");
-	inputPays.id = "expProPays" + taille;
-	inputPays.name = "pays";
-	inputPays.setAttribute("class", "form-control");
-	divInputPays.appendChild(inputPays);
 
+	//Create array of options to be added
+	var array = ["France","Royaume-Unis","Belgique"];
+	//Create and append select list
+	var selectList = document.createElement("select");
+	selectList.id = "expProPays"+taille;
+	selectList.name="pays";
+	selectList.setAttribute("class", "form-control");
+	divInputPays.appendChild(selectList);
+	//Create and append the options
+	for (var i = 0; i < array.length; i++) {
+	    var option = document.createElement("option");
+	    option.value = array[i];
+	    option.text = array[i];
+	    selectList.appendChild(option);
+	}
+	
 	//Ligne 4
 	var divDebut = document.createElement("div");
 	divDebut.setAttribute("class", "col-sm-6");
@@ -374,6 +385,186 @@ function AddExpPro() {
 	textareaDescription.name = "description";
 	textareaDescription.setAttribute("class", "form-control");
 	divTextareaDescription.appendChild(textareaDescription);
+
+}
+
+function AddFormation() {
+	var taille = document.getElementsByName("Formation").length;
+
+	var div = document.createElement("div");
+	div.setAttribute("class", "well well-lg");
+	div.id = "MaFormation" + taille;
+	div.setAttribute("name", "Formation");
+	document.getElementById("Formations").appendChild(div);
+
+	var legend = document.createElement("legend");
+	legend.innerHTML = "Formation";
+	div.appendChild(legend);
+	var boutonSupression = document.createElement("a");
+	boutonSupression.setAttribute("class",
+			"btn btn-default glyphicon glyphicon-minus-sign");
+	boutonSupression.setAttribute("onClick", "suprrimerFormation(" + taille + ");")
+	legend.appendChild(boutonSupression);
+
+	var div2 = document.createElement("div");
+	div2.setAttribute("class", "form-group");
+	div.appendChild(div2);
+
+	var row1 = createRow(div2);
+	div2.appendChild(document.createElement("br"));
+	var row2 = createRow(div2);
+	div2.appendChild(document.createElement("br"));
+	var row3 = createRow(div2);
+	var row4 = createRow(div2);
+	
+
+	// Ligne 1
+	var divNom = document.createElement("div");
+	divNom.setAttribute("class", "col-sm-6");
+	row1.appendChild(divNom);
+	var divEtablissement = document.createElement("div");
+	divEtablissement.setAttribute("class", "col-sm-6");
+	row1.appendChild(divEtablissement);
+
+	//Nom
+	var divLabelNom = document.createElement("div");
+	divLabelNom.setAttribute("class", "col-sm-2");
+	divNom.appendChild(divLabelNom);
+	var divInputNom = document.createElement("div");
+	divInputNom.setAttribute("class", "col-sm-10");
+	divNom.appendChild(divInputNom);
+	var labelNom = document.createElement("label");
+	labelNom.htmlFor = "intitule";
+	labelNom.innerHTML = "Intitule";
+	divLabelNom.appendChild(labelNom);
+	var inputNom = document.createElement("input");
+	inputNom.id = "formationIntitule" + taille;
+	inputNom.name = "intitule";
+	inputNom.setAttribute("class", "form-control");
+	divInputNom.appendChild(inputNom);
+
+	//Etablissement
+	var divLabelEtablissement = document.createElement("div");
+	divLabelEtablissement.setAttribute("class", "col-sm-3");
+	divEtablissement.appendChild(divLabelEtablissement);
+	var divInputEtablissement = document.createElement("div");
+	divInputEtablissement.setAttribute("class", "col-sm-9");
+	divEtablissement.appendChild(divInputEtablissement);
+	var labelEtablissement = document.createElement("label");
+	labelEtablissement.htmlFor = "etablissement";
+	labelEtablissement.innerHTML = "Etablissement";
+	divLabelEtablissement.appendChild(labelEtablissement);
+	var inputEtablissement = document.createElement("input");
+	inputEtablissement.id = "formationEtablissement" + taille;
+	inputEtablissement.name = "etablissement";
+	inputEtablissement.setAttribute("class", "form-control");
+	divInputEtablissement.appendChild(inputEtablissement);
+	
+	//Ligne 2
+	var divDebut = document.createElement("div");
+	divDebut.setAttribute("class", "col-sm-6");
+	row2.appendChild(divDebut);
+	var divFin = document.createElement("div");
+	divFin.setAttribute("class", "col-sm-6");
+	row2.appendChild(divFin);
+
+	//Debut
+	var divLabelDebut = document.createElement("div");
+	divLabelDebut.setAttribute("class", "col-sm-2");
+	divDebut.appendChild(divLabelDebut);
+	var divInputDebut = document.createElement("div");
+	divInputDebut.setAttribute("class", "col-sm-10");
+	divDebut.appendChild(divInputDebut);
+	var labelDebut = document.createElement("label");
+	labelDebut.htmlFor = "dateDebut";
+	labelDebut.innerHTML = "Date debut";
+	divLabelDebut.appendChild(labelDebut);
+	var inputDebut = document.createElement("input");
+	inputDebut.id = "formationDebut" + taille;
+	inputDebut.name = "debutForm";
+	inputDebut.setAttribute("class", "form-control");
+	divInputDebut.appendChild(inputDebut);
+
+	//Fin
+	var divLabelFin = document.createElement("div");
+	divLabelFin.setAttribute("class", "col-sm-3");
+	divFin.appendChild(divLabelFin);
+	var divInputFin = document.createElement("div");
+	divInputFin.setAttribute("class", "col-sm-9");
+	divFin.appendChild(divInputFin);
+	var labelFin = document.createElement("label");
+	labelFin.htmlFor = "dateFin";
+	labelFin.innerHTML = "Date fin";
+	divLabelFin.appendChild(labelFin);
+	var inputFin = document.createElement("input");
+	inputFin.id = "formationFin" + taille;
+	inputFin.name = "finForm";
+	inputFin.setAttribute("class", "form-control");
+	divInputFin.appendChild(inputFin);
+
+	//Ligne 3
+	var divVille = document.createElement("div");
+	divVille.setAttribute("class", "col-sm-6");
+	row3.appendChild(divVille);
+	var divRegion = document.createElement("div");
+	divRegion.setAttribute("class", "col-sm-6");
+	row3.appendChild(divRegion);
+
+	//Ville
+	var divLabelVille = document.createElement("div");
+	divLabelVille.setAttribute("class", "col-sm-2");
+	divVille.appendChild(divLabelVille);
+	var divInputVille = document.createElement("div");
+	divInputVille.setAttribute("class", "col-sm-10");
+	divVille.appendChild(divInputVille);
+	var labelVille = document.createElement("label");
+	labelVille.htmlFor = "ville";
+	labelVille.innerHTML = "Ville";
+	divLabelVille.appendChild(labelVille);
+	var inputVille = document.createElement("input");
+	inputVille.id = "formationVille$" + taille;
+	inputVille.name = "villeForm";
+	inputVille.setAttribute("class", "form-control");
+	divInputVille.appendChild(inputVille);
+
+	//Region
+	var divLabelRegion = document.createElement("div");
+	divLabelRegion.setAttribute("class", "col-sm-3");
+	divRegion.appendChild(divLabelRegion);
+	var divInputRegion = document.createElement("div");
+	divInputRegion.setAttribute("class", "col-sm-9");
+	divRegion.appendChild(divInputRegion);
+	var labelRegion = document.createElement("label");
+	labelRegion.htmlFor = "region";
+	labelRegion.innerHTML = "Region";
+	divLabelRegion.appendChild(labelRegion);
+	var inputRegion = document.createElement("input");
+	inputRegion.id = "formationRegion" + taille;
+	inputRegion.name = "regionForm";
+	inputRegion.setAttribute("class", "form-control");
+	divInputRegion.appendChild(inputRegion);
+
+	//Ligne 4
+	var divPays = document.createElement("div");
+	divPays.setAttribute("class", "col-sm-6");
+	row4.appendChild(divPays);
+
+	//Pays
+	var divLabelPays = document.createElement("div");
+	divLabelPays.setAttribute("class", "col-sm-2");
+	divPays.appendChild(divLabelPays);
+	var divInputPays = document.createElement("div");
+	divInputPays.setAttribute("class", "col-sm-10");
+	divPays.appendChild(divInputPays);
+	var labelPays = document.createElement("label");
+	labelPays.htmlFor = "pays";
+	labelPays.innerHTML = "Pays";
+	divLabelPays.appendChild(labelPays);
+	var inputPays = document.createElement("input");
+	inputPays.id = "formationPays" + taille;
+	inputPays.name = "paysForm";
+	inputPays.setAttribute("class", "form-control");
+	divInputPays.appendChild(inputPays);
 
 }
 
@@ -445,62 +636,18 @@ function suprrimerLoisir(id) {
 
 }
 
-/**
- *Fonction qui permet l'ajout d'une formation
- */
+function suprrimerFormation(id) {
+	alertify.confirm('Voulez-vous réellement supprimer ce champ ?',
+			function(e) {
+				if (e) {
+					document.getElementById("MaFormation" + id).remove();
+				} else {
 
-function AddFormation(lesFormation, formation, deleteFormation) {
-	var taille = document.getElementsByName("divFormation").length;
-	if (taille == 0) {
-		var nvId = 0;
-	} else {
-		var element = document.getElementsByName("divFormation");
-		var nvId = element.length;
-	}
-	var div = document.createElement("div");
-	div.id = "divFormation" + nvId;
-	div.setAttribute("name", "divFormation");
+				}
+			});
 
-	var row = createRow(div);
-	createLabel("labelFormIntit" + nvId, "formIntit" + nvId, "Intitulé : ",
-			"lesFormations", row, "col-md-2");
-	createInput("text", "formIntit" + nvId, "formation", row, "col-md-2");
-	createLabel("labelFormEtabl" + nvId, "formEtabl" + nvId,
-			"Établissement : ", "lesFormations", row, "col-md-2");
-	createInput("text", "formEtabl" + nvId, "formation", row, "col-md-2");
-	createLabel("labelFormDebut" + nvId, "formDebut" + nvId, "Début : ",
-			"lesFormations", row, "col-md-2");
-	createInput("text", "formDebut" + nvId, "formation", row, "col-md-2");
-
-	var row2 = createRow(div);
-	createLabel("labelFormFin" + nvId, "formFin" + nvId, "Fin : ",
-			"lesFormations", row2, "col-md-2");
-	createInput("text", "formFin" + nvId, "formation", row2, "col-md-2");
-	createLabel("labelFormVille" + nvId, "formVille" + nvId, "Ville : ",
-			"lesFormations", row2, "col-md-2");
-	createInput("text", "formVille" + nvId, "formation", row2, "col-md-2");
-	createLabel("labelFormRegion" + nvId, "formRegion" + nvId, "Région : ",
-			"lesFormations", row2, "col-md-2");
-	createInput("text", "formRegion" + nvId, "formation", row2, "col-md-2");
-
-	var row3 = createRow(div);
-	createLabel("labelFormPays" + nvId, "formPays" + nvId, "Pays : ",
-			"lesFormations", row3, "col-md-2");
-	createInput("text", "formPays" + nvId, "formation", row3, "col-md-2");
-	var adresse = document.createElement("a");
-	var link = document.createTextNode("");
-	adresse
-			.setAttribute("class",
-					"btn btn-primary  glyphicon glyphicon-minus-sign  col-md-1  col-sm-offset-7");
-	adresse.setAttribute("id", "deleteFormation" + nvId);
-	adresse.setAttribute("name", "deleteFormation");
-	adresse.setAttribute("onClick", "suppressionChampEtBoutonFormation(" + nvId
-			+ ", deleteFormation" + nvId + ");");
-	adresse.appendChild(link);
-	row3.appendChild(adresse);
-	div.appendChild(document.createElement("br"));
-	document.getElementById("lesFormations").appendChild(div);
 }
+
 /**
  * Suppression d'un textarea et du bouton de suppression
  *
@@ -629,6 +776,17 @@ function AddComp() {
 	boutonSupression.setAttribute("onClick", "suprrimerComp(" + taille + ");")
 	div5.appendChild(boutonSupression);
 	
+}
+
+function changementVilleExp(id) {
+	var x = document.getElementById("expProPays"+id).value;
+	var region = document.getElementById("expProRegion"+id);
+	if (x=="France"){
+		region.style.visibility = "visible";
+	}
+	else {
+		region.style.visibility = "hidden";
+	}
 }
 
 window.onload = function() {
