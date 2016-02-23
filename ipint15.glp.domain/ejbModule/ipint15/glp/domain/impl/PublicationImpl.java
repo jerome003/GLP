@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
+import ipint15.glp.api.dto.EtudiantProfilDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
@@ -54,7 +55,6 @@ public class PublicationImpl implements PublicationRemote {
 	@Override
 	public List<PublicationDTO> getMyPublications(AncienEtudiantDTO eDTO, int idGroupe) {
 		// TODO
-		System.out.println(idGroupe);
 		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// TODO gérer le cas si e = null
 		List<Publication> mesPublications;
@@ -83,7 +83,6 @@ public class PublicationImpl implements PublicationRemote {
 	@Override
 	public List<PublicationDTO> getAllPublications(AncienEtudiantDTO eDTO, int idGroupe) {
 		// TODO
-		System.out.println(idGroupe);
 		List<Publication> mesPublications;
 		if (idGroupe == -2) {
 			// Recherche des publications pour tout le monde + groupes
@@ -101,9 +100,7 @@ public class PublicationImpl implements PublicationRemote {
 		// by p.date desc").getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
-			System.out.println("Profil :" + p.getProfil());
 			PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(), p);
-			System.out.println("Profil DTO :" + cDTO.getProfil());
 			mesPublicationsDTO.add(cDTO);
 		}
 		return mesPublicationsDTO;
@@ -118,7 +115,6 @@ public class PublicationImpl implements PublicationRemote {
 		if (groupe != null) {
 			Groupe g = getGroupeById(groupe.getId());
 			c.setGroupe(g);
-			System.out.println("groupe : " + g);
 		}
 		// TODO gérer cas si e = null
 		c.setTitre(titre);
@@ -132,6 +128,24 @@ public class PublicationImpl implements PublicationRemote {
 		em.merge(ep);
 		em.merge(e);
 
+	}
+
+	@Override
+	public List<PublicationDTO> getAllGroupPublications(int idGroupe) {
+		// TODO Possiblement a modifier selon les regles de publication
+		List<Publication> mesPublications;
+		mesPublications = em.createNamedQuery("selectAllPublicationGroup", Publication.class)
+				.setParameter("idgroupe", idGroupe).getResultList();
+		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
+		for (Publication c : mesPublications) {
+			PublicationDTO cDTO = c.toPublicationDTO();
+			EtudiantProfilDTO epDTO = c.getProfil().toEtudiantProfilDTO();
+			AncienEtudiantDTO aeDTO = c.getProfil().getEtudiant().toEtudiantDTO();
+			epDTO.setEtudiant(aeDTO);
+			cDTO.setProfil(epDTO);
+			mesPublicationsDTO.add(cDTO);
+		}
+		return mesPublicationsDTO;
 	}
 
 }

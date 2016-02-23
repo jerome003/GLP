@@ -1,20 +1,20 @@
 package ipint15.glp.api.remote;
 
-
 import java.util.List;
 
 import javax.ejb.Remote;
 
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 
 @Remote
 public interface GroupeRemote {
-	
-	//CRUD
+
+	// CRUD
 	public GroupeDTO createGroupe(String name, String description);
-	
+
 	public void editGroupe(int id, String newName, String description);
-	
+
 	public boolean removeGroupe(int id);
 
 	public List<GroupeDTO> getAllGroupe();
@@ -23,6 +23,8 @@ public interface GroupeRemote {
 
 	int getGroupeSize(int id);
 
-	List<GroupeDTO> getGroupesOfAncienByIdAncien (int id);
+	List<GroupeDTO> getGroupesOfAncienByIdAncien(int id);
+
+	public GroupeDTO getGroupeDTOByIdWithMemberList(int id);
 
 }

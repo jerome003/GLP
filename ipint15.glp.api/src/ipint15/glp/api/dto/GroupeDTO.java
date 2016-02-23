@@ -16,6 +16,7 @@ public class GroupeDTO implements Serializable {
 	private List<ModerateurDTO> moderateurs;
 	@NotEmpty(message = "Veuillez saisir une description du groupe")
 	private String description;
+	private List<PublicationDTO> listPublications;
 
 	public int getId() {
 		return id;
@@ -70,5 +71,20 @@ public class GroupeDTO implements Serializable {
 		// + ", moderateurs=" + ((!getModerateurs().isEmpty()) ? "oui" :
 		// "non")+"]";
 		return name;
+	}
+
+	/**
+	 * @return the listPublications
+	 */
+	public List<PublicationDTO> getListPublications() {
+		return listPublications;
+	}
+
+	/**
+	 * @param listPublications
+	 *            the listPublications to set
+	 */
+	public void setListPublications(List<PublicationDTO> listPublications) {
+		this.listPublications = listPublications;
 	}
 }

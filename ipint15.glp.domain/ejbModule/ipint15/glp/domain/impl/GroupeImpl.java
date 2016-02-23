@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.domain.entities.AncienEtudiant;
@@ -102,6 +103,18 @@ public class GroupeImpl implements GroupeRemote {
 			gDTOList.add(g.toGroupeDTO());
 		}
 		return gDTOList;
+	}
+
+	@Override
+	public GroupeDTO getGroupeDTOByIdWithMemberList(int id) {
+		Groupe g = em.createNamedQuery("getGroupeById", Groupe.class).setParameter("id", id).getSingleResult();
+		GroupeDTO gDTO = g.toGroupeDTO();
+		List<AncienEtudiantDTO> listAe = new ArrayList<>();
+		for(AncienEtudiant ae : g.getAncienEtudiants()){
+			listAe.add(ae.toEtudiantDTO());
+		}
+		gDTO.setEtudiants(listAe);
+		return gDTO;
 	}
 
 }
