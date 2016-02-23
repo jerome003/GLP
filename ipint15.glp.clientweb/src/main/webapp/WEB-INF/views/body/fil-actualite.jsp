@@ -220,7 +220,7 @@
 							class="glyphicon glyphicon-share-alt linkUser ">${publication.profil.etudiant.prenom}
 								${publication.profil.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
-								<a href="#" class="glyphicon glyphicon-share-alt linkGroup ">${publication.groupeDTO.name}</a>
+								<a href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}" class="glyphicon glyphicon-share-alt linkGroup ">${publication.groupeDTO.name}</a>
 							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>
 						</span>
