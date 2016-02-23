@@ -96,7 +96,7 @@
 							<div class=experiencePro>
 								<p>De ${experience.debut} à ${experience.fin} :
 									${experience.libelle} chez ${experience.entreprise},
-									${experience.ville} (${experience.region})</p>
+									${experience.ville} (${experience.region},${experience.pays} )</p>
 								<p>${experience.description}</p>
 							</div>
 

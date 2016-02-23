@@ -65,5 +65,7 @@ public interface AdministrationRemote {
 	public boolean isModerateurOfGroupe (int idModo, int idGroupe);
 
 	public boolean removeModerateurFromGroupe(int idModo, int idGroupe);
+	
+	public void sendMailModoUnassign(ModerateurDTO modo, GroupeDTO groupe);
 
 }

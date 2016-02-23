@@ -104,6 +104,47 @@ public class EditionProfilController {
 			}
 		}
 		
+		//Competences
+		String[] compNoms = request.getParameterValues("compNom");
+		String[] compNotes = request.getParameterValues("compNote");
+		
+		etudiantBean.deleteCompetenceList(monEtudiant);
+		if (compNoms!=null){
+
+			for(int i=0;i<compNoms.length;i++){
+				etudiantBean.addCompetence(monEtudiant, compNoms[i], Integer.parseInt(compNotes[i]));
+			}
+		}
+		
+		//Formations
+		String[] intitules = request.getParameterValues("intitule");
+		String[] etablissements = request.getParameterValues("etablissement");
+		String[] debutForms = request.getParameterValues("debutForm");
+		String[] finForms = request.getParameterValues("finForm");
+		String[] villeForms = request.getParameterValues("villeForm");
+		String[] regionForms = request.getParameterValues("regionForm");
+		String[] paysForms = request.getParameterValues("paysForm");
+		
+		etudiantBean.deleteFormationList(monEtudiant);
+		if (intitules!=null){
+
+			for(int i=0;i<intitules.length;i++){
+				etudiantBean.addEcole(monEtudiant, intitules[i], etablissements[i], debutForms[i], finForms[i], villeForms[i], regionForms[i], paysForms[i]);
+			}
+		}
+		
+		//Loisirs
+		String[] loisirNoms = request.getParameterValues("loisirNom");
+		
+		etudiantBean.deleteLoisirList(monEtudiant);
+		
+		if (loisirNoms!=null){
+
+			for(int i=0;i<loisirNoms.length;i++){
+				etudiantBean.addHobbie(monEtudiant, loisirNoms[i]);
+			}
+		}
+		
 
 		return new ModelAndView("redirect:profil/" + idEtu, "command", new AncienEtudiantDTO());
 
