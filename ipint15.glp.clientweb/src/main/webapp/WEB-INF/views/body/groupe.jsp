@@ -12,11 +12,13 @@
 			<div class="row">
 				<h3>Membres</h3>
 			</div>
-			<c:forEach items="${groupe.etudiants}" var="ancienEtudiant">
-				<a class="col-md-12"
-					href="${pageContext.request.contextPath}/profil/${ancienEtudiant.id}">${ancienEtudiant.prenom}
-					${ancienEtudiant.nom}</a>
-			</c:forEach>
+			<div class="well">
+				<c:forEach items="${groupe.etudiants}" var="ancienEtudiant">
+					<a class="row"
+						href="${pageContext.request.contextPath}/profil/${ancienEtudiant.id}">${ancienEtudiant.prenom}
+						${ancienEtudiant.nom}</a>
+				</c:forEach>
+			</div>
 		</div>
 		<div class="col-md-8">
 			<div class="row">
