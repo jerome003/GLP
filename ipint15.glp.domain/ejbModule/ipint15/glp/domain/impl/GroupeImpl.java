@@ -61,7 +61,7 @@ public class GroupeImpl implements GroupeRemote {
 		em.merge(g);
 
 	}
-	
+
 	@Override
 	public void editGroupe(int id, String description) {
 		Groupe g = getGroupeById(id);
@@ -96,17 +96,18 @@ public class GroupeImpl implements GroupeRemote {
 		List<AncienEtudiant> listeAncienEtu = g.getAncienEtudiants();
 		List<Etudiant> listeEtu = g.getEtudiants();
 		List<Enseignant> listeEnseign = g.getEnseignant();
-		if ((listeModo.isEmpty()) && (listeAncienEtu.isEmpty()) && (listeEtu.isEmpty()) && (listeEnseign.isEmpty())){
+		if ((listeModo.isEmpty()) && (listeAncienEtu.isEmpty()) && (listeEtu.isEmpty()) && (listeEnseign.isEmpty())) {
 			em.remove(g);
 			return true;
 		}
 		return false;
-		
+
 	}
 
 	@Override
 	public List<GroupeDTO> getGroupesOfAncienByIdAncien(int id) {
-		List<Groupe> gList = em.createNamedQuery("getGroupesOfAncienByIdAncien", Groupe.class).setParameter("id", id).getResultList();
+		List<Groupe> gList = em.createNamedQuery("getGroupesOfAncienByIdAncien", Groupe.class).setParameter("id", id)
+				.getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		for (Groupe g : gList) {
 			gDTOList.add(g.toGroupeDTO());
@@ -119,7 +120,10 @@ public class GroupeImpl implements GroupeRemote {
 		Groupe g = em.createNamedQuery("getGroupeById", Groupe.class).setParameter("id", id).getSingleResult();
 		GroupeDTO gDTO = g.toGroupeDTO();
 		List<AncienEtudiantDTO> listAe = new ArrayList<>();
-		for(AncienEtudiant ae : g.getAncienEtudiants()){
+		List<AncienEtudiant> list = em.createNamedQuery("getListAncienEtudiantByIdGroupe", AncienEtudiant.class).setParameter("id", id)
+				.getResultList();
+		for (AncienEtudiant ae : list /*g.getAncienEtudiants()*/) {
+			System.out.println("zbra " + ae);
 			listAe.add(ae.toEtudiantDTO());
 		}
 		gDTO.setEtudiants(listAe);
