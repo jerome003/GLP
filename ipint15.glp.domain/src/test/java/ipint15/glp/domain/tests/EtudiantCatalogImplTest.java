@@ -41,7 +41,7 @@ public class EtudiantCatalogImplTest {
 	@BeforeClass
 	public static  void setUp() throws NamingException{
 		ctx= new InitialContext();
-		etuBean = (AncienEtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
+		etuBean = (AncienEtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AncienEtudiantCatalogImpl");
 		groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 		
 		groupe = groupBean.createGroupe("miage","groupeMiage");
@@ -253,33 +253,6 @@ public class EtudiantCatalogImplTest {
 		assertEquals(5,liste.size());
 	}
 	
-	@Test
-	public void testGetPublicationByEtudiant() {
-		etuBean.addPublication(etudiant, "coucou"," message test", new Date());
-		List<PublicationDTO> p = etuBean.getPublications(etudiant);
-		assertEquals("coucou", p.get(0).getTitre());
-		assertEquals(1, p.size());
-	}
-	
-	@Test
-	public void testGetPublication() {
-		etuBean.addPublication(etu, "Salut"," message", new Date());
-		List<PublicationDTO> p = etuBean.getPublications();
-		assertEquals("Salut", p.get(0).getTitre());
-		assertEquals("coucou", p.get(1).getTitre());
-		assertEquals("publication1", p.get(2).getTitre());
-		assertEquals(3, p.size());
-	}
-	
-	@Test
-	public void testAddPublication() {
-		AncienEtudiantDTO etu = etuBean.createEtudiant("Henry", "Matisse", Civilite.M, "henry@yahoo.fr", "0000000", "password", new Date(),"Sans emploi", "Cp", "Lille", "miage Corp", "miage", 2006, groupe);
-		etuBean.addPublication(etu, "publication1","pub", new Date());
-		etu= etuBean.getEtudiant(etu.getId());
-		List<PublicationDTO> e = etuBean.getPublications(etu);
-		assertEquals("publication1", e.get(0).getTitre());
-		assertEquals(1, e.size());
-	}
 	
 	@Test
 	public void testIsMailExists(){

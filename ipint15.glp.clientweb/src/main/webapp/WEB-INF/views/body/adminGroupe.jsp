@@ -17,16 +17,6 @@
 	};
 </script> 
 
-<%} %>
-
-
-<%if (request.getParameter("delete") != null && request.getParameter("delete").equals("ok")) { %>
-	<script>
-	window.onload = function(e) {
-		alertify.success('Le groupe a bien été supprimé');
-	};
-</script> 
-
 <%} else if (request.getParameter("delete") != null && request.getParameter("delete").equals("ko")) { %>
 	<script>
 	window.onload = function(e) {
@@ -117,7 +107,7 @@
 							(${myInjectedBean.getGroupeSize(results.id)})</td>
 						<td>${results.description}</td>
 						<td><a class="btn mini blue-stripe"
-							href="${pageContext.request.contextPath}/admin/editGroupe/${results.id}"><span
+							href="${pageContext.request.contextPath}/admin/editerGroupe/${results.id}"><span
 								class="glyphicon glyphicon-pencil"></span> Edit</a></td>
 						<td><a
 							href="${pageContext.request.contextPath}/admin/removeGroupe/${results.id}"

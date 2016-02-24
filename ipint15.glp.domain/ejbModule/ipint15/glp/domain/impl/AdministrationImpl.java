@@ -28,6 +28,7 @@ import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.domain.entities.Admin;
 import ipint15.glp.domain.entities.AncienEtudiant;
+import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Moderateur;
 import ipint15.glp.domain.util.Conversion;
@@ -204,7 +205,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		return false;
 	}
 
-	@Override
+	
 	public boolean isThereAnAdmin() {
 		Query q = em.createQuery("select o from Admin o  ");
 
@@ -497,6 +498,89 @@ public class AdministrationImpl implements AdministrationRemote {
 		}
 		return false;
 		
+	}
+
+	@Override
+	public List<ModerateurDTO> getModerateursDuGroupe(int id) {
+		Groupe groupe = getGroupeById(id);
+		List<Moderateur> mList = groupe.getModerateurs();
+		List<ModerateurDTO> mDTOList = new ArrayList<ModerateurDTO>();
+		for(Moderateur m : mList) {
+			if (!m.getGroupes().isEmpty()) {
+				mDTOList.add(ce.MappingGroupeModerateur(m, m.getGroupes()));
+
+			}else {
+				mDTOList.add(m.toModerateurDTO());
+			}
+		}
+		return mDTOList;
+		
+	}
+
+	@Override
+	public boolean isModerateurOfGroupe(int idModo, int idGroupe) {
+		Groupe g = getGroupeById(idGroupe);
+		Moderateur m = getModerateurById(idModo);
+		if (g.getModerateurs().contains(m)){
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean removeModerateurFromGroupe(int idModo, int idGroupe) {
+		Moderateur m = getModerateurById(idModo);
+		Groupe g = getGroupeById(idGroupe);
+		List<Moderateur> listeModo = g.getModerateurs();
+		List<Groupe> listeGroupe = m.getGroupes();
+		if (listeModo.size()>1 && listeModo.contains(m)){
+			listeGroupe.remove(g);
+			listeModo.remove(m);
+			em.merge(m);
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public void sendMailModoUnassign(ModerateurDTO modo, GroupeDTO groupe) {
+		final String username = "maxime.gidon";
+		final String password = "Miage2016";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtps.univ-lille1.fr");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.socketFactory.port", "587");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username + "@etudiant.univ-lille1.fr"));
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(modo.getEmail()));
+			message.setSubject("[Lille1] Modération du groupe " + groupe.getName());
+			message.setText("Bonjour, "
+					+ "\n\nVous venez d'être désassigner comme étant modérateur pour le groupe " + groupe.getName() +
+					" : " + groupe.getDescription()+". \n\n A bientot sur le réseau d'ancien de Lille 1 !");
+
+			Transport.send(message);
+
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	

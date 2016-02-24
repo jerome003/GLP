@@ -65,7 +65,7 @@ public class EditionProfilController {
 	}
 
 
-	@RequestMapping(value = "/saveProfil", method = RequestMethod.POST)
+	@RequestMapping(value = "/editionProfil", method = RequestMethod.POST)
 	public ModelAndView saveProfil(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		//Infos perso
@@ -97,9 +97,54 @@ public class EditionProfilController {
 		AncienEtudiantDTO monEtudiant = etudiantBean.getEtudiant(idEtu);
 		etudiantBean.deleteExpProList(monEtudiant);
 		
-		for(int i=0;i<postes.length;i++){
-			etudiantBean.addExperience(monEtudiant, postes[i], entreprises[i], villes[i], regions[i], pays[i], debuts[i], fins[i], descriptions[i]);
+		if (postes!=null){
+
+			for(int i=0;i<postes.length;i++){
+				etudiantBean.addExperience(monEtudiant, postes[i], entreprises[i], villes[i], regions[i], pays[i], debuts[i], fins[i], descriptions[i]);
+			}
 		}
+		
+		//Competences
+		String[] compNoms = request.getParameterValues("compNom");
+		String[] compNotes = request.getParameterValues("compNote");
+		
+		etudiantBean.deleteCompetenceList(monEtudiant);
+		if (compNoms!=null){
+
+			for(int i=0;i<compNoms.length;i++){
+				etudiantBean.addCompetence(monEtudiant, compNoms[i], Integer.parseInt(compNotes[i]));
+			}
+		}
+		
+		//Formations
+		String[] intitules = request.getParameterValues("intitule");
+		String[] etablissements = request.getParameterValues("etablissement");
+		String[] debutForms = request.getParameterValues("debutForm");
+		String[] finForms = request.getParameterValues("finForm");
+		String[] villeForms = request.getParameterValues("villeForm");
+		String[] regionForms = request.getParameterValues("regionForm");
+		String[] paysForms = request.getParameterValues("paysForm");
+		
+		etudiantBean.deleteFormationList(monEtudiant);
+		if (intitules!=null){
+
+			for(int i=0;i<intitules.length;i++){
+				etudiantBean.addEcole(monEtudiant, intitules[i], etablissements[i], debutForms[i], finForms[i], villeForms[i], regionForms[i], paysForms[i]);
+			}
+		}
+		
+		//Loisirs
+		String[] loisirNoms = request.getParameterValues("loisirNom");
+		
+		etudiantBean.deleteLoisirList(monEtudiant);
+		
+		if (loisirNoms!=null){
+
+			for(int i=0;i<loisirNoms.length;i++){
+				etudiantBean.addHobbie(monEtudiant, loisirNoms[i]);
+			}
+		}
+		
 
 		return new ModelAndView("redirect:profil/" + idEtu, "command", new AncienEtudiantDTO());
 
