@@ -51,7 +51,7 @@
 						<tr>
 							<td class="col-md-2">${results.name}</td>
 							<td class="col-md-2"></td>
-							<td class="col-md-4"><a class="btn mini blue-stripe" type="submit"><span
+							<td class="col-md-4"><a href="${pageContext.request.contextPath}/groupe/${results.id}" class="btn mini blue-stripe" type="submit"><span
 									class="glyphicon glyphicon-eye-open"></span> Voir le groupe</a></td>
 						</tr>
 					</c:forEach>
