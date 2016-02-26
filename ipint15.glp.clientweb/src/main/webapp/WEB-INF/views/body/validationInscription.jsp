@@ -4,13 +4,15 @@
 <script>
 function refus(x) {
 	alertify.prompt("Veuillez saisir le motif du refus :", function (e, str) {
-		if (e) {
+		if (str == "") {
+			alertify.error('Le motif est obligatoire !');
+		}else if (e) {
 			window.location.href = '${pageContext.request.contextPath}/moderateur/validationGroup/${idGroupe}/etudiantKO/' + x + '?motif='+ str;
 			alertify.success('Refus de l\'inscription reussi');
 		} else {
 			alertify.error('Le refus d\'inscription n\'a pas eu lieu');
 		}
-	}, "Motif de refus");
+	}, "");
 }
 
 function validation(x) {
