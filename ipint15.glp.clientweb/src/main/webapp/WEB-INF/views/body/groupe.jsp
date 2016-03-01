@@ -23,6 +23,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1>${groupe.name}</h1>
+				<c:if test="${groupe.institutionnel == false}">Rejoindre</c:if>
 			</div>
 		</div>
 		<div class="row">

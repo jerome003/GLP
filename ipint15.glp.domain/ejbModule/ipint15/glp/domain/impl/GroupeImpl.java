@@ -41,10 +41,11 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
-	public GroupeDTO createGroupe(String name, String description) {
+	public GroupeDTO createGroupe(String name, String description, boolean isInstitutionnel) {
 		Groupe g = new Groupe();
 		g.setName(name);
 		g.setDescription(description);
+		g.setInstitutionnel(isInstitutionnel);
 		em.persist(g);
 
 		GroupeDTO gDTO = g.toGroupeDTO();
@@ -128,6 +129,17 @@ public class GroupeImpl implements GroupeRemote {
 		}
 		gDTO.setEtudiants(listAe);
 		return gDTO;
+	}
+
+	@Override
+	public List<GroupeDTO> getAllGroupeInstitutionnel() {
+		List<Groupe> gList = em.createNamedQuery("getGroupesInstitutionnels",Groupe.class).getResultList();
+		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
+		for (Groupe g : gList) {
+			gDTOList.add(g.toGroupeDTO());
+		}
+
+		return gDTOList;
 	}
 
 }

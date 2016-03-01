@@ -44,7 +44,7 @@ public class AdministrationImplTest {
 		groupeBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 		etuBean = (AncienEtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
 		
-		groupe= groupeBean.createGroupe("Miage","groupe miage de l'universite de lille 1");
+		groupe= groupeBean.createGroupe("Miage","groupe miage de l'universite de lille 1", true);
 		moderateur = adminBean.createModerateur("Mike", "Ross", "mike@gmail.com", "password");
 		ad = adminBean.createAdmin("admin@admin.fr", "password");
 		etu = etuBean.createEtudiant("Hervey", "Specter", Civilite.M, "hervey@gmail.com","00000000", "password", new Date(), "Sans emploi", "CP", "Paris", "CGI", "miage", 2008, groupe);

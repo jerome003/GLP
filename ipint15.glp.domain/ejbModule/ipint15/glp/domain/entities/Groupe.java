@@ -18,7 +18,8 @@ import ipint15.glp.api.dto.GroupeDTO;
 @Table(name = "GROUPE")
 @NamedQueries({
 		@NamedQuery(name = "getGroupesOfAncienByIdAncien", query = "select g from Groupe g join g.ancienEtudiants a where a.id = :id"),
-		@NamedQuery(name="getGroupeById", query="select o from Groupe o WHERE o.id = :id")})
+		@NamedQuery(name="getGroupeById", query="select o from Groupe o WHERE o.id = :id"),
+		@NamedQuery(name="getGroupesInstitutionnels", query="select g from Groupe g where g.institutionnel = true")})
 public class Groupe {
 
 	@Id
@@ -35,6 +36,8 @@ public class Groupe {
 	private List<Enseignant> enseignant;
 	@OneToMany(mappedBy = "groupe")
 	private List<Publication> publications;
+	
+	private boolean institutionnel;
 
 	private String name;
 
@@ -113,8 +116,23 @@ public class Groupe {
 		gDTO.setId(this.getId());
 		gDTO.setName(this.getName());
 		gDTO.setDescription(description);
+		gDTO.setInstitutionnel(this.institutionnel);
 		return gDTO;
 
+	}
+
+	/**
+	 * @return the isInstitutionnel
+	 */
+	public boolean isInstitutionnel() {
+		return institutionnel;
+	}
+
+	/**
+	 * @param isInstitutionnel the isInstitutionnel to set
+	 */
+	public void setInstitutionnel(boolean isInstitutionnel) {
+		this.institutionnel = isInstitutionnel;
 	}
 
 }
