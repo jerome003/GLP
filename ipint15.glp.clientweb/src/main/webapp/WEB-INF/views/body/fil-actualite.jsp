@@ -38,7 +38,8 @@
 		<div class="row"></div>
 		<div class="row">
 			<div class="col-md-12">
-				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover" onclick="toggle('formulaire')">Créer une publication</a> <br>
+				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
+					onclick="toggle('formulaire')">Créer une publication</a> <br>
 			</div>
 		</div>
 		<div id="formulaire" style="display: none; height: 0px;">
@@ -58,7 +59,8 @@
 							<form:label path="message" class="control-label">Message</form:label>
 						</div>
 						<div class="col-sm-8">
-							<form:textarea path="message" rows="5" cols="30" class="form-control" />
+							<form:textarea path="message" rows="5" cols="30"
+								class="form-control" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -67,8 +69,8 @@
 						</div>
 						<div class="col-sm-8">
 							<form:select path="groupeDTO.id" id="groupes" name="groupes">
+								<form:option value="-1" label="Tout le monde" />
 								<c:forEach items="${listeGroupes}" var="groupe">
-									<form:option value="-1" label="Tout le monde" />
 									<form:option value="${groupe.id}">${groupe.name}</form:option>
 								</c:forEach>
 							</form:select>
@@ -129,10 +131,9 @@
 						<div class="form-group">
 							<select id="groupes" name="idGroupe"
 								class="col-md-6 col-md-offset-3">
-								<option value="-2" label="------------------"
-									${idGroupe == '-2' ? 'selected' : ''} />
-								<option value="-1" label="Tout le monde"
-									${idGroupe == '-1' ? 'selected' : ''} />
+								<option value="-2" ${idGroupe == '-2' ? 'selected' : ''}>------------------</option>
+								<option value="-1" ${idGroupe == '-1' ? 'selected' : ''}>Tout
+									le monde</option>
 								<c:forEach items="${listeGroupes}" var="groupe">
 									<option value="${groupe.id}"
 										${idGroupe == groupe.id ? 'selected' : ''}>${groupe.name}</option>
@@ -173,12 +174,16 @@
 				<div class="panel-heading">
 					<p class="">
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"> <span class="glyphicon glyphicon-share-alt linkGroup" ></span><a
+							class="pull-right"> <span
+							class="glyphicon glyphicon-share-alt linkGroup"></span><a
 							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
 							class="linkUser ">${publication.profil.etudiant.prenom}
 								${publication.profil.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
-								<span class="glyphicon glyphicon-share-alt linkGroup" ></span><a href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}" class="linkGroup ">${publication.groupeDTO.name}</a>
+								<span class="glyphicon glyphicon-share-alt linkGroup"></span>
+								<a
+									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}"
+									class="linkGroup ">${publication.groupeDTO.name}</a>
 							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>
 						</span>
@@ -220,7 +225,9 @@
 							class="glyphicon glyphicon-share-alt linkUser ">${publication.profil.etudiant.prenom}
 								${publication.profil.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
-								<a href="#" class="glyphicon glyphicon-share-alt linkGroup ">${publication.groupeDTO.name}</a>
+								<a
+									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}"
+									class="glyphicon glyphicon-share-alt linkGroup ">${publication.groupeDTO.name}</a>
 							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>
 						</span>

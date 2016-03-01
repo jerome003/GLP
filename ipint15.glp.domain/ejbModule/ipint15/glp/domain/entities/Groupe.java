@@ -17,7 +17,8 @@ import ipint15.glp.api.dto.GroupeDTO;
 @Entity
 @Table(name = "GROUPE")
 @NamedQueries({
-		@NamedQuery(name = "getGroupesOfAncienByIdAncien", query = "select g from Groupe g join g.ancienEtudiants a where a.id = :id")})
+		@NamedQuery(name = "getGroupesOfAncienByIdAncien", query = "select g from Groupe g join g.ancienEtudiants a where a.id = :id"),
+		@NamedQuery(name="getGroupeById", query="select o from Groupe o WHERE o.id = :id")})
 public class Groupe {
 
 	@Id

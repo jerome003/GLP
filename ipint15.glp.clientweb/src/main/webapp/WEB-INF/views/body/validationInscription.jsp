@@ -1,16 +1,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script>
 function refus(x) {
 	alertify.prompt("Veuillez saisir le motif du refus :", function (e, str) {
-		if (e) {
+		if (str == "") {
+			alertify.error('Le motif est obligatoire !');
+		}else if (e) {
 			window.location.href = '${pageContext.request.contextPath}/moderateur/validationGroup/${idGroupe}/etudiantKO/' + x + '?motif='+ str;
 			alertify.success('Refus de l\'inscription reussi');
 		} else {
 			alertify.error('Le refus d\'inscription n\'a pas eu lieu');
 		}
-	}, "Motif de refus");
+	}, "");
 }
 
 function validation(x) {
@@ -39,6 +42,7 @@ function validation(x) {
 					<tr>
 						<th>Nom</th>
 						<th>Prenom</th>
+						<th>Date de naissance</th>
 						<th>Dernier diplôme</th>
 						<th>Année obtention</th>
 						<th></th>
@@ -51,6 +55,7 @@ function validation(x) {
 						<tr>
 							<td>${results.nom}</td>
 							<td>${results.prenom}</td>
+							<td><fmt:formatDate value="${results.naissance}" pattern="dd/MM/yyyy" /></td>
 							<td>${results.diplome}</td>
 							<td>${results.anneeDiplome}</td>
 							<td><a href='javascript:validation(${results.id})'><span class="glyphicon glyphicon-ok"></span>

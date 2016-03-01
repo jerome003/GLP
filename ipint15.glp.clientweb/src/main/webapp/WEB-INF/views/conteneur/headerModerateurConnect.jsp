@@ -36,8 +36,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Annuaire des anciens de
-				l'université de Lille<br>
+			<a class="navbar-brand" href="#">Lille University Meetup Platform<br>
 			</a>
 			<p class="text-primary">Connecté en tant que modérateur </p>
 			
