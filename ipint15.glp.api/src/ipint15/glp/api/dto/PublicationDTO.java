@@ -3,6 +3,8 @@ package ipint15.glp.api.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class PublicationDTO implements Serializable {
 	/**
 	 * 
@@ -13,8 +15,10 @@ public class PublicationDTO implements Serializable {
 
 	private EtudiantProfilDTO profil;
 
+	@NotEmpty( message = "Veuillez saisir un titre")
 	private String titre;
 
+	@NotEmpty( message = "Veuillez saisir un message")
 	private String message;
 
 	private Date date;
