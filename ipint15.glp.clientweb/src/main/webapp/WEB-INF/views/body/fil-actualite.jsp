@@ -69,8 +69,8 @@
 						</div>
 						<div class="col-sm-8">
 							<form:select path="groupeDTO.id" id="groupes" name="groupes">
+								<form:option value="-1" label="Tout le monde" />
 								<c:forEach items="${listeGroupes}" var="groupe">
-									<form:option value="-1" label="Tout le monde" />
 									<form:option value="${groupe.id}">${groupe.name}</form:option>
 								</c:forEach>
 							</form:select>
