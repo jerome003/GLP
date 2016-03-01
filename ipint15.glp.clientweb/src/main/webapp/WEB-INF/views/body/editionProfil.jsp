@@ -13,6 +13,11 @@
 			name="modif_form">
 			<div class="row">
 				<div class="row">
+						<div class="col-sm-offset-5 col-sm-2 text-center">
+							<button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+						</div>
+					</div>
+				<div class="row">
 					<legend>Informations personelles</legend>
 					<fieldset>
 						<div class='row'>
@@ -51,15 +56,15 @@
 							<div class='col-sm-4'>
 								<div class='form-group'>
 									<label class="radio-inline"> <input type="radio"
-										name="statut" value="En emploi"
+										name="statut" onclick="changeStatut(this)" value="En emploi"
 										${profil.statut == 'En emploi' ? 'checked' : ''}>En
 										emploi
 									</label> <label class="radio-inline"> <input type="radio"
-										name="statut" value="Sans emploi"
+										name="statut" onclick="changeStatut(this)" value="Sans emploi"
 										${profil.statut == 'Sans emploi' ? 'checked' : ''}>Sans
 										emploi
 									</label> <label class="radio-inline"> <input type="radio"
-										name="statut" value="Freelance"
+										name="statut" onclick="changeStatut(this)" value="Freelance"
 										${profil.statut == 'Freelance' ? 'checked' : ''}>Freelance
 									</label>
 								</div>
@@ -76,17 +81,17 @@
 							</div>
 							<div class='col-sm-4'>
 								<div class='form-group'>
-									<label for="villeActu">Ville actuelle</label> <input
-										class="form-control" id="villeActu"
-										value="${profil.villeActu}" name="villeActu" size="30"
+									<label for="nomEntreprise">Nom de l'entreprise</label> <input
+										class="form-control" id="nomEntreprise"
+										value="${profil.nomEntreprise}" name="nomEntreprise" size="30"
 										type="text" />
 								</div>
 							</div>
 							<div class='col-sm-4'>
 								<div class='form-group'>
-									<label for="nomEntreprise">Nom de l'entreprise</label> <input
-										class="form-control" id="nomEntreprise"
-										value="${profil.nomEntreprise}" name="nomEntreprise" size="30"
+									<label for="villeActu">Ville actuelle</label> <input
+										class="form-control" id="villeActu"
+										value="${profil.villeActu}" name="villeActu" size="30"
 										type="text" />
 								</div>
 							</div>
@@ -125,11 +130,6 @@
 							</div>
 						</div>
 					</fieldset>
-					<div class="row">
-						<div class="col-sm-offset-5 col-sm-2 text-center">
-							<button type="submit" class="btn btn-success">Enregistrer</button>
-						</div>
-					</div>
 				</div>
 			</div>
 			<h3>

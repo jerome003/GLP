@@ -793,4 +793,60 @@ window.onload = function() {
 	var elem = document.getElementById('attentes');
 	elem.focus();
 	elem.selectionStart = elem.value.length;
+	var fieldPoste = document.getElementById("posteActu");
+	var fieldEntreprise = document.getElementById("nomEntreprise");
+	var fieldVille = document.getElementById("villeActu");
+	
+	var statut = document.querySelector('input[name = "statut"]:checked').value;
+	
+	if(statut=="En emploi"){
+		fieldPoste.disabled=false;
+		fieldEntreprise.disabled=false;
+		fieldVille.disabled=false;
+	}
+	else if (statut=="Sans emploi"){
+		fieldPoste.value = "";
+		fieldEntreprise.value="";
+		fieldVille.value="";
+		fieldPoste.disabled=true;
+		fieldEntreprise.disabled=true;
+		fieldVille.disabled=true;
+	}
+	else if(statut=="Freelance"){
+		fieldPoste.value = "";
+		fieldEntreprise.value="";
+		fieldVille.value="";
+		fieldPoste.disabled=true;
+		fieldEntreprise.disabled=true;
+		fieldVille.disabled=true;
+	}
+}
+
+function changeStatut(myRadio){
+	
+	var fieldPoste = document.getElementById("posteActu");
+	var fieldEntreprise = document.getElementById("nomEntreprise");
+	var fieldVille = document.getElementById("villeActu");
+	
+	if(myRadio.value=="En emploi"){
+		fieldPoste.disabled=false;
+		fieldEntreprise.disabled=false;
+		fieldVille.disabled=false;
+	}
+	else if (myRadio.value=="Sans emploi"){
+		fieldPoste.value = "";
+		fieldEntreprise.value="";
+		fieldVille.value="";
+		fieldPoste.disabled=true;
+		fieldEntreprise.disabled=true;
+		fieldVille.disabled=true;
+	}
+	else if(myRadio.value=="Freelance"){
+		fieldPoste.value = "";
+		fieldEntreprise.value="";
+		fieldVille.value="";
+		fieldPoste.disabled=true;
+		fieldEntreprise.disabled=true;
+		fieldVille.disabled=true;
+	}
 }
