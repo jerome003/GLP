@@ -17,6 +17,7 @@ public class GroupeDTO implements Serializable {
 	@NotEmpty(message = "Veuillez saisir une description du groupe")
 	private String description;
 	private List<PublicationDTO> listPublications;
+	private boolean isInstitutionnel;
 
 	public int getId() {
 		return id;
@@ -86,5 +87,19 @@ public class GroupeDTO implements Serializable {
 	 */
 	public void setListPublications(List<PublicationDTO> listPublications) {
 		this.listPublications = listPublications;
+	}
+
+	/**
+	 * @return the isInstitutionnel
+	 */
+	public boolean isInstitutionnel() {
+		return isInstitutionnel;
+	}
+
+	/**
+	 * @param isInstitutionnel the isInstitutionnel to set
+	 */
+	public void setInstitutionnel(boolean isInstitutionnel) {
+		this.isInstitutionnel = isInstitutionnel;
 	}
 }

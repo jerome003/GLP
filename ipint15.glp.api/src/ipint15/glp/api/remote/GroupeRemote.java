@@ -11,13 +11,15 @@ import ipint15.glp.api.dto.GroupeDTO;
 public interface GroupeRemote {
 
 	// CRUD
-	public GroupeDTO createGroupe(String name, String description);
+	public GroupeDTO createGroupe(String name, String description, boolean isInstitutionnel);
 
 	public void editGroupe(int id, String newName, String description);
 
 	public boolean removeGroupe(int id);
 
 	public List<GroupeDTO> getAllGroupe();
+	
+	public List<GroupeDTO> getAllGroupeInstitutionnel();
 
 	public GroupeDTO getGroupeDTOById(int id);
 

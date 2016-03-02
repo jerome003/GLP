@@ -1,30 +1,40 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<%if (request.getParameter("creation") != null && request.getParameter("creation").equals("ok")) { %>
-	<script>
+<%
+	if (request.getParameter("creation") != null && request.getParameter("creation").equals("ok")) {
+%>
+<script>
 	window.onload = function(e) {
 		alertify.success('Le groupe a bien été créé');
 	};
-</script> 
+</script>
 
-<%} %>
+<%
+	}
+%>
 
-<%if (request.getParameter("delete") != null && request.getParameter("delete").equals("ok")) { %>
-	<script>
+<%
+	if (request.getParameter("delete") != null && request.getParameter("delete").equals("ok")) {
+%>
+<script>
 	window.onload = function(e) {
 		alertify.success('Le groupe a bien été supprimé');
 	};
-</script> 
+</script>
 
-<%} else if (request.getParameter("delete") != null && request.getParameter("delete").equals("ko")) { %>
-	<script>
+<%
+	} else if (request.getParameter("delete") != null && request.getParameter("delete").equals("ko")) {
+%>
+<script>
 	window.onload = function(e) {
 		alertify.error('Impossible : le groupe n\'est pas vide');
 	};
-</script> 
+</script>
 
-<%} %>	
+<%
+	}
+%>
 
 <div class="section">
 	<div class="container">
@@ -34,7 +44,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<form name='form1'  class="form-horizontal" role="form" method="post"  
+			<form name='form1' class="form-horizontal" role="form" method="post"
 				action="saveGroupe">
 				<div class="form-group">
 					<div class="col-sm-2">
@@ -43,16 +53,24 @@
 					<div class="col-sm-6">
 						<input id="nameGroupe" name="nameGroupe" type="text"
 							class="form-control" required="required" />
-						
+
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-2"> 
+					<div class="col-sm-2">
 						<label class="control-label">Description du groupe :</label>
 					</div>
 					<div class="col-sm-6">
 						<input id="descriptionGroupe" name="descriptionGroupe" type="text"
 							class="form-control" required="required" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2">
+						<label class="control-label">Groupe institutionnel :</label>
+					</div>
+					<div class="col-sm-6">
+						<input id="institutionnel" name="institutionnel" type="checkbox" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -78,7 +96,7 @@
 					<div class="form-group">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-3">
-							<input id ="valider" type="submit" value="Enregistrer" />
+							<input id="valider" type="submit" value="Enregistrer" />
 						</div>
 					</div>
 			</form>
@@ -103,7 +121,9 @@
 			<tbody>
 				<c:forEach items="${liste}" var="results">
 					<tr>
-						<td>${results.name}
+						<td>
+						<c:if test="${results.institutionnel == true}"><span class ="glyphicon glyphicon-star"></span></c:if>
+						${results.name}
 							(${myInjectedBean.getGroupeSize(results.id)})</td>
 						<td>${results.description}</td>
 						<td><a class="btn mini blue-stripe"

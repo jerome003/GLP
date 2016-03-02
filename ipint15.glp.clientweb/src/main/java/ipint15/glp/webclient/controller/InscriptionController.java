@@ -51,7 +51,7 @@ public class InscriptionController {
 	@ModelAttribute("groupeList")
 	public List<GroupeDTO> getGroupe()
 	{
-		return groupeBean.getAllGroupe();
+		return groupeBean.getAllGroupeInstitutionnel();
 	}
 	
 	@RequestMapping(value = "/inscription", method = RequestMethod.GET)
