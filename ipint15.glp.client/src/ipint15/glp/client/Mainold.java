@@ -51,10 +51,10 @@ public class Mainold {
 			modo3 = adminBean.createModerateur("bla3", "bla3", "email3@bla.bla", adminBean.generatePassword(8));
 		
 			
-			groupe = groupBean.createGroupe("Miage","Groupe Miage");
-			groupe2 = groupBean.createGroupe("Elfe", "Ecole des Elfes");
-			groupe3 = groupBean.createGroupe("Test", "description");
-			groupe4 = groupBean.createGroupe("Test2", "description");
+			groupe = groupBean.createGroupe("Miage","Groupe Miage", false);
+			groupe2 = groupBean.createGroupe("Elfe", "Ecole des Elfes", true);
+			groupe3 = groupBean.createGroupe("Test", "description", false);
+			groupe4 = groupBean.createGroupe("Test2", "description", true);
 			
 			System.out.println("moderateur du groupe  "+ groupe.getName()+" : "+ moderateur.getEmail()+ " son mot de passe est : "+ moderateur.getPassword());
 			System.out.println("moderateur du groupe  "+ groupe2.getName()+" : "+ moderateur2.getEmail()+ " son mot de passe est : "+ moderateur2.getPassword());
