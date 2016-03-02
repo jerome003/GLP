@@ -15,10 +15,10 @@ public interface EnseignantCatalogRemote {
 	 * @param mail
 	 * @return
 	 */
-	EnseignantDTO createEtudiant (String nom, String prenom, String mail);
+	EnseignantDTO createEnseignant (String nom, String prenom, String mail);
 	
-	EnseignantDTO getEtudiantById(int id);
+	EnseignantDTO getEnseignantById(int id);
 	
-	EnseignantDTO getEtudiantByMail(String mail);
+	EnseignantDTO getEnseignantByMail(String mail);
 
 }

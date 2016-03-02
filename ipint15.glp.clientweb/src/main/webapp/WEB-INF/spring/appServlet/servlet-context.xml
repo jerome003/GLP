@@ -44,12 +44,12 @@
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/AncienEtudiantCatalogImpl"
 		business-interface="ipint15.glp.api.remote.AncienEtudiantCatalogRemote">
 	</jee:remote-slsb>
-	
+
 	<jee:remote-slsb id="etudiantbean"
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl"
 		business-interface="ipint15.glp.api.remote.EtudiantCatalogRemote">
 	</jee:remote-slsb>
-	
+
 	<jee:remote-slsb id="enseignantbean"
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/EnseignantCatalogImpl"
 		business-interface="ipint15.glp.api.remote.EnseignantCatalogRemote">
@@ -64,8 +64,8 @@
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl"
 		business-interface="ipint15.glp.api.remote.GroupeRemote">
 	</jee:remote-slsb>
-	
-		<jee:remote-slsb id="publicationbean"
+
+	<jee:remote-slsb id="publicationbean"
 		jndi-name="java:global/ipint15.glp.ear/ipint15.glp.domain/PublicationImpl"
 		business-interface="ipint15.glp.api.remote.PublicationRemote">
 	</jee:remote-slsb>
@@ -77,5 +77,7 @@
 
 	<context:component-scan base-package="ipint15.glp.webclient.controller" />
 	<context:component-scan base-package="ipint15.glp.domain" />
+	
+
 
 </beans:beans>

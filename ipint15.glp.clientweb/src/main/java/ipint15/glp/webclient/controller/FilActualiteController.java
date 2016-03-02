@@ -41,6 +41,9 @@ public class FilActualiteController {
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		try {
+			
+			
+			
 			if (sessionObj.getAttribute("type").equals("ancien")) {
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);

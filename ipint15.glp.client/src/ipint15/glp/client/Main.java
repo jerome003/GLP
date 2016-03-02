@@ -1,4 +1,6 @@
 package ipint15.glp.client;
+
+
 import java.util.Date;
 
 
@@ -13,10 +15,7 @@ import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 
-
-
 public class Main {
-
 	private static InitialContext ctx;
 	private static AncienEtudiantCatalogRemote etuBean ;
 	private static GroupeRemote groupBean;

@@ -20,7 +20,7 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 	EntityManager em;
 
 	@Override
-	public EnseignantDTO createEtudiant(String nom, String prenom, String mail) {
+	public EnseignantDTO createEnseignant(String nom, String prenom, String mail) {
 		Enseignant e = new Enseignant();
 		e.setNom(nom);
 		e.setMail(mail);
@@ -30,13 +30,13 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 	}
 
 	@Override
-	public EnseignantDTO getEtudiantById(int id) {
+	public EnseignantDTO getEnseignantById(int id) {
 		Enseignant e = em.find(Enseignant.class, id);
 		return e.toDTO();
 	}
 
 	@Override
-	public EnseignantDTO getEtudiantByMail(String mail) {
+	public EnseignantDTO getEnseignantByMail(String mail) {
 		Query q = em.createQuery("select o from Enseignant o WHERE o.email = :email");
 		q.setParameter("email", mail);
 		Enseignant e = (Enseignant) q.getSingleResult();
