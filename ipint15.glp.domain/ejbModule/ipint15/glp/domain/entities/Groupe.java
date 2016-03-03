@@ -34,6 +34,8 @@ public class Groupe {
 	private List<Etudiant> etudiants;
 	@ManyToMany(mappedBy = "groupes")
 	private List<Enseignant> enseignant;
+	@ManyToMany(mappedBy = "groupesAnimes")
+	private List<Enseignant> animateur;
 	@OneToMany(mappedBy = "groupe")
 	private List<Publication> publications;
 	
@@ -108,6 +110,16 @@ public class Groupe {
 
 	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
+	}
+	
+	
+
+	public List<Enseignant> getAnimateur() {
+		return animateur;
+	}
+
+	public void setAnimateur(List<Enseignant> animateur) {
+		this.animateur = animateur;
 	}
 
 	public GroupeDTO toGroupeDTO() {

@@ -1,14 +1,13 @@
 package ipint15.glp.webclient.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +47,10 @@ public class FilActualiteController {
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);
 				AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
-				List<GroupeDTO> listeGroupes = groupeBean.getGroupesOfAncienByIdAncien(etu.getId());
+//				List<GroupeDTO> listeGroupes = groupeBean.getGroupesOfAncienByIdAncien(etu.getId());
+				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
+				listeGroupes = etudiantBean.getLesGroupes(etu);
+				listeGroupes.add(etu.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
 				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			} else {

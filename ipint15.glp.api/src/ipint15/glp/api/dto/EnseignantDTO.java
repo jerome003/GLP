@@ -9,6 +9,7 @@ public class EnseignantDTO {
 	private String nom;
 	private String mail;
 	private List<GroupeDTO> listeGroupes;
+	private List<GroupeDTO> listeGroupesAnime;
 
 	public EnseignantDTO() {
 		super();
@@ -53,10 +54,32 @@ public class EnseignantDTO {
 	public void setListeGroupes(List<GroupeDTO> listeGroupes) {
 		this.listeGroupes = listeGroupes;
 	}
+	
+	public void addGroupeDTO (GroupeDTO groupe){
+		this.listeGroupes.add(groupe);
+	}
+	
+	public void addGroupeDTOAnime (GroupeDTO groupe){
+		this.listeGroupesAnime.add(groupe);
+	}
 
 	@Override
 	public String toString() {
 		return "EnseignantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", mail=" + mail + "]";
+	}
+
+	/**
+	 * @return the listeGroupesAnime
+	 */
+	public List<GroupeDTO> getListeGroupesAnime() {
+		return listeGroupesAnime;
+	}
+
+	/**
+	 * @param listeGroupesAnime the listeGroupesAnime to set
+	 */
+	public void setListeGroupesAnime(List<GroupeDTO> listeGroupesAnime) {
+		this.listeGroupesAnime = listeGroupesAnime;
 	}
 
 }

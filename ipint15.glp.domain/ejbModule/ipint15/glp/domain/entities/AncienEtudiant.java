@@ -29,7 +29,7 @@ import ipint15.glp.api.dto.AncienEtudiantDTO;
 @Entity
 @Table(name = "ANCIENETUDIANT")
 @NamedQueries({
-		@NamedQuery(name = "getListAncienEtudiantByIdGroupe", query = "Select e from AncienEtudiant e where e.groupe.id = :id") })
+		@NamedQuery(name = "getListAncienEtudiantByIdGroupe", query = "Select e from AncienEtudiant e where e.groupe.id = :id")})
 public class AncienEtudiant implements Serializable {
 
 	/**

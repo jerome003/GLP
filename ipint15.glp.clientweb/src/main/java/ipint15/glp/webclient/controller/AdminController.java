@@ -48,7 +48,7 @@ public class AdminController {
 
 			if (sessionObj.getAttribute("type").equals("admin")) {
 				sessionObj.setAttribute("section", "groupes");
-				List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+				List<GroupeDTO> listeResultat = groupeBean.getAllGroupeInstitutionnel();
 				ModelAndView modelView = new ModelAndView("adminGroupe", "command", new GroupeDTO());
 				modelView.addObject("liste", listeResultat);
 				model.addAttribute("myInjectedBean", groupeBean);
@@ -100,11 +100,11 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/saveGroupe", method = RequestMethod.POST)
-	public ModelAndView saveGroupe(String nameGroupe, String descriptionGroupe, int modo, boolean institutionnel) {
+	public ModelAndView saveGroupe(String nameGroupe, String descriptionGroupe, int modo) {
 
 		ModelAndView modelView;
 	
-		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe, institutionnel);
+		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe);
 		ModerateurDTO mDTO = administrationBean.addGroupetoModo(modo, gDTO);
 		administrationBean.sendMailModoAssign(mDTO, gDTO);
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();

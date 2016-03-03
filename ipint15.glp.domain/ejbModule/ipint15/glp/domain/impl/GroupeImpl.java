@@ -41,16 +41,15 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
-	public GroupeDTO createGroupe(String name, String description, boolean isInstitutionnel) {
+	public GroupeDTO createGroupe(String name, String description) {
 		Groupe g = new Groupe();
 		g.setName(name);
 		g.setDescription(description);
-		g.setInstitutionnel(isInstitutionnel);
+		g.setInstitutionnel(true);
 		em.persist(g);
 
 		GroupeDTO gDTO = g.toGroupeDTO();
 		return gDTO;
-
 	}
 
 	@Override
@@ -126,10 +125,8 @@ public class GroupeImpl implements GroupeRemote {
 		Groupe g = em.createNamedQuery("getGroupeById", Groupe.class).setParameter("id", id).getSingleResult();
 		GroupeDTO gDTO = g.toGroupeDTO();
 		List<AncienEtudiantDTO> listAe = new ArrayList<>();
-		List<AncienEtudiant> list = em.createNamedQuery("getListAncienEtudiantByIdGroupe", AncienEtudiant.class).setParameter("id", id)
-				.getResultList();
-		for (AncienEtudiant ae : list /*g.getAncienEtudiants()*/) {
-			System.out.println("zbra " + ae);
+		List<AncienEtudiant> list = g.getAncienEtudiants();
+		for (AncienEtudiant ae : list) {
 			listAe.add(ae.toEtudiantDTO());
 		}
 		gDTO.setEtudiants(listAe);
@@ -138,7 +135,7 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public List<GroupeDTO> getAllGroupeInstitutionnel() {
-		List<Groupe> gList = em.createNamedQuery("getGroupesInstitutionnels",Groupe.class).getResultList();
+		List<Groupe> gList = em.createNamedQuery("getGroupesInstitutionnels", Groupe.class).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		for (Groupe g : gList) {
 			gDTOList.add(g.toGroupeDTO());
@@ -148,6 +145,7 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
+
 	public boolean membreExistInListGroupe(int idGroupe, int idMembre) {
 		// TODO Auto-generated method stub
 		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
@@ -164,6 +162,18 @@ public class GroupeImpl implements GroupeRemote {
 		return a;
 	}
 
+
+
+	public GroupeDTO createGroupe(String name, String description, boolean isInstitutionnel) {
+		Groupe g = new Groupe();
+		g.setName(name);
+		g.setDescription(description);
+		g.setInstitutionnel(isInstitutionnel);
+		em.persist(g);
+
+		GroupeDTO gDTO = g.toGroupeDTO();
+		return gDTO;
+	}
 
 
 }

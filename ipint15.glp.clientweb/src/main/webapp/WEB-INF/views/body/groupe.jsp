@@ -23,13 +23,13 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1>${groupe.name}</h1>
-				<c:if test="${groupe.institutionnel == false}">Rejoindre</c:if>
+				<c:if test="${inscritDansGroup == true}">Rejoindre</c:if>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
-					onclick="toggle('formulaire')">Créer une publication</a> <br>
+					onclick="toggle('formulaire')">	<c:if test="${inscritDansGroup == false}">Créer une publication</c:if></a> <br>
 			</div>
 		</div>
 		<div id="formulaire" style="display: none; height: 0px;">

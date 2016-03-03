@@ -32,6 +32,16 @@ public class Enseignant implements Serializable {
 	private String mail;
 	@ManyToMany
 	private List<Groupe> groupes;
+	@ManyToMany
+	private List<Groupe> groupesAnimes;
+
+	public List<Groupe> getGroupesAnimes() {
+		return groupesAnimes;
+	}
+
+	public void setGroupesAnimes(List<Groupe> groupesAnimes) {
+		this.groupesAnimes = groupesAnimes;
+	}
 
 	public Enseignant() {
 		super();
@@ -77,13 +87,19 @@ public class Enseignant implements Serializable {
 	public int getId() {
 		return id;
 	}
-	
-	public EnseignantDTO toDTO (){
+
+	public EnseignantDTO toDTO() {
 		EnseignantDTO e = new EnseignantDTO();
 		e.setId(id);
 		e.setMail(mail);
 		e.setNom(nom);
 		e.setPrenom(prenom);
+		for(Groupe g : groupes){
+			e.addGroupeDTO(g.toGroupeDTO());
+		}
+		for(Groupe g : groupesAnimes){
+			e.addGroupeDTOAnime(g.toGroupeDTO());
+		}
 		return e;
 	}
 
