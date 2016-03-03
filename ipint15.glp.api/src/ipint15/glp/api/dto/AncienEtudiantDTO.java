@@ -49,6 +49,7 @@ public class AncienEtudiantDTO implements Serializable {
 	@NotNull(message = "Veuillez saisir une année") 
 	private int anneeDiplome;
 	private GroupeDTO groupe ;
+	private List<GroupeDTO> lesGroupes;
 	private String facebook;
 	private String twitter;
 	private String viadeo;
@@ -302,6 +303,12 @@ public class AncienEtudiantDTO implements Serializable {
 	 */
 	public void setAttentes(String attentes) {
 		this.attentes = attentes;
+	}
+	public List<GroupeDTO> getLesGroupes() {
+		return lesGroupes;
+	}
+	public void setLesGroupes(List<GroupeDTO> lesGroupes) {
+		this.lesGroupes = lesGroupes;
 	}
 
 	
