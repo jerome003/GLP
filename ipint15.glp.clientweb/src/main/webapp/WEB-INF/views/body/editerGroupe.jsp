@@ -78,7 +78,7 @@
 					<div class="form-group">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-3">
-							<input id ="enregistrer" type="submit" value="Enregistrer" />
+							<input id ="enregistrer" type="submit" value="Enregistrer les modifications" />
 						</div>
 					</div>
 				</div>
@@ -101,13 +101,13 @@
 					<div class="col-sm-1">
 						<a class="btn mini blue-stripe"
 							href="${pageContext.request.contextPath}/admin/moderateurs">Besoin
-							d'ajouter un modérateur ?</a>
+							d'un nouveau modérateur ?</a>
 					</div>
 				
 					<div class="form-group">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-3">
-							<input id ="ajouter" type="submit" value="Ajouter" />
+							<input id ="ajouter" type="submit" value="Ajouter modérateur" />
 						</div>
 					</div>
 				</div>
