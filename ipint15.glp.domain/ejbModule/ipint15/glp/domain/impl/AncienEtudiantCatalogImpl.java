@@ -478,12 +478,12 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 
 	@Override
 	public void addGroupeInLesGroupes(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
-		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
+		AncienEtudiant e = getEtudiantById(eDTO.getId());
 		// je recuère le groupe a partir du groupedto
 		Groupe grp = getGroupeById(gDTO.getId());
-		//une fois le groupe récupéré, je récupere la liste des goupe de l'étudiant pour pouvoir supprimer le groupe souhaité 
+		//une fois le groupe récupéré, je récupere la liste des goupe de l'étudiant pour pouvoir ajouter le groupe souhaité 
 		List<Groupe> lesGroupes = e.getLesGroupes();
-		lesGroupes.add(grp); // suppression du groupe
+		lesGroupes.add(grp); // ajout du groupe
 		e.setLesGroupes(lesGroupes);
 		grp.getAncienEtudiants().add(e);
 		em.persist(grp);

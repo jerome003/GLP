@@ -120,10 +120,8 @@ public class GroupeImpl implements GroupeRemote {
 		Groupe g = em.createNamedQuery("getGroupeById", Groupe.class).setParameter("id", id).getSingleResult();
 		GroupeDTO gDTO = g.toGroupeDTO();
 		List<AncienEtudiantDTO> listAe = new ArrayList<>();
-		List<AncienEtudiant> list = em.createNamedQuery("getListAncienEtudiantByIdGroupe", AncienEtudiant.class)
-				.setParameter("id", id).getResultList();
-		for (AncienEtudiant ae : list /* g.getAncienEtudiants() */) {
-			System.out.println("zbra " + ae);
+		List<AncienEtudiant> list = g.getAncienEtudiants();
+		for (AncienEtudiant ae : list) {
 			listAe.add(ae.toEtudiantDTO());
 		}
 		gDTO.setEtudiants(listAe);

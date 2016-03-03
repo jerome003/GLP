@@ -55,6 +55,7 @@ public class Main {
 			groupe3 = groupBean.createGroupe("Test", "description", true);
 			groupe4 = groupBean.createGroupe("Test2", "description", true);
 			groupe4 = groupBean.createGroupe("Raclette", "Pour les vrais fans de raclette.", false);
+			groupe4 = groupBean.createGroupe("Pause café", "Avec du sucre ?", false);
 			
 			System.out.println("moderateur du groupe  "+ groupe.getName()+" : "+ moderateur.getEmail()+ " son mot de passe est : "+ moderateur.getPassword());
 			System.out.println("moderateur du groupe  "+ groupe2.getName()+" : "+ moderateur2.getEmail()+ " son mot de passe est : "+ moderateur2.getPassword());
@@ -84,6 +85,8 @@ public class Main {
 			
 			
 			System.out.println("Etudiant 1 et etudiant 3 leurs inscription est validée ");
+			
+			etuBean.addGroupeInLesGroupes(etudiant, groupe4);
 
 		} catch (NamingException e) {
 			e.printStackTrace();

@@ -1,5 +1,6 @@
 package ipint15.glp.webclient.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -46,7 +47,10 @@ public class FilActualiteController {
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);
 				AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
-				List<GroupeDTO> listeGroupes = groupeBean.getGroupesOfAncienByIdAncien(etu.getId());
+//				List<GroupeDTO> listeGroupes = groupeBean.getGroupesOfAncienByIdAncien(etu.getId());
+				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
+				listeGroupes = etudiantBean.getLesGroupes(etu);
+				listeGroupes.add(etu.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
 				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			} else {
