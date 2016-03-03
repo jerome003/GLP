@@ -30,5 +30,7 @@ public interface GroupeRemote {
 	List<GroupeDTO> getGroupesOfAncienByIdAncien(int id);
 
 	public GroupeDTO getGroupeDTOByIdWithMemberList(int id);
+	
+	public boolean membreExistInListGroupe(int idGroupe, int idMembre);
 
 }

@@ -116,6 +116,11 @@ public class GroupeImpl implements GroupeRemote {
 		return gDTOList;
 	}
 
+	
+	
+	/**
+	 * Renvoi le groupe avec la liste des membre
+	 */
 	@Override
 	public GroupeDTO getGroupeDTOByIdWithMemberList(int id) {
 		Groupe g = em.createNamedQuery("getGroupeById", Groupe.class).setParameter("id", id).getSingleResult();
@@ -141,5 +146,24 @@ public class GroupeImpl implements GroupeRemote {
 
 		return gDTOList;
 	}
+
+	@Override
+	public boolean membreExistInListGroupe(int idGroupe, int idMembre) {
+		// TODO Auto-generated method stub
+		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
+		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getEtudiants();
+		boolean a = false;
+		for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
+			if(ancien.getId() == idMembre){
+				a = true;
+			}
+		}
+		if(!groupeAvecListeDesMembre.isInstitutionnel()){
+			a = false;
+		}
+		return a;
+	}
+
+
 
 }

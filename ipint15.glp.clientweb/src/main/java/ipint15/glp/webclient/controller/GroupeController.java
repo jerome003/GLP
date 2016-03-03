@@ -35,12 +35,23 @@ public class GroupeController {
 
 	@RequestMapping(value = "/groupe/{id}", method = RequestMethod.GET)
 	public ModelAndView groupeConsult(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
+		int idMembre =  Integer.parseInt(request.getParameter("idEtu"));
+	//	int idGroupe = Integer.parseInt(pathVariables.get("id"));
 		HttpSession sessionObj = request.getSession();
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("etudiant")
 					|| sessionObj.getAttribute("type").equals("enseignant")) {
-				ModelAndView model = new ModelAndView("groupe" , "command", new PublicationDTO());
 				int id = Integer.parseInt(pathVariables.get("id"));
+				if(groupeBean.membreExistInListGroupe(id, idMembre) == true){
+					
+					sessionObj.setAttribute("inscritDansGroup", true);
+					
+				}
+				else{
+					sessionObj.setAttribute("inscritDansGroup", false);
+				}
+				ModelAndView model = new ModelAndView("groupe" , "command", new PublicationDTO());
+				
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
 				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id);
 				groupeDTO.setListPublications(listPublications);
@@ -57,6 +68,10 @@ public class GroupeController {
 			return model;
 		}
 	}
+	
+	
+//ecrire une foction qui permet l'enregistrement !
+	
 	
 	@RequestMapping(value = "*/addPublicationGroupe", method = RequestMethod.POST)
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result,
