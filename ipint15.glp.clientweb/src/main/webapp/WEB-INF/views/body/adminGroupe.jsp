@@ -67,14 +67,6 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2">
-						<label class="control-label">Groupe institutionnel :</label>
-					</div>
-					<div class="col-sm-6">
-						<input id="institutionnel" name="institutionnel" type="checkbox" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-2">
 						<label class="control-label">Moderateur :</label>
 					</div>
 					<div class="col-sm-3">
@@ -122,7 +114,6 @@
 				<c:forEach items="${liste}" var="results">
 					<tr>
 						<td>
-						<c:if test="${results.institutionnel == true}"><span class ="glyphicon glyphicon-star"></span></c:if>
 						${results.name}
 							(${myInjectedBean.getGroupeSize(results.id)})</td>
 						<td>${results.description}</td>
