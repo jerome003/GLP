@@ -142,6 +142,32 @@ public class Conversion {
 		gDTO.getEtudiants().add(eDto);
 		return gDTO;
 	}
+	
+	
+	/**
+	 * 
+	 * @param e
+	 * @param lesGroupes
+	 * @return
+	 */
+	
+	public List<GroupeDTO> MappingEtudiantLesGroupes(AncienEtudiant e, List<Groupe> lesGroupes) {
+		List<GroupeDTO> lesGroupesDTO = new ArrayList<GroupeDTO>();
+		AncienEtudiantDTO eDto = e.toEtudiantDTO();
+		
+		for(Groupe g : lesGroupes){
+		lesGroupesDTO.add(g.toGroupeDTO());
+		}
+		// Mapping du profil avec sa compétence
+		eDto.setLesGroupes(lesGroupesDTO);
+		
+		for(GroupeDTO g : lesGroupesDTO){
+		g.getEtudiants().add(eDto);
+		}
+		return lesGroupesDTO;
+	}
+	
+	
 
 	public GroupeDTO MappingModerateurGroupe(Moderateur m, Groupe g) {
 

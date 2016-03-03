@@ -85,7 +85,7 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 		e.setPosteActu(posteActu);
 		e.setVilleActu(villeActu);
 		e.setNomEntreprise(nomEntreprise);
-
+		e.setLesGroupes(new ArrayList<Groupe>());
 		e.setDiplome(diplome);
 		e.setAnneeDiplome(anneeDiplome);
 
@@ -429,6 +429,65 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 		if (lien.contains(site) && (lien.contains("http://") || lien.contains("https://")))
 			return true;
 		return false;
+	}
+
+	@Override
+	public void setLesGroupe(AncienEtudiantDTO eDTO, List<GroupeDTO> lesGroupe) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
+		List<Groupe> lesGroupesPrim = new ArrayList<>();
+		for(GroupeDTO gd : lesGroupe){
+			lesGroupesPrim.add(getGroupeById(gd.getId()));
+			
+		}
+		e.setLesGroupes(lesGroupesPrim);	//lien entre étudiant et la liste des groupes
+		
+		
+		//lien entre chaque groupe et l'étudiant 	
+		for(Groupe grp : lesGroupesPrim){
+		grp.getAncienEtudiants().add(e);
+		em.merge(grp);	
+		}
+		em.merge(e); 
+	}
+
+	@Override
+	public List<GroupeDTO> getLesGroupes(AncienEtudiantDTO eDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
+		// TODO gérer le cas si e = null
+		List<Groupe> mesGroupes = e.getLesGroupes();
+		
+		List<GroupeDTO> mesGroupesDTO = new ArrayList<>();
+		mesGroupesDTO = ce.MappingEtudiantLesGroupes(e, mesGroupes);
+		
+		return mesGroupesDTO;
+	}
+
+	@Override
+	public void removeGroupeInLesGroupes(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
+		// je recuère le groupe a partir du groupedto
+		Groupe grp = getGroupeById(gDTO.getId());
+		//une fois le groupe récupéré, je récupere la liste des goupe de l'étudiant pour pouvoir supprimer le groupe souhaité 
+		List<Groupe> lesGroupes = e.getLesGroupes();
+		lesGroupes.remove(grp); // suppression du groupe
+		grp.getAncienEtudiants().remove(e);
+		e.setLesGroupes(lesGroupes);
+		em.persist(grp);
+		em.persist(e);
+	}
+
+	@Override
+	public void addGroupeInLesGroupes(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
+		// je recuère le groupe a partir du groupedto
+		Groupe grp = getGroupeById(gDTO.getId());
+		//une fois le groupe récupéré, je récupere la liste des goupe de l'étudiant pour pouvoir supprimer le groupe souhaité 
+		List<Groupe> lesGroupes = e.getLesGroupes();
+		lesGroupes.add(grp); // suppression du groupe
+		e.setLesGroupes(lesGroupes);
+		grp.getAncienEtudiants().add(e);
+		em.persist(grp);
+		em.persist(e);
 	}
 
 }

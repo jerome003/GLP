@@ -2,6 +2,7 @@ package ipint15.glp.domain.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -61,6 +63,9 @@ public class AncienEtudiant implements Serializable {
 	private int anneeDiplome;
 	@ManyToOne
 	private Groupe groupe;
+	
+	@ManyToMany
+	private List<Groupe> lesGroupes;
 
 	@OneToOne
 	private EtudiantProfil profil;
@@ -288,6 +293,14 @@ public class AncienEtudiant implements Serializable {
 	 */
 	public void setAttentes(String attentes) {
 		this.attentes = attentes;
+	}
+
+	public List<Groupe> getLesGroupes() {
+		return lesGroupes;
+	}
+
+	public void setLesGroupes(List<Groupe> lesGroupes) {
+		this.lesGroupes = lesGroupes;
 	}
 
 }

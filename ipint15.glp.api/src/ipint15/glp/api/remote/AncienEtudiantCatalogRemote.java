@@ -106,6 +106,36 @@ public interface AncienEtudiantCatalogRemote {
 
 
 	public GroupeDTO getGroupe(AncienEtudiantDTO eDTO);
+	
+	
+	
+	/**
+	 * Permet de modifier la liste des groupes
+	 * 
+	 */
+	public void setLesGroupe(AncienEtudiantDTO eDTO, List<GroupeDTO> lesGroupe);
+	
+	
+	/**
+	 * Permet de recupérer la liste des groupe auquels appartient un ancien etudiant 
+	 * @return
+	 */
+	public List<GroupeDTO> getLesGroupes(AncienEtudiantDTO eDTO);
+	
+	/**
+	 * Permet de supprimer un groupe de la liste des groupes d'un ancien etudiant
+	 * 
+	 */
+	public void removeGroupeInLesGroupes(AncienEtudiantDTO eDTO, GroupeDTO gDTO); 
+
+	/**
+	 * Permet l'ajout d'un nouveau groupe pour un ancien étudaint 
+	
+	 */
+	public void addGroupeInLesGroupes(AncienEtudiantDTO eDTO, GroupeDTO gDTO);
+	
+	
+	
 
 
 	boolean valideLien(String lien, String site);
