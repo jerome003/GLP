@@ -20,5 +20,9 @@ public interface EnseignantCatalogRemote {
 	EnseignantDTO getEnseignantById(int id);
 	
 	EnseignantDTO getEnseignantByMail(String mail);
+	
+	void addGroupeToEnseignant (int idEnseignant, int idGroupe);
+	
+	void addGroupeAnimeToEnseignant (int idEnseignant, int idGroupe);
 
 }

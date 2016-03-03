@@ -14,6 +14,7 @@ public class GroupeDTO implements Serializable {
 	private String name;
 	private List<AncienEtudiantDTO> etudiants;
 	private List<ModerateurDTO> moderateurs;
+	private List<EnseignantDTO> animateurs;
 	@NotEmpty(message = "Veuillez saisir une description du groupe")
 	private String description;
 	private List<PublicationDTO> listPublications;
@@ -101,5 +102,19 @@ public class GroupeDTO implements Serializable {
 	 */
 	public void setInstitutionnel(boolean isInstitutionnel) {
 		this.isInstitutionnel = isInstitutionnel;
+	}
+
+	/**
+	 * @return the animateurs
+	 */
+	public List<EnseignantDTO> getAnimateurs() {
+		return animateurs;
+	}
+
+	/**
+	 * @param animateurs the animateurs to set
+	 */
+	public void setAnimateurs(List<EnseignantDTO> animateurs) {
+		this.animateurs = animateurs;
 	}
 }

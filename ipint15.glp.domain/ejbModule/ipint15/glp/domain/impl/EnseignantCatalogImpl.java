@@ -10,6 +10,7 @@ import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.remote.EnseignantCatalogRemote;
 import ipint15.glp.domain.entities.Enseignant;
 import ipint15.glp.domain.entities.Etudiant;
+import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.util.Conversion;
 
 @Stateless
@@ -42,6 +43,22 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 		Enseignant e = (Enseignant) q.getSingleResult();
 		EnseignantDTO dto = e.toDTO();
 		return dto;
+	}
+
+	@Override
+	public void addGroupeToEnseignant(int idEnseignant, int idGroupe) {
+		Enseignant e = em.find(Enseignant.class, idEnseignant);
+		Groupe groupe = em.find(Groupe.class, idGroupe);
+		e.getGroupes().add(groupe);
+		em.persist(e);
+	}
+
+	@Override
+	public void addGroupeAnimeToEnseignant(int idEnseignant, int idGroupe) {
+		Enseignant e = em.find(Enseignant.class, idEnseignant);
+		Groupe groupe = em.find(Groupe.class, idGroupe);
+		e.getGroupesAnimes().add(groupe);
+		em.persist(e);
 	}
 
 }
