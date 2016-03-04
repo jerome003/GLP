@@ -115,8 +115,8 @@ public class GroupeImpl implements GroupeRemote {
 		return gDTOList;
 	}
 
-	
-	
+
+
 	/**
 	 * Renvoi le groupe avec la liste des membre
 	 */
@@ -145,18 +145,21 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
-
-	public boolean membreExistInListGroupe(int idGroupe, int idMembre) {
+	/**
+	 * Fonction qui permet de verifier si l'etudiant existe deja dans le groupe et si ce groupe est institutionnel ou pas 
+	 */
+	public boolean peutRejoindreGroupe(int idGroupe, int idMembre) {
 		// TODO Auto-generated method stub
 		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
 		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getEtudiants();
-		boolean a = false;
+		boolean a = true;
 		for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
 			if(ancien.getId() == idMembre){
-				a = true;
+				a = false;
 			}
 		}
-		if(!groupeAvecListeDesMembre.isInstitutionnel()){
+		if(groupeAvecListeDesMembre.isInstitutionnel() == true){
+
 			a = false;
 		}
 		return a;
@@ -173,6 +176,33 @@ public class GroupeImpl implements GroupeRemote {
 
 		GroupeDTO gDTO = g.toGroupeDTO();
 		return gDTO;
+	}
+
+	@Override
+	public boolean membreExistInListGroupe(int idGroupe, int idMembre) {
+		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
+		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getEtudiants();
+		boolean a = false;
+		for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
+			if(ancien.getId() == idMembre){
+				a = true;
+			}
+		}
+		return a;
+	}
+
+	@Override
+	public boolean peutQuitterGroupe(int idGroupe, int idMembre) {
+		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
+		
+		boolean a = false;
+		if(groupeAvecListeDesMembre.isInstitutionnel() == false){
+			if(membreExistInListGroupe(idGroupe, idMembre) == true){
+				a = true;
+			}
+			
+		}
+		return a;
 	}
 
 

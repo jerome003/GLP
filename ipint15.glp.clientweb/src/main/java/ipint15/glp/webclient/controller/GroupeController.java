@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.PublicationDTO;
+import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.api.remote.PublicationRemote;
 
@@ -32,23 +33,42 @@ public class GroupeController {
 	protected GroupeRemote groupeBean;
 	@Inject
 	protected PublicationRemote publicationBean;
+	@Inject
+	protected AncienEtudiantCatalogRemote ancienEtudiantBean;
 
 	@RequestMapping(value = "/groupe/{id}", method = RequestMethod.GET)
 	public ModelAndView groupeConsult(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
-		int idMembre =  Integer.parseInt(request.getParameter("idEtu"));
-	//	int idGroupe = Integer.parseInt(pathVariables.get("id"));
 		HttpSession sessionObj = request.getSession();
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("etudiant")
 					|| sessionObj.getAttribute("type").equals("enseignant")) {
 				int id = Integer.parseInt(pathVariables.get("id"));
-				if(groupeBean.membreExistInListGroupe(id, idMembre) == true){
+				
+				AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+				int idMembre = eDTO.getId();
+				
+				
+				
+				if(groupeBean.peutRejoindreGroupe(id, idMembre) == true){
 					
-					sessionObj.setAttribute("inscritDansGroup", true);
+					sessionObj.setAttribute("peutRejoindreGroupe", true);
 					
 				}
 				else{
-					sessionObj.setAttribute("inscritDansGroup", false);
+					sessionObj.setAttribute("peutRejoindreGroupe", false);
+				}
+				
+				if(groupeBean.membreExistInListGroupe(id, idMembre)){
+					sessionObj.setAttribute("peutPublier", true);
+				}
+				else{
+					sessionObj.setAttribute("peutPublier", false);
+				}
+				if(groupeBean.peutQuitterGroupe(id,idMembre)){
+					sessionObj.setAttribute("peutQuitterGroupe", true);
+				}
+				else{
+					sessionObj.setAttribute("peutQuitterGroupe", false);
 				}
 				ModelAndView model = new ModelAndView("groupe" , "command", new PublicationDTO());
 				
@@ -70,7 +90,42 @@ public class GroupeController {
 	}
 	
 	
-//ecrire une foction qui permet l'enregistrement !
+//ecrire une foction qui permet de rejoindre un groupe !
+	
+	
+
+	@RequestMapping(value = "/rejoindreGroupe/{id}", method = RequestMethod.GET)
+	public ModelAndView rejoindreGroupe(HttpServletRequest request, @PathVariable String id) {
+		HttpSession sessionObj = request.getSession();
+		int idp = Integer.parseInt(id);	
+		GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(idp);
+		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+		ancienEtudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO, groupeDTO);
+		
+		return new ModelAndView("redirect:/groupe/"+id);
+				
+		
+	}
+	
+	
+	
+	
+	
+	//peutQuitterGroupe
+	@RequestMapping(value = "/quitterGroupe/{id}", method = RequestMethod.GET)
+	public ModelAndView quitterGroupe(HttpServletRequest request, @PathVariable String id) {
+		HttpSession sessionObj = request.getSession();
+		int idp = Integer.parseInt(id);	
+		GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(idp);
+		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+		ancienEtudiantBean.removeGroupeInLesGroupes(eDTO, groupeDTO);
+		
+		return new ModelAndView("redirect:/groupe/"+id);
+				
+		
+	}
+	
+	
 	
 	
 	@RequestMapping(value = "*/addPublicationGroupe", method = RequestMethod.POST)

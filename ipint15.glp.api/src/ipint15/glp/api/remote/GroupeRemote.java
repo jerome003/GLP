@@ -34,5 +34,9 @@ public interface GroupeRemote {
 	public GroupeDTO getGroupeDTOByIdWithMemberList(int id);
 	
 	public boolean membreExistInListGroupe(int idGroupe, int idMembre);
+	
+	public boolean peutRejoindreGroupe(int idGroupe, int idMembre);
+	
+	public boolean peutQuitterGroupe(int idGroupe, int idMembre);
 
 }
