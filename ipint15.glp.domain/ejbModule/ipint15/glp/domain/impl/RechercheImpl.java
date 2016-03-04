@@ -97,7 +97,7 @@ public class RechercheImpl implements RechercheRemote {
 
 				if (e.getNom().toLowerCase().contains(recherches[i].toLowerCase())
 						|| e.getPrenom().toLowerCase().contains(recherches[i].toLowerCase())) {
-					EnseignantDTO eDTO = e.toDTO();
+					EnseignantDTO eDTO = e.toEnseignantDTO();
 					if (!ensDTO.contains(eDTO))
 							ensDTO.add(eDTO);
 				}

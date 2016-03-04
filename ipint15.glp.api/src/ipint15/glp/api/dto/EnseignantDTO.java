@@ -1,8 +1,10 @@
 package ipint15.glp.api.dto;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class EnseignantDTO {
+public class EnseignantDTO implements Serializable {
 
 	private int id;
 	private String prenom;
@@ -48,6 +50,9 @@ public class EnseignantDTO {
 	}
 
 	public List<GroupeDTO> getListeGroupes() {
+		if (listeGroupes==null) {
+			listeGroupes = new ArrayList<GroupeDTO>();
+		}
 		return listeGroupes;
 	}
 
@@ -72,6 +77,9 @@ public class EnseignantDTO {
 	 * @return the listeGroupesAnime
 	 */
 	public List<GroupeDTO> getListeGroupesAnime() {
+		if (listeGroupesAnime==null) {
+			listeGroupesAnime = new ArrayList<GroupeDTO>();
+		}
 		return listeGroupesAnime;
 	}
 

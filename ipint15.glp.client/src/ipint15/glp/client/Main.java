@@ -13,12 +13,14 @@ import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
+import ipint15.glp.api.remote.EnseignantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 
 public class Main {
 	private static InitialContext ctx;
 	private static AncienEtudiantCatalogRemote etuBean ;
 	private static GroupeRemote groupBean;
+	private static EnseignantCatalogRemote enseignBean;
 	private static AdministrationRemote adminBean;
 	private static AncienEtudiantDTO etudiant;
 	private static AncienEtudiantDTO etudiant2;
@@ -87,6 +89,12 @@ public class Main {
 			System.out.println("Etudiant 1 et etudiant 3 leurs inscription est validée ");
 			
 			etuBean.addGroupeInLesGroupes(etudiant, groupe4);
+			
+			enseignBean = (EnseignantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EnseignantCatalogImpl");
+			
+			enseignBean.createEnseignant("Delportee", "Jeromee", "totoe@gmail.com");
+			enseignBean.createEnseignant("Delporteeeee", "Jeromeeeee", "totoeeeee@gmail.com");
+			enseignBean.createEnseignant("Delporteeaaa", "Jeromeeaaa", "totoeaaaa@gmail.com");
 
 		} catch (NamingException e) {
 			e.printStackTrace();
