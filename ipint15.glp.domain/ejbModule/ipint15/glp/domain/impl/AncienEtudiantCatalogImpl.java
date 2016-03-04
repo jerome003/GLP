@@ -477,7 +477,7 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 	}
 
 	@Override
-	public void addGroupeInLesGroupes(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
+	public void addGroupeInLesGroupesNonInstitEtudiant(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
 		AncienEtudiant e = getEtudiantById(eDTO.getId());
 		// je recuère le groupe a partir du groupedto
 		Groupe grp = getGroupeById(gDTO.getId());

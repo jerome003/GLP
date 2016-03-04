@@ -21,10 +21,11 @@ import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 
 @Controller
 @SessionAttributes
-public class ConnexionEtudiant {
+public class ConnexionEtudiantController {
 	@Inject
 	protected AncienEtudiantCatalogRemote etudiantBean;
 	
+    public static final String ATTR_CAS = "_const_cas_assertion_";
 	@RequestMapping(value = "/connexionEtudiant", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
@@ -33,29 +34,12 @@ public class ConnexionEtudiant {
 			AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
 			Map attributes = principal.getAttributes();
 			Iterator attributeNames = attributes.keySet().iterator();
-//			String mail = (String) attributes.get("mail");
-//			String delims = "@";
-//			String part = mail.split(delims)[1];
-//			String delims2 = "\\.";
-//			String part2 = part.split(delims2)[0];
-//			if (!part2.equals("etudiant")) {
-//				sessionObj.invalidate();
-//				return "home";
+
+
 			if(attributes.get("nip")==null){
 				System.out.println("Connection non etudiant");
 			} else {
 				System.out.println("etudiant");
-//				etudiantBean.createEtudiant("michel", "pedro", "pedro@hotmail.fr");
-//				try {
-//					if (etudiantBean.getEtudiantByMail(mail) != null) {
-//						System.out.println("etudiant trouvé !!!");
-//						return "connexionEtudiant";
-//					} else {
-//						System.out.println("Etudiant pas inscrit !!!!");
-//						return "connexionEtudiant";
-//					}
-//				} catch (NullPointerException e) {
-//				}
 			}
 		}
 		return "connexionEtudiant";
