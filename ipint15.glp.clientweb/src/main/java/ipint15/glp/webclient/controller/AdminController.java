@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import ipint15.glp.api.dto.EnseignantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
@@ -39,6 +40,11 @@ public class AdminController {
 	@ModelAttribute("moderateurList")
 	public List<ModerateurDTO> getModerateur() {
 		return administrationBean.getAllModerateur();
+	}
+	
+	@ModelAttribute("animateurList")
+	public List<EnseignantDTO> getAnimateur() {
+		return administrationBean.getAllAnimateur();
 	}
 
 	@RequestMapping(value = "/admin/groupes", method = RequestMethod.GET)
@@ -84,6 +90,27 @@ public class AdminController {
 		}
 	}
 
+	@RequestMapping(value = "/admin/animateurs", method = RequestMethod.GET)
+	public ModelAndView homeAnimateurs(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		try {
+			if (sessionObj.getAttribute("type").equals("admin")) {
+				sessionObj.setAttribute("section", "animateurs");
+				List<GroupeDTO> listeResultat = groupeBean.getAllGroupeInstitutionnel();
+				ModelAndView modelView = new ModelAndView("adminAnimateur");
+				modelView.addObject("liste", listeResultat);
+				model.addAttribute("myInjectedBean", groupeBean);
+				return modelView;
+			} else {
+				ModelAndView modelView = new ModelAndView("errorAccesRole");
+				return modelView;
+			}
+		} catch (NullPointerException e) {
+			ModelAndView modelView = new ModelAndView("errorAccesRole");
+			return modelView;
+		}
+	}
+	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
@@ -215,6 +242,32 @@ public class AdminController {
 		}
 	}
 	
+	@RequestMapping(value = "/admin/editerAnimateur/{id}", method = RequestMethod.GET)
+	public ModelAndView editerAnimateur(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
+		HttpSession sessionObj = request.getSession();
+		
+		try {
+			if (sessionObj.getAttribute("type").equals("admin")) {
+				sessionObj.setAttribute("section", "animateur");
+				int id = Integer.parseInt(pathVariables.get("id"));
+				GroupeDTO groupe = groupeBean.getGroupeDTOById(id);
+				sessionObj.setAttribute("groupe", groupe);
+				List<EnseignantDTO> listeResultat = administrationBean.getAnimateursDuGroupe(id);
+				ModelAndView modelView = new ModelAndView("editerAnimateur");
+				modelView.addObject("listeAnimateur", listeResultat);
+				model.addAttribute("myInjectedBean", administrationBean);
+				return modelView;
+			} else {
+				ModelAndView modelView = new ModelAndView("errorAccesRole");
+				return modelView;
+			}	
+		} catch (NullPointerException e) {
+			ModelAndView modelView = new ModelAndView("errorAccesRole");
+			return modelView;
+		}
+	}
+	
 	@RequestMapping(value = "admin/editerGroupe/editGroupe1/{id}", method = RequestMethod.POST)
 	public ModelAndView saveEditGroupe(String descriptionGroupe,
 			@PathVariable Map<String, String> pathVariables) {
@@ -269,6 +322,32 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping(value = "admin/editerAnimateur/ajoutAnimToGroupe/{id}", method = RequestMethod.POST)
+	public ModelAndView ajoutAnimToGroupe( int anim,
+			@PathVariable Map<String, String> pathVariables) {
+
+
+		int id =(Integer)Integer.parseInt(pathVariables.get("id"));
+		ModelAndView modelView = new ModelAndView("redirect:/admin/editerAnimateur/"+id);
+		
+		GroupeDTO groupe = groupeBean.getGroupeDTOById(id);
+		
+		if(administrationBean.isAnimateurOfGroupe(anim, id)) {
+			modelView.addObject("ajoutAnim", "ko");
+			return modelView;
+		}
+		else {
+				EnseignantDTO eDTO = administrationBean.addGroupetoAnim(anim, groupe);
+				//administrationBean.sendMailModoAssign(mDTO, groupe);
+				List<EnseignantDTO> listeResultat = administrationBean.getAnimateursDuGroupe(id);
+				modelView = new ModelAndView("redirect:/admin/editerAnimateur/"+id);
+				modelView.addObject("listeAnimateur", listeResultat);
+				modelView.addObject("ajoutAnim", "ok");
+				return modelView;
+			}
+		
+	}
+	
 	@RequestMapping(value = "/admin/editerGroupe/removeModerateurFromGroupe/Modo={id}/Groupe={id2}", method = RequestMethod.GET)
 	public ModelAndView removeModerateurFromGroupe(Locale locale, Model model,
 			@PathVariable Map<String, String> pathVariables) {
@@ -287,6 +366,31 @@ public class AdminController {
 			List<ModerateurDTO> listeResultat = administrationBean.getModerateursDuGroupe(idGroupe);
 			modelView = new ModelAndView("redirect:/admin/editerGroupe/"+idGroupe, "command", new ModerateurDTO());
 			modelView.addObject("listeModo", listeResultat);
+			modelView.addObject("delete", "ok");
+			return modelView;
+		}
+		modelView.addObject("delete","ko");
+		return modelView;
+	}
+	
+	@RequestMapping(value = "/admin/editerAnimateur/removeAnimateurFromGroupe/Anim={id}/Groupe={id2}", method = RequestMethod.GET)
+	public ModelAndView removeAnimateurFromGroupe(Locale locale, Model model,
+			@PathVariable Map<String, String> pathVariables) {
+		
+		
+		ModelAndView modelView ;
+
+		int idAnim = Integer.parseInt(pathVariables.get("id"));
+		int idGroupe = Integer.parseInt(pathVariables.get("id2"));
+		EnseignantDTO mod = administrationBean.getEnseignantDTOById(idAnim);
+		GroupeDTO groupe = groupeBean.getGroupeDTOById(idGroupe);
+		modelView = new ModelAndView("redirect:/admin/editerAnimateur/"+idGroupe);
+		
+		if (administrationBean.removeAnimateurFromGroupe(idAnim,idGroupe)){
+			//administrationBean.sendMailModoUnassign(mod, groupe);
+			List<EnseignantDTO> listeResultat = administrationBean.getAnimateursDuGroupe(idGroupe);
+			modelView = new ModelAndView("redirect:/admin/editerAnimateur/"+idGroupe);
+			modelView.addObject("listeAnimateur", listeResultat);
 			modelView.addObject("delete", "ok");
 			return modelView;
 		}

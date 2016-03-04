@@ -23,11 +23,13 @@ import javax.mail.internet.MimeMessage;
 
 import ipint15.glp.api.dto.AdminDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
+import ipint15.glp.api.dto.EnseignantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.domain.entities.Admin;
 import ipint15.glp.domain.entities.AncienEtudiant;
+import ipint15.glp.domain.entities.Enseignant;
 import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Moderateur;
@@ -53,6 +55,13 @@ public class AdministrationImpl implements AdministrationRemote {
 		return g;
 	}
 
+	private Enseignant getEnseignantById(int id) {
+		Query q = em.createQuery("select o from Enseignant o WHERE o.id = :id");
+		q.setParameter("id", id);
+		Enseignant e = (Enseignant) q.getSingleResult();
+		return e;
+	}
+	
 	private Admin getAdminByMail(String mail) {
 
 		Query q = em.createQuery("select o from Admin o WHERE o.email = :email");
@@ -79,7 +88,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		m.setPassword(password);
 
 		m.setPrenom(prenom);
-		
+
 		System.out.println("Create Modo " + nom + " : " + password);
 
 		em.persist(m);
@@ -159,6 +168,15 @@ public class AdministrationImpl implements AdministrationRemote {
 		ModerateurDTO mDTO = m.toModerateurDTO();
 		return mDTO;
 	}
+	
+	@Override
+	public EnseignantDTO getEnseignantDTOById(int id) {
+		Query q = em.createQuery("select o from Enseignant o WHERE o.id = :id");
+		q.setParameter("id", id);
+		Enseignant e = (Enseignant) q.getSingleResult();
+		EnseignantDTO eDTO = e.toEnseignantDTO();
+		return eDTO;
+	}
 
 	@Override
 	public boolean isMailExistsForAdmin(String mail) {
@@ -205,7 +223,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		return false;
 	}
 
-	
+
 	public boolean isThereAnAdmin() {
 		Query q = em.createQuery("select o from Admin o  ");
 
@@ -388,15 +406,15 @@ public class AdministrationImpl implements AdministrationRemote {
 		}
 
 	}
-	
+
 	@Override
 	public List<AncienEtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id){
-		
+
 		Groupe g = getGroupeById(id);
 		List<AncienEtudiant> EtudiantList = g.getAncienEtudiants();
 		List<AncienEtudiantDTO> EtudiantListDTO = new ArrayList<AncienEtudiantDTO>();
-		
-		
+
+
 		Iterator<AncienEtudiant> iter = EtudiantList.iterator();
 
 		while (iter.hasNext()) {
@@ -405,16 +423,16 @@ public class AdministrationImpl implements AdministrationRemote {
 				iter.remove();
 			}
 		}
-		
+
 		for (AncienEtudiant e : EtudiantList){
 			EtudiantListDTO.add(e.toEtudiantDTO());
 		}
-		
+
 		return EtudiantListDTO;
-		
-		
+
+
 	}
-	
+
 	@Override
 	public void sendMailNewEtudiant(AncienEtudiantDTO etu) {
 		final String username = "maxime.gidon";
@@ -449,7 +467,7 @@ public class AdministrationImpl implements AdministrationRemote {
 				message.setText("Bonjour, "
 						+ "\n\n" + etu.getPrenom() + " " + etu.getNom() + " souhaite rejoindre le groupe " + etu.getGroupe().getName() +
 						" : " + etu.getGroupe().getDescription()+ " \nVotre mot de passe pour vous connecter est : " +
-					modo.getPassword() +". \n\nA bientot sur le réseau d'ancien de Lille 1 !");
+						modo.getPassword() +". \n\nA bientot sur le réseau d'ancien de Lille 1 !");
 
 				Transport.send(message);
 
@@ -460,7 +478,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		}
 
 	}
-	
+
 	@Override
 	public void validationInscription (AncienEtudiantDTO etudiantDTO){
 		AncienEtudiant etu = getEtudiantById(etudiantDTO.getId());
@@ -475,9 +493,9 @@ public class AdministrationImpl implements AdministrationRemote {
 		AncienEtudiant e = (AncienEtudiant) q.getSingleResult();
 		return e;
 	}
-	
 
-	
+
+
 	@Override
 	public void refusInscription (AncienEtudiantDTO etudiantDTO, int idGroupe, String motif){
 		sendMailEtudiantKO(etudiantDTO, motif);
@@ -485,7 +503,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		Groupe g = getGroupeById(idGroupe);
 		g.getAncienEtudiants().remove(etu);
 		em.remove(etu);
-		
+
 	}
 
 	@Override
@@ -497,7 +515,7 @@ public class AdministrationImpl implements AdministrationRemote {
 			return true;
 		}
 		return false;
-		
+
 	}
 
 	@Override
@@ -514,7 +532,24 @@ public class AdministrationImpl implements AdministrationRemote {
 			}
 		}
 		return mDTOList;
-		
+
+	}
+
+	@Override
+	public List<EnseignantDTO> getAnimateursDuGroupe(int id) {
+		Groupe groupe = getGroupeById(id);
+		List<Enseignant> eList = groupe.getAnimateur();
+		List<EnseignantDTO> eDTOList = new ArrayList<EnseignantDTO>();
+		for(Enseignant e : eList) {
+			if (!e.getGroupesAnimes().isEmpty()) {
+				eDTOList.add(ce.MappingGroupeAnimateur(e, e.getGroupesAnimes()));
+
+			}else {
+				eDTOList.add(e.toEnseignantDTO());
+			}
+		}
+		return eDTOList;
+
 	}
 
 	@Override
@@ -524,7 +559,7 @@ public class AdministrationImpl implements AdministrationRemote {
 		if (g.getModerateurs().contains(m)){
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -543,6 +578,21 @@ public class AdministrationImpl implements AdministrationRemote {
 		return false;
 	}
 	
+	@Override
+	public boolean removeAnimateurFromGroupe(int idAnim, int idGroupe) {
+		Enseignant e = getEnseignantById(idAnim);
+		Groupe g = getGroupeById(idGroupe);
+		List<Enseignant> listeAnim = g.getAnimateur();
+		List<Groupe> listeGroupe = e.getGroupesAnimes();
+		if (listeAnim.contains(e)){
+			listeGroupe.remove(g);
+			listeAnim.remove(e);
+			em.merge(e);
+			return true;
+		}
+		return false;
+	}
+
 	@Override
 	public void sendMailModoUnassign(ModerateurDTO modo, GroupeDTO groupe) {
 		final String username = "maxime.gidon";
@@ -582,7 +632,44 @@ public class AdministrationImpl implements AdministrationRemote {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	
+
+	@Override
+	public boolean isAnimateurOfGroupe(int anim, int id) {
+		Groupe g = getGroupeById(id);
+		Enseignant e = getEnseignantById(anim);
+		if (g.getAnimateur().contains(e)){
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public EnseignantDTO addGroupetoAnim(int anim, GroupeDTO groupe) {
+		Enseignant e = getEnseignantById(anim);
+		Groupe g = getGroupeById(groupe.getId());
+		e.getGroupesAnimes().add(g);
+		g.getAnimateur().add(e);
+
+		em.merge(e);
+		em.merge(g);
+
+		return  ce.MappingGroupeAnimateur(e, g);
+	}
+
+	@Override
+	public List<EnseignantDTO> getAllAnimateur() {
+		List<Enseignant> eList = em.createQuery("select o from Enseignant o", Enseignant.class).getResultList();
+		List<EnseignantDTO> eDTOList = new ArrayList<EnseignantDTO>();
+		for(Enseignant e : eList) {
+			if (!e.getGroupesAnimes().isEmpty()) {
+				eDTOList.add(ce.MappingGroupeAnimateur(e, e.getGroupesAnimes()));
+
+			}else {
+				eDTOList.add(e.toEnseignantDTO());
+			}
+		}
+		return eDTOList;
+	}
 
 }

@@ -21,8 +21,8 @@ public class Main {
 	private static InitialContext ctx;
 	private static AncienEtudiantCatalogRemote etuBean ;
 	private static GroupeRemote groupBean;
-	private static AdministrationRemote adminBean;
 	private static EnseignantCatalogRemote enseignBean;
+	private static AdministrationRemote adminBean;
 	private static AncienEtudiantDTO etudiant;
 	private static AncienEtudiantDTO etudiant2;
 	private static AncienEtudiantDTO etudiant3;
@@ -33,6 +33,7 @@ public class Main {
 	private static GroupeDTO groupe4;
 	private static GroupeDTO groupe5;
 	private static GroupeDTO groupe6;
+
 	private static ModerateurDTO moderateur;
 	private static ModerateurDTO moderateur2;
 	private static ModerateurDTO modo;
@@ -102,8 +103,10 @@ public class Main {
 			System.out.println("2 groupes non institutionnel : "+groupe5.getName()+" et "+ groupe6.getName());
 			System.out.println("------------------------------------------------------------------------------------------------");
 			
-			etuBean.addGroupeInLesGroupes(etudiant, groupe5);
-			etuBean.addGroupeInLesGroupes(etudiant3, groupe5);
+
+
+			etuBean.addGroupeInLesGroupesNonInstitEtudiant(etudiant, groupe5);
+			etuBean.addGroupeInLesGroupesNonInstitEtudiant(etudiant3, groupe5);
 			
 			System.out.println(" Etudiant 1 et etudiant 3 ont rejoins le groupe non institutionnel : "+groupe5.getName());
 			System.out.println("------------------------------------------------------------------------------------------------");
@@ -118,7 +121,7 @@ public class Main {
 			System.out.println("Prof 3 est : "+prof3.getNom()+" "+prof3.getPrenom()+" son adresse mail est : "+prof3.getMail());
 			System.out.println("Prof 4 est : "+prof4.getNom()+" "+prof4.getPrenom()+" son adresse mail est : "+prof4.getMail());
 			System.out.println("------------------------------------------------------------------------------------------------");
-			
+
 
 		} catch (NamingException e) {
 			e.printStackTrace();

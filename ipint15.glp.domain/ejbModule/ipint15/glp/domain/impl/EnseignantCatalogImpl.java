@@ -27,13 +27,13 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 		e.setMail(mail);
 		e.setPrenom(prenom);
 		em.persist(e);
-		return e.toDTO();
+		return e.toEnseignantDTO();
 	}
 
 	@Override
 	public EnseignantDTO getEnseignantById(int id) {
 		Enseignant e = em.find(Enseignant.class, id);
-		return e.toDTO();
+		return e.toEnseignantDTO();
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 		Query q = em.createQuery("select o from Enseignant o WHERE o.email = :email");
 		q.setParameter("email", mail);
 		Enseignant e = (Enseignant) q.getSingleResult();
-		EnseignantDTO dto = e.toDTO();
+		EnseignantDTO dto = e.toEnseignantDTO();
 		return dto;
 	}
 

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -31,8 +33,12 @@ public class Enseignant implements Serializable {
 	private String nom;
 	private String mail;
 	@ManyToMany
+	@JoinTable(name = "groupes_enseignant", joinColumns = @JoinColumn(name = "groupes_id"),
+    inverseJoinColumns = @JoinColumn(name = "enseignant_id"))
 	private List<Groupe> groupes;
 	@ManyToMany
+	@JoinTable(name = "groupesanimes_animateur", joinColumns = @JoinColumn(name = "groupesanimes_id"),
+    inverseJoinColumns = @JoinColumn(name = "animateur_id"))
 	private List<Groupe> groupesAnimes;
 
 	public List<Groupe> getGroupesAnimes() {
@@ -88,7 +94,7 @@ public class Enseignant implements Serializable {
 		return id;
 	}
 
-	public EnseignantDTO toDTO() {
+	public EnseignantDTO toEnseignantDTO() {
 		EnseignantDTO e = new EnseignantDTO();
 		e.setId(id);
 		e.setMail(mail);

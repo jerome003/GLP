@@ -52,8 +52,12 @@
 
 				<li <%if (section.equals("moderateurs")) {%> class="active" <%}%>><a
 					href="${pageContext.request.contextPath}/admin/moderateurs">Gestion
-						Modérateurs<br>
+						Modérateurs
 				</a></li>
+				<li <%if (section.equals("animateurs")) {%> class="active" <%}%>>
+					<a href="${pageContext.request.contextPath}/admin/animateurs">Gestion
+						Animateurs</a>
+				</li>
 				<li><a
 					href="${pageContext.request.contextPath}/deconnectionAdmin">Déconnexion<br></a>
 				</li>
