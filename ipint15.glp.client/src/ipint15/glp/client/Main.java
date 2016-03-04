@@ -8,11 +8,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import ipint15.glp.api.dto.Civilite;
+import ipint15.glp.api.dto.EnseignantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
+import ipint15.glp.api.remote.EnseignantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 
 public class Main {
@@ -20,6 +22,7 @@ public class Main {
 	private static AncienEtudiantCatalogRemote etuBean ;
 	private static GroupeRemote groupBean;
 	private static AdministrationRemote adminBean;
+	private static EnseignantCatalogRemote enseignBean;
 	private static AncienEtudiantDTO etudiant;
 	private static AncienEtudiantDTO etudiant2;
 	private static AncienEtudiantDTO etudiant3;
@@ -28,11 +31,17 @@ public class Main {
 	private static GroupeDTO groupe2;
 	private static GroupeDTO groupe3;
 	private static GroupeDTO groupe4;
+	private static GroupeDTO groupe5;
+	private static GroupeDTO groupe6;
 	private static ModerateurDTO moderateur;
 	private static ModerateurDTO moderateur2;
 	private static ModerateurDTO modo;
 	private static ModerateurDTO modo2;
 	private static ModerateurDTO modo3;
+	private static EnseignantDTO prof;
+	private static EnseignantDTO prof2;
+	private static EnseignantDTO prof3;
+	private static EnseignantDTO prof4;
 
 	public static void main(String[] args) {
 		try {
@@ -41,6 +50,7 @@ public class Main {
 			etuBean = (AncienEtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AncienEtudiantCatalogImpl");
 			groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 			adminBean = (AdministrationRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AdministrationImpl");
+			enseignBean = (EnseignantCatalogRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EnseignantCatalogImpl");
 
 
 			moderateur = adminBean.createModerateur("Sarra", "Bahbah", "sara@googleNON.bla", adminBean.generatePassword(8));
@@ -54,14 +64,16 @@ public class Main {
 			groupe2 = groupBean.createGroupe("Elfe", "Ecole des Elfes", true);
 			groupe3 = groupBean.createGroupe("Test", "description", true);
 			groupe4 = groupBean.createGroupe("Test2", "description", true);
-			groupe4 = groupBean.createGroupe("Raclette", "Pour les vrais fans de raclette.", false);
-			groupe4 = groupBean.createGroupe("Pause café", "Avec du sucre ?", false);
+			groupe5 = groupBean.createGroupe("Raclette", "Pour les vrais fans de raclette.", false);
+			groupe6 = groupBean.createGroupe("Pause café", "Avec du sucre ?", false);
 			
 			System.out.println("moderateur du groupe  "+ groupe.getName()+" : "+ moderateur.getEmail()+ " son mot de passe est : "+ moderateur.getPassword());
 			System.out.println("moderateur du groupe  "+ groupe2.getName()+" : "+ moderateur2.getEmail()+ " son mot de passe est : "+ moderateur2.getPassword());
+			System.out.println("------------------------------------------------------------------------------------------------");
 			System.out.println("moderateur sans groupe : "+ modo.getEmail()+ " son mot de passe est : "+ modo.getPassword());
 			System.out.println("moderateur sans groupe : "+ modo2.getEmail()+ " son mot de passe est : "+ modo2.getPassword());
 			System.out.println("moderateur sans groupe : "+ modo3.getEmail()+ " son mot de passe est : "+ modo3.getPassword());
+			System.out.println("------------------------------------------------------------------------------------------------");
 			
 			adminBean.addGroupetoModo(moderateur.getId(), groupe);
 			adminBean.addGroupetoModo(moderateur2.getId(), groupe2);
@@ -79,14 +91,34 @@ public class Main {
 			System.out.println("etudiant 2 est : "+ etudiant2.getPrenom()+" "+etudiant2.getNom()+" son adresse mail : "+etudiant2.getEmail()+" et son mot de passe : "+etudiant2.getPassword());
 			System.out.println("etudiant 3 est : "+ etudiant3.getPrenom()+" "+etudiant3.getNom()+" son adresse mail : "+etudiant3.getEmail()+" et son mot de passe : "+etudiant3.getPassword());
 			System.out.println("etudiant 4 est : "+ etudiant4.getPrenom()+" "+etudiant4.getNom()+" son adresse mail : "+etudiant4.getEmail()+" et son mot de passe : "+etudiant4.getPassword());
+			System.out.println("------------------------------------------------------------------------------------------------");
 			
 			adminBean.validationInscription(etudiant);
 			adminBean.validationInscription(etudiant3);
 			
 			
 			System.out.println("Etudiant 1 et etudiant 3 leurs inscription est validée ");
+			System.out.println("------------------------------------------------------------------------------------------------");
+			System.out.println("2 groupes non institutionnel : "+groupe5.getName()+" et "+ groupe6.getName());
+			System.out.println("------------------------------------------------------------------------------------------------");
 			
-			etuBean.addGroupeInLesGroupes(etudiant, groupe4);
+			etuBean.addGroupeInLesGroupes(etudiant, groupe5);
+			etuBean.addGroupeInLesGroupes(etudiant3, groupe5);
+			
+			System.out.println(" Etudiant 1 et etudiant 3 ont rejoins le groupe non institutionnel : "+groupe5.getName());
+			System.out.println("------------------------------------------------------------------------------------------------");
+			
+			prof= enseignBean.createEnseignant("Caron", "Anne-Cecile", "caron@googleNON.bla");
+			prof2= enseignBean.createEnseignant("Bossut", "Francis", "bossut@googleNON.bla");
+			prof3= enseignBean.createEnseignant("Clerbout", "Mireille","clerbout@googleNON.bla");
+			prof4= enseignBean.createEnseignant("Roos", "Jean-François", "roos@googleNON.bla");
+			
+			System.out.println("Prof 1 est : "+prof.getNom()+" "+prof.getPrenom()+" son adresse mail est : "+prof.getMail());
+			System.out.println("Prof 2 est : "+prof2.getNom()+" "+prof2.getPrenom()+" son adresse mail est : "+prof2.getMail());
+			System.out.println("Prof 3 est : "+prof3.getNom()+" "+prof3.getPrenom()+" son adresse mail est : "+prof3.getMail());
+			System.out.println("Prof 4 est : "+prof4.getNom()+" "+prof4.getPrenom()+" son adresse mail est : "+prof4.getMail());
+			System.out.println("------------------------------------------------------------------------------------------------");
+			
 
 		} catch (NamingException e) {
 			e.printStackTrace();
