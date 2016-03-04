@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.jasig.cas.client.validation.Assertion;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,7 +32,7 @@ import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 public class ConnexionController {
 	@Inject
 	protected AncienEtudiantCatalogRemote etudiantBean;
-
+    public static final String ATTR_CAS = "_const_cas_assertion_";
 	@RequestMapping(value = "/connexion", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
@@ -85,15 +87,23 @@ public class ConnexionController {
 	 * @param model
 	 * @param request
 	 * @return
+	 * @throws ServletException 
 	 */
 	@RequestMapping(value = "/deconnection", method = RequestMethod.GET)
-	public String deconnection(Locale locale, Model model, HttpServletRequest request) {
+	public String deconnection(Locale locale, Model model, HttpServletRequest request) throws ServletException {
+		Assertion assertion = (Assertion) request.getSession().getAttribute(ATTR_CAS);
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("etudiant", null);
 		sessionObj.setAttribute("profil", null);
 		request.setAttribute("deco", "deco");
 		sessionObj.removeAttribute("etudiant");
 		sessionObj.setAttribute("type", "");
+		request.logout();
+		if(assertion != null){
+			request.getSession().setAttribute(ATTR_CAS, null);
+//			System.out.println(request.getServletContext().getInitParameter("urlCasLogout")+ request.getServletContext().getInitParameter("urlSite"));
+			return "redirect:" + request.getServletContext().getInitParameter("urlCasLogout") + request.getServletContext().getInitParameter("urlSite");
+		}
 		return "home";
 	}
 }
