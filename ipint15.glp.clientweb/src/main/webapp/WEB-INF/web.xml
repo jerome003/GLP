@@ -97,18 +97,17 @@
 
 	<filter-mapping>
 		<filter-name>CAS Validation Filter</filter-name>
-		<url-pattern>/azeaze</url-pattern>
+		<url-pattern>/connexionEtudiant</url-pattern>
 	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>CAS Authentication Filter</filter-name>
-		<url-pattern>/azeaze</url-pattern>
+		<url-pattern>/connexionEtudiant</url-pattern>
 	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
-		<url-pattern>/azeaze</url-pattern>
-		
+		<url-pattern>/connexionEtudiant</url-pattern>
 	</filter-mapping>
 
 </web-app>
