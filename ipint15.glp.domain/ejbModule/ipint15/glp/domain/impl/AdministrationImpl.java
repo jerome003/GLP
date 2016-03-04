@@ -656,6 +656,23 @@ public class AdministrationImpl implements AdministrationRemote {
 
 		return  ce.MappingGroupeAnimateur(e, g);
 	}
+	
+	@Override
+	public boolean addGroupetoEnseign(int enseign, GroupeDTO groupe) {
+		Enseignant e = getEnseignantById(enseign);
+		Groupe g = getGroupeById(groupe.getId());
+		
+		if (!e.getGroupes().contains(g)) {
+			e.getGroupes().add(g);
+			g.getEnseignant().add(e);
+			
+			em.merge(e);
+			em.merge(g);
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 	@Override
 	public List<EnseignantDTO> getAllAnimateur() {

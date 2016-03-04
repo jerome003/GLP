@@ -81,4 +81,6 @@ public interface AdministrationRemote {
 
 	public List<EnseignantDTO> getAllAnimateur();
 
+	public boolean addGroupetoEnseign(int enseign, GroupeDTO groupe);
+
 }

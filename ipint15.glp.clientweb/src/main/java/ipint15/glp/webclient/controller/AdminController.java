@@ -338,6 +338,7 @@ public class AdminController {
 		}
 		else {
 				EnseignantDTO eDTO = administrationBean.addGroupetoAnim(anim, groupe);
+				administrationBean.addGroupetoEnseign(anim, groupe);
 				//administrationBean.sendMailModoAssign(mDTO, groupe);
 				List<EnseignantDTO> listeResultat = administrationBean.getAnimateursDuGroupe(id);
 				modelView = new ModelAndView("redirect:/admin/editerAnimateur/"+id);
