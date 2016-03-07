@@ -8,6 +8,7 @@ import javax.ejb.Remote;
 
 import ipint15.glp.api.dto.AdminDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
+import ipint15.glp.api.dto.EnseignantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
 
@@ -67,5 +68,19 @@ public interface AdministrationRemote {
 	public boolean removeModerateurFromGroupe(int idModo, int idGroupe);
 	
 	public void sendMailModoUnassign(ModerateurDTO modo, GroupeDTO groupe);
+
+	public List<EnseignantDTO> getAnimateursDuGroupe(int id);
+
+	public boolean isAnimateurOfGroupe(int anim, int id);
+
+	public EnseignantDTO addGroupetoAnim(int anim, GroupeDTO groupe);
+
+	public EnseignantDTO getEnseignantDTOById(int id);
+
+	public boolean removeAnimateurFromGroupe(int idAnim, int idGroupe);
+
+	public List<EnseignantDTO> getAllAnimateur();
+
+	public boolean addGroupetoEnseign(int enseign, GroupeDTO groupe);
 
 }

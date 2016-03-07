@@ -129,6 +129,13 @@
         <put-attribute name="body" value="/WEB-INF/views/body/adminModerateur.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>
+            <definition name="adminAnimateur"
+        template="/WEB-INF/views/layout/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerAdminConnect.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/body/adminAnimateur.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
+    </definition>
         <definition name="admin"
         template="/WEB-INF/views/layout/layout.jsp">
         <put-attribute name="title" value="" />
@@ -148,6 +155,14 @@
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="/WEB-INF/views/conteneur/headerAdminConnect.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/body/editerGroupe.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
+    </definition>
+    
+    <definition name="editerAnimateur"
+       template="/WEB-INF/views/layout/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerAdminConnect.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/body/editerAnimateur.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>
     <definition name="validationInscription"
@@ -174,7 +189,7 @@
     <definition name="connexionEtudiant"
         template="/WEB-INF/views/layout/layout.jsp">
         <put-attribute name="title" value="" />
-        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerDisconnect.jsp" />
+        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerConnect.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/body/connexionEtudiant.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>

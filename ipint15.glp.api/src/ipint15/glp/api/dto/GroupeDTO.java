@@ -108,6 +108,9 @@ public class GroupeDTO implements Serializable {
 	 * @return the animateurs
 	 */
 	public List<EnseignantDTO> getAnimateurs() {
+		if (animateurs == null) {
+			this.animateurs = new ArrayList<EnseignantDTO>();
+		}
 		return animateurs;
 	}
 

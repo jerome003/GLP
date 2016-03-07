@@ -36,7 +36,10 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Lille University Meetup Platform<br>
+						<img class="pull-left"
+				src="${pageContext.request.contextPath}/resources/img/Logo.png"
+				alt="Logo" /> <a class="navbar-brand" href="#">&nbsp; Lille University
+				Meetup Platform<br>
 			</a>
 			<p class="text-primary">Connecté en tant qu'administrateur </p>
 		</div>
@@ -52,8 +55,12 @@
 
 				<li <%if (section.equals("moderateurs")) {%> class="active" <%}%>><a
 					href="${pageContext.request.contextPath}/admin/moderateurs">Gestion
-						Modérateurs<br>
+						Modérateurs
 				</a></li>
+				<li <%if (section.equals("animateurs")) {%> class="active" <%}%>>
+					<a href="${pageContext.request.contextPath}/admin/animateurs">Gestion
+						Animateurs</a>
+				</li>
 				<li><a
 					href="${pageContext.request.contextPath}/deconnectionAdmin">Déconnexion<br></a>
 				</li>

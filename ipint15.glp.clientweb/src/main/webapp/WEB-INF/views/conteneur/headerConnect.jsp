@@ -36,7 +36,10 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Lille University Meetup Platform<br>
+			<img class="pull-left"
+				src="${pageContext.request.contextPath}/resources/img/Logo.png"
+				alt="Logo" /> <a class="navbar-brand" href="#">&nbsp; Lille University
+				Meetup Platform<br>
 			</a>
 		</div>
 

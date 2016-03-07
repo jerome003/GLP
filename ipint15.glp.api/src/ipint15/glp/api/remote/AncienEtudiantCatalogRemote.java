@@ -129,10 +129,10 @@ public interface AncienEtudiantCatalogRemote {
 	public void removeGroupeInLesGroupes(AncienEtudiantDTO eDTO, GroupeDTO gDTO); 
 
 	/**
-	 * Permet l'ajout d'un nouveau groupe pour un ancien étudaint 
+	 * Permet l'ajout d'un nouveau groupe pour un ancien étudiant 
 	
 	 */
-	public void addGroupeInLesGroupes(AncienEtudiantDTO eDTO, GroupeDTO gDTO);
+	public void addGroupeInLesGroupesNonInstitEtudiant(AncienEtudiantDTO eDTO, GroupeDTO gDTO);
 	
 	
 	

@@ -23,13 +23,36 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1>${groupe.name}</h1>
-				<c:if test="${groupe.institutionnel == false}">Rejoindre</c:if>
+				<c:if test="${peutRejoindreGroupe == true}"> 
+				
+				<form:form role="form" method="get"
+					action="${pageContext.servletContext.contextPath}/rejoindreGroupe/${groupe.id}" class="row col-md-12">
+				<button type="submit" class="col-md-2 btn btn-primary">Rejoindre</button>
+				</form:form>
+				
+			     </c:if>
+			     
+			     
+			     
+			     
+			     <c:if test="${peutRejoindreGroupe == false}"> 
+				
+				<form:form role="form" method="get"
+					action="${pageContext.servletContext.contextPath}/quitterGroupe/${groupe.id}" class="row col-md-12">
+				<button type="submit" class="col-md-2 btn btn-primary">Quitter le groupe</button>
+				</form:form>
+				
+			     </c:if>
+			     
+			     
+			     
+			     
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
-					onclick="toggle('formulaire')">Créer une publication</a> <br>
+			   	<c:if test="${peutPublier == true}">	<span class="glyphicon glyphicon-pencil"></span> <a class="pHoover"
+					onclick="toggle('formulaire')">Créer une publication </a></c:if> <br>
 			</div>
 		</div>
 		<div id="formulaire" style="display: none; height: 0px;">
