@@ -27,7 +27,7 @@
 						<td>${results.description}</td>
 						<td>
 							<c:forEach items="${results.animateurs}" var="resultsAnimateur">
-								${resultsAnimateur.name}
+								${resultsAnimateur.nom}
 							</c:forEach>
 						</td>
 						<td><a class="btn mini blue-stripe"
