@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+
 public class PublicationDTO implements Serializable {
 	/**
 	 * 
@@ -14,6 +15,10 @@ public class PublicationDTO implements Serializable {
 	private int id;
 
 	private EtudiantProfilDTO profil;
+	
+	private EtudiantDTO etudiant;
+	
+	private EnseignantDTO enseignant;
 
 	@NotEmpty( message = "Veuillez saisir un titre")
 	private String titre;
@@ -81,6 +86,22 @@ public class PublicationDTO implements Serializable {
 
 	public void setPublicationPublic(boolean publicationPublic) {
 		this.publicationPublic = publicationPublic;
+	}
+
+	public EtudiantDTO getEtudiant() {
+		return etudiant;
+	}
+
+	public void setEtudiant(EtudiantDTO etudiant) {
+		this.etudiant = etudiant;
+	}
+
+	public EnseignantDTO getEnseignant() {
+		return enseignant;
+	}
+
+	public void setEnseignant(EnseignantDTO enseignant) {
+		this.enseignant = enseignant;
 	}
 
 	@Override

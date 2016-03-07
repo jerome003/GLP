@@ -1,6 +1,5 @@
 package ipint15.glp.webclient.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +18,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
+import ipint15.glp.api.dto.EnseignantDTO;
+import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
@@ -41,7 +42,7 @@ public class GroupeController {
 		HttpSession sessionObj = request.getSession();
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("etudiant")
-					|| sessionObj.getAttribute("type").equals("enseignant")) {
+					|| sessionObj.getAttribute("type").equals("prof")) {
 				int id = Integer.parseInt(pathVariables.get("id"));
 				
 				AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
@@ -134,17 +135,45 @@ public class GroupeController {
 		System.out.println(publication);
 		System.out.println("grp : " + publication.getGroupeDTO());
 		HttpSession sessionObj = request.getSession();
-		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+		if (sessionObj.getAttribute("type").equals("ancien")) {
+			AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 
-		if (publication.getGroupeDTO().getId() == -1) {
-			publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-					null);
-		} else {
-			publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-					publication.getGroupeDTO());
+			if (publication.getGroupeDTO().getId() == -1) {
+				publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
+						null);
+			} else {
+				publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
+						publication.getGroupeDTO());
+			}
+			List<PublicationDTO> myPublications = publicationBean.getAllPublications(null, -1);
 		}
-		List<PublicationDTO> myPublications = publicationBean.getAllPublications(null, -1);
+		if (sessionObj.getAttribute("type").equals("etudiant")) {
+			EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+			
+			if (publication.getGroupeDTO().getId() == -1) {
+				publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
+						null);
+			} else {
+				publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
+						publication.getGroupeDTO());
+			}
+			List<PublicationDTO> myPublications = publicationBean.getAllPublicationsEtudiant(null, -1);
+		}
+		
+		if (sessionObj.getAttribute("type").equals("prof")) {
+			EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
+			
+			if (publication.getGroupeDTO().getId() == -1) {
+				publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
+						null);
+			} else {
+				publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
+						publication.getGroupeDTO());
+			}
+			List<PublicationDTO> myPublications = publicationBean.getAllPublicationsEnseignant(null, -1);
+		}
 
+	
 		return new ModelAndView("redirect:"+publication.getGroupeDTO().getId(), "command", new PublicationDTO());
 	}
 }

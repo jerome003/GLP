@@ -17,6 +17,7 @@ import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.EnseignantCatalogRemote;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
+import ipint15.glp.api.remote.PublicationRemote;
 
 public class Main {
 	private static InitialContext ctx;
@@ -25,6 +26,7 @@ public class Main {
 	private static GroupeRemote groupBean;
 	private static EnseignantCatalogRemote enseignBean;
 	private static AdministrationRemote adminBean;
+	private static PublicationRemote pubBean;
 	private static AncienEtudiantDTO etudiant;
 	private static AncienEtudiantDTO etudiant2;
 	private static AncienEtudiantDTO etudiant3;
@@ -108,6 +110,9 @@ public class Main {
 			etuBean.addGroupeInLesGroupesNonInstitEtudiant(etudiant, groupe6);
 			
 			etudiantNonDiplome = etudiantBean.createEtudiant("EtudiantNom", "EtudiantPrenom", "etudiant@fake.fr");
+			
+			System.out.println("etudiant non diplome son adresse mail : "+etudiantNonDiplome.getMail());
+			System.out.println("------------------------------------------------------------------------------------------------");
 
 
 			etuBean.addGroupeInLesGroupesNonInstitEtudiant(etudiant, groupe5);
@@ -126,6 +131,7 @@ public class Main {
 			System.out.println("Prof 3 est : "+prof3.getNom()+" "+prof3.getPrenom()+" son adresse mail est : "+prof3.getMail());
 			System.out.println("Prof 4 est : "+prof4.getNom()+" "+prof4.getPrenom()+" son adresse mail est : "+prof4.getMail());
 			System.out.println("------------------------------------------------------------------------------------------------");
+
 
 		} catch (NamingException e) {
 			e.printStackTrace();

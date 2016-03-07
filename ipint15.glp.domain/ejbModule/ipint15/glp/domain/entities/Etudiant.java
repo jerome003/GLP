@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import ipint15.glp.api.dto.EtudiantDTO;
@@ -32,6 +33,8 @@ public class Etudiant implements Serializable {
 	private String mail;
 	@ManyToMany
 	private List<Groupe> groupes;
+	@OneToMany(mappedBy = "etudiant")
+	private List<Publication> mesPublications;
 
 	public Etudiant() {
 		super();
@@ -71,6 +74,15 @@ public class Etudiant implements Serializable {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+	
+
+	public List<Publication> getMesPublications() {
+		return mesPublications;
+	}
+
+	public void setMesPublications(List<Publication> mesPublications) {
+		this.mesPublications = mesPublications;
 	}
 
 	@Override

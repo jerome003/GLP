@@ -3,6 +3,7 @@ package ipint15.glp.api.dto;
 import java.io.Serializable;
 import java.util.List;
 
+
 public class EtudiantDTO implements Serializable {
 
 	/**
@@ -14,6 +15,7 @@ public class EtudiantDTO implements Serializable {
 	private String nom;
 	private String mail;
 	private List<GroupeDTO> listeGroupes;
+	private List<PublicationDTO> mesPublications;
 
 	public EtudiantDTO() {
 		super();
@@ -57,6 +59,14 @@ public class EtudiantDTO implements Serializable {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	public List<PublicationDTO> getMesPublications() {
+		return mesPublications;
+	}
+
+	public void setMesPublications(List<PublicationDTO> mesPublications) {
+		this.mesPublications = mesPublications;
 	}
 
 	@Override

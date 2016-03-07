@@ -17,6 +17,7 @@ public class EnseignantDTO implements Serializable{
 	private String mail;
 	private List<GroupeDTO> listeGroupes;
 	private List<GroupeDTO> listeGroupesAnime;
+	private List<PublicationDTO> mesPublications;
 
 	public EnseignantDTO() {
 		super();
@@ -71,6 +72,14 @@ public class EnseignantDTO implements Serializable{
 	
 	public void addGroupeDTOAnime (GroupeDTO groupe){
 		this.listeGroupesAnime.add(groupe);
+	}
+
+	public List<PublicationDTO> getMesPublications() {
+		return mesPublications;
+	}
+
+	public void setMesPublications(List<PublicationDTO> mesPublications) {
+		this.mesPublications = mesPublications;
 	}
 
 	@Override
