@@ -83,4 +83,6 @@ public interface AdministrationRemote {
 
 	public boolean addGroupetoEnseign(int enseign, GroupeDTO groupe);
 
+	public int getEtudiantsNonInscritByIdGroupeSize(int id);
+
 }

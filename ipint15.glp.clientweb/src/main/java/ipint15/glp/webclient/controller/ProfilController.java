@@ -29,24 +29,31 @@ public class ProfilController {
 	protected AncienEtudiantCatalogRemote ancienEtudiantBean;
 	@Inject
 	protected EtudiantCatalogRemote etudiantBean;
-	@Inject 
+	@Inject
 	protected EnseignantCatalogRemote enseignantBean;
 
 	@RequestMapping(value = "/profil", method = RequestMethod.GET)
 	public ModelAndView home(@RequestParam(value = "name", required = false) String name,
 			@RequestParam(value = "prenom", required = false) String prenom, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
-		sessionObj.setAttribute("consultation", false);
-		sessionObj.setAttribute("section", "profil");
-		model.addAttribute("myInjectedBean", ancienEtudiantBean);
-		return new ModelAndView("profil", "command", new AncienEtudiantDTO());
-
+		try {
+			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("etudiant")
+					|| sessionObj.getAttribute("type").equals("prof")) {
+				sessionObj.setAttribute("consultation", false);
+				sessionObj.setAttribute("section", "profil");
+				model.addAttribute("myInjectedBean", ancienEtudiantBean);
+				return new ModelAndView("profil", "command", new AncienEtudiantDTO());
+			} else {
+				return new ModelAndView("errorAccesRole");
+			}
+		} catch (NullPointerException e) {
+			return new ModelAndView("errorAccesRole");
+		}
 	}
 
 	@RequestMapping(value = "/profilEtudiant/{id}", method = RequestMethod.GET)
 	public ModelAndView profilEtudiant(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
-		System.out.println("ok");
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof")
 					|| sessionObj.getAttribute("type").equals("etudiant")) {
@@ -64,11 +71,10 @@ public class ProfilController {
 		ModelAndView model = new ModelAndView("errorAccesRole");
 		return model;
 	}
-	
+
 	@RequestMapping(value = "/profilEnseignant/{id}", method = RequestMethod.GET)
 	public ModelAndView profilEnseignant(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
-		System.out.println("ok");
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof")
 					|| sessionObj.getAttribute("type").equals("etudiant")) {
@@ -93,7 +99,8 @@ public class ProfilController {
 	public ModelAndView profilConsult(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		try {
-			if (sessionObj.getAttribute("type").equals("ancien")) {
+			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("etudiant")
+					|| sessionObj.getAttribute("type").equals("prof")) {
 				int id = Integer.parseInt(pathVariables.get("id"));
 				AncienEtudiantDTO etu = ancienEtudiantBean.getEtudiant(id);
 				etu.getProfil().setMesCompetences(ancienEtudiantBean.getCompetences(etu));

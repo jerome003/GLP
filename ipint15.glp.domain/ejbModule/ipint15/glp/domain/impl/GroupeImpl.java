@@ -88,9 +88,19 @@ public class GroupeImpl implements GroupeRemote {
 	@Override
 	public int getGroupeSize(int id) {
 		Groupe g = getGroupeById(id);
-		return g.getAncienEtudiants().size();
+		int size = g.getAncienEtudiants().size();
+		size += g.getEnseignant().size();
+		size += g.getEtudiants().size();
+		
+		return size;
 	}
 
+	@Override
+	public int getAnimByGroupeSize(int id) {
+		Groupe g = getGroupeById(id);
+		return g.getAnimateur().size();
+	}
+	
 	@Override
 	public boolean removeGroupe(int id) {
 		Groupe g = getGroupeById(id);
@@ -140,6 +150,13 @@ public class GroupeImpl implements GroupeRemote {
 		}
 		gDTO.setEnseignants(listEnseignDTO);
 		
+		listEnseignDTO = new ArrayList<>();
+		listEnseign = g.getAnimateur();
+		for (Enseignant e : listEnseign) {
+			listEnseignDTO.add(e.toEnseignantDTO());
+		}
+		gDTO.setAnimateurs(listEnseignDTO);
+		
 		List<EtudiantDTO> listEtuDTO = new ArrayList<>();
 		List<Etudiant> listEtu = g.getEtudiants();
 		for (Etudiant e : listEtu) {
@@ -154,7 +171,35 @@ public class GroupeImpl implements GroupeRemote {
 		List<Groupe> gList = em.createNamedQuery("getGroupesInstitutionnels", Groupe.class).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		for (Groupe g : gList) {
-			gDTOList.add(g.toGroupeDTO());
+			GroupeDTO gDTO = g.toGroupeDTO();
+			List<AncienEtudiantDTO> listAe = new ArrayList<>();
+			List<AncienEtudiant> list = g.getAncienEtudiants();
+			for (AncienEtudiant ae : list) {
+				listAe.add(ae.toEtudiantDTO());
+			}
+			gDTO.setAncienEtudiants(listAe);
+			
+			List<EnseignantDTO> listEnseignDTO = new ArrayList<>();
+			List<Enseignant> listEnseign = g.getEnseignant();
+			for (Enseignant e : listEnseign) {
+				listEnseignDTO.add(e.toEnseignantDTO());
+			}
+			gDTO.setEnseignants(listEnseignDTO);
+			
+			listEnseignDTO = new ArrayList<>();
+			listEnseign = g.getAnimateur();
+			for (Enseignant e : listEnseign) {
+				listEnseignDTO.add(e.toEnseignantDTO());
+			}
+			gDTO.setAnimateurs(listEnseignDTO);
+			
+			List<EtudiantDTO> listEtuDTO = new ArrayList<>();
+			List<Etudiant> listEtu = g.getEtudiants();
+			for (Etudiant e : listEtu) {
+				listEtuDTO.add(e.toEtudiantDTO());
+			}
+			gDTO.setEtudiants(listEtuDTO);
+			gDTOList.add(gDTO);
 		}
 
 		return gDTOList;

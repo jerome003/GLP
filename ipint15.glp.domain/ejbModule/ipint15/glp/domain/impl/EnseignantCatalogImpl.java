@@ -45,7 +45,11 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 	@Override
 	public EnseignantDTO getEnseignantById(int id) {
 		Enseignant e = em.find(Enseignant.class, id);
-		return e.toEnseignantDTO();
+		EnseignantDTO dto = e.toEnseignantDTO();
+		for (Groupe g : e.getGroupesAnimes()) {
+			dto.addGroupeDTOAnime(g.toGroupeDTO());
+		}
+		return dto;
 	}
 
 	@Override
@@ -54,6 +58,11 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 		q.setParameter("email", mail);
 		Enseignant e = (Enseignant) q.getSingleResult();
 		EnseignantDTO dto = e.toEnseignantDTO();
+		for (Groupe g : e.getGroupesAnimes()) {
+			dto.addGroupeDTOAnime(g.toGroupeDTO());
+		}
+		
+		
 		return dto;
 	}
 
