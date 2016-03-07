@@ -35,13 +35,13 @@ public class ResultResearchController {
 		String recherche = request.getParameter("recherche");
 		List<AncienEtudiantDTO> listeResultat = rechercheBean.rechercherAncienEtudiant(recherche);
 		List<GroupeDTO> listeResultatGroupe = rechercheBean.rechercherGroupe(recherche);
-//		List<EtudiantDTO> listeResultatEtudiant = rechercheBean.rechercherEtudiant(recherche);
-//		List<EnseignantDTO> listeResultatEnseignant = rechercheBean.rechercherEnseignant(recherche);
+		List<EtudiantDTO> listeResultatEtudiant = rechercheBean.rechercherEtudiant(recherche);
+		List<EnseignantDTO> listeResultatEnseignant = rechercheBean.rechercherEnseignant(recherche);
 		ModelAndView model = new ModelAndView();
 		model.addObject("recherche",request.getParameter("recherche"));
 		model.addObject("liste",listeResultat);
-//		model.addObject("liste",listeResultatEtudiant);
-//		model.addObject("liste",listeResultatEnseignant);
+		model.addObject("listeEtu",listeResultatEtudiant);
+		model.addObject("listeEnseign",listeResultatEnseignant);
 		model.addObject("listeGroupe",listeResultatGroupe);
 		model.setViewName("resultResearch");
 		return model ;

@@ -94,12 +94,12 @@ public class Enseignant implements Serializable {
 		e.setMail(mail);
 		e.setNom(nom);
 		e.setPrenom(prenom);
-		for(Groupe g : groupes){
-			e.addGroupeDTO(g.toGroupeDTO());
-		}
-		for(Groupe g : groupesAnimes){
-			e.addGroupeDTOAnime(g.toGroupeDTO());
-		}
+		// for(Groupe g : groupes){
+		// e.addGroupeDTO(g.toGroupeDTO());
+		// }
+		// for(Groupe g : groupesAnimes){
+		// e.addGroupeDTOAnime(g.toGroupeDTO());
+		// }
 		return e;
 	}
 

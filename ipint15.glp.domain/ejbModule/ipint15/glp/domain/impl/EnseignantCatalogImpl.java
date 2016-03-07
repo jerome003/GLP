@@ -6,10 +6,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ipint15.glp.api.dto.EnseignantDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.remote.EnseignantCatalogRemote;
 import ipint15.glp.domain.entities.Enseignant;
-import ipint15.glp.domain.entities.Etudiant;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.util.Conversion;
 
@@ -27,7 +25,8 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 		e.setMail(mail);
 		e.setPrenom(prenom);
 		em.persist(e);
-		return e.toDTO();
+		EnseignantDTO dto = e.toDTO();
+		return dto;
 	}
 
 	@Override

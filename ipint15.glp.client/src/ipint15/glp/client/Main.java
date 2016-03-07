@@ -3,23 +3,28 @@ package ipint15.glp.client;
 
 import java.util.Date;
 
-
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.Civilite;
+import ipint15.glp.api.dto.EnseignantDTO;
+import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
-import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
+import ipint15.glp.api.remote.EnseignantCatalogRemote;
+import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 
 public class Main {
 	private static InitialContext ctx;
 	private static AncienEtudiantCatalogRemote etuBean ;
+	private static EtudiantCatalogRemote etudiantBean;
 	private static GroupeRemote groupBean;
 	private static AdministrationRemote adminBean;
+	private static EnseignantCatalogRemote enseignantBean;
 	private static AncienEtudiantDTO etudiant;
 	private static AncienEtudiantDTO etudiant2;
 	private static AncienEtudiantDTO etudiant3;
@@ -33,6 +38,8 @@ public class Main {
 	private static ModerateurDTO modo;
 	private static ModerateurDTO modo2;
 	private static ModerateurDTO modo3;
+	private static EtudiantDTO etudiantNonDiplome;
+	private static EnseignantDTO enseignant;
 
 	public static void main(String[] args) {
 		try {
@@ -41,6 +48,8 @@ public class Main {
 			etuBean = (AncienEtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AncienEtudiantCatalogImpl");
 			groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 			adminBean = (AdministrationRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AdministrationImpl");
+			etudiantBean = (EtudiantCatalogRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
+			enseignantBean = (EnseignantCatalogRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EnseignantCatalogImpl");
 
 
 			moderateur = adminBean.createModerateur("Sarra", "Bahbah", "sara@googleNON.bla", adminBean.generatePassword(8));
@@ -87,6 +96,9 @@ public class Main {
 			System.out.println("Etudiant 1 et etudiant 3 leurs inscription est validée ");
 			
 			etuBean.addGroupeInLesGroupes(etudiant, groupe4);
+			
+			etudiantNonDiplome = etudiantBean.createEtudiant("EtudiantNom", "EtudiantPrenom", "etudiant@fake.fr");
+			enseignant = enseignantBean.createEnseignant("Test", "François", "machin@truc.fr");
 
 		} catch (NamingException e) {
 			e.printStackTrace();
