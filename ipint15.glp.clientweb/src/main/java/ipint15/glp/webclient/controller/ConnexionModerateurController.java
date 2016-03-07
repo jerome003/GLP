@@ -84,6 +84,7 @@ public class ConnexionModerateurController {
 				List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
 				ModelAndView modelView = new ModelAndView("validationInscription");
 				modelView.addObject("liste", listeResultat);
+				model.addAttribute("myInjectedBean", administrationBean);
 				return modelView;
 			} else {
 				ModelAndView modele = new ModelAndView("errorAccesRole");

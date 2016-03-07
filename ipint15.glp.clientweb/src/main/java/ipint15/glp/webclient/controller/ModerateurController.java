@@ -32,6 +32,7 @@ public class ModerateurController {
 		try {
 			if (sessionObj.getAttribute("type").equals("moderateur")) {
 				sessionObj.setAttribute("section", "accueilmoderateur");
+				model.addAttribute("myInjectedBean", administrationBean);
 				return "moderateur";
 			} else {
 				return "errorAccesRole";

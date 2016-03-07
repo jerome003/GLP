@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
+import ipint15.glp.api.dto.EnseignantDTO;
+import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.domain.entities.AncienEtudiant;
@@ -86,9 +88,19 @@ public class GroupeImpl implements GroupeRemote {
 	@Override
 	public int getGroupeSize(int id) {
 		Groupe g = getGroupeById(id);
-		return g.getAncienEtudiants().size();
+		int size = g.getAncienEtudiants().size();
+		size += g.getEnseignant().size();
+		size += g.getEtudiants().size();
+		
+		return size;
 	}
 
+	@Override
+	public int getAnimByGroupeSize(int id) {
+		Groupe g = getGroupeById(id);
+		return g.getAnimateur().size();
+	}
+	
 	@Override
 	public boolean removeGroupe(int id) {
 		Groupe g = getGroupeById(id);
@@ -129,7 +141,28 @@ public class GroupeImpl implements GroupeRemote {
 		for (AncienEtudiant ae : list) {
 			listAe.add(ae.toEtudiantDTO());
 		}
-		gDTO.setEtudiants(listAe);
+		gDTO.setAncienEtudiants(listAe);
+		
+		List<EnseignantDTO> listEnseignDTO = new ArrayList<>();
+		List<Enseignant> listEnseign = g.getEnseignant();
+		for (Enseignant e : listEnseign) {
+			listEnseignDTO.add(e.toEnseignantDTO());
+		}
+		gDTO.setEnseignants(listEnseignDTO);
+		
+		listEnseignDTO = new ArrayList<>();
+		listEnseign = g.getAnimateur();
+		for (Enseignant e : listEnseign) {
+			listEnseignDTO.add(e.toEnseignantDTO());
+		}
+		gDTO.setAnimateurs(listEnseignDTO);
+		
+		List<EtudiantDTO> listEtuDTO = new ArrayList<>();
+		List<Etudiant> listEtu = g.getEtudiants();
+		for (Etudiant e : listEtu) {
+			listEtuDTO.add(e.toEtudiantDTO());
+		}
+		gDTO.setEtudiants(listEtuDTO);
 		return gDTO;
 	}
 
@@ -138,7 +171,35 @@ public class GroupeImpl implements GroupeRemote {
 		List<Groupe> gList = em.createNamedQuery("getGroupesInstitutionnels", Groupe.class).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		for (Groupe g : gList) {
-			gDTOList.add(g.toGroupeDTO());
+			GroupeDTO gDTO = g.toGroupeDTO();
+			List<AncienEtudiantDTO> listAe = new ArrayList<>();
+			List<AncienEtudiant> list = g.getAncienEtudiants();
+			for (AncienEtudiant ae : list) {
+				listAe.add(ae.toEtudiantDTO());
+			}
+			gDTO.setAncienEtudiants(listAe);
+			
+			List<EnseignantDTO> listEnseignDTO = new ArrayList<>();
+			List<Enseignant> listEnseign = g.getEnseignant();
+			for (Enseignant e : listEnseign) {
+				listEnseignDTO.add(e.toEnseignantDTO());
+			}
+			gDTO.setEnseignants(listEnseignDTO);
+			
+			listEnseignDTO = new ArrayList<>();
+			listEnseign = g.getAnimateur();
+			for (Enseignant e : listEnseign) {
+				listEnseignDTO.add(e.toEnseignantDTO());
+			}
+			gDTO.setAnimateurs(listEnseignDTO);
+			
+			List<EtudiantDTO> listEtuDTO = new ArrayList<>();
+			List<Etudiant> listEtu = g.getEtudiants();
+			for (Etudiant e : listEtu) {
+				listEtuDTO.add(e.toEtudiantDTO());
+			}
+			gDTO.setEtudiants(listEtuDTO);
+			gDTOList.add(gDTO);
 		}
 
 		return gDTOList;
@@ -151,7 +212,7 @@ public class GroupeImpl implements GroupeRemote {
 	public boolean peutRejoindreGroupe(int idGroupe, int idMembre) {
 		// TODO Auto-generated method stub
 		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
-		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getEtudiants();
+		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getAncienEtudiants();
 		boolean a = true;
 		for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
 			if(ancien.getId() == idMembre){
@@ -181,7 +242,7 @@ public class GroupeImpl implements GroupeRemote {
 	@Override
 	public boolean membreExistInListGroupe(int idGroupe, int idMembre) {
 		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
-		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getEtudiants();
+		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getAncienEtudiants();
 		boolean a = false;
 		for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
 			if(ancien.getId() == idMembre){
