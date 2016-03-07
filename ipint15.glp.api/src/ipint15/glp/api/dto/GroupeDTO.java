@@ -12,9 +12,11 @@ public class GroupeDTO implements Serializable {
 	private int id;
 	@NotEmpty(message = "Veuillez saisir un nom de groupe")
 	private String name;
-	private List<AncienEtudiantDTO> etudiants;
+	private List<AncienEtudiantDTO> ancienEtudiants;
+	private List<EtudiantDTO> etudiants;
 	private List<ModerateurDTO> moderateurs;
 	private List<EnseignantDTO> animateurs;
+	private List<EnseignantDTO> enseignants;
 	@NotEmpty(message = "Veuillez saisir une description du groupe")
 	private String description;
 	private List<PublicationDTO> listPublications;
@@ -47,16 +49,6 @@ public class GroupeDTO implements Serializable {
 		this.name = name;
 	}
 
-	public List<AncienEtudiantDTO> getEtudiants() {
-		if (etudiants == null) {
-			this.etudiants = new ArrayList<AncienEtudiantDTO>();
-		}
-		return etudiants;
-	}
-
-	public void setEtudiants(List<AncienEtudiantDTO> etudiants) {
-		this.etudiants = etudiants;
-	}
 
 	public String getDescription() {
 		return description;
@@ -120,4 +112,39 @@ public class GroupeDTO implements Serializable {
 	public void setAnimateurs(List<EnseignantDTO> animateurs) {
 		this.animateurs = animateurs;
 	}
+
+	public List<AncienEtudiantDTO> getAncienEtudiants() {
+		if (ancienEtudiants == null) {
+			this.ancienEtudiants = new ArrayList<AncienEtudiantDTO>();
+		}
+		return ancienEtudiants;
+	}
+
+	public void setAncienEtudiants(List<AncienEtudiantDTO> ancienEtudiants) {
+		this.ancienEtudiants = ancienEtudiants;
+	}
+
+	public List<EtudiantDTO> getEtudiants() {
+		if (etudiants == null) {
+			this.etudiants = new ArrayList<EtudiantDTO>();
+		}
+		return etudiants;
+	}
+
+	public void setEtudiants(List<EtudiantDTO> etudiants) {
+		this.etudiants = etudiants;
+	}
+
+	public List<EnseignantDTO> getEnseignants() {
+		if (enseignants == null) {
+			this.enseignants = new ArrayList<EnseignantDTO>();
+		}
+		return enseignants;
+	}
+
+	public void setEnseignants(List<EnseignantDTO> enseignants) {
+		this.enseignants = enseignants;
+	}
+	
+	
 }
