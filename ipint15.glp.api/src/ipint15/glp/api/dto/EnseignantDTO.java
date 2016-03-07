@@ -2,12 +2,15 @@ package ipint15.glp.api.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import java.util.List;
 
-public class EnseignantDTO implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+public class EnseignantDTO implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2663304633945426080L;
 	private int id;
 	private String prenom;
 	private String nom;
