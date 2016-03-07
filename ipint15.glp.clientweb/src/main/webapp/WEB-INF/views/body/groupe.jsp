@@ -97,7 +97,14 @@
 			<div class="row">
 				<h3>Membres</h3>
 			</div>
-			
+			<div class="well">
+			<h4>Animateurs</h4>
+				<c:forEach items="${groupe.animateurs}" var="anim">
+					<a class="row"
+						href="${pageContext.request.contextPath}/profilEnseignant/${anim.id}">${anim.prenom}
+						${anim.nom}</a>
+				</c:forEach>
+			</div>
 			<div class="well">
 				<h4>Anciens Etudiants</h4>
 				<c:forEach items="${groupe.ancienEtudiants}" var="ancienEtudiant">
@@ -109,15 +116,16 @@
 				<h4>Personnel</h4>
 				<c:forEach items="${groupe.enseignants}" var="enseign">
 					<a class="row"
-						href="${pageContext.request.contextPath}/profil/${enseign.id}">${enseign.prenom}
+						href="${pageContext.request.contextPath}/profilEnseignant/${enseign.id}">${enseign.prenom}
 						${enseign.nom}</a>
 				</c:forEach>
 				<h4>Etudiants</h4>
 				<c:forEach items="${groupe.etudiants}" var="etudiant">
 					<a class="row"
-						href="${pageContext.request.contextPath}/profil/${etudiant.id}">${etudiant.prenom}
+						href="${pageContext.request.contextPath}/profilEtudiant/${etudiant.id}">${etudiant.prenom}
 						${etudiant.nom}</a>
 				</c:forEach>
+				
 			</div>
 		</div>
 		<div class="col-md-8">

@@ -150,6 +150,13 @@ public class GroupeImpl implements GroupeRemote {
 		}
 		gDTO.setEnseignants(listEnseignDTO);
 		
+		listEnseignDTO = new ArrayList<>();
+		listEnseign = g.getAnimateur();
+		for (Enseignant e : listEnseign) {
+			listEnseignDTO.add(e.toEnseignantDTO());
+		}
+		gDTO.setAnimateurs(listEnseignDTO);
+		
 		List<EtudiantDTO> listEtuDTO = new ArrayList<>();
 		List<Etudiant> listEtu = g.getEtudiants();
 		for (Etudiant e : listEtu) {
