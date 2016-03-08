@@ -11,7 +11,7 @@
 			<table class="table table-striped table-hover table-users">
 				<thead>
 					<tr>
-						<th>Nom du groupe</th>
+						<th>Nom du groupe (en attente)</th>
 						<th>Description</th>
 						<th></th>
 					</tr>
@@ -21,7 +21,7 @@
 					<c:forEach items="${user.groupes}" var="groupe">
 
 						<tr>
-							<td>${groupe.name}</td>
+							<td>${groupe.name} (${myInjectedBean.getEtudiantsNonInscritByIdGroupeSize(groupe.id)})</td>
 							<td>${groupe.description}</td>
 							<td><a class="btn mini blue-stripe"
 								href="${pageContext.request.contextPath}/moderateur/validationGroup/${groupe.id}"><span

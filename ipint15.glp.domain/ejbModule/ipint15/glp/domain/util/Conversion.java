@@ -143,7 +143,7 @@ public class Conversion {
 
 		// Mapping du profil avec sa compétence
 		eDto.setGroupe(gDTO);
-		gDTO.getEtudiants().add(eDto);
+		gDTO.getAncienEtudiants().add(eDto);
 		return gDTO;
 	}
 
@@ -154,7 +154,7 @@ public class Conversion {
 
 		// Mapping du profil avec sa compétence
 		eDto.setGroupe(gDTO);
-		gDTO.getEtudiantsActuels().add(eDto);
+		gDTO.getEtudiants().add(eDto);
 		return gDTO;
 	}
 	
@@ -176,7 +176,7 @@ public class Conversion {
 		eDto.setLesGroupes(lesGroupesDTO);
 		
 		for(GroupeDTO g : lesGroupesDTO){
-		g.getEtudiants().add(eDto);
+		g.getAncienEtudiants().add(eDto);
 		}
 		return lesGroupesDTO;
 	}

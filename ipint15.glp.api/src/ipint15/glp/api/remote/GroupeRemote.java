@@ -39,4 +39,6 @@ public interface GroupeRemote {
 	
 	public boolean peutQuitterGroupe(int idGroupe, int idMembre);
 
+	public int getAnimByGroupeSize(int id);
+
 }
