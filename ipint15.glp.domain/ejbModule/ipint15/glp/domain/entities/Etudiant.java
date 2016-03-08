@@ -88,6 +88,7 @@ public class Etudiant implements Serializable {
 		dTO.setId(id);
 		dTO.setNom(nom);
 		dTO.setPrenom(prenom);
+		dTO.setMail(mail);
 		return dTO;
 	}
 

@@ -1,11 +1,10 @@
 package ipint15.glp.webclient.controller;
 
-
 import java.util.List;
-
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -29,22 +28,32 @@ public class ResultResearchController {
 	protected AncienEtudiantCatalogRemote etudiantBean;
 	@Inject
 	protected RechercheRemote rechercheBean;
-	
-	@RequestMapping(value = {"*/research","/research"}, method = RequestMethod.POST)
+
+	@RequestMapping(value = { "*/research", "/research" }, method = RequestMethod.POST)
 	public ModelAndView recherche(@Valid HttpServletRequest request) {
-		String recherche = request.getParameter("recherche");
-		List<AncienEtudiantDTO> listeResultat = rechercheBean.rechercherAncienEtudiant(recherche);
-		List<GroupeDTO> listeResultatGroupe = rechercheBean.rechercherGroupe(recherche);
-		List<EtudiantDTO> listeResultatEtudiant = rechercheBean.rechercherEtudiant(recherche);
-		List<EnseignantDTO> listeResultatEnseignant = rechercheBean.rechercherEnseignant(recherche);
-		ModelAndView model = new ModelAndView();
-		model.addObject("recherche",request.getParameter("recherche"));
-		model.addObject("liste",listeResultat);
-		model.addObject("liste",listeResultatEtudiant);
-		model.addObject("liste",listeResultatEnseignant);
-		model.addObject("listeGroupe",listeResultatGroupe);
-		model.setViewName("resultResearch");
-		return model ;
+		HttpSession sessionObj = request.getSession();
+		try {
+			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("etudiant")
+					|| sessionObj.getAttribute("type").equals("prof")) {
+				String recherche = request.getParameter("recherche");
+				List<AncienEtudiantDTO> listeResultat = rechercheBean.rechercherAncienEtudiant(recherche);
+				List<GroupeDTO> listeResultatGroupe = rechercheBean.rechercherGroupe(recherche);
+				List<EtudiantDTO> listeResultatEtudiant = rechercheBean.rechercherEtudiant(recherche);
+				List<EnseignantDTO> listeResultatEnseignant = rechercheBean.rechercherEnseignant(recherche);
+				ModelAndView model = new ModelAndView();
+				model.addObject("recherche", request.getParameter("recherche"));
+				model.addObject("liste", listeResultat);
+				model.addObject("listeEtu", listeResultatEtudiant);
+				model.addObject("listeEnseign", listeResultatEnseignant);
+				model.addObject("listeGroupe", listeResultatGroupe);
+				model.setViewName("resultResearch");
+				return model;
+			} else {
+				return new ModelAndView("errorAccesRole");
+			}
+		} catch (NullPointerException e) {
+			return new ModelAndView("errorAccesRole");
+		}
 	}
 
 }

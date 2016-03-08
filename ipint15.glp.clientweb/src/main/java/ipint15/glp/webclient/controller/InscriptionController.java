@@ -2,7 +2,6 @@ package ipint15.glp.webclient.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,13 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import ipint15.glp.api.dto.Civilite;
-import ipint15.glp.api.dto.CompetenceDTO;
-import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
-import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
-import ipint15.glp.api.dto.HobbieDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;

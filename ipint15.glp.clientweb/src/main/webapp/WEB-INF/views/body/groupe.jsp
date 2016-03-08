@@ -23,7 +23,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1>${groupe.name}</h1>
-				<c:if test="${peutRejoindreGroupe == true}"> 
+				<c:if test="${peutRejoindreGroupe}"> 
 				
 				<form:form role="form" method="get"
 					action="${pageContext.servletContext.contextPath}/rejoindreGroupe/${groupe.id}" class="row col-md-12">
@@ -35,7 +35,7 @@
 			     
 			     
 			     
-			     <c:if test="${peutRejoindreGroupe == false}"> 
+			     <c:if test="${peutQuitterGroupe}"> 
 				
 				<form:form role="form" method="get"
 					action="${pageContext.servletContext.contextPath}/quitterGroupe/${groupe.id}" class="row col-md-12">
@@ -51,7 +51,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-			   	<c:if test="${peutPublier == true}">	<span class="glyphicon glyphicon-pencil"></span> <a class="pHoover"
+			   	<c:if test="${peutPublier}">	<span class="glyphicon glyphicon-pencil"></span> <a class="pHoover"
 					onclick="toggle('formulaire')">Créer une publication </a></c:if> <br>
 			</div>
 		</div>
@@ -98,11 +98,34 @@
 				<h3>Membres</h3>
 			</div>
 			<div class="well">
-				<c:forEach items="${groupe.etudiants}" var="ancienEtudiant">
+			<h4>Animateurs</h4>
+				<c:forEach items="${groupe.animateurs}" var="anim">
+					<a class="row"
+						href="${pageContext.request.contextPath}/profilEnseignant/${anim.id}">${anim.prenom}
+						${anim.nom}</a>
+				</c:forEach>
+			</div>
+			<div class="well">
+				<h4>Anciens Etudiants</h4>
+				<c:forEach items="${groupe.ancienEtudiants}" var="ancienEtudiant">
 					<a class="row"
 						href="${pageContext.request.contextPath}/profil/${ancienEtudiant.id}">${ancienEtudiant.prenom}
 						${ancienEtudiant.nom}</a>
 				</c:forEach>
+				
+				<h4>Personnel</h4>
+				<c:forEach items="${groupe.enseignants}" var="enseign">
+					<a class="row"
+						href="${pageContext.request.contextPath}/profilEnseignant/${enseign.id}">${enseign.prenom}
+						${enseign.nom}</a>
+				</c:forEach>
+				<h4>Etudiants</h4>
+				<c:forEach items="${groupe.etudiants}" var="etudiant">
+					<a class="row"
+						href="${pageContext.request.contextPath}/profilEtudiant/${etudiant.id}">${etudiant.prenom}
+						${etudiant.nom}</a>
+				</c:forEach>
+				
 			</div>
 		</div>
 		<div class="col-md-8">

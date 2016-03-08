@@ -18,8 +18,7 @@
 <!-- libraries pour les alertes  -->
 <script
 	src="${pageContext.request.contextPath}/resources/js/alertify.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/edition.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/edition.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/alertify.core.css" />
 <!-- include a theme, can be included into the core instead of 2 separate files -->
@@ -39,7 +38,10 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Lille University Meetup Platform<br>
+			<img class="pull-left"
+				src="${pageContext.request.contextPath}/resources/img/Logo.png"
+				alt="Logo" /> <a class="navbar-brand" href="#">&nbsp; Lille
+				University Meetup Platform<br>
 			</a>
 		</div>
 

@@ -51,4 +51,6 @@ public interface GroupeRemote {
 	 */
 //	public void addGroupeAnimateur(AncienEtudiant ansEtu, GroupeDTO groupe);
 
+	public int getAnimByGroupeSize(int id);
+
 }

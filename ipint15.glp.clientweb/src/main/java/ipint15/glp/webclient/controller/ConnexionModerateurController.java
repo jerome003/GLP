@@ -17,13 +17,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import ipint15.glp.api.dto.AdminDTO;
-import ipint15.glp.api.dto.ConnexionCommand;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
-import ipint15.glp.api.dto.GroupeDTO;
+import ipint15.glp.api.dto.ConnexionCommand;
 import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
@@ -87,6 +84,7 @@ public class ConnexionModerateurController {
 				List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
 				ModelAndView modelView = new ModelAndView("validationInscription");
 				modelView.addObject("liste", listeResultat);
+				model.addAttribute("myInjectedBean", administrationBean);
 				return modelView;
 			} else {
 				ModelAndView modele = new ModelAndView("errorAccesRole");
@@ -101,38 +99,58 @@ public class ConnexionModerateurController {
 	@RequestMapping(value = "/moderateur/validationGroup/{idGroupe}/etudiantOK/{idEtu}", method = RequestMethod.GET)
 	public ModelAndView valideInscription(Locale locale, Model model, HttpServletRequest request,
 			@PathVariable Map<String, String> pathVariables) {
-
-		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
-		AncienEtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
-		administrationBean.validationInscription(etu);
-
-		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
 		HttpSession sessionObj = request.getSession();
-		sessionObj.setAttribute("idGroupe", idGroupe);
-		List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
-		// Modifier vue retourner pour que cela soit plus propre au niveau des
-		// urls.
-		ModelAndView modelView = new ModelAndView("validationInscription");
-		modelView.addObject("liste", listeResultat);
+		try {
+			if (sessionObj.getAttribute("type").equals("moderateur")) {
+				int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
+				AncienEtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
+				administrationBean.validationInscription(etu);
 
-		return modelView;
+				int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
+				sessionObj.setAttribute("idGroupe", idGroupe);
+				List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
+				// Modifier vue retourner pour que cela soit plus propre au
+				// niveau des
+				// urls.
+				ModelAndView modelView = new ModelAndView("validationInscription");
+				modelView.addObject("liste", listeResultat);
+
+				return modelView;
+			} else {
+				ModelAndView modele = new ModelAndView("errorAccesRole");
+				return modele;
+			}
+		} catch (NullPointerException e) {
+			ModelAndView modele = new ModelAndView("errorAccesRole");
+			return modele;
+		}
 
 	}
 
 	@RequestMapping(value = "/moderateur/validationGroup/{idGroupe}/etudiantKO/{idEtu}", method = RequestMethod.GET)
 	public ModelAndView refuseInscription(Locale locale, Model model, HttpServletRequest request,
-			@PathVariable Map<String, String> pathVariables, @RequestParam(value = "motif") String motif ) {
+			@PathVariable Map<String, String> pathVariables, @RequestParam(value = "motif") String motif) {
+		HttpSession sessionObj = request.getSession();
+		try {
+			if (sessionObj.getAttribute("type").equals("moderateur")) {
+				int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
+				AncienEtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
+				int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
+				administrationBean.refusInscription(etu, idGroupe, motif);
 
-		int idEtu = Integer.parseInt(pathVariables.get("idEtu"));
-		AncienEtudiantDTO etu = etudiantBean.getEtudiant(idEtu);
-		int idGroupe = Integer.parseInt(pathVariables.get("idGroupe"));
-		administrationBean.refusInscription(etu, idGroupe, motif);
+				List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
+				ModelAndView modelView = new ModelAndView("validationInscription");
+				modelView.addObject("liste", listeResultat);
 
-		List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(idGroupe);
-		ModelAndView modelView = new ModelAndView("validationInscription");
-		modelView.addObject("liste", listeResultat);
-
-		return modelView;
+				return modelView;
+			} else {
+				ModelAndView modele = new ModelAndView("errorAccesRole");
+				return modele;
+			}
+		} catch (NullPointerException e) {
+			ModelAndView modele = new ModelAndView("errorAccesRole");
+			return modele;
+		}
 
 	}
 
@@ -147,10 +165,18 @@ public class ConnexionModerateurController {
 	@RequestMapping(value = "/deconnectionModerateur", method = RequestMethod.GET)
 	public String deconnection(Locale locale, Model model, HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
-		sessionObj.setAttribute("user", null);
-		request.setAttribute("deco", "deco");
-		sessionObj.removeAttribute("user");
-		sessionObj.setAttribute("type", "");
-		return "home";
+		try {
+			if (sessionObj.getAttribute("type").equals("moderateur")) {
+				sessionObj.setAttribute("user", null);
+				request.setAttribute("deco", "deco");
+				sessionObj.removeAttribute("user");
+				sessionObj.setAttribute("type", "");
+				return "home";
+			} else {
+				return "errorAccesRole";
+			}
+		} catch (NullPointerException e) {
+			return "errorAccesRole";
+		}
 	}
 }
