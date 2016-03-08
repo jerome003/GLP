@@ -6,6 +6,7 @@ import java.util.List;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EnseignantDTO;
+import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.EtudiantProfilDTO;
 import ipint15.glp.api.dto.PublicationDTO;
@@ -16,6 +17,7 @@ import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.domain.entities.Competence;
 import ipint15.glp.domain.entities.Ecole;
 import ipint15.glp.domain.entities.Enseignant;
+import ipint15.glp.domain.entities.Etudiant;
 import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Publication;
@@ -144,7 +146,17 @@ public class Conversion {
 		gDTO.getAncienEtudiants().add(eDto);
 		return gDTO;
 	}
-	
+
+	public GroupeDTO MappingEtudiantGroupe(Etudiant e, Groupe g) {
+
+		EtudiantDTO eDto = e.toEtudiantDTO();
+		GroupeDTO gDTO = g.toGroupeDTO();
+
+		// Mapping du profil avec sa compétence
+		eDto.setGroupe(gDTO);
+		gDTO.getEtudiants().add(eDto);
+		return gDTO;
+	}
 	
 	/**
 	 * 

@@ -432,14 +432,6 @@ public class AdministrationImpl implements AdministrationRemote {
 
 
 	}
-	
-	@Override
-	public int getEtudiantsNonInscritByIdGroupeSize(int id){
-
-		return getEtudiantsNonInscritByIdGroupe(id).size();
-
-
-	}
 
 	@Override
 	public void sendMailNewEtudiant(AncienEtudiantDTO etu) {

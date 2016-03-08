@@ -103,7 +103,7 @@
 		<table class="table table-striped table-hover table-users">
 			<thead>
 				<tr>
-					<th>Nom du groupe (nb membres)</th>
+					<th>Nom du groupe (nb)</th>
 					<th>Description</th>
 					<th></th>
 					<th></th>
