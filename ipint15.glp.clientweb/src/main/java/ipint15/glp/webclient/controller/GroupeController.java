@@ -3,6 +3,7 @@ package ipint15.glp.webclient.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
+import ipint15.glp.api.dto.ModerateurDTO;
 import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.api.remote.PublicationRemote;
+
 
 @Controller
 @SessionAttributes
@@ -107,6 +111,110 @@ public class GroupeController {
 		
 	}
 	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/nonInstitGroupe", method = RequestMethod.GET)
+	public ModelAndView homeNonInstitGroupes(Locale locale, Model model, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+		try {
+
+			if (sessionObj.getAttribute("type").equals("ancien")) {
+				AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+				List<GroupeDTO> listeResultat = groupeBean.getAllMesGroupesNonInstitutionnel(eDTO);
+				ModelAndView modelView = new ModelAndView("nonInstitGroupe", "command", new GroupeDTO());
+				modelView.addObject("liste", listeResultat);
+				model.addAttribute("myInjectedBean", groupeBean);
+				return modelView;
+			}
+			else{
+				ModelAndView modelView = new ModelAndView("errorAccesRole");
+				return modelView;
+			}
+		} catch (NullPointerException e) {
+			ModelAndView modelView = new ModelAndView("errorAccesRole");
+			return modelView;
+		}
+	}
+	
+	
+	
+	/*
+	
+	
+	
+	@RequestMapping(value = "/editerGroupe/{id}", method = RequestMethod.GET)
+	public ModelAndView editerGroupe(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
+		HttpSession sessionObj = request.getSession();
+		
+		try {
+			if (sessionObj.getAttribute("type").equals("etudiant")) {
+				int id = Integer.parseInt(pathVariables.get("id"));
+				GroupeDTO groupe = groupeBean.getGroupeDTOById(id);
+				sessionObj.setAttribute("groupe", groupe);			
+				ModelAndView modelView = new ModelAndView("editerGroupe", "command", new GroupeDTO());
+				model.addAttribute("myInjectedBean", groupeBean);
+				return modelView;
+			} else {
+				ModelAndView modelView = new ModelAndView("errorAccesRole");
+				return modelView;
+			}	
+		} catch (NullPointerException e) {
+			ModelAndView modelView = new ModelAndView("errorAccesRole");
+			return modelView;
+		}
+	}
+	
+	
+	
+	@RequestMapping(value = "/removeGroupe/{id}", method = RequestMethod.GET)
+	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
+	//	HttpSession sessionObj = request.getSession();
+		
+		
+		ModelAndView modelView ;
+		modelView = new ModelAndView("redirect:nonInstitGroupe");
+
+		int id = Integer.parseInt(pathVariables.get("id"));
+		if (groupeBean.removeGroupe(id)) {
+	
+			List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+			modelView = new ModelAndView("redirect:nonInstitGroupe", "command", new GroupeDTO());
+			modelView.addObject("liste", listeResultat);
+	
+			modelView.addObject("delete", "ok");
+			return modelView;
+		}
+		
+		modelView.addObject("delete", "ko");
+		return modelView;
+	}
+	
+	
+	*/
+	
+	@RequestMapping(value = "/saveGroupeNonInstit", method = RequestMethod.POST)
+	public ModelAndView saveGroupeNonInstit(HttpServletRequest request,String nameGroupe, String descriptionGroupe) {	
+		System.out.println("passe dans le save ");		
+		ModelAndView modelView;	
+		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe, false);
+		System.out.println("le groupe a été créé");
+		HttpSession sessionObj = request.getSession();
+		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");		
+		ancienEtudiantBean.addAnimateurToGroupe(eDTO, gDTO);	
+		ancienEtudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO, gDTO);		
+		List<GroupeDTO> listeResultat = groupeBean.getAllMesGroupesNonInstitutionnel(eDTO);
+		modelView = new ModelAndView("redirect:/nonInstitGroupe", "command", new GroupeDTO());
+		modelView.addObject("liste", listeResultat);
+		modelView.addObject("creation", "ok");
+		return modelView;
+
+	}
 	
 	
 	

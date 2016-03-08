@@ -64,7 +64,7 @@ public class Main {
 			groupe = groupBean.createGroupe("Miage","Groupe Miage", true);
 			groupe2 = groupBean.createGroupe("Elfe", "Ecole des Elfes", true);
 			groupe3 = groupBean.createGroupe("Test", "description", true);
-			groupe4 = groupBean.createGroupe("Test2", "description", true);
+			groupe4 = groupBean.createGroupe("Test2", "description", false);
 			groupe5 = groupBean.createGroupe("Raclette", "Pour les vrais fans de raclette.", false);
 			groupe6 = groupBean.createGroupe("Pause café", "Avec du sucre ?", false);
 			

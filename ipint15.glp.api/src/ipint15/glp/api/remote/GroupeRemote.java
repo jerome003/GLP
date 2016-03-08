@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 
+
 @Remote
 public interface GroupeRemote {
 
@@ -22,7 +23,11 @@ public interface GroupeRemote {
 	public List<GroupeDTO> getAllGroupe();
 	
 	public List<GroupeDTO> getAllGroupeInstitutionnel();
+	
+	public List<GroupeDTO> getAllGroupeNonInstitutionnel();
 
+	public List<GroupeDTO> getAllMesGroupesNonInstitutionnel(AncienEtudiantDTO ancien);
+	
 	public GroupeDTO getGroupeDTOById(int id);
 
 	public int getGroupeSize(int id);
@@ -38,5 +43,12 @@ public interface GroupeRemote {
 	public boolean peutRejoindreGroupe(int idGroupe, int idMembre);
 	
 	public boolean peutQuitterGroupe(int idGroupe, int idMembre);
+	
+	/**
+	 * Permet l'ajout d'un animateur à un groupe non institutionnel
+	 * @param ansEtu
+	 * @param groupe
+	 */
+//	public void addGroupeAnimateur(AncienEtudiant ansEtu, GroupeDTO groupe);
 
 }

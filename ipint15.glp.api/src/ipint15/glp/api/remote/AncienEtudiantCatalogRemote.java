@@ -134,9 +134,7 @@ public interface AncienEtudiantCatalogRemote {
 	 */
 	public void addGroupeInLesGroupesNonInstitEtudiant(AncienEtudiantDTO eDTO, GroupeDTO gDTO);
 	
-	
-	
-
+	public void addAnimateurToGroupe(AncienEtudiantDTO eDTO, GroupeDTO gDTO);
 
 	boolean valideLien(String lien, String site);
 	
