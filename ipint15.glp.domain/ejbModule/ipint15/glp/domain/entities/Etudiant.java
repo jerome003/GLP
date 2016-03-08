@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import ipint15.glp.api.dto.EtudiantDTO;
@@ -18,6 +21,8 @@ import ipint15.glp.api.dto.EtudiantDTO;
  */
 @Entity
 @Table(name = "ETUDIANT")
+@NamedQueries({
+	@NamedQuery(name = "getListEtudiantByIdGroupe", query = "Select e from Etudiant e where e.groupe.id = :id")})
 public class Etudiant implements Serializable {
 
 	/**
@@ -32,7 +37,8 @@ public class Etudiant implements Serializable {
 	private String mail;
 	@ManyToMany
 	private List<Groupe> groupes;
-
+	@ManyToOne
+	private Groupe groupe;
 	public Etudiant() {
 		super();
 	}
@@ -77,7 +83,15 @@ public class Etudiant implements Serializable {
 	public String toString() {
 		return "Etudiant [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", mail=" + mail + "]";
 	}
+	public Groupe getGroupe() {
+		return groupe;
+	}
 
+	public void setGroupe(Groupe groupe) {
+		this.groupe = groupe;
+	}
+	
+	
 	/**
 	 * Mappe un Etudiant en etudiantDTO. NE MAPPE PAS la liste de GroupeDTO
 	 * 
@@ -85,9 +99,10 @@ public class Etudiant implements Serializable {
 	 */
 	public EtudiantDTO toEtudiantDTO() {
 		EtudiantDTO dTO = new EtudiantDTO();
-		dTO.setId(id);
-		dTO.setNom(nom);
-		dTO.setPrenom(prenom);
+		dTO.setGroupe(this.groupe.toGroupeDTO());
+		dTO.setId(this.getId());
+		dTO.setNom(this.getNom());
+		dTO.setPrenom(this.getPrenom());
 		return dTO;
 	}
 
