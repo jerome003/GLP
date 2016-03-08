@@ -9,7 +9,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ipint15.glp.api.dto.EnseignantDTO;
+
 import ipint15.glp.api.dto.GroupeDTO;
+
 import ipint15.glp.api.remote.EnseignantCatalogRemote;
 import ipint15.glp.domain.entities.Enseignant;
 import ipint15.glp.domain.entities.Groupe;
@@ -45,11 +47,7 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 	@Override
 	public EnseignantDTO getEnseignantById(int id) {
 		Enseignant e = em.find(Enseignant.class, id);
-		EnseignantDTO dto = e.toEnseignantDTO();
-		for (Groupe g : e.getGroupesAnimes()) {
-			dto.addGroupeDTOAnime(g.toGroupeDTO());
-		}
-		return dto;
+		return e.toEnseignantDTO();
 	}
 
 	@Override
@@ -58,11 +56,6 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 		q.setParameter("email", mail);
 		Enseignant e = (Enseignant) q.getSingleResult();
 		EnseignantDTO dto = e.toEnseignantDTO();
-		for (Groupe g : e.getGroupesAnimes()) {
-			dto.addGroupeDTOAnime(g.toGroupeDTO());
-		}
-		
-		
 		return dto;
 	}
 

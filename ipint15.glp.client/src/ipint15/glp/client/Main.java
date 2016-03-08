@@ -3,26 +3,24 @@ package ipint15.glp.client;
 
 import java.util.Date;
 
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.EnseignantDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.ModerateurDTO;
+import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.EnseignantCatalogRemote;
-import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.api.remote.PublicationRemote;
 
 public class Main {
 	private static InitialContext ctx;
 	private static AncienEtudiantCatalogRemote etuBean ;
-	private static EtudiantCatalogRemote etudiantBean;
 	private static GroupeRemote groupBean;
 	private static EnseignantCatalogRemote enseignBean;
 	private static AdministrationRemote adminBean;
@@ -43,7 +41,6 @@ public class Main {
 	private static ModerateurDTO modo;
 	private static ModerateurDTO modo2;
 	private static ModerateurDTO modo3;
-	private static EtudiantDTO etudiantNonDiplome;
 	private static EnseignantDTO prof;
 	private static EnseignantDTO prof2;
 	private static EnseignantDTO prof3;
@@ -56,8 +53,9 @@ public class Main {
 			etuBean = (AncienEtudiantCatalogRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AncienEtudiantCatalogImpl");
 			groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 			adminBean = (AdministrationRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AdministrationImpl");
-			etudiantBean = (EtudiantCatalogRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EtudiantCatalogImpl");
 			enseignBean = (EnseignantCatalogRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EnseignantCatalogImpl");
+
+
 			moderateur = adminBean.createModerateur("Sarra", "Bahbah", "sara@googleNON.bla", adminBean.generatePassword(8));
 			moderateur2 = adminBean.createModerateur("Maxime", "Gidon", "maxime@googleNON.bla", adminBean.generatePassword(8));
 			modo = adminBean.createModerateur("bla", "bla", "email@bla.bla", adminBean.generatePassword(8));
@@ -107,12 +105,6 @@ public class Main {
 			System.out.println("2 groupes non institutionnel : "+groupe5.getName()+" et "+ groupe6.getName());
 			System.out.println("------------------------------------------------------------------------------------------------");
 			
-			etuBean.addGroupeInLesGroupesNonInstitEtudiant(etudiant, groupe6);
-			
-			etudiantNonDiplome = etudiantBean.createEtudiant("EtudiantNom", "EtudiantPrenom", "etudiant@fake.fr");
-			
-			System.out.println("etudiant non diplome son adresse mail : "+etudiantNonDiplome.getMail());
-			System.out.println("------------------------------------------------------------------------------------------------");
 
 
 			etuBean.addGroupeInLesGroupesNonInstitEtudiant(etudiant, groupe5);

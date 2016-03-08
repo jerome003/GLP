@@ -49,7 +49,6 @@ public class GroupeDTO implements Serializable {
 		this.name = name;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}

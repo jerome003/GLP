@@ -54,7 +54,7 @@ public class InscriptionController {
 		sessionObj.setAttribute("section", "inscription");
 		return new ModelAndView("inscription", "command", new AncienEtudiantDTO());
 	}
-
+	// Methode d'ajout d'un ANCIEN etudiant
 	@RequestMapping(value = "/addEtudiant", method = RequestMethod.POST)
 
 	public String addEtudiant(@Valid @ModelAttribute("command") AncienEtudiantDTO etudiant, BindingResult result) {

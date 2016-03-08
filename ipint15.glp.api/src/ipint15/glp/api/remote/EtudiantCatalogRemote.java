@@ -18,12 +18,14 @@ public interface EtudiantCatalogRemote {
 	 * @param mail
 	 * @return
 	 */
-	EtudiantDTO createEtudiant (String nom, String prenom, String mail);
+	EtudiantDTO createEtudiant (String nom, String prenom, String mail,GroupeDTO groupe);
 	
 	EtudiantDTO getEtudiantById(int id);
 	
 	EtudiantDTO getEtudiantByMail(String mail);
 	
 	public List<GroupeDTO> getLesGroupes(EtudiantDTO eDTO);
+
+	boolean isMailExists(String mail);
 
 }

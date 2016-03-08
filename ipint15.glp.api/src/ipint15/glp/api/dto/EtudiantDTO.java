@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 
+
+
+
 public class EtudiantDTO implements Serializable {
 
 	/**
@@ -15,7 +18,11 @@ public class EtudiantDTO implements Serializable {
 	private String nom;
 	private String mail;
 	private List<GroupeDTO> listeGroupes;
+
 	private List<PublicationDTO> mesPublications;
+
+	private GroupeDTO groupe ;
+
 
 	public EtudiantDTO() {
 		super();
@@ -73,5 +80,13 @@ public class EtudiantDTO implements Serializable {
 	public String toString() {
 		return "EtudiantDTO [id=" + id + ", prenom=" + prenom + ", nom=" + nom + ", mail=" + mail + "]";
 	}
+	public GroupeDTO getGroupe() {
+		return groupe;
+	}
+
+	public void setGroupe(GroupeDTO groupe) {
+		this.groupe = groupe;
+	}
+	
 
 }
