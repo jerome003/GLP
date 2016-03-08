@@ -1,3 +1,4 @@
+
 package ipint15.glp.domain.impl;
 
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 			String nomEntreprise, String diplome, int anneeDiplome, GroupeDTO groupe) {
 		// Création de l'étudiant
 		AncienEtudiant e = new AncienEtudiant();
+		//e.setLesGroupes(new ArrayList<Groupe>());
 		e.setPrenom(firstname);
 		e.setNom(lastname);
 		e.setCivilite(civilite);
@@ -467,6 +469,13 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		// je recuère le groupe a partir du groupedto
 		Groupe grp = getGroupeById(gDTO.getId());
+		
+		
+		
+		grp.setAnimateurGroupeNonInstit(null); // on specifie qu'il n'y a plus aucun lien avec 
+		
+		
+		
 		//une fois le groupe récupéré, je récupere la liste des goupe de l'étudiant pour pouvoir supprimer le groupe souhaité 
 		List<Groupe> lesGroupes = e.getLesGroupes();
 		lesGroupes.remove(grp); // suppression du groupe
@@ -479,15 +488,79 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 	@Override
 	public void addGroupeInLesGroupesNonInstitEtudiant(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
 		AncienEtudiant e = getEtudiantById(eDTO.getId());
+		
+		
 		// je recuère le groupe a partir du groupedto
 		Groupe grp = getGroupeById(gDTO.getId());
+		
+		
+		
+		grp.setAnimateurGroupeNonInstit(e); // On specifie que l'annimùateur du groupe est la personne qui le crée 
+		
+		
+		
+		
 		//une fois le groupe récupéré, je récupere la liste des goupe de l'étudiant pour pouvoir ajouter le groupe souhaité 
 		List<Groupe> lesGroupes = e.getLesGroupes();
 		lesGroupes.add(grp); // ajout du groupe
 		e.setLesGroupes(lesGroupes);
 		grp.getAncienEtudiants().add(e);
+		
+		
+		
+		
 		em.persist(grp);
 		em.persist(e);
 	}
+
+	
+	
+	// C ici que je dosi gérer tous ce qui représente les groupes 
+	
+	public void addAnimateurToGroupe(AncienEtudiantDTO eDTO, GroupeDTO gDTO){
+		AncienEtudiant e = getEtudiantById(eDTO.getId());
+		Groupe g = getGroupeById(gDTO.getId());
+		g.setAnimateurGroupeNonInstit(e);
+		em.persist(g);
+	}
+	
+/*
+	
+	@Override
+	public void addOneGroupePerso(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
+		// TODO Auto-generated method stub
+		
+		AncienEtudiant e = getEtudiantById(eDTO.getId());	
+		Groupe grp = getGroupeById(gDTO.getId());		
+		List<Groupe> groupesPerso = e.getGroupesPerso();	
+		groupesPerso.add(grp); //j'ajoute le groupe dans les groupe perso 
+		
+		e.setGroupesPerso(groupesPerso);
+		
+		grp.setAnimateurGroupeNonInstit(e);
+		em.persist(grp);
+		em.persist(e);
+
+		
+	}
+
+	
+	@Override
+	public void removeOneGroupePerso(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
+		// TODO Auto-generated method stub
+		
+		
+		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
+		// je recuère le groupe a partir du groupedto
+		Groupe grp = getGroupeById(gDTO.getId());
+		//une fois le groupe récupéré, je récupere la liste des goupe de l'étudiant pour pouvoir supprimer le groupe souhaité 
+		List<Groupe> groupesPerso = e.getGroupesPerso();
+		grp.setAncienEtudiants(null);
+		groupesPerso.remove(grp); // suppression du groupe	
+		e.setGroupesPerso(groupesPerso);			
+		em.persist(grp);
+		em.persist(e);	
+		
+	}*/
 
 }

@@ -38,6 +38,12 @@
 		<div class="row"></div>
 		<div class="row">
 			<div class="col-md-12">
+			
+			<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
+					href="${pageContext.request.contextPath}/nonInstitGroupe">Créer un groupe</a> <br>
+			
+			
+			
 				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
 					onclick="toggle('formulaire')">Créer une publication</a> <br>
 			</div>

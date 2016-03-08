@@ -7,9 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import ipint15.glp.api.dto.GroupeDTO;
@@ -19,7 +21,8 @@ import ipint15.glp.api.dto.GroupeDTO;
 @NamedQueries({
 		@NamedQuery(name = "getGroupesOfAncienByIdAncien", query = "select g from Groupe g join g.ancienEtudiants a where a.id = :id"),
 		@NamedQuery(name="getGroupeById", query="select o from Groupe o WHERE o.id = :id"),
-		@NamedQuery(name="getGroupesInstitutionnels", query="select g from Groupe g where g.institutionnel = true")})
+		@NamedQuery(name="getGroupesInstitutionnels", query="select g from Groupe g where g.institutionnel = true"),
+		@NamedQuery(name="getGroupesNonInstitutionnels", query="select g from Groupe g where g.institutionnel = false")})
 public class Groupe {
 
 	@Id
@@ -39,6 +42,8 @@ public class Groupe {
 	@OneToMany(mappedBy = "groupe")
 	private List<Publication> publications;
 	
+	private AncienEtudiant animateurGroupeNonInstit;
+	
 	private boolean institutionnel;
 
 	private String name;
@@ -49,6 +54,14 @@ public class Groupe {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public AncienEtudiant getAnimateurGroupeNonInstit() {
+		return animateurGroupeNonInstit;
+	}
+
+	public void setAnimateurGroupeNonInstit(AncienEtudiant animateurGroupeNonInstit) {
+		this.animateurGroupeNonInstit = animateurGroupeNonInstit;
 	}
 
 	public List<AncienEtudiant> getAncienEtudiants() {

@@ -144,6 +144,40 @@ public class GroupeImpl implements GroupeRemote {
 		return gDTOList;
 	}
 
+
+
+	@Override
+	public List<GroupeDTO> getAllGroupeNonInstitutionnel() {
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).getResultList();
+		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
+		for (Groupe g : gList) {
+			gDTOList.add(g.toGroupeDTO());
+		}
+
+		return gDTOList;
+
+	}
+
+	@Override
+	public List<GroupeDTO> getAllMesGroupesNonInstitutionnel(AncienEtudiantDTO ancien) {
+
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).getResultList();
+		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
+		System.out.println("Taille de la liste"+gList.size());
+		for (Groupe g : gList) {
+			if(g.getAnimateurGroupeNonInstit() != null){
+				if(g.getAnimateurGroupeNonInstit().getId() == ancien.getId()){
+					gDTOList.add(g.toGroupeDTO());
+				}
+			}
+		}
+
+		return gDTOList;
+	}
+
+
+
+
 	@Override
 	/**
 	 * Fonction qui permet de verifier si l'etudiant existe deja dans le groupe et si ce groupe est institutionnel ou pas 
@@ -194,16 +228,24 @@ public class GroupeImpl implements GroupeRemote {
 	@Override
 	public boolean peutQuitterGroupe(int idGroupe, int idMembre) {
 		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
-		
+
 		boolean a = false;
 		if(groupeAvecListeDesMembre.isInstitutionnel() == false){
 			if(membreExistInListGroupe(idGroupe, idMembre) == true){
 				a = true;
 			}
-			
+
 		}
 		return a;
 	}
+
+	/*	@Override
+	public List<GroupeDTO> getAllMesGroupesNonInstitutionnel() {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
+
+
 
 
 }
