@@ -42,7 +42,7 @@ public class FilActualiteController {
 		HttpSession sessionObj = request.getSession();
 		try {
 
-			if (sessionObj.getAttribute("type").equals("ancien")) {
+			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof") || sessionObj.getAttribute("type").equals("etudiant")) {
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);
 				AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");

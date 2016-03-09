@@ -62,6 +62,7 @@ public class ConnexionEtudiantController {
 			sessionObj.setAttribute("nom", tokens[0]);
 			sessionObj.setAttribute("prenom", tokens[1]);
 			sessionObj.setAttribute("mail", mail);
+			request.getSession().setAttribute("type","etudiant");
 			EtudiantDTO etu = etudiantBean.getEtudiantByMail(mail);
 			if (etudiantBean.getEtudiantByMail(mail) != null) {
 				System.out.println("etudiant trouvé !!!");

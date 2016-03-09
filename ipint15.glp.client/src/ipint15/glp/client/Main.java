@@ -33,6 +33,7 @@ public class Main {
 	private static GroupeDTO groupe4;
 	private static GroupeDTO groupe5;
 	private static GroupeDTO groupe6;
+	private static GroupeDTO groupe7;
 
 	private static ModerateurDTO moderateur;
 	private static ModerateurDTO moderateur2;
@@ -67,6 +68,7 @@ public class Main {
 			groupe4 = groupBean.createGroupe("Test2", "description", false);
 			groupe5 = groupBean.createGroupe("Raclette", "Pour les vrais fans de raclette.", false);
 			groupe6 = groupBean.createGroupe("Pause café", "Avec du sucre ?", false);
+			groupe7 = groupBean.createGroupe("VB league", "En équipe", false);
 			
 			System.out.println("moderateur du groupe  "+ groupe.getName()+" : "+ moderateur.getEmail()+ " son mot de passe est : "+ moderateur.getPassword());
 			System.out.println("moderateur du groupe  "+ groupe2.getName()+" : "+ moderateur2.getEmail()+ " son mot de passe est : "+ moderateur2.getPassword());

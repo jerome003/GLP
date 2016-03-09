@@ -21,7 +21,7 @@
 					<c:forEach items="${user.groupes}" var="groupe">
 
 						<tr>
-							<td>${groupe.name} (${myInjectedBean.getEtudiantsNonInscritByIdGroupeSize(groupe.id)})</td>
+							<td>${groupe.name} (${myInjectedBean.getEtudiantsNonInscritByIdGroupe(groupe.id).size()})</td>
 							<td>${groupe.description}</td>
 							<td><a class="btn mini blue-stripe"
 								href="${pageContext.request.contextPath}/moderateur/validationGroup/${groupe.id}"><span
