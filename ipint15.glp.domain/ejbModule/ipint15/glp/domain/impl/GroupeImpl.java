@@ -264,6 +264,9 @@ public class GroupeImpl implements GroupeRemote {
 				}
 			}
 		}
+		else{
+			a = false;
+		}
 		
 		return a;
 	}
@@ -320,6 +323,9 @@ public class GroupeImpl implements GroupeRemote {
 				}
 
 			}
+		}
+		else{
+			a = false;
 		}
 		System.out.println("peut quitter le groupe" +a);
 		return a;
