@@ -169,10 +169,10 @@
 	</div>
 </div>
 <%
-	if (choix.equals("lesPublications")) {
+	if (!choix.equals("lesPublications")) {
 %>
 <c:forEach
-	items="${myInjectedBean.getAllPublications(etudiant, idGroupe)}"
+	items="${myInjectedBean.getMyPublications(etudiant, idGroupe)}"
 	var="publication">
 	<div class="section">
 		<div class="container">
@@ -218,7 +218,7 @@
 	} else {
 %>
 <c:forEach
-	items="${myInjectedBean.getMyPublications(etudiant, idGroupe)}"
+	items="${myInjectedBean.getAllPublications(etudiant, idGroupe)}"
 	var="publication">
 	<div class="section">
 		<div class="container">
