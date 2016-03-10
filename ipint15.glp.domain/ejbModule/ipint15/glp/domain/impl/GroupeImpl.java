@@ -150,12 +150,17 @@ public class GroupeImpl implements GroupeRemote {
 		}
 		gDTO.setEnseignants(listEnseignDTO);
 
+		
 		listEnseignDTO = new ArrayList<>();
 		listEnseign = g.getAnimateur();
+		if (!listEnseign.isEmpty()) {
 		for (Enseignant e : listEnseign) {
 			listEnseignDTO.add(e.toEnseignantDTO());
 		}
 		gDTO.setAnimateurs(listEnseignDTO);
+		}else {
+			gDTO.setAnimateurGroupeNonInstit(g.getAnimateurGroupeNonInstit().toEtudiantDTO());
+		}
 
 		List<EtudiantDTO> listEtuDTO = new ArrayList<>();
 		List<Etudiant> listEtu = g.getEtudiants();
@@ -195,6 +200,7 @@ public class GroupeImpl implements GroupeRemote {
 				listEnseignDTO.add(e.toEnseignantDTO());
 			}
 			gDTO.setAnimateurs(listEnseignDTO);
+
 
 			List<EtudiantDTO> listEtuDTO = new ArrayList<>();
 			List<Etudiant> listEtu = g.getEtudiants();
@@ -267,7 +273,7 @@ public class GroupeImpl implements GroupeRemote {
 		else{
 			a = false;
 		}
-		
+
 		return a;
 	}
 
@@ -293,7 +299,7 @@ public class GroupeImpl implements GroupeRemote {
 				a = true;
 			}
 		}
-		
+
 		return a;
 	}
 
