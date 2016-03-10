@@ -103,6 +103,7 @@ public class Publication {
 		cDTO.setTitre(this.titre);
 		cDTO.setMessage(this.message);
 		cDTO.setDate(this.date);
+		cDTO.setPostByAnim(this.postByAnim);
 		return cDTO;
 	}
 
