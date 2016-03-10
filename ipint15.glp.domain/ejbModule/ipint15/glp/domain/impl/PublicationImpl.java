@@ -1,4 +1,4 @@
- package ipint15.glp.domain.impl;
+package ipint15.glp.domain.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +46,7 @@ public class PublicationImpl implements PublicationRemote {
 
 		return e;
 	}
-	
+
 	private Etudiant getEtudiantByMail(String mail) {
 
 		Query q = em.createQuery("select o from Etudiant o WHERE o.mail = :mail");
@@ -70,7 +70,7 @@ public class PublicationImpl implements PublicationRemote {
 		Groupe g = (Groupe) q.getSingleResult();
 		return g;
 	}
-	
+
 	private boolean isAnimateurGroupeAncienEtudiant(int idGroupe,int idAncien){
 		Groupe g = getGroupeById(idGroupe);
 		AncienEtudiant ae = g.getAnimateurGroupeNonInstit();
@@ -80,8 +80,8 @@ public class PublicationImpl implements PublicationRemote {
 		else {
 			return false;
 		}
-		
-		
+
+
 	}
 
 	@Override
@@ -148,20 +148,20 @@ public class PublicationImpl implements PublicationRemote {
 			Groupe g = getGroupeById(groupe.getId());
 			c.setGroupe(g);
 		}
-		
+
 		// TODO gérer cas si e = null
 		c.setTitre(titre);
 		c.setMessage(message);
 		c.setDate(date);
 		c.setPublic(isPublic);
-		
+
 		if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
 			c.setPostByAnim(true);
 		}
 		else{
 			c.setPostByAnim(false);
 		}
-		
+
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesPublications().add(c);
 		c.setProfil(ep);
@@ -180,11 +180,23 @@ public class PublicationImpl implements PublicationRemote {
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication c : mesPublications) {
 			PublicationDTO cDTO = c.toPublicationDTO();
-			EtudiantProfilDTO epDTO = c.getProfil().toEtudiantProfilDTO();
-			AncienEtudiantDTO aeDTO = c.getProfil().getEtudiant().toEtudiantDTO();
-			epDTO.setEtudiant(aeDTO);
-			cDTO.setProfil(epDTO);
-			mesPublicationsDTO.add(cDTO);
+			if (c.getProfil() != null) {
+				EtudiantProfilDTO epDTO = c.getProfil().toEtudiantProfilDTO();
+				AncienEtudiantDTO aeDTO = c.getProfil().getEtudiant().toEtudiantDTO();
+				epDTO.setEtudiant(aeDTO);
+				cDTO.setProfil(epDTO);
+				mesPublicationsDTO.add(cDTO);
+			}
+			if (c.getEtudiant() != null) {
+				EtudiantDTO eDTO = c.getEtudiant().toEtudiantDTO();
+				cDTO.setEtudiant(eDTO);
+				mesPublicationsDTO.add(cDTO);
+			}
+			if (c.getEnseignant() != null) {
+				EnseignantDTO eDTO = c.getEnseignant().toEnseignantDTO();
+				cDTO.setEnseignant(eDTO);
+				mesPublicationsDTO.add(cDTO);
+			}
 		}
 		return mesPublicationsDTO;
 	}
@@ -204,7 +216,7 @@ public class PublicationImpl implements PublicationRemote {
 			mesPublications = em.createNamedQuery("selectAllPublicationGroup", Publication.class)
 					.setParameter("idgroupe", idGroupe).getResultList();
 		}
-		
+
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
 			PublicationDTO cDTO = ce.MappingEtudiantPublication(p.getEtudiant(), p);
@@ -258,7 +270,7 @@ public class PublicationImpl implements PublicationRemote {
 		c.setEtudiant(e);
 		em.persist(c);
 		em.merge(e);
-		
+
 	}
 
 	@Override
@@ -276,7 +288,7 @@ public class PublicationImpl implements PublicationRemote {
 			mesPublications = em.createNamedQuery("selectAllPublicationGroup", Publication.class)
 					.setParameter("idgroupe", idGroupe).getResultList();
 		}
-		
+
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
 			PublicationDTO cDTO = ce.MappingEnseignantPublication(p.getEnseignant(), p);
@@ -328,7 +340,7 @@ public class PublicationImpl implements PublicationRemote {
 		c.setEnseignant(e);
 		em.persist(c);
 		em.merge(e);
-		
+
 	}
 
 }

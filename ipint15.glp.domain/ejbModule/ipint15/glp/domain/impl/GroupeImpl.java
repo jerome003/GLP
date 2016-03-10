@@ -296,6 +296,34 @@ public class GroupeImpl implements GroupeRemote {
 		
 		return a;
 	}
+	
+	@Override
+	public boolean membreEtudiantExistInListGroupe(int idGroupe, int idMembre) {
+		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
+		List<EtudiantDTO> etudiantDTO = groupeAvecListeDesMembre.getEtudiants();
+		boolean a = false;
+		System.out.println(idMembre);
+		for (EtudiantDTO etu : etudiantDTO ){
+			System.out.println(etu.getId());
+			if(etu.getId() == idMembre){
+				a = true;
+			}
+		}
+		return a;
+	}
+	
+	@Override
+	public boolean membreEnseignantExistInListGroupe(int idGroupe, int idMembre) {
+		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
+		List<EnseignantDTO> enseignantDTO = groupeAvecListeDesMembre.getEnseignants();
+		boolean a = false;
+		for (EnseignantDTO prof : enseignantDTO ){
+			if(prof.getId() == idMembre){
+				a = true;
+			}
+		}
+		return a;
+	}
 
 	@Override
 	public boolean peutQuitterGroupe(int idGroupe, int idMembre) {

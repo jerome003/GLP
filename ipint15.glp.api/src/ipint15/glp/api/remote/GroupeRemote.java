@@ -40,6 +40,10 @@ public interface GroupeRemote {
 	
 	public boolean membreExistInListGroupe(int idGroupe, int idMembre);
 	
+	public boolean membreEtudiantExistInListGroupe(int idGroupe, int idMembre);
+	
+	public boolean membreEnseignantExistInListGroupe(int idGroupe, int idMembre);
+	
 	public boolean peutRejoindreGroupe(int idGroupe, int idMembre);
 	
 	public boolean peutQuitterGroupe(int idGroupe, int idMembre);

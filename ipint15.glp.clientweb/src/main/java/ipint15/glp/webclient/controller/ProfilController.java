@@ -51,13 +51,16 @@ public class ProfilController {
 		}
 	}
 
+
 	@RequestMapping(value = "/profilEtudiant/{id}", method = RequestMethod.GET)
 	public ModelAndView profilEtudiant(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
+		
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof")
 					|| sessionObj.getAttribute("type").equals("etudiant")) {
-				ModelAndView model = new ModelAndView("errorAccesRole");
+				ModelAndView model = new ModelAndView();
+				sessionObj.setAttribute("section", "profil");
 				int id = Integer.parseInt(pathVariables.get("id"));
 				EtudiantDTO etudiantConsultation = etudiantBean.getEtudiantById(id);
 				sessionObj.setAttribute("etudiantConsultation", etudiantConsultation);

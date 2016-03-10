@@ -59,12 +59,26 @@
 					</div>
 				</li>
 				<li <%if (section.equals("actualite")) {%> class="active" <%}%>>
+					<%if (session.getAttribute("type").equals("ancien") || session.getAttribute("type").equals("prof") ) { %>
 					<a href="${pageContext.request.contextPath}/fil-actualite">Fil
 						d'actualité</a>
+					<% } %>
+					<%if (session.getAttribute("type").equals("etudiant")) { %>
+					<a href="${pageContext.request.contextPath}/fil-actualite-etudiant">Fil
+						d'actualité</a>
+					<% } %>
 				</li>
 
-				<li <%if (section.equals("profil")) {%> class="active" <%}%>><a
-					href="${pageContext.request.contextPath}/profil/${etudiant.id}">${etudiant.prenom}<br></a>
+				<li <%if (section.equals("profil")) {%> class="active" <%}%>>
+					<%if (session.getAttribute("type").equals("ancien")) { %>
+					<a href="${pageContext.request.contextPath}/profil/${etudiant.id}">${etudiant.prenom}<br></a>
+					<% } %>
+					<%if (session.getAttribute("type").equals("etudiant")) { %>
+					<a href="${pageContext.request.contextPath}/profilEtudiant/${etudiant.id}">${etudiant.prenom}<br></a>
+					<% } %>
+					<%if (session.getAttribute("type").equals("prof")) { %>
+					<a href="${pageContext.request.contextPath}/profilEnseignant/${etudiant.id}">${etudiant.prenom}<br></a>
+					<% } %>
 				</li>
 
 				<li <%if (section.equals("contact")) {%> class="active" <%}%>>

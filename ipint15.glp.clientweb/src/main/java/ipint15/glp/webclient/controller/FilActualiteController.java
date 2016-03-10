@@ -95,12 +95,14 @@ public class FilActualiteController {
 			if (sessionObj.getAttribute("type").equals("etudiant")) {
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);
-				EtudiantDTO etu = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+				EtudiantDTO etudiant = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+				
+				
 				
 				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
 				
-				listeGroupes = etuBean.getLesGroupes(etu);
-				listeGroupes.add(etu.getGroupe());
+				listeGroupes = etuBean.getLesGroupes(etudiant);
+				listeGroupes.add(etudiant.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
 	
 				return new ModelAndView("fil-actualite-etudiant", "command", new PublicationDTO());
