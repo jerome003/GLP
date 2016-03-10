@@ -51,6 +51,19 @@ public class PublicationImpl implements PublicationRemote {
 		Groupe g = (Groupe) q.getSingleResult();
 		return g;
 	}
+	
+	private boolean isAnimateurGroupeAncienEtudiant(int idGroupe,int idAncien){
+		Groupe g = getGroupeById(idGroupe);
+		AncienEtudiant ae = g.getAnimateurGroupeNonInstit();
+		if (ae.getId() == idAncien){
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+		
+	}
 
 	@Override
 	public List<PublicationDTO> getMyPublications(AncienEtudiantDTO eDTO, int idGroupe) {
@@ -116,11 +129,20 @@ public class PublicationImpl implements PublicationRemote {
 			Groupe g = getGroupeById(groupe.getId());
 			c.setGroupe(g);
 		}
+		
 		// TODO gérer cas si e = null
 		c.setTitre(titre);
 		c.setMessage(message);
 		c.setDate(date);
 		c.setPublic(isPublic);
+		
+		if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
+			c.setPostByAnim(true);
+		}
+		else{
+			c.setPostByAnim(false);
+		}
+		
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesPublications().add(c);
 		c.setProfil(ep);

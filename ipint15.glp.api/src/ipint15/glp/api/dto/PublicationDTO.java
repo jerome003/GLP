@@ -26,6 +26,8 @@ public class PublicationDTO implements Serializable {
 	private GroupeDTO groupeDTO;
 
 	private boolean publicationPublic;
+	
+	private boolean postByAnim ;
 
 	public int getId() {
 		return id;
@@ -82,11 +84,19 @@ public class PublicationDTO implements Serializable {
 	public void setPublicationPublic(boolean publicationPublic) {
 		this.publicationPublic = publicationPublic;
 	}
+	
+	public boolean isPostByAnim() {
+		return postByAnim;
+	}
+
+	public void setPostByAnim(boolean isPostByAnim) {
+		this.postByAnim = isPostByAnim;
+	}
 
 	@Override
 	public String toString() {
 		return "PublicationDTO [id=" + id + ", profil=" + profil + ", titre=" + titre + ", message=" + message
-				+ ", date=" + date + ", publicationPublic=" + publicationPublic + ", groupe : "+((groupeDTO == null) ? "null" : "oui")  +"]";
+				+ ", date=" + date + ", publicationPublic=" + publicationPublic + ", groupe : "+((groupeDTO == null) ? "null" : "oui")  +"]"+"publicationAnimateur="+ postByAnim;
 	}
 
 }
