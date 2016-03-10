@@ -36,6 +36,18 @@
 <div class="section">
 	<div class="container">
 		<div class="row"></div>
+		<h3>Mes groupes</h3>
+		<div class="well well-g">
+		<c:forEach items="${listeGroupes}" var="results">
+			<div class="row">
+				<div class="col-md-12"> <a
+						href="${pageContext.request.contextPath}/groupe/${results.id}">${results.name}</a> :
+					${results.description} <c:if test="${results.institutionnel}"> (Institutionnel)</c:if></div>
+			</div>
+
+		</c:forEach>
+
+	</div>
 		<div class="row">
 			<div class="col-md-12">
 			

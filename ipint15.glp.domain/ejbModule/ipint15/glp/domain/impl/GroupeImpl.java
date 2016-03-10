@@ -159,7 +159,11 @@ public class GroupeImpl implements GroupeRemote {
 		}
 		gDTO.setAnimateurs(listEnseignDTO);
 		}else {
+			try {
 			gDTO.setAnimateurGroupeNonInstit(g.getAnimateurGroupeNonInstit().toEtudiantDTO());
+			}catch (Exception e) {
+				//Pas d'anim ! 
+			}
 		}
 
 		List<EtudiantDTO> listEtuDTO = new ArrayList<>();
