@@ -72,6 +72,9 @@ public class EnseignantDTO implements Serializable {
 	}
 
 	public List<PublicationDTO> getMesPublications() {
+		if (mesPublications==null) {
+			mesPublications = new ArrayList<PublicationDTO>();
+		}
 		return mesPublications;
 	}
 

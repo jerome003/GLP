@@ -1,6 +1,7 @@
 package ipint15.glp.api.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,6 +54,9 @@ public class EtudiantDTO implements Serializable {
 	}
 
 	public List<GroupeDTO> getListeGroupes() {
+		if (listeGroupes==null) {
+			listeGroupes = new ArrayList<GroupeDTO>();
+		}
 		return listeGroupes;
 	}
 
@@ -69,6 +73,9 @@ public class EtudiantDTO implements Serializable {
 	}
 
 	public List<PublicationDTO> getMesPublications() {
+		if (mesPublications==null) {
+			mesPublications = new ArrayList<PublicationDTO>();
+		}
 		return mesPublications;
 	}
 

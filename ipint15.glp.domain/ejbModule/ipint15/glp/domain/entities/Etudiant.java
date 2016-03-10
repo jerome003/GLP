@@ -89,6 +89,10 @@ public class Etudiant implements Serializable {
 	}
 	
 
+	public void setGroupes(List<Groupe> groupes) {
+		this.groupes = groupes;
+	}
+
 	public List<Publication> getMesPublications() {
 		return mesPublications;
 	}
@@ -121,6 +125,7 @@ public class Etudiant implements Serializable {
 		dTO.setId(this.getId());
 		dTO.setNom(this.getNom());
 		dTO.setPrenom(this.getPrenom());
+		dTO.setMail(this.getMail());
 		return dTO;
 	}
 

@@ -13,7 +13,7 @@ window.onload = function(e) {
             </h2>
             <p>Votre inscription est réussie !
               <br>Vous pouvez maintenant accéder au fil f'actualité
-          		sur ce <a href="${pageContext.request.contextPath}/fil-actualite">lien</a>.</p>
+          		sur ce <a href="${pageContext.request.contextPath}/fil-actualite-etudiant">lien</a>.</p>
 			</div>
 		</div>
 	</div>

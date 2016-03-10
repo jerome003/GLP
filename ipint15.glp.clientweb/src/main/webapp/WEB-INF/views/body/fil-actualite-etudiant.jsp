@@ -1,8 +1,8 @@
 <%@page import="java.util.List"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@page import="ipint15.glp.api.dto.AncienEtudiantDTO"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="ipint15.glp.api.dto.EtudiantDTO"%>
 <%
 	String choix = (String) session.getAttribute("choixPublication");
 	Integer idGroupe = (Integer) session.getAttribute("idGroupe");
@@ -13,7 +13,7 @@
 		idGroupe = -1;
 	}
 	
-	AncienEtudiantDTO etudiant = (AncienEtudiantDTO) session.getAttribute("etudiant");
+	EtudiantDTO etudiant = (EtudiantDTO) session.getAttribute("etudiant");
 
 %>
 
@@ -168,7 +168,7 @@
 	if (choix.equals("lesPublications")) {
 %>
 <c:forEach
-	items="${myInjectedBean.getAllPublications(etudiant, idGroupe)}"
+	items="${myInjectedBean.getAllPublicationsEtudiant(etudiant, idGroupe)}"
 	var="publication">
 	<div class="section">
 		<div class="container">
@@ -178,9 +178,9 @@
 						<span class="bold-font">${publication.titre}</span> <span
 							class="pull-right"> <span
 							class="glyphicon glyphicon-share-alt linkGroup"></span><a
-							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-							class="linkUser ">${publication.profil.etudiant.prenom}
-								${publication.profil.etudiant.nom}</a> <c:if
+							href="${pageContext.request.contextPath}/profil/${publication.etudiant.id}"
+							class="linkUser ">${publication.etudiant.prenom}
+								${publication.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
 								<span class="glyphicon glyphicon-share-alt linkGroup"></span>
 								<a
@@ -214,7 +214,7 @@
 	} else {
 %>
 <c:forEach
-	items="${myInjectedBean.getMyPublications(etudiant, idGroupe)}"
+	items="${myInjectedBean.getMyPublicationsEtudiant(etudiant, idGroupe)}"
 	var="publication">
 	<div class="section">
 		<div class="container">
@@ -223,9 +223,9 @@
 					<p class="">
 						<span class="bold-font">${publication.titre}</span> <span
 							class="pull-right"> <a
-							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-							class="glyphicon glyphicon-share-alt linkUser ">${publication.profil.etudiant.prenom}
-								${publication.profil.etudiant.nom}</a> <c:if
+							href="${pageContext.request.contextPath}/profil/${publication.etudiant.id}"
+							class="glyphicon glyphicon-share-alt linkUser ">${publication.etudiant.prenom}
+								${publication.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
 								<a
 									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}"

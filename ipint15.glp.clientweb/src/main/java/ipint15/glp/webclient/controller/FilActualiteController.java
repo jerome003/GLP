@@ -63,28 +63,46 @@ public class FilActualiteController {
 				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			} 
 
-			if (sessionObj.getAttribute("type").equals("etudiant")) {
-				sessionObj.setAttribute("section", "actualite");
-				model.addAttribute("myInjectedBean", publicationBean);
-				EtudiantDTO etu = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-				//				List<GroupeDTO> listeGroupes = groupeBean.getGroupesOfAncienByIdAncien(etu.getId());
-				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
-				listeGroupes = etuBean.getLesGroupes(etu);
-//				listeGroupes.add(etu.getGroupe());
-				model.addAttribute("listeGroupes", listeGroupes);
-				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
-			}
-
+			
 			if (sessionObj.getAttribute("type").equals("prof")) {
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);
 				EnseignantDTO en = (EnseignantDTO) sessionObj.getAttribute("etudiant");
-				//				List<GroupeDTO> listeGroupes = groupeBean.getGroupesOfAncienByIdAncien(etu.getId());
+				
 				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
 				listeGroupes = enseignantBean.getLesGroupes(en);
 //				listeGroupes.add(etu.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
 				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
+			}
+			
+			ModelAndView modele = new ModelAndView("errorAccesRole");
+			return modele;
+
+		} catch (NullPointerException e) {
+			ModelAndView modele = new ModelAndView("errorAccesRole");
+			return modele;
+		}
+	}
+
+	@RequestMapping(value = "/fil-actualite-etudiant", method = RequestMethod.GET)
+	public ModelAndView homeEtudiant(Locale locale, Model model, HttpServletRequest request) {
+		// TODO impacter les roles
+		HttpSession sessionObj = request.getSession();
+		try {
+
+			if (sessionObj.getAttribute("type").equals("etudiant")) {
+				sessionObj.setAttribute("section", "actualite");
+				model.addAttribute("myInjectedBean", publicationBean);
+				EtudiantDTO etu = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+				
+				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
+				
+				listeGroupes = etuBean.getLesGroupes(etu);
+				listeGroupes.add(etu.getGroupe());
+				model.addAttribute("listeGroupes", listeGroupes);
+	
+				return new ModelAndView("fil-actualite-etudiant", "command", new PublicationDTO());
 			}
 			
 			ModelAndView modele = new ModelAndView("errorAccesRole");
@@ -103,6 +121,7 @@ public class FilActualiteController {
 		System.out.println(publication);
 		System.out.println("grp : " + publication.getGroupeDTO());
 		HttpSession sessionObj = request.getSession();
+		ModelAndView modelView = new ModelAndView ();
 		if (sessionObj.getAttribute("type").equals("ancien")) {
 			AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 			// publicationBean.addPublication(eDTO, publication.getTitre(),
@@ -116,6 +135,7 @@ public class FilActualiteController {
 						publication.getGroupeDTO());
 			}
 			List<PublicationDTO> myPublications = publicationBean.getAllPublications(null, -1);
+			modelView = new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 		}
 		
 		if (sessionObj.getAttribute("type").equals("etudiant")) {
@@ -129,6 +149,7 @@ public class FilActualiteController {
 						publication.getGroupeDTO());
 			}
 			List<PublicationDTO> myPublications = publicationBean.getAllPublicationsEtudiant(null, -1);
+			modelView = new ModelAndView("redirect:fil-actualite-etudiant", "command", new PublicationDTO());
 		}
 		
 		if (sessionObj.getAttribute("type").equals("prof")) {
@@ -142,6 +163,7 @@ public class FilActualiteController {
 						publication.getGroupeDTO());
 			}
 			List<PublicationDTO> myPublications = publicationBean.getAllPublicationsEnseignant(null, -1);
+			modelView = new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 		}
 		/*
 		 * //Ajout d'une compétence pour notre étudiant
@@ -152,29 +174,45 @@ public class FilActualiteController {
 		 * mesCompetences.iterator(); while(it.hasNext()) { System.out.println(
 		 * "Mes compétences :" +it.next().toString()); }
 		 */
-		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+		return modelView;
 	}
 
 	@RequestMapping(value = "/myPublication", method = RequestMethod.GET)
 	public ModelAndView myPublication(HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
+		ModelAndView modelView = new ModelAndView ();
 		sessionObj.setAttribute("choixPublication", "mesPublications");
-		return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
-
+		if (sessionObj.getAttribute("type").equals("ancien")) {
+			modelView = new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+		}
+		if (sessionObj.getAttribute("type").equals("etudiant")) {
+			modelView = new ModelAndView("redirect:fil-actualite-etudiant", "command", new PublicationDTO());
+		}
+		if (sessionObj.getAttribute("type").equals("prof")) {
+			modelView = new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+		}
+		return modelView;
 	}
 
 	@RequestMapping(value = "/allPublication", method = RequestMethod.GET)
 	public ModelAndView allPublication(HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		try {
-			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof")
-					|| sessionObj.getAttribute("type").equals("etudiant")) {
+			if (sessionObj.getAttribute("type").equals("ancien")) {
 				sessionObj.setAttribute("choixPublication", "lesPublications");
-
 				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
-			} else {
-				return new ModelAndView("errorAccesRole");
-			}
+			} 
+			if (sessionObj.getAttribute("type").equals("etudiant")) {
+				sessionObj.setAttribute("choixPublication", "lesPublications");
+				return new ModelAndView("redirect:fil-actualite-etudiant", "command", new PublicationDTO());
+			} 
+			if (sessionObj.getAttribute("type").equals("prof")) {
+				sessionObj.setAttribute("choixPublication", "lesPublications");
+				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+			} 
+	
+			return new ModelAndView("errorAccesRole");
+		
 		} catch (NullPointerException e) {
 			return new ModelAndView("errorAccesRole");
 		}
@@ -186,8 +224,7 @@ public class FilActualiteController {
 		System.out.println("idGrp : " + idGroupe + " bool : " + myPublications);
 		HttpSession sessionObj = request.getSession();
 		try {
-			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof")
-					|| sessionObj.getAttribute("type").equals("etudiant")) {
+			if (sessionObj.getAttribute("type").equals("ancien")) {
 				if (myPublications) {
 					sessionObj.setAttribute("choixPublication", "mesPublications");
 				} else {
@@ -195,9 +232,28 @@ public class FilActualiteController {
 				}
 				sessionObj.setAttribute("idGroupe", idGroupe);
 				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
-			} else {
-				return new ModelAndView("errorAccesRole");
 			}
+			if (sessionObj.getAttribute("type").equals("etudiant")) {
+				if (myPublications) {
+					sessionObj.setAttribute("choixPublication", "mesPublications");
+				} else {
+					sessionObj.setAttribute("choixPublication", "lesPublications");
+				}
+				sessionObj.setAttribute("idGroupe", idGroupe);
+				return new ModelAndView("redirect:fil-actualite-etudiant", "command", new PublicationDTO());
+			}
+			if (sessionObj.getAttribute("type").equals("prof")) {
+				if (myPublications) {
+					sessionObj.setAttribute("choixPublication", "mesPublications");
+				} else {
+					sessionObj.setAttribute("choixPublication", "lesPublications");
+				}
+				sessionObj.setAttribute("idGroupe", idGroupe);
+				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
+			}
+	
+			return new ModelAndView("errorAccesRole");
+			
 		} catch (NullPointerException e) {
 			return new ModelAndView("errorAccesRole");
 		}

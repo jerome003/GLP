@@ -12,7 +12,6 @@ import javax.persistence.Query;
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
-import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.Etudiant;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.util.Conversion;
@@ -28,12 +27,16 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 	}
 	
 	private Etudiant getEtudiantByMail2(String mail) {
+		try {
+			Query q = em.createQuery("select o from Etudiant o WHERE o.mail = :mail");
+			q.setParameter("mail", mail);
+			Etudiant e = (Etudiant) q.getSingleResult();
+			return e;
+		}
+		catch (NoResultException e) {
+			return null;
+		}
 
-		Query q = em.createQuery("select o from Etudiant o WHERE o.mail = :mail");
-		q.setParameter("mail", mail);
-	 	Etudiant e = (Etudiant) q.getSingleResult();
-
-		return e;
 	}
 
 	@Override
@@ -42,11 +45,13 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		e.setNom(nom);
 		e.setPrenom(prenom);
 		e.setMail(mail);
-		em.persist(e);
-		Groupe p = getGroupeById(groupe.getId());
-		e.setGroupe(p);
-		p.getEtudiants().add(e);
+		
+		Groupe g = getGroupeById(groupe.getId());
+		e.setGroupe(g);
+		g.getEtudiants().add(e);
 		EtudiantDTO dto = e.toEtudiantDTO();
+		em.persist(e);
+		em.merge(g);
 
 		return dto;
 	}
@@ -79,20 +84,27 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public List<GroupeDTO> getLesGroupes(EtudiantDTO eDTO) {
+		System.out.println("Mail : " + eDTO.getMail());
 		Etudiant e = getEtudiantByMail2(eDTO.getMail());
-		// TODO gérer le cas si e = null
+//		System.out.println(e==null);
 		List<Groupe> mesGroupes = e.getGroupes();
 		
-		List<GroupeDTO> mesGroupesDTO = new ArrayList<>();
+		List<GroupeDTO> mesGroupesDTO = new ArrayList<GroupeDTO>();
 		mesGroupesDTO = ce.MappingEtuLesGroupes(e, mesGroupes);
 		
 		return mesGroupesDTO;
+		
+//		EtudiantDTO e = getEtudiantByMail(eDTO.getMail());
+//		System.out.println( e == null);
+//		List<GroupeDTO> mesGroupesDTO = new ArrayList<GroupeDTO>();
+//		mesGroupesDTO = e.getListeGroupes();
+//		return mesGroupesDTO;
 	}
 
 	public boolean isMailExists(String mail) {
 
-		Query q = em.createQuery("select o from Etudiant o WHERE o.email = :email");
-		q.setParameter("email", mail);
+		Query q = em.createQuery("select o from Etudiant o WHERE o.mail = :mail");
+		q.setParameter("mail", mail);
 		Etudiant e;
 		try {
 			e = (Etudiant) q.getSingleResult();

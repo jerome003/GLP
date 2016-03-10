@@ -169,7 +169,7 @@ public class PublicationImpl implements PublicationRemote {
 
 	@Override
 	public List<PublicationDTO> getAllPublicationsEtudiant(EtudiantDTO eDTO, int idGroupe) {
-		List<Publication> mesPublications;
+		List<Publication> mesPublications = new ArrayList<Publication> ();
 		if (idGroupe == -2) {
 			// Recherche des publications pour tout le monde + groupes
 			mesPublications = em.createNamedQuery("selectAllPublicationForEtudiant", Publication.class)
@@ -182,8 +182,7 @@ public class PublicationImpl implements PublicationRemote {
 			mesPublications = em.createNamedQuery("selectAllPublicationGroup", Publication.class)
 					.setParameter("idgroupe", idGroupe).getResultList();
 		}
-		// mesPublications = em.createQuery("select p from Publication p order
-		// by p.date desc").getResultList();
+		
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
 			PublicationDTO cDTO = ce.MappingEtudiantPublication(p.getEtudiant(), p);
@@ -242,7 +241,7 @@ public class PublicationImpl implements PublicationRemote {
 
 	@Override
 	public List<PublicationDTO> getAllPublicationsEnseignant(EnseignantDTO eDTO, int idGroupe) {
-		List<Publication> mesPublications;
+		List<Publication> mesPublications = new ArrayList<Publication> ();
 		if (idGroupe == -2) {
 			// Recherche des publications pour tout le monde + groupes
 			mesPublications = em.createNamedQuery("selectAllPublicationForEnseignant", Publication.class)
@@ -255,8 +254,7 @@ public class PublicationImpl implements PublicationRemote {
 			mesPublications = em.createNamedQuery("selectAllPublicationGroup", Publication.class)
 					.setParameter("idgroupe", idGroupe).getResultList();
 		}
-		// mesPublications = em.createQuery("select p from Publication p order
-		// by p.date desc").getResultList();
+		
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
 			PublicationDTO cDTO = ce.MappingEnseignantPublication(p.getEnseignant(), p);
@@ -268,7 +266,6 @@ public class PublicationImpl implements PublicationRemote {
 	@Override
 	public List<PublicationDTO> getMyPublicationsEnseignant(EnseignantDTO eDTO, int idGroupe) {
 		Enseignant e = getEnseignantByMail(eDTO.getMail());
-		// TODO gérer le cas si e = null
 		List<Publication> mesPublications;
 		if (idGroupe == -2) {
 			// Recherche des publications pour tout le monde + groupes
