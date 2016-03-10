@@ -104,6 +104,9 @@
 						href="${pageContext.request.contextPath}/profilEnseignant/${anim.id}">${anim.prenom}
 						${anim.nom}</a>
 				</c:forEach>
+					<a class="row"
+						href="${pageContext.request.contextPath}/profil/${groupe.animateurGroupeNonInstit.id}">${groupe.animateurGroupeNonInstit.prenom}
+						${groupe.animateurGroupeNonInstit.nom}</a>
 			</div>
 			<div class="well">
 				<h4>Anciens Etudiants</h4>
@@ -134,14 +137,24 @@
 			</div>
 			<c:forEach items="${groupe.listPublications}" var="publication">
 				<div class="section">
-					<div class="panel panel-primary">
+				<c:if test="${publication.postByAnim}">
+					<c:set value="panel panel-primary" var="cssClass"></c:set>
+					<c:set value="linkUser" var="colorUser"></c:set>
+					<c:set value="linkGroup" var="colorGroupe"></c:set>
+					</c:if>
+			<c:if test="${ not publication.postByAnim}">
+					<c:set value="panel panel-info" var="cssClass"></c:set>
+					<c:set value="linkUserNonAnim" var="colorUser"></c:set>
+					<c:set value="linkGroupNonAnim" var="colorGroupe"></c:set>
+					</c:if>
+					<div class="${cssClass}">
 						<div class="panel-heading">
 							<p class="">
 								<span class="bold-font">${publication.titre}</span> <span
 									class="pull-right"> <span
-									class="glyphicon glyphicon-share-alt linkGroup"></span><a
+									class="glyphicon glyphicon-share-alt ${colorGroupe}"></span><a
 									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-									class="linkUser ">${publication.profil.etudiant.prenom}
+									class="${colorUser} ">${publication.profil.etudiant.prenom}
 										${publication.profil.etudiant.nom}</a><span><fmt:formatDate
 											type="both" dateStyle="short" timeStyle="short"
 											value="${publication.date}" /></span>

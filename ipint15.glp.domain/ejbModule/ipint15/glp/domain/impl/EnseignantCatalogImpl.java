@@ -33,8 +33,12 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 
 	@Override
 	public EnseignantDTO getEnseignantById(int id) {
-		Enseignant e = em.find(Enseignant.class, id);
-		return e.toEnseignantDTO();
+ 		Enseignant e = em.find(Enseignant.class, id);
+		EnseignantDTO dto = e.toEnseignantDTO();
+ 	for (Groupe g : e.getGroupesAnimes()) {
+ 		dto.addGroupeDTOAnime(g.toGroupeDTO());
+ 	}
+ 	return dto;
 	}
 
 	@Override
