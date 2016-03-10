@@ -46,6 +46,8 @@ public class Publication {
 	private Groupe groupe;
 
 	private boolean isPublic;
+	
+	private boolean postByAnim ;
 
 	public int getId() {
 		return id;
@@ -101,6 +103,7 @@ public class Publication {
 		cDTO.setTitre(this.titre);
 		cDTO.setMessage(this.message);
 		cDTO.setDate(this.date);
+		cDTO.setPostByAnim(this.postByAnim);
 		return cDTO;
 	}
 
@@ -124,4 +127,13 @@ public class Publication {
 	public void setPublic(boolean isPublic) {
 		this.isPublic = isPublic;
 	}
+	
+	public boolean isPostByAnim() {
+		return postByAnim;
+	}
+
+	public void setPostByAnim(boolean postByAnim) {
+		this.postByAnim = postByAnim;
+	}
+	
 }

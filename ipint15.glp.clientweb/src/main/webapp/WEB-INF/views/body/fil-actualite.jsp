@@ -176,20 +176,27 @@
 	var="publication">
 	<div class="section">
 		<div class="container">
-			<div class="panel panel-primary">
+		<c:if test="${publication.postByAnim}">
+					<c:set value="panel panel-primary" var="cssClass"></c:set>
+					</c:if>
+			<c:if test="${ not publication.postByAnim}">
+					<c:set value="panel panel-info" var="cssClass"></c:set>
+					</c:if>
+			<div class="${cssClass}">
 				<div class="panel-heading">
 					<p class="">
+					
 						<span class="bold-font">${publication.titre}</span> <span
 							class="pull-right"> <span
-							class="glyphicon glyphicon-share-alt linkGroup"></span><a
+							class="glyphicon glyphicon-share-alt"></span><a
 							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-							class="linkUser ">${publication.profil.etudiant.prenom}
+							>${publication.profil.etudiant.prenom}
 								${publication.profil.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
-								<span class="glyphicon glyphicon-share-alt linkGroup"></span>
+								<span class="glyphicon glyphicon-share-alt"></span>
 								<a
 									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}"
-									class="linkGroup ">${publication.groupeDTO.name}</a>
+									>${publication.groupeDTO.name}</a>
 							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>
 						</span>
@@ -211,8 +218,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 </c:forEach>
 <%
 	} else {
@@ -222,18 +227,28 @@
 	var="publication">
 	<div class="section">
 		<div class="container">
-			<div class="panel panel-primary">
+		<c:if test="${publication.postByAnim}">
+					<c:set value="panel panel-primary" var="cssClass"></c:set>
+					<c:set value="linkUser" var="colorUser"></c:set>
+					<c:set value="linkGroup" var="colorGroupe"></c:set>
+					</c:if>
+			<c:if test="${ not publication.postByAnim}">
+					<c:set value="panel panel-info" var="cssClass"></c:set>
+					<c:set value="linkUserNonAnim" var="colorUser"></c:set>
+					<c:set value="linkGroupNonAnim" var="colorGroupe"></c:set>
+					</c:if>
+			<div class="${cssClass}">
 				<div class="panel-heading">
 					<p class="">
 						<span class="bold-font">${publication.titre}</span> <span
 							class="pull-right"> <a
 							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-							class="glyphicon glyphicon-share-alt linkUser ">${publication.profil.etudiant.prenom}
+							class="glyphicon glyphicon-share-alt ${colorUser}">${publication.profil.etudiant.prenom}
 								${publication.profil.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
 								<a
 									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}"
-									class="glyphicon glyphicon-share-alt linkGroup ">${publication.groupeDTO.name}</a>
+									class="glyphicon glyphicon-share-alt ${colorGroupe} ">${publication.groupeDTO.name}</a>
 							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>
 						</span>

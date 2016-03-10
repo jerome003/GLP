@@ -25,6 +25,16 @@ textarea.fixe {
 	padding-right: 20px;
 }
 
+.linkUserNonAnim{
+	color: #31708f;
+	padding-right: 20px;
+}
+
+.linkGroupNonAnim{
+	olor: #31708f;
+	padding-right: 20px;
+}
+
 a.pHoover {
 	cursor: pointer;
 }

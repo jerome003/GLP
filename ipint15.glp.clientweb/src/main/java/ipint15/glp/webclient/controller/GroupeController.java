@@ -196,6 +196,7 @@ public class GroupeController {
 				System.out.println(publication);
 				System.out.println("grp : " + publication.getGroupeDTO());
 				AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+				
 
 				if (publication.getGroupeDTO().getId() == -1) {
 					publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(),
