@@ -132,6 +132,7 @@ public class AdminController {
 		ModelAndView modelView;
 	
 		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe);
+		gDTO.setAnimateurGroupeNonInstit(null);
 		ModerateurDTO mDTO = administrationBean.addGroupetoModo(modo, gDTO);
 		administrationBean.sendMailModoAssign(mDTO, gDTO);
 		List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();

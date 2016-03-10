@@ -16,7 +16,11 @@ public class GroupeDTO implements Serializable {
 	private List<EtudiantDTO> etudiants;
 	private List<ModerateurDTO> moderateurs;
 	private List<EnseignantDTO> animateurs;
+
+	private AncienEtudiantDTO animateurGroupeNonInstit;
+
 	private List<EnseignantDTO> enseignants;
+
 	@NotEmpty(message = "Veuillez saisir une description du groupe")
 	private String description;
 	private List<PublicationDTO> listPublications;
@@ -63,7 +67,7 @@ public class GroupeDTO implements Serializable {
 		// ((!getEtudiants().isEmpty()) ? "oui" : "non")
 		// + ", moderateurs=" + ((!getModerateurs().isEmpty()) ? "oui" :
 		// "non")+"]";
-		return name;
+		return name ;
 	}
 
 	/**
@@ -112,6 +116,15 @@ public class GroupeDTO implements Serializable {
 		this.animateurs = animateurs;
 	}
 
+
+	public AncienEtudiantDTO getAnimateurGroupeNonInstit() {
+		return animateurGroupeNonInstit;
+	}
+
+	public void setAnimateurGroupeNonInstit(AncienEtudiantDTO animateurGroupeNonInstit) {
+		this.animateurGroupeNonInstit = animateurGroupeNonInstit;
+	}
+
 	public List<AncienEtudiantDTO> getAncienEtudiants() {
 		if (ancienEtudiants == null) {
 			this.ancienEtudiants = new ArrayList<AncienEtudiantDTO>();
@@ -145,5 +158,5 @@ public class GroupeDTO implements Serializable {
 		this.enseignants = enseignants;
 	}
 	
-	
+
 }

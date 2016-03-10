@@ -91,7 +91,7 @@ public class GroupeImpl implements GroupeRemote {
 		int size = g.getAncienEtudiants().size();
 		size += g.getEnseignant().size();
 		size += g.getEtudiants().size();
-		
+
 		return size;
 	}
 
@@ -100,7 +100,7 @@ public class GroupeImpl implements GroupeRemote {
 		Groupe g = getGroupeById(id);
 		return g.getAnimateur().size();
 	}
-	
+
 	@Override
 	public boolean removeGroupe(int id) {
 		Groupe g = getGroupeById(id);
@@ -142,21 +142,21 @@ public class GroupeImpl implements GroupeRemote {
 			listAe.add(ae.toEtudiantDTO());
 		}
 		gDTO.setAncienEtudiants(listAe);
-		
+
 		List<EnseignantDTO> listEnseignDTO = new ArrayList<>();
 		List<Enseignant> listEnseign = g.getEnseignant();
 		for (Enseignant e : listEnseign) {
 			listEnseignDTO.add(e.toEnseignantDTO());
 		}
 		gDTO.setEnseignants(listEnseignDTO);
-		
+
 		listEnseignDTO = new ArrayList<>();
 		listEnseign = g.getAnimateur();
 		for (Enseignant e : listEnseign) {
 			listEnseignDTO.add(e.toEnseignantDTO());
 		}
 		gDTO.setAnimateurs(listEnseignDTO);
-		
+
 		List<EtudiantDTO> listEtuDTO = new ArrayList<>();
 		List<Etudiant> listEtu = g.getEtudiants();
 		for (Etudiant e : listEtu) {
@@ -170,7 +170,10 @@ public class GroupeImpl implements GroupeRemote {
 	public List<GroupeDTO> getAllGroupeInstitutionnel() {
 		List<Groupe> gList = em.createNamedQuery("getGroupesInstitutionnels", Groupe.class).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
+
+
 		for (Groupe g : gList) {
+
 			GroupeDTO gDTO = g.toGroupeDTO();
 			List<AncienEtudiantDTO> listAe = new ArrayList<>();
 			List<AncienEtudiant> list = g.getAncienEtudiants();
@@ -178,21 +181,21 @@ public class GroupeImpl implements GroupeRemote {
 				listAe.add(ae.toEtudiantDTO());
 			}
 			gDTO.setAncienEtudiants(listAe);
-			
+
 			List<EnseignantDTO> listEnseignDTO = new ArrayList<>();
 			List<Enseignant> listEnseign = g.getEnseignant();
 			for (Enseignant e : listEnseign) {
 				listEnseignDTO.add(e.toEnseignantDTO());
 			}
 			gDTO.setEnseignants(listEnseignDTO);
-			
+
 			listEnseignDTO = new ArrayList<>();
 			listEnseign = g.getAnimateur();
 			for (Enseignant e : listEnseign) {
 				listEnseignDTO.add(e.toEnseignantDTO());
 			}
 			gDTO.setAnimateurs(listEnseignDTO);
-			
+
 			List<EtudiantDTO> listEtuDTO = new ArrayList<>();
 			List<Etudiant> listEtu = g.getEtudiants();
 			for (Etudiant e : listEtu) {
@@ -206,33 +209,74 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
-	/**
-	 * Fonction qui permet de verifier si l'etudiant existe deja dans le groupe et si ce groupe est institutionnel ou pas 
-	 */
+	public List<GroupeDTO> getAllGroupeNonInstitutionnel() {
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).getResultList();
+		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
+		for (Groupe g : gList) {
+			gDTOList.add(g.toGroupeDTO());
+		}
+
+		return gDTOList;
+
+	}
+
+	@Override
+	public List<GroupeDTO> getAllMesGroupesNonInstitutionnel(AncienEtudiantDTO ancien) {
+
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).getResultList();
+		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
+		System.out.println("Taille de la liste"+gList.size());
+		for (Groupe g : gList) {
+			if(g.getAnimateurGroupeNonInstit() != null){
+				System.out.println("id de l'animateur du groupe quand il existe est :"+g.getAnimateurGroupeNonInstit().getId());
+				if(g.getAnimateurGroupeNonInstit().getId() == ancien.getId()){
+					gDTOList.add(g.toGroupeDTO());
+				}
+			}
+		}
+
+		return gDTOList;
+	}
+
 	public boolean peutRejoindreGroupe(int idGroupe, int idMembre) {
 		// TODO Auto-generated method stub
 		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
 		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getAncienEtudiants();
 		boolean a = true;
-		for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
-			if(ancien.getId() == idMembre){
-				a = false;
+		Groupe g = getGroupeById(idGroupe);
+
+		if(groupeAvecListeDesMembre.isInstitutionnel() == false){
+			if(g.getAnimateurGroupeNonInstit() != null){
+				if(g.getAnimateurGroupeNonInstit().getId() == idMembre) {
+					System.out.println("L'animateur c moi "+g.getAnimateurGroupeNonInstit().getId()+" == "+idMembre+"Je ne peux pas rejoindre le groupe");
+					a = false;
+				}
+
+				else{
+					boolean peurej = true;
+					for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
+						if(ancien.getId() == idMembre){
+							System.out.println("je fais deja partie du groupe donc je peux publier dans le groupe");
+							peurej = false;
+						}
+					}
+					a = peurej;
+				}
 			}
 		}
-		if(groupeAvecListeDesMembre.isInstitutionnel() == true){
-
+		else{
 			a = false;
 		}
+		
 		return a;
 	}
-
-
 
 	public GroupeDTO createGroupe(String name, String description, boolean isInstitutionnel) {
 		Groupe g = new Groupe();
 		g.setName(name);
 		g.setDescription(description);
 		g.setInstitutionnel(isInstitutionnel);
+
 		em.persist(g);
 
 		GroupeDTO gDTO = g.toGroupeDTO();
@@ -249,22 +293,44 @@ public class GroupeImpl implements GroupeRemote {
 				a = true;
 			}
 		}
+		
 		return a;
 	}
 
 	@Override
 	public boolean peutQuitterGroupe(int idGroupe, int idMembre) {
 		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
-		
+		Groupe g = getGroupeById(idGroupe);
 		boolean a = false;
 		if(groupeAvecListeDesMembre.isInstitutionnel() == false){
-			if(membreExistInListGroupe(idGroupe, idMembre) == true){
-				a = true;
+
+			if(g.getAnimateurGroupeNonInstit() != null){
+				System.out.println("l'animateur n'est pas vide");
+				if(g.getAnimateurGroupeNonInstit().getId() == idMembre) { //l'animateur c moi
+					System.out.println("L'animateur c moi "+g.getAnimateurGroupeNonInstit().getId()+" == "+idMembre+"je ne peux pas quitter le groupe");
+					a = false;
+				}
+				else{ // l'animateur c pas moi 
+
+					if(membreExistInListGroupe(idGroupe, idMembre) == true){
+						System.out.println("l'animateur c pas moi donc je peix et je fais partie du groupe quitter le groupe");
+						a = true;
+					}
+					else{
+						System.out.println("l'animateur c pas moi, je ne fais pas partie du groupe je ne peux pas le quitter");
+						a = false;
+					}
+				}
+
 			}
-			
 		}
+		else{
+			a = false;
+		}
+		System.out.println("peut quitter le groupe" +a);
 		return a;
 	}
+
 
 
 }

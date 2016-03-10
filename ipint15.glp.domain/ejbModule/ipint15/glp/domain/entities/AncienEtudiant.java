@@ -1,6 +1,7 @@
 package ipint15.glp.domain.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,12 +15,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import ipint15.glp.api.dto.Civilite;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 
 /**
@@ -67,6 +70,11 @@ public class AncienEtudiant implements Serializable {
 	@ManyToMany
 	private List<Groupe> lesGroupes;
 
+	
+	
+	//@OneToMany
+	//private List<Groupe> groupesPerso;
+	
 	@OneToOne
 	private EtudiantProfil profil;
 
@@ -299,8 +307,16 @@ public class AncienEtudiant implements Serializable {
 		return lesGroupes;
 	}
 
-	public void setLesGroupes(List<Groupe> lesGroupes) {
-		this.lesGroupes = lesGroupes;
+	public void setLesGroupes(List<Groupe> lesGroupesPrim) {
+		this.lesGroupes = lesGroupesPrim;
 	}
+/*
+	public List<Groupe> getGroupesPerso() {
+		return groupesPerso;
+	}
+
+	public void setGroupesPerso(List<Groupe> groupesPerso) {
+		this.groupesPerso = groupesPerso;
+	}*/
 
 }

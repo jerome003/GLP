@@ -50,6 +50,7 @@ public class AncienEtudiantDTO implements Serializable {
 	private int anneeDiplome;
 	private GroupeDTO groupe ;
 	private List<GroupeDTO> lesGroupes;
+	//private List<GroupeDTO> groupesPerso; // la liste des groupes qu'un ancien peu créer !
 	private String facebook;
 	private String twitter;
 	private String viadeo;
@@ -310,8 +311,14 @@ public class AncienEtudiantDTO implements Serializable {
 	public void setLesGroupes(List<GroupeDTO> lesGroupes) {
 		this.lesGroupes = lesGroupes;
 	}
+/*	public List<GroupeDTO> getGroupesPerso() {
+		return groupesPerso;
+	}
+	public void setGroupesPerso(List<GroupeDTO> groupesPerso) {
+		this.groupesPerso = groupesPerso;
+	}
 
-	
+	*/
 	
 
 }

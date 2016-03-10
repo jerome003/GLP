@@ -23,7 +23,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1>${groupe.name}</h1>
-				<c:if test="${peutRejoindreGroupe == true}"> 
+				<c:if test="${peutRejoindreGroupe}"> 
 				
 				<form:form role="form" method="get"
 					action="${pageContext.servletContext.contextPath}/rejoindreGroupe/${groupe.id}" class="row col-md-12">
@@ -35,7 +35,7 @@
 			     
 			     
 			     
-			     <c:if test="${peutRejoindreGroupe == false}"> 
+			     <c:if test="${peutQuitterGroupe}"> 
 				
 				<form:form role="form" method="get"
 					action="${pageContext.servletContext.contextPath}/quitterGroupe/${groupe.id}" class="row col-md-12">
@@ -51,7 +51,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-			   	<c:if test="${peutPublier == true}">	<span class="glyphicon glyphicon-pencil"></span> <a class="pHoover"
+			   	<c:if test="${peutPublier}">	<span class="glyphicon glyphicon-pencil"></span> <a class="pHoover"
 					onclick="toggle('formulaire')">Créer une publication </a></c:if> <br>
 			</div>
 		</div>

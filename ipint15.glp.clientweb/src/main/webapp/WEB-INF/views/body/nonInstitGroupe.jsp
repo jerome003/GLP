@@ -45,7 +45,7 @@
 		</div>
 		<div class="row">
 			<form name='form1' class="form-horizontal" role="form" method="post"
-				action="saveGroupe">
+				action="${pageContext.request.contextPath}/saveGroupeNonInstit">
 				<div class="form-group">
 					<div class="col-sm-2">
 						<label class="control-label">Nom du groupe :</label>
@@ -66,68 +66,48 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-2">
-						<label class="control-label">Moderateur :</label>
-					</div>
+					<div class="col-sm-2"></div>
 					<div class="col-sm-3">
-						<div class="form-inline">
-							<select id="modo" name="modo">
-								<c:forEach items="${moderateurList}" var="item"
-									varStatus="status">
-									<option value="${item.id}">${item.email}</option>
-								</c:forEach>
-							</select>
-						</div>
+						<input id="valider" type="submit" value="Enregistrer" />
 					</div>
-					<div class="col-sm-1">
-						<a class="btn mini blue-stripe"
-							href="${pageContext.request.contextPath}/admin/moderateurs">Besoin
-							d'ajouter un modérateur ?</a>
-					</div>
+				</div>
 
-					<div class="form-group">
-						<div class="col-sm-2"></div>
-						<div class="col-sm-3">
-							<input id="valider" type="submit" value="Enregistrer" />
-						</div>
-					</div>
 			</form>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">
-			<h1>Liste des groupes</h1>
+		<div class="row">
+			<div class="col-md-4">
+				<h1>Liste des groupes</h1>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<table class="table table-striped table-hover table-users">
-			<thead>
-				<tr>
-					<th>Nom du groupe (nb membres)</th>
-					<th>Description</th>
-					<th></th>
-					<th></th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<c:forEach items="${liste}" var="results">
+		<div class="row">
+			<table class="table table-striped table-hover table-users">
+				<thead>
 					<tr>
-						<td>
-						${results.name}
-							(${myInjectedBean.getGroupeSize(results.id)})</td>
-						<td>${results.description}</td>
-						<td><a class="btn mini blue-stripe"
-							href="${pageContext.request.contextPath}/admin/editerGroupe/${results.id}"><span
-								class="glyphicon glyphicon-pencil"></span> Edit</a></td>
-						<td><a
-							href="${pageContext.request.contextPath}/admin/removeGroupe/${results.id}"
-							class="confirm-delete btn mini red-stripe" role="button"><span
-								class="glyphicon glyphicon-trash"></span> Delete</a></td>
+						<th>Nom du groupe (nb)</th>
+						<th>Description</th>
+						<th></th>
+						<th></th>
 					</tr>
-				</c:forEach>
-			</tbody>
+				</thead>
 
-		</table>
+				<tbody>
+					<c:forEach items="${liste}" var="results">
+						<tr>
+							<td>${results.name}
+								(${myInjectedBean.getGroupeSize(results.id)})</td>
+							<td>${results.description}</td>
+							<td><a class="btn mini blue-stripe"
+								href="${pageContext.request.contextPath}/editerGroupe/${results.id}"><span
+									class="glyphicon glyphicon-pencil"></span> Edit</a></td>
+							<td><a
+								href="${pageContext.request.contextPath}/removeGroupe/${results.id}"
+								class="confirm-delete btn mini red-stripe" role="button"><span
+									class="glyphicon glyphicon-trash"></span> Delete</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+
+			</table>
+		</div>
 	</div>
 </div>

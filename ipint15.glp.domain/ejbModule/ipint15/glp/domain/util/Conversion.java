@@ -88,6 +88,7 @@ public class Conversion {
 			System.out.println("Group");
 		}
 		cDTO.setPublicationPublic(p.isPublic());
+		cDTO.setPostByAnim(p.isPostByAnim());
 		// Mapping du profil avec sa compétence
 		epDto.getMesPublications().add(cDTO);
 		cDTO.setProfil(epDto);

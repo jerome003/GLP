@@ -52,6 +52,7 @@ public class FilActualiteController {
 
 
 			if (sessionObj.getAttribute("type").equals("ancien")) {
+
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);
 				AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");

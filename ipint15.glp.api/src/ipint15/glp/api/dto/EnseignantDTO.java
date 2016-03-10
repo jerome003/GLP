@@ -68,6 +68,9 @@ public class EnseignantDTO implements Serializable {
 	}
 	
 	public void addGroupeDTOAnime (GroupeDTO groupe){
+		if (listeGroupesAnime==null) {
+			 		listeGroupesAnime = new ArrayList<GroupeDTO>();
+			 	}
 		this.listeGroupesAnime.add(groupe);
 	}
 
