@@ -87,6 +87,7 @@
 						<th>Description</th>
 						<th></th>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 
@@ -103,6 +104,10 @@
 								href="${pageContext.request.contextPath}/removeGroupe/${results.id}"
 								class="confirm-delete btn mini red-stripe" role="button"><span
 									class="glyphicon glyphicon-trash"></span> Delete</a></td>
+							<td class="col-md-4"><a class="btn mini blue-stripe"
+								href="${pageContext.request.contextPath}/groupe/${results.id}"
+								 role="button"><span class="glyphicon glyphicon-eye-open"></span>
+									Voir</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

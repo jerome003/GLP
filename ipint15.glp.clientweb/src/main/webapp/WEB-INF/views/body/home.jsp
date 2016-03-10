@@ -60,7 +60,7 @@
 
 				</ul>
 				<a class="btn btn-lg btn-primary  btn-block"
-					href="${pageContext.request.contextPath}/connexion"> <span
+					href="${pageContext.request.contextPath}/connexionEnseignant"> <span
 					class="glyphicon glyphicon-log-in"></span> Identifiez-vous !
 				</a>
 			</div>

@@ -52,6 +52,14 @@ public class ConnexionEtudiantController {
 			AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
 			Map attributes = principal.getAttributes();
 			Iterator attributeNames = attributes.keySet().iterator();
+			if ((String) attributes.get("nip") == null) {
+				System.out.println("nip null");
+				request.getSession().setAttribute(ATTR_CAS, null);
+				return new ModelAndView("redirect:" + request.getServletContext().getInitParameter("urlCasLogout")
+						+ request.getServletContext().getInitParameter("urlSite") + "/WrongConnexionPageEtudiant");
+			} else {
+				System.out.println("nip OK");
+			}
 			String mail = (String) attributes.get("mail");
 			String nom = (String) attributes.get("name");
 			String delims = " ";
@@ -59,7 +67,7 @@ public class ConnexionEtudiantController {
 			sessionObj.setAttribute("nom", tokens[0]);
 			sessionObj.setAttribute("prenom", tokens[1]);
 			sessionObj.setAttribute("mail", mail);
-			request.getSession().setAttribute("type","etudiant");
+			request.getSession().setAttribute("type", "etudiant");
 			EtudiantDTO etu = etudiantBean.getEtudiantByMail(mail);
 			if (etudiantBean.getEtudiantByMail(mail) != null) {
 				System.out.println("etudiant trouvé !!!");
@@ -72,6 +80,13 @@ public class ConnexionEtudiantController {
 		}
 		sessionObj.setAttribute("section", "inscription");
 		return new ModelAndView("connexionEtudiant", "command", new EtudiantDTO());
+	}
+
+	@RequestMapping(value = "/WrongConnexionPageEtudiant", method = RequestMethod.GET)
+	public String home(Locale locale, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+
+		return "WrongConnexionPageEtudiant";
 	}
 
 	// Methode d'ajout d'un etudiant

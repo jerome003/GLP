@@ -40,7 +40,7 @@
 			</button>
 			<img class="pull-left"
 				src="${pageContext.request.contextPath}/resources/img/Logo.png"
-				alt="Logo" /> <a class="navbar-brand" href="#">&nbsp; Lille
+				alt="Logo" /> <a class="navbar-brand" href="${pageContext.request.contextPath}/">&nbsp; Lille
 				University Meetup Platform<br>
 			</a>
 		</div>

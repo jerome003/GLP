@@ -74,6 +74,9 @@ public class PublicationImpl implements PublicationRemote {
 	private boolean isAnimateurGroupeAncienEtudiant(int idGroupe,int idAncien){
 		Groupe g = getGroupeById(idGroupe);
 		AncienEtudiant ae = g.getAnimateurGroupeNonInstit();
+		if (ae ==null){
+			return false;
+		}
 		if (ae.getId() == idAncien){
 			return true;
 		}
@@ -155,12 +158,27 @@ public class PublicationImpl implements PublicationRemote {
 		c.setDate(date);
 		c.setPublic(isPublic);
 
+
 		if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
 			c.setPostByAnim(true);
 		}
 		else{
 			c.setPostByAnim(false);
 		}
+
+
+		if (!groupe.isInstitutionnel()){
+			if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
+				System.out.println("je passe ici");
+				c.setPostByAnim(true);
+			}
+			else{
+				System.out.println("je passe la");
+				c.setPostByAnim(false);
+			}
+		}
+		
+		
 
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesPublications().add(c);
@@ -179,6 +197,7 @@ public class PublicationImpl implements PublicationRemote {
 				.setParameter("idgroupe", idGroupe).getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication c : mesPublications) {
+			System.out.println("Test isAnim "+c.isPostByAnim());
 			PublicationDTO cDTO = c.toPublicationDTO();
 			if (c.getProfil() != null) {
 				EtudiantProfilDTO epDTO = c.getProfil().toEtudiantProfilDTO();

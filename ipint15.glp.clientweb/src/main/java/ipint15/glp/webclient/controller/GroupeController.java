@@ -313,6 +313,7 @@ public class GroupeController {
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien")) {
 				AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+				
 
 				if (publication.getGroupeDTO().getId() == -1) {
 					publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,

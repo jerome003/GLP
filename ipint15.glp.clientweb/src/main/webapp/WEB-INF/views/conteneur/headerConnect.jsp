@@ -38,7 +38,7 @@
 			</button>
 			<img class="pull-left"
 				src="${pageContext.request.contextPath}/resources/img/Logo.png"
-				alt="Logo" /> <a class="navbar-brand" href="#">&nbsp; Lille University
+				alt="Logo" /> <a class="navbar-brand" href="${pageContext.request.contextPath}/fil-actualite">&nbsp; Lille University
 				Meetup Platform<br>
 			</a>
 		</div>
