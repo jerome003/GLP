@@ -60,6 +60,20 @@
         <put-attribute name="body" value="/WEB-INF/views/body/inscriptionEtudiantOK.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>
+        <definition name="WrongConnexionPageProf"
+        template="/WEB-INF/views/layout/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerDisconnect.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/body/WrongConnexionPageProf.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
+    </definition>
+        <definition name="WrongConnexionPageEtudiant"
+        template="/WEB-INF/views/layout/layout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerDisconnect.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/body/WrongConnexionPageEtudiant.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
+    </definition>
      <definition name="connexion"
         template="/WEB-INF/views/layout/layout.jsp">
         <put-attribute name="title" value="" />

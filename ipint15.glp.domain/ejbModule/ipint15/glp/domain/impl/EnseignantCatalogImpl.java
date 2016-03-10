@@ -2,6 +2,7 @@ package ipint15.glp.domain.impl;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -38,11 +39,15 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 
 	@Override
 	public EnseignantDTO getEnseignantByMail(String mail) {
-		Query q = em.createQuery("select o from Enseignant o WHERE o.email = :email");
-		q.setParameter("email", mail);
+		try {
+		Query q = em.createQuery("select o from Enseignant o WHERE o.mail = :mail");
+		q.setParameter("mail", mail);
 		Enseignant e = (Enseignant) q.getSingleResult();
 		EnseignantDTO dto = e.toEnseignantDTO();
 		return dto;
+		} catch (NoResultException e){
+			return null;
+		}
 	}
 
 	@Override
