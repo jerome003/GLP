@@ -12,7 +12,7 @@
 			<table class="table table-striped table-hover table-users">
 				<thead>
 					<tr>
-					<th>Nom du groupe (nb)</th>
+					<th>Nom du groupe (nb animateurs)</th>
 					<th>Description</th>
 					<th>Animateurs</th>
 					<th></th>
@@ -23,11 +23,11 @@
 					<c:forEach items="${liste}" var="results">
 						<tr>
 						<td>${results.name}
-							(${myInjectedBean.getGroupeSize(results.id)})</td>
+							(${myInjectedBean.getAnimByGroupeSize(results.id)})</td>
 						<td>${results.description}</td>
 						<td>
 							<c:forEach items="${results.animateurs}" var="resultsAnimateur">
-								${resultsAnimateur.name}
+								${resultsAnimateur.nom}
 							</c:forEach>
 						</td>
 						<td><a class="btn mini blue-stripe"
