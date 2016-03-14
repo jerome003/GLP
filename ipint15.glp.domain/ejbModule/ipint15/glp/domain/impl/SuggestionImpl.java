@@ -41,8 +41,8 @@ public class SuggestionImpl implements SuggestionRemote {
 		List<AncienEtudiantDTO> result = new ArrayList<AncienEtudiantDTO>();
 
 		for (AncienEtudiant ae : etus) {
-			EtudiantProfil ep = e.getProfil();
-			AncienEtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+			EtudiantProfil ep = ae.getProfil();
+			AncienEtudiantDTO eDTO = ce.MappingEtudiantProfil(ae, ep);
 			etusDTO.add(eDTO);
 		}
 		for (int i = 0; i<3; i++) {
@@ -119,6 +119,7 @@ public class SuggestionImpl implements SuggestionRemote {
 	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu) {
 		Random r = new Random();
 		int tirage = r.nextInt(1 - 0) + 0;
+		tirage =1;
 		if (tirage == 0) {
 			return randomEtu();
 		}else {
