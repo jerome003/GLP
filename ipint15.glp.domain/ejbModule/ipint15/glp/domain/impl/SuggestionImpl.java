@@ -39,7 +39,7 @@ public class SuggestionImpl implements SuggestionRemote {
 			psDTO.add(eDTO);
 		}
 		for (int i = 0; i<3; i++) {
-			int size = psDTO.size();
+			int size = psDTO.size()-1;
 			Random r = new Random();
 			int tirage = r.nextInt(size - 0) + 0;
 			result.add(psDTO.get(tirage));
@@ -58,7 +58,7 @@ public class SuggestionImpl implements SuggestionRemote {
 		}
 
 		for (int i = 0; i<3; i++) {
-			int size = psDTO.size();
+			int size = psDTO.size()-1;
 			Random r = new Random();
 			int tirage = r.nextInt(size - 0) + 0;
 			result.add(psDTO.get(tirage));
