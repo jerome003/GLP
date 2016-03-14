@@ -15,6 +15,7 @@ import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.SuggestionRemote;
 import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
+import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.util.Conversion;
 
 
@@ -37,6 +38,23 @@ public class SuggestionImpl implements SuggestionRemote {
 			AncienEtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 			psDTO.add(eDTO);
 		}
+		for (int i = 0; i<3; i++) {
+			Random r = new Random();
+			int tirage = r.nextInt(psDTO.size() - 0) + 0;
+			result.add(psDTO.get(tirage));
+		}
+		return result;
+	}
+	
+	private List<GroupeDTO> randomGroupe() {
+		List<Groupe> ps = em.createQuery("select o from Groupe o").getResultList();
+		List<GroupeDTO> psDTO = new ArrayList<GroupeDTO>();
+		List<GroupeDTO> result = new ArrayList<GroupeDTO>();
+
+		for (Groupe g : ps) {
+			psDTO.add(g.toGroupeDTO());
+		}
+		
 		for (int i = 0; i<3; i++) {
 			Random r = new Random();
 			int tirage = r.nextInt(psDTO.size() - 0) + 0;
