@@ -160,7 +160,7 @@ public class PublicationImpl implements PublicationRemote {
 
 
 
-		if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
+		if (groupe != null && isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
 			c.setPostByAnim(true);
 		}
 		else{
