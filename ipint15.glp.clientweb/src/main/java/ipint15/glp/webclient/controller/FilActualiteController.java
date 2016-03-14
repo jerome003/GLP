@@ -28,6 +28,7 @@ import ipint15.glp.api.remote.EnseignantCatalogRemote;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.api.remote.PublicationRemote;
+import ipint15.glp.api.remote.SuggestionRemote;
 
 @Controller
 @SessionAttributes
@@ -43,13 +44,14 @@ public class FilActualiteController {
 	protected PublicationRemote publicationBean;
 	@Inject
 	protected GroupeRemote groupeBean;
+	@Inject
+	protected SuggestionRemote suggestionBean;
 
 	@RequestMapping(value = "/fil-actualite", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model, HttpServletRequest request) {
 		// TODO impacter les roles
 		HttpSession sessionObj = request.getSession();
 		try {
-
 
 			if (sessionObj.getAttribute("type").equals("ancien")) {
 
@@ -61,22 +63,28 @@ public class FilActualiteController {
 				listeGroupes = etudiantBean.getLesGroupes(etu);
 				listeGroupes.add(etu.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
-				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
-			} 
 
-			
+				// Partie sur la suggestion
+				List<AncienEtudiantDTO> listeAnciensSug = suggestionBean.genereSuggestionEtu(etu.getId());
+				model.addAttribute("listeAnciensSug", listeAnciensSug);
+				List<GroupeDTO> listeGroupesSug = suggestionBean.genereSuggestionGroupe(etu.getId());
+				model.addAttribute("listeGroupesSug", listeGroupesSug);
+
+				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
+			}
+
 			if (sessionObj.getAttribute("type").equals("prof")) {
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);
 				EnseignantDTO en = (EnseignantDTO) sessionObj.getAttribute("etudiant");
-				
+
 				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
 				listeGroupes = enseignantBean.getLesGroupes(en);
-//				listeGroupes.add(etu.getGroupe());
+				// listeGroupes.add(etu.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
 				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			}
-			
+
 			ModelAndView modele = new ModelAndView("errorAccesRole");
 			return modele;
 
@@ -96,18 +104,16 @@ public class FilActualiteController {
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);
 				EtudiantDTO etudiant = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-				
-				
-				
+
 				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
-				
+
 				listeGroupes = etuBean.getLesGroupes(etudiant);
 				listeGroupes.add(etudiant.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
-	
+
 				return new ModelAndView("fil-actualite-etudiant", "command", new PublicationDTO());
 			}
-			
+
 			ModelAndView modele = new ModelAndView("errorAccesRole");
 			return modele;
 
@@ -120,9 +126,9 @@ public class FilActualiteController {
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result,
 			HttpServletRequest request) {
-		
+
 		HttpSession sessionObj = request.getSession();
-		ModelAndView modelView = new ModelAndView ();
+		ModelAndView modelView = new ModelAndView();
 		if (sessionObj.getAttribute("type").equals("ancien")) {
 			AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 			// publicationBean.addPublication(eDTO, publication.getTitre(),
@@ -138,30 +144,30 @@ public class FilActualiteController {
 			List<PublicationDTO> myPublications = publicationBean.getAllPublications(null, -1);
 			modelView = new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 		}
-		
+
 		if (sessionObj.getAttribute("type").equals("etudiant")) {
 			EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-			
+
 			if (publication.getGroupeDTO().getId() == -1) {
-				publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-						null);
+				publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(),
+						new Date(), true, null);
 			} else {
-				publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-						publication.getGroupeDTO());
+				publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(),
+						new Date(), true, publication.getGroupeDTO());
 			}
 			List<PublicationDTO> myPublications = publicationBean.getAllPublicationsEtudiant(null, -1);
 			modelView = new ModelAndView("redirect:fil-actualite-etudiant", "command", new PublicationDTO());
 		}
-		
+
 		if (sessionObj.getAttribute("type").equals("prof")) {
 			EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
-			
+
 			if (publication.getGroupeDTO().getId() == -1) {
-				publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-						null);
+				publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(),
+						new Date(), true, null);
 			} else {
-				publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-						publication.getGroupeDTO());
+				publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(),
+						new Date(), true, publication.getGroupeDTO());
 			}
 			List<PublicationDTO> myPublications = publicationBean.getAllPublicationsEnseignant(null, -1);
 			modelView = new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
@@ -181,7 +187,7 @@ public class FilActualiteController {
 	@RequestMapping(value = "/myPublication", method = RequestMethod.GET)
 	public ModelAndView myPublication(HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
-		ModelAndView modelView = new ModelAndView ();
+		ModelAndView modelView = new ModelAndView();
 		sessionObj.setAttribute("choixPublication", "mesPublications");
 		if (sessionObj.getAttribute("type").equals("ancien")) {
 			modelView = new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
@@ -202,18 +208,18 @@ public class FilActualiteController {
 			if (sessionObj.getAttribute("type").equals("ancien")) {
 				sessionObj.setAttribute("choixPublication", "lesPublications");
 				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
-			} 
+			}
 			if (sessionObj.getAttribute("type").equals("etudiant")) {
 				sessionObj.setAttribute("choixPublication", "lesPublications");
 				return new ModelAndView("redirect:fil-actualite-etudiant", "command", new PublicationDTO());
-			} 
+			}
 			if (sessionObj.getAttribute("type").equals("prof")) {
 				sessionObj.setAttribute("choixPublication", "lesPublications");
 				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
-			} 
-	
+			}
+
 			return new ModelAndView("errorAccesRole");
-		
+
 		} catch (NullPointerException e) {
 			return new ModelAndView("errorAccesRole");
 		}
@@ -252,9 +258,9 @@ public class FilActualiteController {
 				sessionObj.setAttribute("idGroupe", idGroupe);
 				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 			}
-	
+
 			return new ModelAndView("errorAccesRole");
-			
+
 		} catch (NullPointerException e) {
 			return new ModelAndView("errorAccesRole");
 		}

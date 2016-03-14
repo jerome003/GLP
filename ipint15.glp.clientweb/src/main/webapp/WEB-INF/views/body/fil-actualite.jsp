@@ -55,7 +55,24 @@
 		</div>
 		<div class="col-md-6">
 			<h3>Mes suggestions</h3>
-			<div class="well well-g"></div>
+			<div class="well well-g">
+			<c:forEach items="${listeAnciensSug}" var="results">
+					<div class="row">
+						<div class="col-md-12">
+							${results.nom}
+						</div>
+					</div>
+
+				</c:forEach>
+			<c:forEach items="${listeGroupesSug}" var="results">
+					<div class="row">
+						<div class="col-md-12">
+							${results.name}
+						</div>
+					</div>
+
+				</c:forEach>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
