@@ -40,10 +40,12 @@ public class SuggestionImpl implements SuggestionRemote {
 		}
 		for (int i = 0; i<3; i++) {
 			int size = psDTO.size()-1;
-			Random r = new Random();
-			int tirage = r.nextInt(size - 0) + 0;
-			result.add(psDTO.get(tirage));
-			psDTO.remove(tirage);
+			if (size !=0) {
+				Random r = new Random();
+				int tirage = r.nextInt(size - 0) + 0;
+				result.add(psDTO.get(tirage));
+				psDTO.remove(tirage);
+			}
 		}
 		return result;
 	}
@@ -59,10 +61,12 @@ public class SuggestionImpl implements SuggestionRemote {
 
 		for (int i = 0; i<3; i++) {
 			int size = psDTO.size()-1;
-			Random r = new Random();
-			int tirage = r.nextInt(size - 0) + 0;
-			result.add(psDTO.get(tirage));
-			psDTO.remove(tirage);
+			if (size !=0) {
+				Random r = new Random();
+				int tirage = r.nextInt(size - 0) + 0;
+				result.add(psDTO.get(tirage));
+				psDTO.remove(tirage);
+			}
 		}
 		return result;
 	}
