@@ -12,7 +12,9 @@
 	if (idGroupe == null || idGroupe == 0) {
 		idGroupe = -1;
 	}
+	
 	AncienEtudiantDTO etudiant = (AncienEtudiantDTO) session.getAttribute("etudiant");
+
 %>
 
 <script type="text/javascript">
@@ -32,23 +34,28 @@
 		}
 	}
 </script>
-
 <div class="section">
 	<div class="container">
 		<div class="row"></div>
-		<h3>Mes groupes</h3>
-		<div class="well well-g">
-			<c:forEach items="${listeGroupes}" var="results">
-				<div class="row">
-					<div class="col-md-12">
-						<a href="${pageContext.request.contextPath}/groupe/${results.id}">${results.name}</a>
-						: ${results.description}
-						<c:if test="${results.institutionnel}"> (Institutionnel)</c:if>
+		<div class="col-md-6">
+			<h3>Mes groupes</h3>
+			<div class="well well-g">
+				<c:forEach items="${listeGroupes}" var="results">
+					<div class="row">
+						<div class="col-md-12">
+							<a href="${pageContext.request.contextPath}/groupe/${results.id}">${results.name}</a>
+							: ${results.description}
+							<c:if test="${results.institutionnel}"> (Institutionnel)</c:if>
+						</div>
 					</div>
-				</div>
 
-			</c:forEach>
+				</c:forEach>
 
+			</div>
+		</div>
+		<div class="col-md-6">
+			<h3>Mes suggestions</h3>
+			<div class="well well-g"></div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
@@ -150,7 +157,8 @@
 							<select id="groupes" name="idGroupe"
 								class="col-md-6 col-md-offset-3">
 								<option value="-2" ${idGroupe == '-2' ? 'selected' : ''}>------------------</option>
-								<option value="-1" ${idGroupe == '-1' ? 'selected' : ''}>Lille 1</option>
+								<option value="-1" ${idGroupe == '-1' ? 'selected' : ''}>Lille
+									1</option>
 								<c:forEach items="${listeGroupes}" var="groupe">
 									<option value="${groupe.id}"
 										${idGroupe == groupe.id ? 'selected' : ''}>${groupe.name}</option>

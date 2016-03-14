@@ -6,21 +6,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
+
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.UserTransaction;
+
 
 import ipint15.glp.api.dto.Civilite;
 import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
-import ipint15.glp.api.dto.PublicationDTO;
+
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.HobbieDTO;
@@ -29,7 +29,7 @@ import ipint15.glp.domain.entities.Competence;
 import ipint15.glp.domain.entities.Ecole;
 import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.EtudiantProfil;
-import ipint15.glp.domain.entities.Publication;
+
 import ipint15.glp.domain.entities.Experience;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Hobbie;
@@ -164,11 +164,10 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 
 		AncienEtudiant e = getEtudiantByMail(email);
 		if (e != null && (e.getPassword().equals(password))) {
-			System.out.println("connexion etablie");
 			return true;
 		}
 
-		System.out.println("connexion refusee");
+		
 		return false;
 	}
 

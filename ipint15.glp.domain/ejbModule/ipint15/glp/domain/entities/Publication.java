@@ -20,12 +20,20 @@ import ipint15.glp.api.dto.PublicationDTO;
 @NamedQueries({
 		@NamedQuery(name = "selectAllPublicationOfAncienEtudiant", query = "select o from Publication o WHERE o.profil.etudiant.id = :id order by o.date desc"),
 		@NamedQuery(name = "selectAllPublicationGroupOfAncienEtudiant", query = "select o from Publication o WHERE o.profil.etudiant.id = :idetu AND o.groupe.id = :idgroupe order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationOfEtudiant", query = "select o from Publication o WHERE o.etudiant.id = :id order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationGroupOfEtudiant", query = "select o from Publication o WHERE o.etudiant.id = :idetu AND o.groupe.id = :idgroupe order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationOfEnseignant", query = "select o from Publication o WHERE o.enseignant.id = :id order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationGroupOfEnseignant", query = "select o from Publication o WHERE o.enseignant.id = :idenseignant AND o.groupe.id = :idgroupe order by o.date desc"),
 		@NamedQuery(name = "selectAllPublicationGroup", query = "select o from Publication o WHERE o.groupe.id = :idgroupe order by o.date desc"),
 		// select o from Publication o left join o.groupe.ancienEtudiants a
 		// WHERE o.groupe = null OR a.id = :idetu order by o.date desc
 		@NamedQuery(name = "selectAllPublicationForAncienEtudiant", query = "select o from Publication o WHERE o.groupe = null OR EXISTS (SELECT a FROM o.groupe.ancienEtudiants a WHERE a.id = :idetu) order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationForEtudiant", query = "select o from Publication o WHERE o.groupe = null OR EXISTS (SELECT a FROM o.groupe.etudiants a WHERE a.id = :idetu) order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationForEnseignant", query = "select o from Publication o WHERE o.groupe = null OR EXISTS (SELECT a FROM o.groupe.enseignant a WHERE a.id = :idenseignant) order by o.date desc"),
 		@NamedQuery(name = "selectAllPublicationPublic", query = "select o from Publication o WHERE o.groupe = null order by o.date desc"),
-		@NamedQuery(name = "selectAllPublicationPublicOfAncienEtudiant", query = "select o from Publication o WHERE o.groupe = null AND o.profil.etudiant.id = :idetu order by o.date desc") })
+		@NamedQuery(name = "selectAllPublicationPublicOfAncienEtudiant", query = "select o from Publication o WHERE o.groupe = null AND o.profil.etudiant.id = :idetu order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationPublicOfEtudiant", query = "select o from Publication o WHERE o.groupe = null AND o.etudiant.id = :idetu order by o.date desc"),
+		@NamedQuery(name = "selectAllPublicationPublicOfEnseignant", query = "select o from Publication o WHERE o.groupe = null AND o.enseignant.id = :idenseignant order by o.date desc")})
 public class Publication {
 
 	@Id
@@ -34,6 +42,10 @@ public class Publication {
 
 	@ManyToOne
 	private EtudiantProfil profil;
+	@ManyToOne
+	private Etudiant etudiant;
+	@ManyToOne
+	private Enseignant enseignant;
 
 	private String titre;
 
@@ -95,6 +107,23 @@ public class Publication {
 
 	public void setGroupe(Groupe groupe) {
 		this.groupe = groupe;
+	}
+	
+
+	public Etudiant getEtudiant() {
+		return etudiant;
+	}
+
+	public void setEtudiant(Etudiant etudiant) {
+		this.etudiant = etudiant;
+	}
+
+	public Enseignant getEnseignant() {
+		return enseignant;
+	}
+
+	public void setEnseignant(Enseignant enseignant) {
+		this.enseignant = enseignant;
 	}
 
 	public PublicationDTO toPublicationDTO() {

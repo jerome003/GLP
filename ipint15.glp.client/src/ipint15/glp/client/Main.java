@@ -16,6 +16,7 @@ import ipint15.glp.api.remote.AdministrationRemote;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.EnseignantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
+import ipint15.glp.api.remote.PublicationRemote;
 
 public class Main {
 	private static InitialContext ctx;
@@ -23,6 +24,7 @@ public class Main {
 	private static GroupeRemote groupBean;
 	private static EnseignantCatalogRemote enseignBean;
 	private static AdministrationRemote adminBean;
+	private static PublicationRemote pubBean;
 	private static AncienEtudiantDTO etudiant;
 	private static AncienEtudiantDTO etudiant2;
 	private static AncienEtudiantDTO etudiant3;

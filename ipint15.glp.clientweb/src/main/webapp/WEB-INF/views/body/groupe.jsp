@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="ipint15.glp.api.dto.AncienEtudiantDTO"%>
+<%@page import="ipint15.glp.api.dto.EtudiantDTO"%>
+<%@page import="ipint15.glp.api.dto.EnseignantDTO"%>
 <script type="text/javascript">
 	/** Fonction basculant la visibilité d'un élément dom
 	 * @parameter anId string l'identificateur de la cible à montrer, cacher
@@ -18,6 +21,7 @@
 		}
 	}
 </script>
+
 <div class="section">
 	<div class="container">
 		<div class="row">
@@ -160,6 +164,7 @@
 					<div class="${cssClass}">
 						<div class="panel-heading">
 							<p class="">
+							
 								<span class="bold-font">${publication.titre}</span> <span
 									class="pull-right"> <span
 									class="glyphicon glyphicon-share-alt ${colorGroupe}"></span><a
@@ -169,6 +174,7 @@
 											type="both" dateStyle="short" timeStyle="short"
 											value="${publication.date}" /></span>
 								</span>
+							
 							</p>
 						</div>
 						<div class="panel-body">

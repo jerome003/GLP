@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import ipint15.glp.api.dto.EnseignantDTO;
@@ -40,6 +41,8 @@ public class Enseignant implements Serializable {
 	@JoinTable(name = "groupesanimes_animateur", joinColumns = @JoinColumn(name = "groupesanimes_id"),
     inverseJoinColumns = @JoinColumn(name = "animateur_id"))
 	private List<Groupe> groupesAnimes;
+	@OneToMany(mappedBy = "enseignant")
+	private List<Publication> mesPublications;
 
 	public List<Groupe> getGroupesAnimes() {
 		return groupesAnimes;
@@ -92,6 +95,15 @@ public class Enseignant implements Serializable {
 
 	public int getId() {
 		return id;
+	}
+	
+
+	public List<Publication> getMesPublications() {
+		return mesPublications;
+	}
+
+	public void setMesPublications(List<Publication> mesPublications) {
+		this.mesPublications = mesPublications;
 	}
 
 	public EnseignantDTO toEnseignantDTO() {
