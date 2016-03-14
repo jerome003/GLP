@@ -26,8 +26,8 @@ public class SuggestionImpl implements SuggestionRemote {
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
-	
-	
+
+
 	private List<AncienEtudiantDTO> randomEtu() {
 		List<AncienEtudiant> ps = em.createQuery("select o from AncienEtudiant o").getResultList();
 		List<AncienEtudiantDTO> psDTO = new ArrayList<AncienEtudiantDTO>();
@@ -39,13 +39,15 @@ public class SuggestionImpl implements SuggestionRemote {
 			psDTO.add(eDTO);
 		}
 		for (int i = 0; i<3; i++) {
+			int size = psDTO.size();
 			Random r = new Random();
-			int tirage = r.nextInt(psDTO.size() - 0) + 0;
+			int tirage = r.nextInt(size - 0) + 0;
 			result.add(psDTO.get(tirage));
+			psDTO.remove(tirage);
 		}
 		return result;
 	}
-	
+
 	private List<GroupeDTO> randomGroupe() {
 		List<Groupe> ps = em.createQuery("select o from Groupe o").getResultList();
 		List<GroupeDTO> psDTO = new ArrayList<GroupeDTO>();
@@ -54,15 +56,17 @@ public class SuggestionImpl implements SuggestionRemote {
 		for (Groupe g : ps) {
 			psDTO.add(g.toGroupeDTO());
 		}
-		
+
 		for (int i = 0; i<3; i++) {
+			int size = psDTO.size();
 			Random r = new Random();
-			int tirage = r.nextInt(psDTO.size() - 0) + 0;
+			int tirage = r.nextInt(size - 0) + 0;
 			result.add(psDTO.get(tirage));
+			psDTO.remove(tirage);
 		}
 		return result;
 	}
-	
+
 	@Override
 	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu) {
 		return randomEtu();
@@ -72,5 +76,5 @@ public class SuggestionImpl implements SuggestionRemote {
 		return randomGroupe();
 	}
 
-	
+
 }
