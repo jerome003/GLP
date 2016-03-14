@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>${profil.prenom} ${profil.nom}</h1>
+				<h1>${profil.prenom}${profil.nom}</h1>
 				<%
 					if ((Boolean) session.getAttribute("consultation") == false) {
 				%>
@@ -57,34 +57,49 @@
 						</div>
 					</div>
 					<div class="col-md-6">
-					<c:if test = "${profil.statut == 'En emploi'}">
-						<div class="row">
-							<label class="col-md-5 intitule">Poste :</label> <label
-								class="col-md-7">${profil.posteActu}</label>
-						</div>
-						<div class="row">
-							<label class="col-md-5 intitule">Ville : </label> <label
-								class="col-md-7">${profil.villeActu}</label>
-						</div>
-						<div class="row">
-							<label class="col-md-5 intitule">Entreprise : </label> <label
-								class="col-md-7">${profil.nomEntreprise}</label>
-						</div>
-					</c:if> 
-					<c:if test = "${profil.statut == 'Freelance'}">
-						<div class="row">
-							<label class="col-md-5 intitule">Situation Actuelle :</label> <label
-								class="col-md-7">${profil.statut}</label>
-						</div>
-					</c:if> 
-					<c:if test = "${profil.statut == 'Sans emploi'}">
-						<div class="row">
-							<label class="col-md-5 intitule">Situation Actuelle :</label> <label
-								class="col-md-7">${profil.statut}</label>
-						</div>
-					</c:if> 
+						<c:if test="${profil.statut == 'En emploi'}">
+							<div class="row">
+								<label class="col-md-5 intitule">Poste :</label> <label
+									class="col-md-7">${profil.posteActu}</label>
+							</div>
+							<div class="row">
+								<label class="col-md-5 intitule">Ville : </label> <label
+									class="col-md-7">${profil.villeActu}</label>
+							</div>
+							<div class="row">
+								<label class="col-md-5 intitule">Entreprise : </label> <label
+									class="col-md-7">${profil.nomEntreprise}</label>
+							</div>
+						</c:if>
+						<c:if test="${profil.statut == 'Freelance'}">
+							<div class="row">
+								<label class="col-md-5 intitule">Situation Actuelle :</label> <label
+									class="col-md-7">${profil.statut}</label>
+							</div>
+						</c:if>
+						<c:if test="${profil.statut == 'Sans emploi'}">
+							<div class="row">
+								<label class="col-md-5 intitule">Situation Actuelle :</label> <label
+									class="col-md-7">${profil.statut}</label>
+							</div>
+						</c:if>
 					</div>
 				</div>
+			</div>
+			<div class="row"></div>
+			<h3>Mes groupes</h3>
+			<div class="well well-g">
+				<c:forEach items="${listeGroupes}" var="results">
+					<div class="row">
+						<div class="col-md-12">
+							<a href="${pageContext.request.contextPath}/groupe/${results.id}">${results.name}</a>
+							: ${results.description}
+							<c:if test="${results.institutionnel}"> (Institutionnel)</c:if>
+						</div>
+					</div>
+
+				</c:forEach>
+
 			</div>
 			<div class="col-md-12"></div>
 			<div class="row">

@@ -193,11 +193,15 @@
 	var="publication">
 	<div class="section">
 		<div class="container">
-			<c:if test="${publication.postByAnim}">
+		<c:if test="${publication.postByAnim}">
 				<c:set value="panel panel-primary" var="cssClass"></c:set>
+				<c:set value="linkUser" var="colorUser"></c:set>
+				<c:set value="linkGroup" var="colorGroupe"></c:set>
 			</c:if>
 			<c:if test="${ not publication.postByAnim}">
 				<c:set value="panel panel-info" var="cssClass"></c:set>
+				<c:set value="linkUserNonAnim" var="colorUser"></c:set>
+				<c:set value="linkGroupNonAnim" var="colorGroupe"></c:set>
 			</c:if>
 			<div class="${cssClass}">
 				<div class="panel-heading">
@@ -205,12 +209,12 @@
 
 						<span class="bold-font">${publication.titre}</span> <span
 							class="pull-right"> <span
-							class="glyphicon glyphicon-share-alt"></span><a
+							class="glyphicon glyphicon-share-alt"></span><a class="${colorUser}"
 							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
 								${publication.profil.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
 								<span class="glyphicon glyphicon-share-alt"></span>
-								<a
+								<a class="${colorGroupe}"
 									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}">${publication.groupeDTO.name}</a>
 							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>

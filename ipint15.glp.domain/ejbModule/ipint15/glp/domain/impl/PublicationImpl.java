@@ -138,7 +138,7 @@ public class PublicationImpl implements PublicationRemote {
 		c.setMessage(message);
 		c.setDate(date);
 		c.setPublic(isPublic);
-		if (!groupe.isInstitutionnel()){
+		if (groupe != null && !groupe.isInstitutionnel()){
 			if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
 				System.out.println("je passe ici");
 				c.setPostByAnim(true);
