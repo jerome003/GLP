@@ -11,8 +11,8 @@ import ipint15.glp.api.dto.GroupeDTO;
 @Remote
 public interface SuggestionRemote {
 	
-	public List<AncienEtudiantDTO> genereSuggestionEtu();
+	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu);
 
-	public List<GroupeDTO> genereSuggestionGroupe();
+	public List<GroupeDTO> genereSuggestionGroupe(int idEtu);
 
 }

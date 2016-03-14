@@ -21,13 +21,14 @@ public class SuggestionImpl implements SuggestionRemote {
 	Conversion ce = new Conversion();
 	@PersistenceContext
 	EntityManager em;
+	
 	@Override
-	public List<AncienEtudiantDTO> genereSuggestionEtu() {
+	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	public List<GroupeDTO> genereSuggestionGroupe() {
+	public List<GroupeDTO> genereSuggestionGroupe(int idEtu) {
 		// TODO Auto-generated method stub
 		return null;
 	}
