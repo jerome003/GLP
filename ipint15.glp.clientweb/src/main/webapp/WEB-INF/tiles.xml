@@ -56,7 +56,7 @@
     <definition name="inscriptionEtudiantOK"
         template="/WEB-INF/views/layout/layout.jsp">
         <put-attribute name="title" value="" />
-        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerDisconnect.jsp" />
+        <put-attribute name="header" value="/WEB-INF/views/conteneur/headerConnect.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/body/inscriptionEtudiantOK.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>
