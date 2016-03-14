@@ -97,6 +97,7 @@ public class ConnexionEtudiantController {
 		GroupeDTO newGroupe = groupeBean.getGroupeDTOById(etudiant.getGroupe().getId());
 		EtudiantDTO etu = etudiantBean.createEtudiant((String) sessionObj.getAttribute("nom"), (String) sessionObj.getAttribute("prenom"),
 				(String) sessionObj.getAttribute("mail"), newGroupe);
+		System.out.println(etu.getId()+" "+ etu.getNom());
 		request.getSession().setAttribute("type","etudiant");
 		sessionObj.setAttribute("etudiant", etu);
 		return "inscriptionEtudiantOK";

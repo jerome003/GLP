@@ -154,6 +154,7 @@
 					<div class="${cssClass}">
 						<div class="panel-heading">
 							<p class="">
+							
 								<span class="bold-font">${publication.titre}</span> <span
 									class="pull-right"> <span
 									class="glyphicon glyphicon-share-alt ${colorGroupe}"></span><a
@@ -163,6 +164,7 @@
 											type="both" dateStyle="short" timeStyle="short"
 											value="${publication.date}" /></span>
 								</span>
+							
 							</p>
 						</div>
 						<div class="panel-body">

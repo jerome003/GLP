@@ -52,6 +52,7 @@ public class ProfilController {
 	}
 
 
+
 	@RequestMapping(value = "/profilEtudiant/{id}", method = RequestMethod.GET)
 	public ModelAndView profilEtudiant(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();

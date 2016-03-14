@@ -120,9 +120,7 @@ public class FilActualiteController {
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result,
 			HttpServletRequest request) {
-		// TODO impacter les roles
-		System.out.println(publication);
-		System.out.println("grp : " + publication.getGroupeDTO());
+		
 		HttpSession sessionObj = request.getSession();
 		ModelAndView modelView = new ModelAndView ();
 		if (sessionObj.getAttribute("type").equals("ancien")) {

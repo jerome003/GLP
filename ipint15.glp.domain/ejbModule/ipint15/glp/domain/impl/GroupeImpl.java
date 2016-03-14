@@ -312,9 +312,7 @@ public class GroupeImpl implements GroupeRemote {
 		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
 		List<EtudiantDTO> etudiantDTO = groupeAvecListeDesMembre.getEtudiants();
 		boolean a = false;
-		System.out.println(idMembre);
 		for (EtudiantDTO etu : etudiantDTO ){
-			System.out.println(etu.getId());
 			if(etu.getId() == idMembre){
 				a = true;
 			}

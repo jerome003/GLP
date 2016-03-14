@@ -49,10 +49,9 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		Groupe g = getGroupeById(groupe.getId());
 		e.setGroupe(g);
 		g.getEtudiants().add(e);
-		EtudiantDTO dto = e.toEtudiantDTO();
 		em.persist(e);
 		em.merge(g);
-
+		EtudiantDTO dto = e.toEtudiantDTO();
 		return dto;
 	}
 
@@ -84,9 +83,8 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 
 	@Override
 	public List<GroupeDTO> getLesGroupes(EtudiantDTO eDTO) {
-		System.out.println("Mail : " + eDTO.getMail());
 		Etudiant e = getEtudiantByMail2(eDTO.getMail());
-//		System.out.println(e==null);
+
 		List<Groupe> mesGroupes = e.getGroupes();
 		
 		List<GroupeDTO> mesGroupesDTO = new ArrayList<GroupeDTO>();
@@ -94,11 +92,6 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		
 		return mesGroupesDTO;
 		
-//		EtudiantDTO e = getEtudiantByMail(eDTO.getMail());
-//		System.out.println( e == null);
-//		List<GroupeDTO> mesGroupesDTO = new ArrayList<GroupeDTO>();
-//		mesGroupesDTO = e.getListeGroupes();
-//		return mesGroupesDTO;
 	}
 
 	public boolean isMailExists(String mail) {

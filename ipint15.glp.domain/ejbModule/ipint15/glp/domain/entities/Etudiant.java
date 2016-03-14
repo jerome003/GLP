@@ -52,6 +52,7 @@ public class Etudiant implements Serializable {
 		super();
 	}
 
+	
 	public int getId() {
 		return id;
 	}
@@ -59,6 +60,8 @@ public class Etudiant implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
 
 	public String getPrenom() {
 		return prenom;
@@ -121,11 +124,11 @@ public class Etudiant implements Serializable {
 	 */
 	public EtudiantDTO toEtudiantDTO() {
 		EtudiantDTO dTO = new EtudiantDTO();
-		dTO.setGroupe(this.groupe.toGroupeDTO());
 		dTO.setId(this.getId());
 		dTO.setNom(this.getNom());
 		dTO.setPrenom(this.getPrenom());
 		dTO.setMail(this.getMail());
+		dTO.setGroupe(this.groupe.toGroupeDTO());
 		return dTO;
 	}
 

@@ -164,11 +164,10 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 
 		AncienEtudiant e = getEtudiantByMail(email);
 		if (e != null && (e.getPassword().equals(password))) {
-			System.out.println("connexion etablie");
 			return true;
 		}
 
-		System.out.println("connexion refusee");
+		
 		return false;
 	}
 
