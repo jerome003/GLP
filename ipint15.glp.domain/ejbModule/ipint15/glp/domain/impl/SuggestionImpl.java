@@ -159,8 +159,7 @@ public class SuggestionImpl implements SuggestionRemote {
 	@Override
 	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu) {
 		Random r = new Random();
-		int tirage = r.nextInt(2);
-		tirage = 2;
+		int tirage = r.nextInt(3);
 		if (tirage == 0) {
 			return randomEtu();
 		}else if (tirage == 1){
