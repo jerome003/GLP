@@ -65,13 +65,11 @@ public class SuggestionImpl implements SuggestionRemote {
 	
 	@Override
 	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu) {
-		// TODO Auto-generated method stub
-		return null;
+		return randomEtu();
 	}
 	@Override
 	public List<GroupeDTO> genereSuggestionGroupe(int idEtu) {
-		// TODO Auto-generated method stub
-		return null;
+		return randomGroupe();
 	}
 
 	
