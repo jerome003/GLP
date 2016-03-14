@@ -87,7 +87,7 @@
 						</div>
 						<div class="col-sm-8">
 							<form:select path="groupeDTO.id" id="groupes" name="groupes">
-								<form:option value="-1" label="Tout le monde" />
+								<form:option value="-1" label="Lille 1" />
 								<c:forEach items="${listeGroupes}" var="groupe">
 									<form:option value="${groupe.id}">${groupe.name}</form:option>
 								</c:forEach>
@@ -150,8 +150,7 @@
 							<select id="groupes" name="idGroupe"
 								class="col-md-6 col-md-offset-3">
 								<option value="-2" ${idGroupe == '-2' ? 'selected' : ''}>------------------</option>
-								<option value="-1" ${idGroupe == '-1' ? 'selected' : ''}>Tout
-									le monde</option>
+								<option value="-1" ${idGroupe == '-1' ? 'selected' : ''}>Lille 1</option>
 								<c:forEach items="${listeGroupes}" var="groupe">
 									<option value="${groupe.id}"
 										${idGroupe == groupe.id ? 'selected' : ''}>${groupe.name}</option>

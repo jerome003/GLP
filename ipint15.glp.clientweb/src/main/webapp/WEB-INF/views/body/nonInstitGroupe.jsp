@@ -61,8 +61,7 @@
 						<label class="control-label">Description du groupe :</label>
 					</div>
 					<div class="col-sm-6">
-						<input id="descriptionGroupe" name="descriptionGroupe" type="text"
-							class="form-control" required="required" />
+						<textarea class="form-control" id="descriptionGroupe" name="descriptionGroupe" required="required"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -83,7 +82,7 @@
 			<table class="table table-striped table-hover table-users">
 				<thead>
 					<tr>
-						<th>Nom du groupe (nb)</th>
+						<th class="col-sm-3">Nom du groupe (nb)</th>
 						<th>Description</th>
 						<th></th>
 						<th></th>
