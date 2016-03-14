@@ -38,26 +38,26 @@
 		<div class="row"></div>
 		<h3>Mes groupes</h3>
 		<div class="well well-g">
-		<c:forEach items="${listeGroupes}" var="results">
-			<div class="row">
-				<div class="col-md-12"> <a
-						href="${pageContext.request.contextPath}/groupe/${results.id}">${results.name}</a> :
-					${results.description} <c:if test="${results.institutionnel}"> (Institutionnel)</c:if></div>
-			</div>
+			<c:forEach items="${listeGroupes}" var="results">
+				<div class="row">
+					<div class="col-md-12">
+						<a href="${pageContext.request.contextPath}/groupe/${results.id}">${results.name}</a>
+						: ${results.description}
+						<c:if test="${results.institutionnel}"> (Institutionnel)</c:if>
+					</div>
+				</div>
 
-		</c:forEach>
+			</c:forEach>
 
-	</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
-			
-			<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
-					href="${pageContext.request.contextPath}/nonInstitGroupe">Créer un groupe</a> <br>
-			
-			
-			
+
 				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
-					onclick="toggle('formulaire')">Créer une publication</a> <br>
+					href="${pageContext.request.contextPath}/nonInstitGroupe">Créer
+					un groupe</a> <br> <span class="glyphicon glyphicon-pencil"></span><a
+					class="pHoover" onclick="toggle('formulaire')">Créer une
+					publication</a> <br>
 			</div>
 		</div>
 		<div id="formulaire" style="display: none; height: 0px;">
@@ -188,27 +188,25 @@
 	var="publication">
 	<div class="section">
 		<div class="container">
-		<c:if test="${publication.postByAnim}">
-					<c:set value="panel panel-primary" var="cssClass"></c:set>
-					</c:if>
+			<c:if test="${publication.postByAnim}">
+				<c:set value="panel panel-primary" var="cssClass"></c:set>
+			</c:if>
 			<c:if test="${ not publication.postByAnim}">
-					<c:set value="panel panel-info" var="cssClass"></c:set>
-					</c:if>
+				<c:set value="panel panel-info" var="cssClass"></c:set>
+			</c:if>
 			<div class="${cssClass}">
 				<div class="panel-heading">
 					<p class="">
-					
+
 						<span class="bold-font">${publication.titre}</span> <span
 							class="pull-right"> <span
 							class="glyphicon glyphicon-share-alt"></span><a
-							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-							>${publication.profil.etudiant.prenom}
+							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
 								${publication.profil.etudiant.nom}</a> <c:if
 								test="${publication.groupeDTO != null}">
 								<span class="glyphicon glyphicon-share-alt"></span>
 								<a
-									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}"
-									>${publication.groupeDTO.name}</a>
+									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}">${publication.groupeDTO.name}</a>
 							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>
 						</span>
@@ -230,6 +228,8 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 </c:forEach>
 <%
 	} else {
@@ -239,16 +239,16 @@
 	var="publication">
 	<div class="section">
 		<div class="container">
-		<c:if test="${publication.postByAnim}">
-					<c:set value="panel panel-primary" var="cssClass"></c:set>
-					<c:set value="linkUser" var="colorUser"></c:set>
-					<c:set value="linkGroup" var="colorGroupe"></c:set>
-					</c:if>
+			<c:if test="${publication.postByAnim}">
+				<c:set value="panel panel-primary" var="cssClass"></c:set>
+				<c:set value="linkUser" var="colorUser"></c:set>
+				<c:set value="linkGroup" var="colorGroupe"></c:set>
+			</c:if>
 			<c:if test="${ not publication.postByAnim}">
-					<c:set value="panel panel-info" var="cssClass"></c:set>
-					<c:set value="linkUserNonAnim" var="colorUser"></c:set>
-					<c:set value="linkGroupNonAnim" var="colorGroupe"></c:set>
-					</c:if>
+				<c:set value="panel panel-info" var="cssClass"></c:set>
+				<c:set value="linkUserNonAnim" var="colorUser"></c:set>
+				<c:set value="linkGroupNonAnim" var="colorGroupe"></c:set>
+			</c:if>
 			<div class="${cssClass}">
 				<div class="panel-heading">
 					<p class="">
