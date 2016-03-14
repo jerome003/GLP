@@ -27,36 +27,46 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1>${groupe.name}</h1>
-				<c:if test="${peutRejoindreGroupe}"> 
-				
-				<form:form role="form" method="get"
-					action="${pageContext.servletContext.contextPath}/rejoindreGroupe/${groupe.id}" class="row col-md-12">
-				<button type="submit" class="col-md-2 btn btn-primary">Rejoindre</button>
-				</form:form>
-				
-			     </c:if>
-			     
-			     
-			     
-			     
-			     <c:if test="${peutQuitterGroupe}"> 
-				
-				<form:form role="form" method="get"
-					action="${pageContext.servletContext.contextPath}/quitterGroupe/${groupe.id}" class="row col-md-12">
-				<button type="submit" class="col-md-2 btn btn-primary">Quitter le groupe</button>
-				</form:form>
-				
-			     </c:if>
-			     
-			     
-			     
-			     
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-			   	<c:if test="${peutPublier}">	<span class="glyphicon glyphicon-pencil"></span> <a class="pHoover"
-					onclick="toggle('formulaire')">Créer une publication </a></c:if> <br>
+				<h3>${groupe.description}</h3>
+			</div>
+		</div>
+		<div class="row">
+			<c:if test="${peutRejoindreGroupe}">
+
+				<form:form role="form" method="get"
+					action="${pageContext.servletContext.contextPath}/rejoindreGroupe/${groupe.id}"
+					class="row col-md-12">
+					<button type="submit" class="col-md-2 btn btn-primary">Rejoindre</button>
+				</form:form>
+
+			</c:if>
+
+
+
+
+			<c:if test="${peutQuitterGroupe}">
+
+				<form:form role="form" method="get"
+					action="${pageContext.servletContext.contextPath}/quitterGroupe/${groupe.id}"
+					class="row col-md-12">
+					<button type="submit" class="col-md-2 btn btn-primary">Quitter
+						le groupe</button>
+				</form:form>
+
+			</c:if>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<c:if test="${peutPublier}">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<a class="pHoover" onclick="toggle('formulaire')">Créer une
+						publication </a>
+				</c:if>
+				<br>
 			</div>
 		</div>
 		<div id="formulaire" style="display: none; height: 0px;">
@@ -102,15 +112,15 @@
 				<h3>Membres</h3>
 			</div>
 			<div class="well">
-			<h4>Animateurs</h4>
+				<h4>Animateurs</h4>
 				<c:forEach items="${groupe.animateurs}" var="anim">
 					<a class="row"
 						href="${pageContext.request.contextPath}/profilEnseignant/${anim.id}">${anim.prenom}
 						${anim.nom}</a>
 				</c:forEach>
-					<a class="row"
-						href="${pageContext.request.contextPath}/profil/${groupe.animateurGroupeNonInstit.id}">${groupe.animateurGroupeNonInstit.prenom}
-						${groupe.animateurGroupeNonInstit.nom}</a>
+				<a class="row"
+					href="${pageContext.request.contextPath}/profil/${groupe.animateurGroupeNonInstit.id}">${groupe.animateurGroupeNonInstit.prenom}
+					${groupe.animateurGroupeNonInstit.nom}</a>
 			</div>
 			<div class="well">
 				<h4>Anciens Etudiants</h4>
@@ -119,7 +129,7 @@
 						href="${pageContext.request.contextPath}/profil/${ancienEtudiant.id}">${ancienEtudiant.prenom}
 						${ancienEtudiant.nom}</a>
 				</c:forEach>
-				
+
 				<h4>Personnel</h4>
 				<c:forEach items="${groupe.enseignants}" var="enseign">
 					<a class="row"
@@ -132,7 +142,7 @@
 						href="${pageContext.request.contextPath}/profilEtudiant/${etudiant.id}">${etudiant.prenom}
 						${etudiant.nom}</a>
 				</c:forEach>
-				
+
 			</div>
 		</div>
 		<div class="col-md-8">
@@ -141,15 +151,15 @@
 			</div>
 			<c:forEach items="${groupe.listPublications}" var="publication">
 				<div class="section">
-				<c:if test="${publication.postByAnim}">
-					<c:set value="panel panel-primary" var="cssClass"></c:set>
-					<c:set value="linkUser" var="colorUser"></c:set>
-					<c:set value="linkGroup" var="colorGroupe"></c:set>
+					<c:if test="${publication.postByAnim}">
+						<c:set value="panel panel-primary" var="cssClass"></c:set>
+						<c:set value="linkUser" var="colorUser"></c:set>
+						<c:set value="linkGroup" var="colorGroupe"></c:set>
 					</c:if>
-			<c:if test="${ not publication.postByAnim}">
-					<c:set value="panel panel-info" var="cssClass"></c:set>
-					<c:set value="linkUserNonAnim" var="colorUser"></c:set>
-					<c:set value="linkGroupNonAnim" var="colorGroupe"></c:set>
+					<c:if test="${ not publication.postByAnim}">
+						<c:set value="panel panel-info" var="cssClass"></c:set>
+						<c:set value="linkUserNonAnim" var="colorUser"></c:set>
+						<c:set value="linkGroupNonAnim" var="colorGroupe"></c:set>
 					</c:if>
 					<div class="${cssClass}">
 						<div class="panel-heading">

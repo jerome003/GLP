@@ -61,8 +61,8 @@
 						<label class="control-label">Description du groupe :</label>
 					</div>
 					<div class="col-sm-6">
-						<input id="descriptionGroupe" name="descriptionGroupe" type="text"
-							class="form-control" required="required" />
+						<textarea class="form-control" id="descriptionGroupe"
+							name="descriptionGroupe" required="required"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -113,8 +113,7 @@
 			<tbody>
 				<c:forEach items="${liste}" var="results">
 					<tr>
-						<td>
-						${results.name}
+						<td>${results.name}
 							(${myInjectedBean.getGroupeSize(results.id)})</td>
 						<td>${results.description}</td>
 						<td><a class="btn mini blue-stripe"

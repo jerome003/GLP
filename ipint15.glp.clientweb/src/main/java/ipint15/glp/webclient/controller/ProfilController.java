@@ -1,5 +1,7 @@
 package ipint15.glp.webclient.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.EnseignantDTO;
 import ipint15.glp.api.dto.EtudiantDTO;
+import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.EnseignantCatalogRemote;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
@@ -100,7 +103,7 @@ public class ProfilController {
 	// permet de renvoyer la page de profil de la personne ayant l'id choisi
 	// dans l'url /profil/{id}
 	@RequestMapping(value = "/profil/{id}", method = RequestMethod.GET)
-	public ModelAndView profilConsult(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
+	public ModelAndView profilConsult(HttpServletRequest request,Model model, @PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("etudiant")
@@ -111,23 +114,27 @@ public class ProfilController {
 				etu.getProfil().setMesEcoles(ancienEtudiantBean.getEcoles(etu));
 				etu.getProfil().setMesExperiences(ancienEtudiantBean.getExperiences(etu));
 				etu.getProfil().setMesHobbies(ancienEtudiantBean.getHobbies(etu));
+				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
+				listeGroupes = ancienEtudiantBean.getLesGroupes(etu);
+				listeGroupes.add(etu.getGroupe());
+				model.addAttribute("listeGroupes", listeGroupes);
 				AncienEtudiantDTO etudiant = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
-				ModelAndView model = new ModelAndView();
+				ModelAndView modelAndView = new ModelAndView();
 				if (etudiant.getId() == id) {
 					sessionObj.setAttribute("consultation", false);
 				} else {
 					sessionObj.setAttribute("consultation", true);
 				}
 				sessionObj.setAttribute("profil", etu);
-				model.setViewName("profil");
-				return model;
+				modelAndView.setViewName("profil");
+				return modelAndView;
 			} else {
-				ModelAndView model = new ModelAndView("errorAccesRole");
-				return model;
+				ModelAndView modelAndView = new ModelAndView("errorAccesRole");
+				return modelAndView;
 			}
 		} catch (NullPointerException e) {
-			ModelAndView model = new ModelAndView("errorAccesRole");
-			return model;
+			ModelAndView modelAndView = new ModelAndView("errorAccesRole");
+			return modelAndView;
 		}
 	}
 }

@@ -159,6 +159,7 @@ public class PublicationImpl implements PublicationRemote {
 		c.setPublic(isPublic);
 
 
+
 		if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
 			c.setPostByAnim(true);
 		}
@@ -167,7 +168,8 @@ public class PublicationImpl implements PublicationRemote {
 		}
 
 
-		if (!groupe.isInstitutionnel()){
+
+		if (groupe != null && !groupe.isInstitutionnel()){
 			if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
 				System.out.println("je passe ici");
 				c.setPostByAnim(true);
