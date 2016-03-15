@@ -195,6 +195,51 @@ public class SuggestionImpl implements SuggestionRemote {
 		}
 		return result;
 	}
+	
+	private List<GroupeDTO> groupeByGroupeInstitu(int idEtu) {
+		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.id = :id");
+		q.setParameter("id", idEtu);
+		AncienEtudiant e = (AncienEtudiant) q.getSingleResult();
+
+		Groupe g = e.getGroupe();
+
+		List<AncienEtudiant> etus = g.getAncienEtudiants();
+		List<Groupe> groupes = new ArrayList<Groupe>();
+		List<GroupeDTO> groupesDTO = new ArrayList<GroupeDTO>();
+		List<GroupeDTO> result = new ArrayList<GroupeDTO>();
+		
+
+		for (AncienEtudiant etu : etus) {
+			for (Groupe groupe : etu.getLesGroupes())
+			if (!groupes.contains(groupe)) {
+				groupes.add(groupe);
+			}
+		}
+		
+		for (Groupe groupe : groupes) {
+			groupesDTO.add(groupe.toGroupeDTO());
+		}
+		
+		while(result.size()!= 3) {
+			int tirage;
+			int size = groupesDTO.size();
+			if (size>0) {
+				Random r = new Random();
+				tirage = r.nextInt(size);
+				result.add(groupesDTO.get(tirage));
+				groupesDTO.remove(tirage);
+			}else {
+				List<GroupeDTO> random = randomGroupe(idEtu);
+				Random r = new Random();
+				tirage = r.nextInt(random.size());
+				if (!result.contains(random.get(tirage))) {
+					result.add(random.get(tirage));
+				}
+			}
+		}
+		
+		return result;
+	}
 
 	private List<GroupeDTO> randomGroupe(int idEtu) {
 		
@@ -233,7 +278,7 @@ public class SuggestionImpl implements SuggestionRemote {
 	@Override
 	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu) {
 		Random r = new Random();
-		int tirage = r.nextInt(3);
+		int tirage = r.nextInt(4);
 		if (tirage == 0) {
 			return randomEtu(idEtu);
 		}else if (tirage == 1){
@@ -246,7 +291,14 @@ public class SuggestionImpl implements SuggestionRemote {
 	}
 	@Override
 	public List<GroupeDTO> genereSuggestionGroupe(int idEtu) {
-		return randomGroupe(idEtu);
+		Random r = new Random();
+		int tirage = r.nextInt(2);
+		tirage = 0;
+		if (tirage == 0) {
+			return groupeByGroupeInstitu(idEtu);
+		}else {
+			return randomGroupe(idEtu);
+		}
 	}
 
 
