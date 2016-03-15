@@ -101,12 +101,17 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-
+				<%
+					if (!"etudiant".equals(type)) {
+				%>
 				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
 					href="${pageContext.request.contextPath}/nonInstitGroupe">Créer
-					un groupe</a> <br> <span class="glyphicon glyphicon-pencil"></span><a
-					class="pHoover" onclick="toggle('formulaire')">Créer une
-					publication</a> <br>
+					un groupe</a> <br>
+				<%
+					}
+				%>
+				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
+					onclick="toggle('formulaire')">Créer une publication</a> <br>
 			</div>
 		</div>
 		<div id="formulaire" style="display: none; height: 0px;">
@@ -252,7 +257,7 @@
 					<p class="">
 
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"> <span> class="glyphicon
+							class="pull-right"> <span class="glyphicon
 								glyphicon-share-alt"></span> <c:if test="${publication.profil != null}">
 								<a class="${colorUser}"
 									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}

@@ -133,34 +133,33 @@ public class PublicationImpl implements PublicationRemote {
 			}
 		}
 
-		// List<PublicationDTO> mesPublicationsDTO = new
-		// ArrayList<PublicationDTO>();
-		// for (Publication c : mesPublications) {
-		// PublicationDTO cDTO = ce.MappingProfilPublication(e.getProfil(), c);
-		// mesPublicationsDTO.add(cDTO);
-		// }
-
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
-			// PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(),
-			// p);
-			// mesPublicationsDTO.add(cDTO);
 			PublicationDTO cDTO = p.toPublicationDTO();
 			if (p.getProfil() != null) {
 				EtudiantProfilDTO epDTO = p.getProfil().toEtudiantProfilDTO();
 				AncienEtudiantDTO aeDTO = p.getProfil().getEtudiant().toEtudiantDTO();
 				epDTO.setEtudiant(aeDTO);
 				cDTO.setProfil(epDTO);
+				if (p.getGroupe() != null) {
+					cDTO.setGroupeDTO(p.getGroupe().toGroupeDTO());
+				}
 				mesPublicationsDTO.add(cDTO);
 			}
 			if (p.getEtudiant() != null) {
 				EtudiantDTO eDTO2 = p.getEtudiant().toEtudiantDTO();
 				cDTO.setEtudiant(eDTO2);
+				if (p.getGroupe() != null) {
+					cDTO.setGroupeDTO(p.getGroupe().toGroupeDTO());
+				}
 				mesPublicationsDTO.add(cDTO);
 			}
 			if (p.getEnseignant() != null) {
 				EnseignantDTO eDTO2 = p.getEnseignant().toEnseignantDTO();
 				cDTO.setEnseignant(eDTO2);
+				if (p.getGroupe() != null) {
+					cDTO.setGroupeDTO(p.getGroupe().toGroupeDTO());
+				}
 				mesPublicationsDTO.add(cDTO);
 			}
 		}
@@ -189,6 +188,7 @@ public class PublicationImpl implements PublicationRemote {
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication c : mesPublications) {
 			System.out.println("Test isAnim " + c.isPostByAnim());
+			System.out.println("GROUPE : " + c.getGroupe());
 			PublicationDTO cDTO = c.toPublicationDTO();
 			if (c.getProfil() != null) {
 				EtudiantProfilDTO epDTO = c.getProfil().toEtudiantProfilDTO();
