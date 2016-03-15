@@ -55,6 +55,7 @@ public class PublicationImpl implements PublicationRemote {
 
 		return e;
 	}
+
 	private Enseignant getEnseignantByMail(String mail) {
 
 		Query q = em.createQuery("select o from Enseignant o WHERE o.mail = :mail");
@@ -71,72 +72,79 @@ public class PublicationImpl implements PublicationRemote {
 		return g;
 	}
 
-	private boolean isAnimateurGroupeAncienEtudiant(int idGroupe,int idAncien){
+	private boolean isAnimateurGroupeAncienEtudiant(int idGroupe, int idAncien) {
 		Groupe g = getGroupeById(idGroupe);
 		AncienEtudiant ae = g.getAnimateurGroupeNonInstit();
-		if (ae ==null){
+		if (ae == null) {
 			return false;
 		}
-		if (ae.getId() == idAncien){
+		if (ae.getId() == idAncien) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 
-
 	}
 
 	@Override
-	public List<PublicationDTO> getMyPublications(AncienEtudiantDTO eDTO, int idGroupe) {
-		// TODO
-		AncienEtudiant e = getAncienEtudiantByMail(eDTO.getEmail());
-		// TODO gérer le cas si e = null
+	public List<PublicationDTO> getMyPublications(int idGroupe, int idUtilisateur, String typeCompte) {
 		List<Publication> mesPublications;
 		if (idGroupe == -2) {
-			// Recherche des publications pour tout le monde + groupes
-			mesPublications = e.getProfil().getMesPublications();
-
+			// Recherche de mes publications pour tout le monde + groupes
+			if ("ancien".equals(typeCompte)) {
+				AncienEtudiant e = em.find(AncienEtudiant.class, idUtilisateur);
+				mesPublications = e.getProfil().getMesPublications();
+			} else if ("prof".equals(typeCompte)) {
+				Enseignant e = em.find(Enseignant.class, idUtilisateur);
+				mesPublications = e.getMesPublications();
+			} else if ("etudiant".equals(typeCompte)) {
+				Etudiant e = em.find(Etudiant.class, idUtilisateur);
+				mesPublications = e.getMesPublications();
+			} else {
+				mesPublications = new ArrayList<>();
+			}
 		} else if (idGroupe <= 0) {
-			// Recherche des publications pour tout le monde
-			mesPublications = em.createNamedQuery("selectAllPublicationPublicOfAncienEtudiant", Publication.class)
-					.setParameter("idetu", eDTO.getId()).getResultList();
+			// Recherche de mes publications pour tout le monde
+			if ("ancien".equals(typeCompte)) {
+				mesPublications = em.createNamedQuery("selectAllPublicationPublicOfAncienEtudiant", Publication.class)
+						.setParameter("idetu", idUtilisateur).getResultList();
+			} else if ("prof".equals(typeCompte)) {
+				mesPublications = em.createNamedQuery("selectAllPublicationPublicOfEnseignant", Publication.class)
+						.setParameter("idetu", idUtilisateur).getResultList();
+			} else if ("etudiant".equals(typeCompte)) {
+				mesPublications = em.createNamedQuery("selectAllPublicationPublicOfEtudiant", Publication.class)
+						.setParameter("idetu", idUtilisateur).getResultList();
+			} else {
+				mesPublications = new ArrayList<>();
+			}
 		} else {
-			// Recherche pour un groupe
-			mesPublications = em.createNamedQuery("selectAllPublicationGroupOfAncienEtudiant", Publication.class)
-					.setParameter("idgroupe", idGroupe).setParameter("idetu", eDTO.getId()).getResultList();
+			// Recherche de mes publications pour un groupe
+			if ("ancien".equals(typeCompte)) {
+				mesPublications = em.createNamedQuery("selectAllPublicationGroupOfAncienEtudiant", Publication.class)
+						.setParameter("idgroupe", idGroupe).setParameter("idetu", idUtilisateur).getResultList();
+			} else if ("prof".equals(typeCompte)) {
+				mesPublications = em.createNamedQuery("selectAllPublicationGroupOfEnseignant", Publication.class)
+						.setParameter("idgroupe", idGroupe).setParameter("idetu", idUtilisateur).getResultList();
+			} else if ("etudiant".equals(typeCompte)) {
+				mesPublications = em.createNamedQuery("selectAllPublicationGroupOfEtudiant", Publication.class)
+						.setParameter("idgroupe", idGroupe).setParameter("idetu", idUtilisateur).getResultList();
+			} else {
+				mesPublications = new ArrayList<>();
+			}
 		}
-		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
-		for (Publication c : mesPublications) {
-			PublicationDTO cDTO = ce.MappingProfilPublication(e.getProfil(), c);
-			mesPublicationsDTO.add(cDTO);
-		}
-		return mesPublicationsDTO;
 
-	}
+		// List<PublicationDTO> mesPublicationsDTO = new
+		// ArrayList<PublicationDTO>();
+		// for (Publication c : mesPublications) {
+		// PublicationDTO cDTO = ce.MappingProfilPublication(e.getProfil(), c);
+		// mesPublicationsDTO.add(cDTO);
+		// }
 
-	@Override
-	public List<PublicationDTO> getAllPublications(AncienEtudiantDTO eDTO, int idGroupe) {
-		// TODO
-		List<Publication> mesPublications;
-		if (idGroupe == -2) {
-			// Recherche des publications pour tout le monde + groupes
-			mesPublications = em.createNamedQuery("selectAllPublicationForAncienEtudiant", Publication.class)
-					.setParameter("idetu", eDTO.getId()).getResultList();
-		} else if (idGroupe <= 0) {
-			// Recherche des publications pour tout le monde
-			mesPublications = em.createNamedQuery("selectAllPublicationPublic", Publication.class).getResultList();
-		} else {
-			// Recherche pour un groupe
-			mesPublications = em.createNamedQuery("selectAllPublicationGroup", Publication.class)
-					.setParameter("idgroupe", idGroupe).getResultList();
-		}
-		// mesPublications = em.createQuery("select p from Publication p order
-		// by p.date desc").getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication p : mesPublications) {
-			//PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(), p);
-			//mesPublicationsDTO.add(cDTO);
+			// PublicationDTO cDTO = ce.MappingProfilPublication(p.getProfil(),
+			// p);
+			// mesPublicationsDTO.add(cDTO);
 			PublicationDTO cDTO = p.toPublicationDTO();
 			if (p.getProfil() != null) {
 				EtudiantProfilDTO epDTO = p.getProfil().toEtudiantProfilDTO();
@@ -161,6 +169,58 @@ public class PublicationImpl implements PublicationRemote {
 	}
 
 	@Override
+	public List<PublicationDTO> getAllPublications(AncienEtudiantDTO eDTO, int idGroupe) {
+		// TODO
+		List<Publication> mesPublications;
+		if (idGroupe == -2) {
+			// Recherche des publications pour tout le monde + groupes
+			mesPublications = em.createNamedQuery("selectAllPublicationForAncienEtudiant", Publication.class)
+					.setParameter("idetu", eDTO.getId()).getResultList();
+		} else if (idGroupe <= 0) {
+			// Recherche des publications pour tout le monde
+			mesPublications = em.createNamedQuery("selectAllPublicationPublic", Publication.class).getResultList();
+		} else {
+			// Recherche pour un groupe
+			mesPublications = em.createNamedQuery("selectAllPublicationGroup", Publication.class)
+					.setParameter("idgroupe", idGroupe).getResultList();
+		}
+		// mesPublications = em.createQuery("select p from Publication p order
+		// by p.date desc").getResultList();
+		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
+		for (Publication c : mesPublications) {
+			System.out.println("Test isAnim " + c.isPostByAnim());
+			PublicationDTO cDTO = c.toPublicationDTO();
+			if (c.getProfil() != null) {
+				EtudiantProfilDTO epDTO = c.getProfil().toEtudiantProfilDTO();
+				AncienEtudiantDTO aeDTO = c.getProfil().getEtudiant().toEtudiantDTO();
+				epDTO.setEtudiant(aeDTO);
+				cDTO.setProfil(epDTO);
+				if (c.getGroupe() != null) {
+					cDTO.setGroupeDTO(c.getGroupe().toGroupeDTO());
+				}
+				mesPublicationsDTO.add(cDTO);
+			}
+			if (c.getEtudiant() != null) {
+				EtudiantDTO eDTO2 = c.getEtudiant().toEtudiantDTO();
+				cDTO.setEtudiant(eDTO2);
+				if (c.getGroupe() != null) {
+					cDTO.setGroupeDTO(c.getGroupe().toGroupeDTO());
+				}
+				mesPublicationsDTO.add(cDTO);
+			}
+			if (c.getEnseignant() != null) {
+				EnseignantDTO eDTO2 = c.getEnseignant().toEnseignantDTO();
+				cDTO.setEnseignant(eDTO2);
+				if (c.getGroupe() != null) {
+					cDTO.setGroupeDTO(c.getGroupe().toGroupeDTO());
+				}
+				mesPublicationsDTO.add(cDTO);
+			}
+		}
+		return mesPublicationsDTO;
+	}
+
+	@Override
 	public void addPublication(AncienEtudiantDTO eDTO, String titre, String message, Date date, boolean isPublic,
 			GroupeDTO groupe) {
 		AncienEtudiant e = getAncienEtudiantByMail(eDTO.getEmail());
@@ -176,29 +236,21 @@ public class PublicationImpl implements PublicationRemote {
 		c.setDate(date);
 		c.setPublic(isPublic);
 
-
-
-		if (groupe != null && isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
+		if (groupe != null && isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())) {
 			c.setPostByAnim(true);
-		}
-		else{
+		} else {
 			c.setPostByAnim(false);
 		}
 
-
-
-		if (groupe != null && !groupe.isInstitutionnel()){
-			if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())){
+		if (groupe != null && !groupe.isInstitutionnel()) {
+			if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())) {
 				System.out.println("je passe ici");
 				c.setPostByAnim(true);
-			}
-			else{
+			} else {
 				System.out.println("je passe la");
 				c.setPostByAnim(false);
 			}
 		}
-		
-		
 
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesPublications().add(c);
@@ -216,17 +268,17 @@ public class PublicationImpl implements PublicationRemote {
 		Groupe groupe = em.find(Groupe.class, idGroupe);
 		GroupeDTO groupeDTO = null;
 		if (idGroupe == -2) {
-			//TODO Recherche des publications pour tout le monde + groupes
-			if("ancien".equals(typeCompte)){
+			// TODO Recherche des publications pour tout le monde + groupes
+			if ("ancien".equals(typeCompte)) {
 				mesPublications = em.createNamedQuery("selectAllPublicationForAncienEtudiant", Publication.class)
-					.setParameter("idetu", idUtilisateur).getResultList();
-			}else if("prof".equals(typeCompte)){
+						.setParameter("idetu", idUtilisateur).getResultList();
+			} else if ("prof".equals(typeCompte)) {
 				mesPublications = em.createNamedQuery("selectAllPublicationForEnseignant", Publication.class)
 						.setParameter("idenseignant", idUtilisateur).getResultList();
-			}else if ("etudiant".equals(typeCompte)){
+			} else if ("etudiant".equals(typeCompte)) {
 				mesPublications = em.createNamedQuery("selectAllPublicationForEtudiant", Publication.class)
 						.setParameter("idetu", idUtilisateur).getResultList();
-			}else{
+			} else {
 				mesPublications = em.createNamedQuery("selectAllPublicationPublic", Publication.class).getResultList();
 			}
 		} else if (idGroupe <= 0) {
@@ -238,17 +290,17 @@ public class PublicationImpl implements PublicationRemote {
 					.setParameter("idgroupe", idGroupe).getResultList();
 			groupeDTO = groupe.toGroupeDTO();
 		}
-		
+
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication c : mesPublications) {
-			System.out.println("Test isAnim "+c.isPostByAnim());
+			System.out.println("Test isAnim " + c.isPostByAnim());
 			PublicationDTO cDTO = c.toPublicationDTO();
 			if (c.getProfil() != null) {
 				EtudiantProfilDTO epDTO = c.getProfil().toEtudiantProfilDTO();
 				AncienEtudiantDTO aeDTO = c.getProfil().getEtudiant().toEtudiantDTO();
 				epDTO.setEtudiant(aeDTO);
 				cDTO.setProfil(epDTO);
-				if(c.getGroupe() != null){
+				if (c.getGroupe() != null) {
 					cDTO.setGroupeDTO(c.getGroupe().toGroupeDTO());
 				}
 				mesPublicationsDTO.add(cDTO);
@@ -256,7 +308,7 @@ public class PublicationImpl implements PublicationRemote {
 			if (c.getEtudiant() != null) {
 				EtudiantDTO eDTO = c.getEtudiant().toEtudiantDTO();
 				cDTO.setEtudiant(eDTO);
-				if(c.getGroupe() != null){
+				if (c.getGroupe() != null) {
 					cDTO.setGroupeDTO(c.getGroupe().toGroupeDTO());
 				}
 				mesPublicationsDTO.add(cDTO);
@@ -264,7 +316,7 @@ public class PublicationImpl implements PublicationRemote {
 			if (c.getEnseignant() != null) {
 				EnseignantDTO eDTO = c.getEnseignant().toEnseignantDTO();
 				cDTO.setEnseignant(eDTO);
-				if(c.getGroupe() != null){
+				if (c.getGroupe() != null) {
 					cDTO.setGroupeDTO(c.getGroupe().toGroupeDTO());
 				}
 				mesPublicationsDTO.add(cDTO);
@@ -275,7 +327,7 @@ public class PublicationImpl implements PublicationRemote {
 
 	@Override
 	public List<PublicationDTO> getAllPublicationsEtudiant(EtudiantDTO eDTO, int idGroupe) {
-		List<Publication> mesPublications = new ArrayList<Publication> ();
+		List<Publication> mesPublications = new ArrayList<Publication>();
 		if (idGroupe == -2) {
 			// Recherche des publications pour tout le monde + groupes
 			mesPublications = em.createNamedQuery("selectAllPublicationForEtudiant", Publication.class)
@@ -347,7 +399,7 @@ public class PublicationImpl implements PublicationRemote {
 
 	@Override
 	public List<PublicationDTO> getAllPublicationsEnseignant(EnseignantDTO eDTO, int idGroupe) {
-		List<Publication> mesPublications = new ArrayList<Publication> ();
+		List<Publication> mesPublications = new ArrayList<Publication>();
 		if (idGroupe == -2) {
 			// Recherche des publications pour tout le monde + groupes
 			mesPublications = em.createNamedQuery("selectAllPublicationForEnseignant", Publication.class)
