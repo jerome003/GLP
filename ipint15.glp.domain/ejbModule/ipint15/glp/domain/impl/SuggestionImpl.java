@@ -189,18 +189,30 @@ public class SuggestionImpl implements SuggestionRemote {
 				tirage = r.nextInt(size);
 				result.add(psDTO.get(tirage));
 				psDTO.remove(tirage);
+			}else {
+				break;
 			}
 		}
 		return result;
 	}
 
-	private List<GroupeDTO> randomGroupe() {
+	private List<GroupeDTO> randomGroupe(int idEtu) {
+		
+		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.id = :id");
+		q.setParameter("id", idEtu);
+		AncienEtudiant etu = (AncienEtudiant) q.getSingleResult();
+		Groupe groupeEtu = etu.getGroupe();
+		List<Groupe> groupesEtu = etu.getLesGroupes();
+		
+		
 		List<Groupe> ps = em.createQuery("select o from Groupe o").getResultList();
 		List<GroupeDTO> psDTO = new ArrayList<GroupeDTO>();
 		List<GroupeDTO> result = new ArrayList<GroupeDTO>();
 
 		for (Groupe g : ps) {
-			psDTO.add(g.toGroupeDTO());
+			if (g.getId() != groupeEtu.getId() && !groupesEtu.contains(g)) {
+				psDTO.add(g.toGroupeDTO());
+			}
 		}
 
 		while(result.size()!= 3) {
@@ -211,6 +223,8 @@ public class SuggestionImpl implements SuggestionRemote {
 				tirage = r.nextInt(size);
 				result.add(psDTO.get(tirage));
 				psDTO.remove(tirage);
+			}else {
+				break;
 			}
 		}
 		return result;
@@ -232,7 +246,7 @@ public class SuggestionImpl implements SuggestionRemote {
 	}
 	@Override
 	public List<GroupeDTO> genereSuggestionGroupe(int idEtu) {
-		return randomGroupe();
+		return randomGroupe(idEtu);
 	}
 
 
