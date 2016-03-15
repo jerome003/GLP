@@ -138,10 +138,14 @@ public class GroupeImpl implements GroupeRemote {
 		GroupeDTO gDTO = g.toGroupeDTO();
 		List<AncienEtudiantDTO> listAe = new ArrayList<>();
 		List<AncienEtudiant> list = g.getAncienEtudiants();
+		System.out.println("List : " + list);
+		System.out.println("Size List : " + list.size());
 		for (AncienEtudiant ae : list) {
 			listAe.add(ae.toEtudiantDTO());
 		}
 		gDTO.setAncienEtudiants(listAe);
+		System.out.println("List DTO : " + gDTO.getAncienEtudiants());
+		System.out.println("Size List DTO : " + gDTO.getAncienEtudiants().size());
 
 		List<EnseignantDTO> listEnseignDTO = new ArrayList<>();
 		List<Enseignant> listEnseign = g.getEnseignant();
