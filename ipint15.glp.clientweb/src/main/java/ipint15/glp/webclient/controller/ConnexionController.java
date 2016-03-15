@@ -102,6 +102,7 @@ public class ConnexionController {
 			AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
 			Map attributes = principal.getAttributes();
 			Iterator attributeNames = attributes.keySet().iterator();
+			// pour tester, supprimer la condition
 			if ((String) attributes.get("matricule") == null) {
 				System.out.println("matricule null");
 				request.getSession().setAttribute(ATTR_CAS, null);

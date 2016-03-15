@@ -118,7 +118,7 @@ public class PublicationImpl implements PublicationRemote {
 	@Override
 	public List<PublicationDTO> getAllPublications(AncienEtudiantDTO eDTO, int idGroupe) {
 		// TODO
-		List<Publication> mesPublications;
+		List<Publication> mesPublications= new ArrayList<Publication> ();
 		if (idGroupe == -2) {
 			// Recherche des publications pour tout le monde + groupes
 			mesPublications = em.createNamedQuery("selectAllPublicationForAncienEtudiant", Publication.class)
@@ -194,7 +194,7 @@ public class PublicationImpl implements PublicationRemote {
 	@Override
 	public List<PublicationDTO> getAllGroupPublications(int idGroupe) {
 		// TODO Possiblement a modifier selon les regles de publication
-		List<Publication> mesPublications;
+		List<Publication> mesPublications = new ArrayList<Publication> ();
 		mesPublications = em.createNamedQuery("selectAllPublicationGroup", Publication.class)
 				.setParameter("idgroupe", idGroupe).getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();

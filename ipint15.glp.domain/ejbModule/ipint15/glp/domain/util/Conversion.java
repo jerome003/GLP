@@ -78,6 +78,7 @@ public class Conversion {
 		// Conversion de l'étudiant en EtudiantProfilDTO et de la Competence
 		// CompetenceDTO
 		EtudiantProfilDTO epDto = ep.toEtudiantProfilDTO();
+		System.out.println(epDto);
 		epDto.setEtudiant(MappingEtudiantProfil(ep.getEtudiant(), ep));
 		PublicationDTO cDTO = p.toPublicationDTO();
 		if (p.getGroupe() == null) {
