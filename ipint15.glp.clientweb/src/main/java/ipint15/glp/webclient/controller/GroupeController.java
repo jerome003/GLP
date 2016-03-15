@@ -82,7 +82,7 @@ public class GroupeController {
 				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
 
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
-				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id);
+				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id ,idMembre, "ancien");
 				groupeDTO.setListPublications(listPublications);
 				// TODO
 				// model.setViewName("groupe");
@@ -125,7 +125,7 @@ public class GroupeController {
 				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
 
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
-				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id);
+				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id, idMembre, "etudiant");
 				groupeDTO.setListPublications(listPublications);
 				// TODO
 				// model.setViewName("groupe");
@@ -163,7 +163,7 @@ public class GroupeController {
 				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
 
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
-				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id);
+				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id, idMembre,"prof");
 				groupeDTO.setListPublications(listPublications);
 				// TODO
 				// model.setViewName("groupe");
