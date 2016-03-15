@@ -16,7 +16,6 @@
 	if (idGroupe == null || idGroupe == 0) {
 		idGroupe = -1;
 	}
-
 	if ("ancien".equals(type)) {
 		System.out.println("ANCIEN : " + type);
 		AncienEtudiantDTO etudiant = (AncienEtudiantDTO) session.getAttribute("etudiant");
@@ -50,38 +49,54 @@
 </script>
 <div class="section">
 	<div class="container">
-		<div class="row"></div>
-		<div class="col-md-6">
-			<h3>Mes groupes</h3>
-			<div class="well well-g">
-				<c:forEach items="${listeGroupes}" var="results">
-					<div class="row">
-						<div class="col-md-12">
-							<a href="${pageContext.request.contextPath}/groupe/${results.id}">${results.name}</a>
-							: ${results.description}
-							<c:if test="${results.institutionnel}"> (Institutionnel)</c:if>
+		<div class="row">
+			<div class="col-md-4">
+				<h3>Mes groupes</h3>
+				<div class="well well-g">
+					<c:forEach items="${listeGroupes}" var="results">
+						<div class="row">
+							<div class="col-md-12">
+								<a
+									href="${pageContext.request.contextPath}/groupe/${results.id}">${results.name}</a>
+								: ${results.description}
+								<c:if test="${results.institutionnel}"> (Institutionnel)</c:if>
+							</div>
 						</div>
-					</div>
 
-				</c:forEach>
+					</c:forEach>
 
+				</div>
 			</div>
-		</div>
-		<div class="col-md-6">
-			<h3>Mes suggestions</h3>
-			<div class="well well-g">
-				<c:forEach items="${listeAnciensSug}" var="results">
-					<div class="row">
-						<div class="col-md-12">${results.nom}</div>
-					</div>
-
-				</c:forEach>
-				<c:forEach items="${listeGroupesSug}" var="results">
-					<div class="row">
-						<div class="col-md-12">${results.name}</div>
-					</div>
-
-				</c:forEach>
+			<div class="col-md-4">
+				<h3>Personnes suggérées</h3>
+				<div class="well well-g">
+					<c:forEach items="${listeAnciensSug}" var="results">
+						<div class="row">
+							<div class="col-md-12">
+								<a
+									href="${pageContext.request.contextPath}/profil/${results.id}"
+									class="btn mini blue-stripe" type="submit"><span
+									class="glyphicon glyphicon-eye-open"></span> ${results.prenom}
+									${results.nom} </a>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<h3>Groupes suggérés</h3>
+				<div class="well well-g">
+					<c:forEach items="${listeGroupesSug}" var="results">
+						<div class="row">
+							<div class="col-md-12">
+								<a
+									href="${pageContext.request.contextPath}/groupe/${results.id}"
+									class="btn mini blue-stripe" type="submit"><span
+									class="glyphicon glyphicon-eye-open"></span> ${results.name}</a>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 		<div class="row">
@@ -237,9 +252,8 @@
 					<p class="">
 
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"> <span
-							class="glyphicon glyphicon-share-alt"></span> <c:if
-								test="${publication.profil != null}">
+							class="pull-right"> <span> class="glyphicon
+								glyphicon-share-alt"></span> <c:if test="${publication.profil != null}">
 								<a class="${colorUser}"
 									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
 									${publication.profil.etudiant.nom}</a>
