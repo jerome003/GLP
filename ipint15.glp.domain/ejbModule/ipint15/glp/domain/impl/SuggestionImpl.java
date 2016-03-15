@@ -293,7 +293,6 @@ public class SuggestionImpl implements SuggestionRemote {
 	public List<GroupeDTO> genereSuggestionGroupe(int idEtu) {
 		Random r = new Random();
 		int tirage = r.nextInt(2);
-		tirage = 0;
 		if (tirage == 0) {
 			return groupeByGroupeInstitu(idEtu);
 		}else {
