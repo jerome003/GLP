@@ -16,9 +16,9 @@ public interface PublicationRemote {
 
 	public List<PublicationDTO> getAllPublications(AncienEtudiantDTO eDTO, int idGroupe);
 
-	public List<PublicationDTO> getAllGroupPublications(int idGroupe);
+	public List<PublicationDTO> getAllGroupPublications(int idGroupe, int idUtilisateur, String typeCompte);
 
-	public List<PublicationDTO> getMyPublications(AncienEtudiantDTO eDTO, int idGroupe);
+	public List<PublicationDTO> getMyPublications(int idGroupe, int idUtilisateur, String typeCompte);
 
 	public void addPublication(AncienEtudiantDTO eDTO, String titre, String message, Date date, boolean isPublic,
 			GroupeDTO groupe);

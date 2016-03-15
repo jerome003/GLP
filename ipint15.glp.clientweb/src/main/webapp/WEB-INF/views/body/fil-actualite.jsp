@@ -3,8 +3,12 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="ipint15.glp.api.dto.AncienEtudiantDTO"%>
+<%@page import="ipint15.glp.api.dto.EtudiantDTO"%>
+<%@page import="ipint15.glp.api.dto.EnseignantDTO"%>
 <%
 	String choix = (String) session.getAttribute("choixPublication");
+	String type = (String) session.getAttribute("type");
+	System.out.println("TYPE DE COMPTE : " + type);
 	Integer idGroupe = (Integer) session.getAttribute("idGroupe");
 	if (choix == null) {
 		choix = "lesPublications";
@@ -12,8 +16,18 @@
 	if (idGroupe == null || idGroupe == 0) {
 		idGroupe = -1;
 	}
-
-	AncienEtudiantDTO etudiant = (AncienEtudiantDTO) session.getAttribute("etudiant");
+	if ("ancien".equals(type)) {
+		System.out.println("ANCIEN : " + type);
+		AncienEtudiantDTO etudiant = (AncienEtudiantDTO) session.getAttribute("etudiant");
+	}
+	if ("etudiant".equals(type)) {
+		System.out.println("ETUDIANT : " + type);
+		EtudiantDTO etudiant = (EtudiantDTO) session.getAttribute("etudiant");
+	}
+	if ("prof".equals(type)) {
+		System.out.println("PROF : " + type);
+		EnseignantDTO etudiant = (EnseignantDTO) session.getAttribute("etudiant");
+	}
 %>
 
 <script type="text/javascript">
@@ -66,7 +80,6 @@
 									${results.nom} </a>
 							</div>
 						</div>
-
 					</c:forEach>
 				</div>
 			</div>
@@ -82,17 +95,18 @@
 									class="glyphicon glyphicon-eye-open"></span> ${results.name}</a>
 							</div>
 						</div>
-
 					</c:forEach>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-
+				<% if ("ancien".equals(type) || "prof".equals(type)) { %>
 				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
 					href="${pageContext.request.contextPath}/nonInstitGroupe">Créer
-					un groupe</a> <br> <span class="glyphicon glyphicon-pencil"></span><a
+					un groupe</a> 
+				<% } %>	
+					<br> <span class="glyphicon glyphicon-pencil"></span><a
 					class="pHoover" onclick="toggle('formulaire')">Créer une
 					publication</a> <br>
 			</div>
@@ -221,7 +235,7 @@
 	if (!choix.equals("lesPublications")) {
 %>
 <c:forEach
-	items="${myInjectedBean.getMyPublications(etudiant, idGroupe)}"
+	items="${myInjectedBean.getMyPublications(idGroupe, etudiant.id, type)}"
 	var="publication">
 	<div class="section">
 		<div class="container">
@@ -240,12 +254,20 @@
 					<p class="">
 
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"> <span
-							class="glyphicon glyphicon-share-alt"></span><a
-							class="${colorUser}"
-							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
-								${publication.profil.etudiant.nom}</a> <c:if
-								test="${publication.groupeDTO != null}">
+							class="pull-right"> <span> class="glyphicon
+								glyphicon-share-alt"></span> <c:if test="${publication.profil != null}">
+								<a class="${colorUser}"
+									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
+									${publication.profil.etudiant.nom}</a>
+							</c:if> <c:if test="${publication.etudiant != null}">
+								<a class="${colorUser}"
+									href="${pageContext.request.contextPath}/profilEtudiant/${publication.etudiant.id}">${publication.etudiant.prenom}
+									${publication.etudiant.nom}</a>
+							</c:if> <c:if test="${publication.enseignant != null}">
+								<a class="${colorUser}"
+									href="${pageContext.request.contextPath}/profilEnseignant/${publication.enseignant.id}">${publication.enseignant.prenom}
+									${publication.enseignant.nom}</a>
+							</c:if> <c:if test="${publication.groupeDTO != null}">
 								<span class="glyphicon glyphicon-share-alt"></span>
 								<a class="${colorGroupe}"
 									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}">${publication.groupeDTO.name}</a>
@@ -277,7 +299,7 @@
 	} else {
 %>
 <c:forEach
-	items="${myInjectedBean.getAllPublications(etudiant, idGroupe)}"
+	items='${myInjectedBean.getAllGroupPublications(idGroupe, etudiant.id, type)}'
 	var="publication">
 	<div class="section">
 		<div class="container">
@@ -295,11 +317,20 @@
 				<div class="panel-heading">
 					<p class="">
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"> <a
-							href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-							class="glyphicon glyphicon-share-alt ${colorUser}">${publication.profil.etudiant.prenom}
-								${publication.profil.etudiant.nom}</a> <c:if
-								test="${publication.groupeDTO != null}">
+							class="pull-right"> <c:if
+								test="${publication.profil != null}">
+								<a class="${colorUser}"
+									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
+									${publication.profil.etudiant.nom}</a>
+							</c:if> <c:if test="${publication.etudiant != null}">
+								<a class="${colorUser}"
+									href="${pageContext.request.contextPath}/profilEtudiant/${publication.etudiant.id}">${publication.etudiant.prenom}
+									${publication.etudiant.nom}</a>
+							</c:if> <c:if test="${publication.enseignant != null}">
+								<a class="${colorUser}"
+									href="${pageContext.request.contextPath}/profilEnseignant/${publication.enseignant.id}">${publication.enseignant.prenom}
+									${publication.enseignant.nom}</a>
+							</c:if> <c:if test="${publication.groupeDTO != null}">
 								<a
 									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}"
 									class="glyphicon glyphicon-share-alt ${colorGroupe} ">${publication.groupeDTO.name}</a>

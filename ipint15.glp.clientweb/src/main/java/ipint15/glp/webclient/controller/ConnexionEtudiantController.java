@@ -73,7 +73,7 @@ public class ConnexionEtudiantController {
 				System.out.println("etudiant trouvé !!!");
 				request.getSession().setAttribute("type","etudiant");
 				sessionObj.setAttribute("etudiant", etu);
-				return new ModelAndView("redirect:fil-actualite-etudiant", "command", new PublicationDTO());
+				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 			} else {
 				System.out.println("Etudiant pas inscrit !!!!");
 			}
