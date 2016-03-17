@@ -167,13 +167,27 @@
 							
 								<span class="bold-font">${publication.titre}</span> <span
 									class="pull-right"> <span
-									class="glyphicon glyphicon-share-alt ${colorGroupe}"></span><a
+									class="glyphicon glyphicon-share-alt ${colorGroupe}"></span>
+								<%-- 	<a
 									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
 									class="${colorUser} ">${publication.profil.etudiant.prenom}
-										${publication.profil.etudiant.nom}</a><span><fmt:formatDate
-											type="both" dateStyle="short" timeStyle="short"
-											value="${publication.date}" /></span>
-								</span>
+										${publication.profil.etudiant.nom}</a>
+										 --%> 
+									<c:if test="${publication.profil != null}">
+										<a class="${colorUser}"
+											href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
+											${publication.profil.etudiant.nom}</a>
+									</c:if> <c:if test="${publication.etudiant != null}">
+										<a class="${colorUser}"
+											href="${pageContext.request.contextPath}/profilEtudiant/${publication.etudiant.id}">${publication.etudiant.prenom}
+											${publication.etudiant.nom}</a>
+									</c:if> <c:if test="${publication.enseignant != null}">
+										<a class="${colorUser}"
+											href="${pageContext.request.contextPath}/profilEnseignant/${publication.enseignant.id}">${publication.enseignant.prenom}
+											${publication.enseignant.nom}</a>
+										</c:if>
+										<span><fmt:formatDate type="both" dateStyle="short"
+												timeStyle="short" value="${publication.date}" /></span></span>
 							
 							</p>
 						</div>
