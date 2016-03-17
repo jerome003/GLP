@@ -8,7 +8,7 @@
 <%
 	String choix = (String) session.getAttribute("choixPublication");
 	String type = (String) session.getAttribute("type");
-	
+
 	Integer idGroupe = (Integer) session.getAttribute("idGroupe");
 	if (choix == null) {
 		choix = "lesPublications";
@@ -17,22 +17,20 @@
 		idGroupe = -1;
 	}
 	if ("ancien".equals(type)) {
-	
+
 		AncienEtudiantDTO etudiant = (AncienEtudiantDTO) session.getAttribute("etudiant");
-		
+
 	}
 	if ("etudiant".equals(type)) {
-	
+
 		EtudiantDTO etudiant = (EtudiantDTO) session.getAttribute("etudiant");
 
 	}
 	if ("prof".equals(type)) {
 
 		EnseignantDTO etudiant = (EnseignantDTO) session.getAttribute("etudiant");
-		
+
 	}
-	
-	
 %>
 
 <script type="text/javascript">
@@ -106,7 +104,9 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<% if ("ancien".equals(type) || "prof".equals(type)) { %>
+				<%
+					if ("ancien".equals(type) || "prof".equals(type)) {
+				%>
 				<span class="glyphicon glyphicon-pencil"></span><a class="pHoover"
 					href="${pageContext.request.contextPath}/nonInstitGroupe">Créer
 					un groupe</a> <br>
@@ -144,7 +144,13 @@
 						</div>
 						<div class="col-sm-8">
 							<form:select path="groupeDTO.id" id="groupes" name="groupes">
+								<%
+									if ("prof".equals(type)) {
+								%>
 								<form:option value="-1" label="Lille 1" />
+								<%
+									}
+								%>
 								<c:forEach items="${listeGroupes}" var="groupe">
 									<form:option value="${groupe.id}">${groupe.name}</form:option>
 								</c:forEach>
@@ -259,9 +265,10 @@
 				<div class="panel-heading">
 					<p class="">
 
-						<span class="bold-font">${publication.titre}</span> <span class="pull-right"> <span class="glyphicon
-								glyphicon-share-alt"></span> 
-							<c:if
+						<span class="bold-font">${publication.titre}</span> <span
+							class="pull-right"> <span
+							class="glyphicon
+								glyphicon-share-alt"></span> <c:if
 								test="${publication.profil != null}">
 								<a class="${colorUser}"
 									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
@@ -278,8 +285,7 @@
 								<a
 									href="${pageContext.request.contextPath}/groupe/${publication.groupeDTO.id}"
 									class="glyphicon glyphicon-share-alt ${colorGroupe} ">${publication.groupeDTO.name}</a>
-							</c:if>
-							<span><fmt:formatDate type="both" dateStyle="short"
+							</c:if> <span><fmt:formatDate type="both" dateStyle="short"
 									timeStyle="short" value="${publication.date}" /></span>
 						</span>
 					</p>
@@ -325,8 +331,7 @@
 				<div class="panel-heading">
 					<p class="">
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"> 
-							<c:if
+							class="pull-right"> <c:if
 								test="${publication.profil != null}">
 								<a class="${colorUser}"
 									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
