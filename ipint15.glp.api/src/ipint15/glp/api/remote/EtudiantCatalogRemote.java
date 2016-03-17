@@ -28,4 +28,8 @@ public interface EtudiantCatalogRemote {
 
 	boolean isMailExists(String mail);
 
+	void addGroupeInLesGroupesNonInstitEtudiant(EtudiantDTO eDTO, GroupeDTO groupeDTO);
+
+	void removeGroupeInLesGroupes(EtudiantDTO eDTO, GroupeDTO groupeDTO);
+
 }
