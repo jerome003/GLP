@@ -168,11 +168,6 @@
 								<span class="bold-font">${publication.titre}</span> <span
 									class="pull-right"> <span
 									class="glyphicon glyphicon-share-alt ${colorGroupe}"></span>
-								<%-- 	<a
-									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}"
-									class="${colorUser} ">${publication.profil.etudiant.prenom}
-										${publication.profil.etudiant.nom}</a>
-										 --%> 
 									<c:if test="${publication.profil != null}">
 										<a class="${colorUser}"
 											href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
