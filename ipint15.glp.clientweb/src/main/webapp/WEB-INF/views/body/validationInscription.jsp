@@ -51,7 +51,7 @@ function validation(x) {
 				</thead>
 
 				<tbody>
-					<c:forEach items="${liste}" var="results">
+					<c:forEach items="${listeValidation}" var="results">
 						<tr>
 							<td>${results.nom}</td>
 							<td>${results.prenom}</td>

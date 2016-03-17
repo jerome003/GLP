@@ -96,7 +96,10 @@ public class Enseignant implements Serializable {
 	public int getId() {
 		return id;
 	}
-	
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public List<Publication> getMesPublications() {
 		return mesPublications;
@@ -108,10 +111,10 @@ public class Enseignant implements Serializable {
 
 	public EnseignantDTO toEnseignantDTO() {
 		EnseignantDTO e = new EnseignantDTO();
-		e.setId(id);
-		e.setMail(mail);
-		e.setNom(nom);
-		e.setPrenom(prenom);
+		e.setId(this.getId());
+		e.setNom(this.getNom());
+		e.setPrenom(this.getPrenom());
+		e.setMail(this.getMail());
 		return e;
 	}
 

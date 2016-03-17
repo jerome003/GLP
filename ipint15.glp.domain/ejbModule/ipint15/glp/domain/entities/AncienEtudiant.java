@@ -32,7 +32,8 @@ import ipint15.glp.api.dto.AncienEtudiantDTO;
 @Entity
 @Table(name = "ANCIENETUDIANT")
 @NamedQueries({
-		@NamedQuery(name = "getListAncienEtudiantByIdGroupe", query = "Select e from AncienEtudiant e where e.groupe.id = :id")})
+	@NamedQuery(name = "getListAncienEtudiantByIdGroupe", query = "Select e from AncienEtudiant e where e.groupe.id = :id"),
+	@NamedQuery(name = "getListAncien", query = "Select e from AncienEtudiant e")})
 public class AncienEtudiant implements Serializable {
 
 	/**
@@ -66,15 +67,15 @@ public class AncienEtudiant implements Serializable {
 	private int anneeDiplome;
 	@ManyToOne
 	private Groupe groupe;
-	
+
 	@ManyToMany
 	private List<Groupe> lesGroupes;
 
-	
-	
+
+
 	//@OneToMany
 	//private List<Groupe> groupesPerso;
-	
+
 	@OneToOne
 	private EtudiantProfil profil;
 
@@ -310,7 +311,7 @@ public class AncienEtudiant implements Serializable {
 	public void setLesGroupes(List<Groupe> lesGroupesPrim) {
 		this.lesGroupes = lesGroupesPrim;
 	}
-/*
+	/*
 	public List<Groupe> getGroupesPerso() {
 		return groupesPerso;
 	}

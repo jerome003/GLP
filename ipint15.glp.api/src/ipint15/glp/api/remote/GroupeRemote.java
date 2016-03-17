@@ -19,6 +19,8 @@ public interface GroupeRemote {
 	public void editGroupe(int id, String newName, String description);
 
 	public boolean removeGroupe(int id);
+	
+	public boolean removeGroupeNonInstit(int id , int idMembre);
 
 	public List<GroupeDTO> getAllGroupe();
 	
@@ -43,10 +45,12 @@ public interface GroupeRemote {
 	public boolean membreEtudiantExistInListGroupe(int idGroupe, int idMembre);
 	
 	public boolean membreEnseignantExistInListGroupe(int idGroupe, int idMembre);
+	public boolean peutRejoindreGroupeAncien(int idGroupe, AncienEtudiantDTO eDTO);
 	
 	public boolean peutRejoindreGroupe(int idGroupe, int idMembre);
 	
-	public boolean peutQuitterGroupe(int idGroupe, int idMembre);
+	public boolean peutQuitterGroupeAncien(int idGroupe, AncienEtudiantDTO eDTO);
+	//public boolean peutQuitterGroupe(int idGroupe, int idMembre);
 	
 	/**
 	 * Permet l'ajout d'un animateur à un groupe non institutionnel

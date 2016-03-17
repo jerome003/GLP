@@ -140,7 +140,7 @@ public class Publication {
 
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + ", libelle=" + titre
+		return "Publication [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + ", groupe = " + groupe + ", libelle=" + titre
 				+ ", message =" + message + "]";
 	}
 
@@ -166,5 +166,6 @@ public class Publication {
 	public void setPostByAnim(boolean postByAnim) {
 		this.postByAnim = postByAnim;
 	}
+	
 	
 }

@@ -96,13 +96,8 @@
 							<td>${results.name}
 								(${myInjectedBean.getGroupeSize(results.id)})</td>
 							<td>${results.description}</td>
-							<td><a class="btn mini blue-stripe"
-								href="${pageContext.request.contextPath}/editerGroupe/${results.id}"><span
-									class="glyphicon glyphicon-pencil"></span> Edit</a></td>
-							<td><a
-								href="${pageContext.request.contextPath}/removeGroupe/${results.id}"
-								class="confirm-delete btn mini red-stripe" role="button"><span
-									class="glyphicon glyphicon-trash"></span> Delete</a></td>
+							<td></td>
+							<td></td>
 							<td class="col-md-4"><a class="btn mini blue-stripe"
 								href="${pageContext.request.contextPath}/groupe/${results.id}"
 								 role="button"><span class="glyphicon glyphicon-eye-open"></span>

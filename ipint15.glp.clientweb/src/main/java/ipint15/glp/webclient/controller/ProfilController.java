@@ -85,7 +85,8 @@ public class ProfilController {
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof")
 					|| sessionObj.getAttribute("type").equals("etudiant")) {
-				ModelAndView model = new ModelAndView("errorAccesRole");
+				ModelAndView model = new ModelAndView();
+				sessionObj.setAttribute("section", "profil");
 				int id = Integer.parseInt(pathVariables.get("id"));
 				EnseignantDTO enseignantConsultation = enseignantBean.getEnseignantById(id);
 				sessionObj.setAttribute("enseignantConsultation", enseignantConsultation);
