@@ -38,7 +38,7 @@
 			</button>
 			<img class="pull-left"
 				src="${pageContext.request.contextPath}/resources/img/Logo.png"
-				alt="Logo" /> <a class="navbar-brand" href="#">&nbsp; Lille University
+				alt="Logo" /> <a class="navbar-brand" href="${pageContext.request.contextPath}/fil-actualite">&nbsp; Lille University
 				Meetup Platform<br>
 			</a>
 		</div>
@@ -63,8 +63,16 @@
 						d'actualité</a>
 				</li>
 
-				<li <%if (section.equals("profil")) {%> class="active" <%}%>><a
-					href="${pageContext.request.contextPath}/profil/${etudiant.id}">${etudiant.prenom}<br></a>
+				<li <%if (section.equals("profil")) {%> class="active" <%}%>>
+					<%if (session.getAttribute("type").equals("ancien")) { %>
+					<a href="${pageContext.request.contextPath}/profil/${etudiant.id}">${etudiant.prenom}<br></a>
+					<% } %>
+					<%if (session.getAttribute("type").equals("etudiant")) { %>
+					<a href="${pageContext.request.contextPath}/profilEtudiant/${etudiant.id}">${etudiant.prenom}<br></a>
+					<% } %>
+					<%if (session.getAttribute("type").equals("prof")) { %>
+					<a href="${pageContext.request.contextPath}/profilEnseignant/${etudiant.id}">${etudiant.prenom}<br></a>
+					<% } %>
 				</li>
 
 				<li <%if (section.equals("contact")) {%> class="active" <%}%>>

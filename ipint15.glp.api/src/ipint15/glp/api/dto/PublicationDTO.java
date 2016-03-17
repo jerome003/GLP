@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+
 public class PublicationDTO implements Serializable {
 	/**
 	 * 
@@ -14,6 +15,10 @@ public class PublicationDTO implements Serializable {
 	private int id;
 
 	private EtudiantProfilDTO profil;
+	
+	private EtudiantDTO etudiant;
+	
+	private EnseignantDTO enseignant;
 
 	@NotEmpty( message = "Veuillez saisir un titre")
 	private String titre;
@@ -26,6 +31,8 @@ public class PublicationDTO implements Serializable {
 	private GroupeDTO groupeDTO;
 
 	private boolean publicationPublic;
+	
+	private boolean postByAnim ;
 
 	public int getId() {
 		return id;
@@ -82,11 +89,35 @@ public class PublicationDTO implements Serializable {
 	public void setPublicationPublic(boolean publicationPublic) {
 		this.publicationPublic = publicationPublic;
 	}
+	
+	public boolean isPostByAnim() {
+		return postByAnim;
+	}
+
+	public void setPostByAnim(boolean isPostByAnim) {
+		this.postByAnim = isPostByAnim;
+	}
+
+	public EtudiantDTO getEtudiant() {
+		return etudiant;
+	}
+
+	public void setEtudiant(EtudiantDTO etudiant) {
+		this.etudiant = etudiant;
+	}
+
+	public EnseignantDTO getEnseignant() {
+		return enseignant;
+	}
+
+	public void setEnseignant(EnseignantDTO enseignant) {
+		this.enseignant = enseignant;
+	}
 
 	@Override
 	public String toString() {
 		return "PublicationDTO [id=" + id + ", profil=" + profil + ", titre=" + titre + ", message=" + message
-				+ ", date=" + date + ", publicationPublic=" + publicationPublic + ", groupe : "+((groupeDTO == null) ? "null" : "oui")  +"]";
+				+ ", date=" + date + ", publicationPublic=" + publicationPublic + ", groupe : "+((groupeDTO == null) ? "null" : "oui")  +"]"+"publicationAnimateur="+ postByAnim;
 	}
 
 }

@@ -21,17 +21,9 @@ import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 @Controller
 @SessionAttributes
 public class ContactController {
-	@Inject
-	protected AncienEtudiantCatalogRemote etudiantBean;
 
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {
-		HttpSession sessionObj = request.getSession();
-		sessionObj.setAttribute("section", "contact");
-		
-		AncienEtudiantDTO etu = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
-		if (etu == null) return "contactDisconnect";
-		else return "contactConnect";
-	
+		return "contactConnect";
 	}
 }

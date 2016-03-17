@@ -249,10 +249,14 @@ public class GroupeImpl implements GroupeRemote {
 		GroupeDTO gDTO = g.toGroupeDTO();
 		List<AncienEtudiantDTO> listAe = new ArrayList<>();
 		List<AncienEtudiant> list = g.getAncienEtudiants();
+		System.out.println("List : " + list);
+		System.out.println("Size List : " + list.size());
 		for (AncienEtudiant ae : list) {
 			listAe.add(ae.toEtudiantDTO());
 		}
 		gDTO.setAncienEtudiants(listAe);
+		System.out.println("List DTO : " + gDTO.getAncienEtudiants());
+		System.out.println("Size List DTO : " + gDTO.getAncienEtudiants().size());
 
 		List<EnseignantDTO> listEnseignDTO = new ArrayList<>();
 		List<Enseignant> listEnseign = g.getEnseignant();
@@ -261,12 +265,21 @@ public class GroupeImpl implements GroupeRemote {
 		}
 		gDTO.setEnseignants(listEnseignDTO);
 
+		
 		listEnseignDTO = new ArrayList<>();
 		listEnseign = g.getAnimateur();
+		if (!listEnseign.isEmpty()) {
 		for (Enseignant e : listEnseign) {
 			listEnseignDTO.add(e.toEnseignantDTO());
 		}
 		gDTO.setAnimateurs(listEnseignDTO);
+		}else {
+			try {
+			gDTO.setAnimateurGroupeNonInstit(g.getAnimateurGroupeNonInstit().toEtudiantDTO());
+			}catch (Exception e) {
+				//Pas d'anim ! 
+			}
+		}
 
 		List<EtudiantDTO> listEtuDTO = new ArrayList<>();
 		List<Etudiant> listEtu = g.getEtudiants();
@@ -306,6 +319,7 @@ public class GroupeImpl implements GroupeRemote {
 				listEnseignDTO.add(e.toEnseignantDTO());
 			}
 			gDTO.setAnimateurs(listEnseignDTO);
+
 
 			List<EtudiantDTO> listEtuDTO = new ArrayList<>();
 			List<Etudiant> listEtu = g.getEtudiants();
@@ -401,6 +415,34 @@ public class GroupeImpl implements GroupeRemote {
 		boolean a = false;
 		for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
 			if(ancien.getId() == idMembre){
+				a = true;
+			}
+		}
+
+
+		return a;
+	}
+	
+	@Override
+	public boolean membreEtudiantExistInListGroupe(int idGroupe, int idMembre) {
+		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
+		List<EtudiantDTO> etudiantDTO = groupeAvecListeDesMembre.getEtudiants();
+		boolean a = false;
+		for (EtudiantDTO etu : etudiantDTO ){
+			if(etu.getId() == idMembre){
+				a = true;
+			}
+		}
+		return a;
+	}
+	
+	@Override
+	public boolean membreEnseignantExistInListGroupe(int idGroupe, int idMembre) {
+		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
+		List<EnseignantDTO> enseignantDTO = groupeAvecListeDesMembre.getEnseignants();
+		boolean a = false;
+		for (EnseignantDTO prof : enseignantDTO ){
+			if(prof.getId() == idMembre){
 				a = true;
 			}
 		}

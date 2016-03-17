@@ -8,7 +8,9 @@
 *.pydevproject
 .metadata
 .recommenders
+*.project
 bin/**
+*/bin/**
 tmp/**
 tmp/**/*
 *.tmp

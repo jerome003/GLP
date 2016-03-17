@@ -1,14 +1,12 @@
 package ipint15.glp.webclient.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -23,11 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import ipint15.glp.api.dto.AncienEtudiantDTO;
+
 import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 import ipint15.glp.api.dto.PublicationDTO;
-import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 
@@ -55,6 +52,14 @@ public class ConnexionEtudiantController {
 			AttributePrincipal principal = (AttributePrincipal) request.getUserPrincipal();
 			Map attributes = principal.getAttributes();
 			Iterator attributeNames = attributes.keySet().iterator();
+			if ((String) attributes.get("nip") == null) {
+				System.out.println("nip null");
+				request.getSession().setAttribute(ATTR_CAS, null);
+				return new ModelAndView("redirect:" + request.getServletContext().getInitParameter("urlCasLogout")
+						+ request.getServletContext().getInitParameter("urlSite") + "/WrongConnexionPageEtudiant");
+			} else {
+				System.out.println("nip OK");
+			}
 			String mail = (String) attributes.get("mail");
 			String nom = (String) attributes.get("name");
 			String delims = " ";
@@ -62,9 +67,12 @@ public class ConnexionEtudiantController {
 			sessionObj.setAttribute("nom", tokens[0]);
 			sessionObj.setAttribute("prenom", tokens[1]);
 			sessionObj.setAttribute("mail", mail);
+			request.getSession().setAttribute("type", "etudiant");
 			EtudiantDTO etu = etudiantBean.getEtudiantByMail(mail);
 			if (etudiantBean.getEtudiantByMail(mail) != null) {
 				System.out.println("etudiant trouvé !!!");
+				request.getSession().setAttribute("type","etudiant");
+				sessionObj.setAttribute("etudiant", etu);
 				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 			} else {
 				System.out.println("Etudiant pas inscrit !!!!");
@@ -74,14 +82,24 @@ public class ConnexionEtudiantController {
 		return new ModelAndView("connexionEtudiant", "command", new EtudiantDTO());
 	}
 
+	@RequestMapping(value = "/WrongConnexionPageEtudiant", method = RequestMethod.GET)
+	public String home(Locale locale, HttpServletRequest request) {
+		HttpSession sessionObj = request.getSession();
+
+		return "WrongConnexionPageEtudiant";
+	}
+
 	// Methode d'ajout d'un etudiant
 	@RequestMapping(value = "/addNewEtudiant", method = RequestMethod.POST)
 	public String addNewEtudiant(@Valid @ModelAttribute("command") EtudiantDTO etudiant, BindingResult result,
 			HttpServletRequest request) {
 		HttpSession sessionObj = request.getSession();
 		GroupeDTO newGroupe = groupeBean.getGroupeDTOById(etudiant.getGroupe().getId());
-		etudiantBean.createEtudiant((String) sessionObj.getAttribute("nom"), (String) sessionObj.getAttribute("prenom"),
+		EtudiantDTO etu = etudiantBean.createEtudiant((String) sessionObj.getAttribute("nom"), (String) sessionObj.getAttribute("prenom"),
 				(String) sessionObj.getAttribute("mail"), newGroupe);
+		System.out.println(etu.getId()+" "+ etu.getNom());
+		request.getSession().setAttribute("type","etudiant");
+		sessionObj.setAttribute("etudiant", etu);
 		return "inscriptionEtudiantOK";
 	}
 

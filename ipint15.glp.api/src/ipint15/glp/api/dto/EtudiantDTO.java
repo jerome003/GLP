@@ -1,9 +1,12 @@
 package ipint15.glp.api.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
+
+
+
 
 public class EtudiantDTO implements Serializable {
 
@@ -16,7 +19,11 @@ public class EtudiantDTO implements Serializable {
 	private String nom;
 	private String mail;
 	private List<GroupeDTO> listeGroupes;
+
+	private List<PublicationDTO> mesPublications;
+
 	private GroupeDTO groupe ;
+
 
 	public EtudiantDTO() {
 		super();
@@ -47,6 +54,9 @@ public class EtudiantDTO implements Serializable {
 	}
 
 	public List<GroupeDTO> getListeGroupes() {
+		if (listeGroupes==null) {
+			listeGroupes = new ArrayList<GroupeDTO>();
+		}
 		return listeGroupes;
 	}
 
@@ -60,6 +70,17 @@ public class EtudiantDTO implements Serializable {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	public List<PublicationDTO> getMesPublications() {
+		if (mesPublications==null) {
+			mesPublications = new ArrayList<PublicationDTO>();
+		}
+		return mesPublications;
+	}
+
+	public void setMesPublications(List<PublicationDTO> mesPublications) {
+		this.mesPublications = mesPublications;
 	}
 
 	@Override

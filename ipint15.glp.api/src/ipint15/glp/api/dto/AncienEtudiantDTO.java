@@ -124,6 +124,9 @@ public class AncienEtudiantDTO implements Serializable {
 		this.posteActu = posteActu;
 	}
 	public String getNomEntreprise() {
+		if (nomEntreprise == null) {
+			return "";
+		}
 		return nomEntreprise;
 	}
 	public void setNomEntreprise(String nomEntreprise) {

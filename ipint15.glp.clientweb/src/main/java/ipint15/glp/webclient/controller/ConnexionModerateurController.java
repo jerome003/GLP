@@ -86,7 +86,7 @@ public class ConnexionModerateurController {
 				sessionObj.setAttribute("idGroupe", id);
 				List<AncienEtudiantDTO> listeResultat = administrationBean.getEtudiantsNonInscritByIdGroupe(id);
 				ModelAndView modelView = new ModelAndView("validationInscription");
-				modelView.addObject("liste", listeResultat);
+				modelView.addObject("listeValidation", listeResultat);
 				return modelView;
 			} else {
 				ModelAndView modele = new ModelAndView("errorAccesRole");
@@ -113,7 +113,7 @@ public class ConnexionModerateurController {
 		// Modifier vue retourner pour que cela soit plus propre au niveau des
 		// urls.
 		ModelAndView modelView = new ModelAndView("validationInscription");
-		modelView.addObject("liste", listeResultat);
+		modelView.addObject("listeValidation", listeResultat);
 
 		return modelView;
 

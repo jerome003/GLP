@@ -409,9 +409,11 @@ public class AdministrationImpl implements AdministrationRemote {
 
 	@Override
 	public List<AncienEtudiantDTO> getEtudiantsNonInscritByIdGroupe(int id){
-
 		Groupe g = getGroupeById(id);
-		List<AncienEtudiant> EtudiantList = g.getAncienEtudiants();
+		List<AncienEtudiant> EtudiantList = new ArrayList<AncienEtudiant>();
+		for (AncienEtudiant e : g.getAncienEtudiants()){
+			EtudiantList.add(e);
+		}
 		List<AncienEtudiantDTO> EtudiantListDTO = new ArrayList<AncienEtudiantDTO>();
 
 
