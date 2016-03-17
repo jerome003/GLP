@@ -89,23 +89,23 @@ public class GroupeController {
 				sessionObj.setAttribute("groupe", groupeDTO);
 				return model;
 			} 
-		/*	if (sessionObj.getAttribute("type").equals("etudiant") ) {
+			if (sessionObj.getAttribute("type").equals("etudiant") ) {
 				int id = Integer.parseInt(pathVariables.get("id"));
 
 				EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
 				System.out.println("etudiant : "+eDTO.getId());
 				int idMembre = eDTO.getId();
 
-
-				if (groupeBean.peutRejoindreGroupe(id, idMembre) == true) {
-
-					sessionObj.setAttribute("peutRejoindreGroupe", true);
-
-				} else {
-
-					sessionObj.setAttribute("peutRejoindreGroupe", false);
-				}
-
+//
+//				if (groupeBean.peutRejoindreGroupe(id, idMembre) == true) {
+//
+//					sessionObj.setAttribute("peutRejoindreGroupe", true);
+//
+//				} else {
+//
+//					sessionObj.setAttribute("peutRejoindreGroupe", false);
+//				}
+//
 				if (groupeBean.membreEtudiantExistInListGroupe(id, idMembre)) {
 
 					sessionObj.setAttribute("peutPublier", true);
@@ -115,13 +115,13 @@ public class GroupeController {
 					sessionObj.setAttribute("peutPublier", false);
 
 				}
-				if (groupeBean.peutQuitterGroupe(id, idMembre) == true) {
-					System.out.println("passe dans peut quitter groupe");
-					sessionObj.setAttribute("peutQuitterGroupe", true);
-				} else {
-					System.out.println("peut quitter groupe passe pas ");
-					sessionObj.setAttribute("peutQuitterGroupe", false);
-				}
+//				if (groupeBean.peutQuitterGroupe(id, idMembre) == true) {
+//					System.out.println("passe dans peut quitter groupe");
+//					sessionObj.setAttribute("peutQuitterGroupe", true);
+//				} else {
+//					System.out.println("peut quitter groupe passe pas ");
+//					sessionObj.setAttribute("peutQuitterGroupe", false);
+//				}
 				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
 
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
@@ -132,34 +132,34 @@ public class GroupeController {
 				sessionObj.setAttribute("groupe", groupeDTO);
 				return model;
 			}
-		/*	if (sessionObj.getAttribute("type").equals("prof") ) {
+			if (sessionObj.getAttribute("type").equals("prof") ) {
 				int id = Integer.parseInt(pathVariables.get("id"));
 
 				EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
 				int idMembre = eDTO.getId();
-
-				if (groupeBean.peutRejoindreGroupe(id, idMembre) == true) {
-
-					sessionObj.setAttribute("peutRejoindreGroupe", true);
-
-				} else {
-
-					sessionObj.setAttribute("peutRejoindreGroupe", false);
-				}
-
+//
+//				if (groupeBean.peutRejoindreGroupe(id, idMembre) == true) {
+//
+//					sessionObj.setAttribute("peutRejoindreGroupe", true);
+//
+//				} else {
+//
+//					sessionObj.setAttribute("peutRejoindreGroupe", false);
+//				}
+//
 				if (groupeBean.membreEnseignantExistInListGroupe(id, idMembre)) {
 					sessionObj.setAttribute("peutPublier", true);
 
 				} else {
 					sessionObj.setAttribute("peutPublier", false);
 				}
-				if (groupeBean.peutQuitterGroupe(id, idMembre) == true) {
-					System.out.println("passe dans peut quitter groupe");
-					sessionObj.setAttribute("peutQuitterGroupe", true);
-				} else {
-					System.out.println("peut quitter groupe passe pas ");
-					sessionObj.setAttribute("peutQuitterGroupe", false);
-				}
+//				if (groupeBean.peutQuitterGroupe(id, idMembre) == true) {
+//					System.out.println("passe dans peut quitter groupe");
+//					sessionObj.setAttribute("peutQuitterGroupe", true);
+//				} else {
+//					System.out.println("peut quitter groupe passe pas ");
+//					sessionObj.setAttribute("peutQuitterGroupe", false);
+//				}
 				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
 
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
@@ -169,7 +169,7 @@ public class GroupeController {
 				// model.setViewName("groupe");
 				sessionObj.setAttribute("groupe", groupeDTO);
 				return model;
-			}*/
+			}
 			ModelAndView model = new ModelAndView("errorAccesRole");
 			return model;
 
