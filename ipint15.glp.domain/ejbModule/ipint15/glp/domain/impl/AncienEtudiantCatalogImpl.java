@@ -255,7 +255,6 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 	public void setGroupe(AncienEtudiantDTO eDTO, GroupeDTO gDTO) {
 		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		Groupe grp = getGroupeById(gDTO.getId());
-
 		e.setGroupe(grp);
 		grp.getAncienEtudiants().add(e);
 
@@ -438,7 +437,6 @@ public class AncienEtudiantCatalogImpl implements AncienEtudiantCatalogRemote {
 		List<Groupe> lesGroupesPrim = new ArrayList<>();
 		for(GroupeDTO gd : lesGroupe){
 			lesGroupesPrim.add(getGroupeById(gd.getId()));
-			
 		}
 		e.setLesGroupes(lesGroupesPrim);
 		for(Groupe grp : lesGroupesPrim){

@@ -54,9 +54,6 @@
 				<li <%if (section.equals("inscription")) {%> class="active" <%}%>>
 					<a href="${pageContext.request.contextPath}/inscription">Inscription<br></a>
 				</li>
-				<li <%if (section.equals("contact")) {%> class="active" <%}%>>
-					<a href="${pageContext.request.contextPath}/contact">Contact<br></a>
-				</li>
 				<li <%if (section.equals("connexion")) {%> class="active" <%}%>>
 					<a href="${pageContext.request.contextPath}/connexion">Connexion<br></a>
 				</li>

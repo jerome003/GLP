@@ -77,10 +77,6 @@
 					<a href="${pageContext.request.contextPath}/profilEnseignant/${etudiant.id}">${etudiant.prenom}<br></a>
 					<% } %>
 				</li>
-
-				<li <%if (section.equals("contact")) {%> class="active" <%}%>>
-					<a href="${pageContext.request.contextPath}/contact">Contact<br></a>
-				</li>
 				<li><a href="${pageContext.request.contextPath}/deconnection">Déconnexion<br></a>
 				</li>
 			</ul>
