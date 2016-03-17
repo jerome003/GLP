@@ -122,6 +122,7 @@ public class Conversion {
 		
 		EnseignantDTO eDto = e.toEnseignantDTO();
 		PublicationDTO pDTO = p.toPublicationDTO();
+		System.out.println(p);
 		if (p.getGroupe() == null) {
 			pDTO.setGroupeDTO(null);
 			System.out.println("No group");
@@ -135,6 +136,7 @@ public class Conversion {
 		pDTO.setEnseignant(eDto);
 		return pDTO;
 	}
+	
 	
 	public ExperienceDTO MappingProfilExperience(EtudiantProfil ep, Experience exp) {
 

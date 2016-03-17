@@ -8,7 +8,7 @@
 <%
 	String choix = (String) session.getAttribute("choixPublication");
 	String type = (String) session.getAttribute("type");
-	System.out.println("TYPE DE COMPTE : " + type);
+	
 	Integer idGroupe = (Integer) session.getAttribute("idGroupe");
 	if (choix == null) {
 		choix = "lesPublications";
@@ -17,17 +17,22 @@
 		idGroupe = -1;
 	}
 	if ("ancien".equals(type)) {
-		System.out.println("ANCIEN : " + type);
+	
 		AncienEtudiantDTO etudiant = (AncienEtudiantDTO) session.getAttribute("etudiant");
+		
 	}
 	if ("etudiant".equals(type)) {
-		System.out.println("ETUDIANT : " + type);
+	
 		EtudiantDTO etudiant = (EtudiantDTO) session.getAttribute("etudiant");
+
 	}
 	if ("prof".equals(type)) {
-		System.out.println("PROF : " + type);
+
 		EnseignantDTO etudiant = (EnseignantDTO) session.getAttribute("etudiant");
+		
 	}
+	
+	
 %>
 
 <script type="text/javascript">

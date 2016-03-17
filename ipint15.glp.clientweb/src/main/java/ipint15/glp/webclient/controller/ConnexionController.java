@@ -26,12 +26,9 @@ import ipint15.glp.api.dto.CompetenceDTO;
 import ipint15.glp.api.dto.ConnexionCommand;
 import ipint15.glp.api.dto.EcoleDTO;
 import ipint15.glp.api.dto.EnseignantDTO;
-import ipint15.glp.api.dto.EtudiantDTO;
 import ipint15.glp.api.dto.AncienEtudiantDTO;
 import ipint15.glp.api.dto.ExperienceDTO;
 import ipint15.glp.api.dto.HobbieDTO;
-import ipint15.glp.api.dto.ModerateurDTO;
-import ipint15.glp.api.dto.PublicationDTO;
 import ipint15.glp.api.remote.AncienEtudiantCatalogRemote;
 import ipint15.glp.api.remote.EnseignantCatalogRemote;
 
@@ -103,14 +100,14 @@ public class ConnexionController {
 			Map attributes = principal.getAttributes();
 			Iterator attributeNames = attributes.keySet().iterator();
 			// pour tester, supprimer la condition
-			if ((String) attributes.get("matricule") == null) {
-				System.out.println("matricule null");
-				request.getSession().setAttribute(ATTR_CAS, null);
-				return "redirect:" + request.getServletContext().getInitParameter("urlCasLogout")
-						+  request.getServletContext().getInitParameter("urlSite")+"/WrongConnexionPageProf";
-			} else {
-				System.out.println("matricule OK");
-			}
+//			if ((String) attributes.get("matricule") == null) {
+//				System.out.println("matricule null");
+//				request.getSession().setAttribute(ATTR_CAS, null);
+//				return "redirect:" + request.getServletContext().getInitParameter("urlCasLogout")
+//						+  request.getServletContext().getInitParameter("urlSite")+"/WrongConnexionPageProf";
+//			} else {
+//				System.out.println("matricule OK");
+//			}
 			String mail = (String) attributes.get("mail");
 			String nom = (String) attributes.get("name");
 			String delims = " ";
@@ -120,19 +117,25 @@ public class ConnexionController {
 			sessionObj.setAttribute("mail", mail);
 			if (enseignantBean.getEnseignantByMail(mail) != null) {
 				EnseignantDTO enseignant = enseignantBean.getEnseignantByMail(mail);
+	
+				
+				sessionObj.setAttribute("etudiant", enseignant);
 				request.getSession().setAttribute("type", "prof");
-				request.getSession().setAttribute("user", enseignant);
-				return "redirect:contact";
+
+				return "redirect:fil-actualite";
 
 			} else {
 				enseignantBean.createEnseignant(tokens[0], tokens[1], mail);
 				EnseignantDTO enseignant = enseignantBean.getEnseignantByMail(mail);
+			
+				
+				sessionObj.setAttribute("etudiant", enseignant);
 				request.getSession().setAttribute("type", "prof");
-				request.getSession().setAttribute("user", enseignant);
-				return "redirect:contact";
+				
+				return "redirect:fil-actualite";
 			}
 		} else {
-			return "redirect:contact";
+			return "redirect:error";
 		}
 	}
 	@RequestMapping(value = "/WrongConnexionPageProf", method = RequestMethod.GET)
@@ -158,6 +161,8 @@ public class ConnexionController {
 		HttpSession sessionObj = request.getSession();
 		sessionObj.setAttribute("etudiant", null);
 		sessionObj.setAttribute("profil", null);
+		sessionObj.setAttribute("ancien", null);
+		sessionObj.setAttribute("prof", null);
 		request.setAttribute("deco", "deco");
 		sessionObj.removeAttribute("etudiant");
 		sessionObj.setAttribute("type", "");
