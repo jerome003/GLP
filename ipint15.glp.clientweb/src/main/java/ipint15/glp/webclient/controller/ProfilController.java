@@ -119,11 +119,15 @@ public class ProfilController {
 				listeGroupes = ancienEtudiantBean.getLesGroupes(etu);
 				listeGroupes.add(etu.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
-				AncienEtudiantDTO etudiant = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 				ModelAndView modelAndView = new ModelAndView();
-				if (etudiant.getId() == id) {
-					sessionObj.setAttribute("consultation", false);
-				} else {
+				if("ancien".equals(sessionObj.getAttribute("type"))){
+					AncienEtudiantDTO etudiant = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+					if (etudiant.getId() == id) {
+						sessionObj.setAttribute("consultation", false);
+					} else {
+						sessionObj.setAttribute("consultation", true);
+					}
+				}else{
 					sessionObj.setAttribute("consultation", true);
 				}
 				sessionObj.setAttribute("profil", etu);
