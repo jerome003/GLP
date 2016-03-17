@@ -16,8 +16,10 @@ import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.domain.entities.AncienEtudiant;
 import ipint15.glp.domain.entities.Enseignant;
 import ipint15.glp.domain.entities.Etudiant;
+import ipint15.glp.domain.entities.EtudiantProfil;
 import ipint15.glp.domain.entities.Groupe;
 import ipint15.glp.domain.entities.Moderateur;
+import ipint15.glp.domain.entities.Publication;
 import ipint15.glp.domain.util.Conversion;
 
 @Stateless
@@ -115,6 +117,115 @@ public class GroupeImpl implements GroupeRemote {
 		return false;
 
 	}
+
+
+
+
+	public void removePublication(int id){
+		Publication publi = getPublicationById(id);
+		List<AncienEtudiant> mesAnciensEtudiants = em.createNamedQuery("getListAncien", AncienEtudiant.class).getResultList();
+
+		for(AncienEtudiant anc : mesAnciensEtudiants){	
+			EtudiantProfil ep = anc.getProfil();
+			List<Publication> publicationsP = ep.getMesPublications();
+			for(Publication p : publicationsP){
+			
+				if(p.getId() == publi.getId()){
+					p.setGroupe(null);
+					p.setProfil(null);
+					List<Publication> publics = ep.getMesPublications();
+					publics.remove(p);
+					ep.setPublications(publics);
+					
+					em.persist(ep);
+					anc.setProfil(ep);
+					em.persist(anc);
+				}
+			}
+
+		}
+
+		Groupe g = getGroupeById(publi.getGroupe().getId());
+		List<Publication> publicationsP = g.getPublications();
+		for(Publication p : publicationsP){
+			if(p.getId() == publi.getId()){
+				
+				List<Publication> publics = g.getPublications();
+				publics.remove(p);
+				g.setPublications(publics);
+				em.persist(g);
+
+			}
+		}
+		em.remove(publi);
+
+	}
+
+
+
+
+	private Publication getPublicationById(int id){
+
+		Query q = em.createQuery("select p from Publication p WHERE p.id = :id");
+		q.setParameter("id", id);
+		Publication p = (Publication) q.getSingleResult();
+		return p;
+	}
+
+
+
+
+
+
+	@Override
+	public boolean removeGroupeNonInstit(int id , int idMembre) {
+		Groupe g = getGroupeById(id);
+		if(g.getAnimateurGroupeNonInstit().getId() == idMembre){
+
+
+			List<AncienEtudiant> lesAnciens = g.getAncienEtudiants(); 
+			List<Enseignant> enseignants =  g.getEnseignant(); 
+			List<Publication> publications = g.getPublications(); 
+
+			for(AncienEtudiant ancien : lesAnciens){
+				List<Groupe> lesGroupes = ancien.getLesGroupes();
+				lesGroupes.remove(g);
+				ancien.setLesGroupes(lesGroupes);
+				em.persist(ancien);	
+			}
+
+			for(Publication publi : publications){
+				removePublication(publi.getId());
+
+			}
+
+
+			for(Enseignant e : enseignants){
+				List<Groupe> lesGroupes = e.getGroupes();
+				lesGroupes.remove(g);
+				e.setGroupes(lesGroupes);
+				em.persist(e);		
+			}
+
+			g.setAncienEtudiants(null);
+			g.setAnimateur(null);
+			g.setAnimateurGroupeNonInstit(null);
+			g.setEnseignant(null);
+			g.setPublications(null);
+			g.setModerateurs(null);
+			em.remove(g);
+
+			return true;
+		}
+
+
+		return false;
+
+	}
+
+
+
+
 
 	@Override
 	public List<GroupeDTO> getGroupesOfAncienByIdAncien(int id) {
@@ -267,7 +378,7 @@ public class GroupeImpl implements GroupeRemote {
 		else{
 			a = false;
 		}
-		
+
 		return a;
 	}
 
@@ -293,7 +404,7 @@ public class GroupeImpl implements GroupeRemote {
 				a = true;
 			}
 		}
-		
+
 		return a;
 	}
 

@@ -116,6 +116,8 @@ public class Groupe {
 	public void setEnseignant(List<Enseignant> enseignant) {
 		this.enseignant = enseignant;
 	}
+	
+	
 
 	public List<Publication> getPublications() {
 		return publications;

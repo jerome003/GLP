@@ -74,6 +74,9 @@ public class GroupeDTO implements Serializable {
 	 * @return the listPublications
 	 */
 	public List<PublicationDTO> getListPublications() {
+		if (listPublications == null) {
+			this.listPublications = new ArrayList<PublicationDTO>();
+		}
 		return listPublications;
 	}
 

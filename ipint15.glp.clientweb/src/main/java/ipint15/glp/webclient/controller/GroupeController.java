@@ -162,6 +162,40 @@ public class GroupeController {
 
 	}
 	
+	
+	
+	
+	@RequestMapping(value = "/removeGroupe/{id}", method = RequestMethod.GET)
+	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,
+			@PathVariable Map<String, String> pathVariables) {
+		HttpSession sessionObj = request.getSession();
+		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+		System.out.println("cc1");
+		ModelAndView modelView ;
+		modelView = new ModelAndView("redirect:/nonInstitGroupe");
+
+		System.out.println("cc2");
+		int idgroupe = Integer.parseInt(pathVariables.get("id"));
+		if (groupeBean.removeGroupeNonInstit(idgroupe, eDTO.getId())) {
+			System.out.println("suppression reussi :)");
+	
+			List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
+			modelView = new ModelAndView("redirect:/nonInstitGroupe", "command", new GroupeDTO());
+			modelView.addObject("liste", listeResultat);
+	
+			modelView.addObject("delete", "ok");
+			return modelView;
+		}
+		
+		modelView.addObject("delete", "ko");
+		return modelView;
+	}
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping(value = "/quitterGroupe/{id}", method = RequestMethod.GET)
 	public ModelAndView quitterGroupe(HttpServletRequest request, @PathVariable String id) {
@@ -185,10 +219,19 @@ public class GroupeController {
 		}
 
 	}
+	
+	
+	/*En cours de modification*/
 
 	@RequestMapping(value = "*/addPublicationGroupe", method = RequestMethod.POST)
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result,
 			HttpServletRequest request) {
+		
+		
+		//Ajouter le lien dans groupe --> grp.setPublication(getPublication.add(publication))
+		
+		
+		
 		HttpSession sessionObj = request.getSession();
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("etudiant")
@@ -198,9 +241,13 @@ public class GroupeController {
 				AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 
 				if (publication.getGroupeDTO().getId() == -1) {
+					
+					System.out.println("--------------------------------- Le groupe est null");
+					
 					publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(),
 							true, null);
 				} else {
+					System.out.println("-------------------------------------------------le groupe est pas null");
 					publicationBean.addPublication(eDTO, publication.getTitre(), publication.getMessage(), new Date(),
 							true, publication.getGroupeDTO());
 				}

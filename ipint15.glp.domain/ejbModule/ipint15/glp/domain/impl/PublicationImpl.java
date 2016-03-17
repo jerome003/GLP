@@ -46,9 +46,12 @@ public class PublicationImpl implements PublicationRemote {
 	}
 
 	private Groupe getGroupeById(int id) {
-		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
-		q.setParameter("id", id);
-		Groupe g = (Groupe) q.getSingleResult();
+		System.out.println("passe dans getGroupe" + id);
+//		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
+//		q.setParameter("id", id);
+//		Groupe g = (Groupe) q.getSingleResult();
+		Groupe g = em.find(Groupe.class, id);
+		System.out.println("passe apres le single result");
 		return g;
 	}
 
@@ -110,12 +113,11 @@ public class PublicationImpl implements PublicationRemote {
 	@Override
 	public void addPublication(AncienEtudiantDTO eDTO, String titre, String message, Date date, boolean isPublic,
 			GroupeDTO groupe) {
+		System.out.println("addpublication publiImpl------------");
 		AncienEtudiant e = getEtudiantByMail(eDTO.getEmail());
 		Publication c = new Publication();
-		if (groupe != null) {
-			Groupe g = getGroupeById(groupe.getId());
-			c.setGroupe(g);
-		}
+		List<Publication> publications = new ArrayList<Publication>();
+	
 		// TODO gérer cas si e = null
 		c.setTitre(titre);
 		c.setMessage(message);
@@ -124,12 +126,29 @@ public class PublicationImpl implements PublicationRemote {
 		EtudiantProfil ep = e.getProfil();
 		ep.getMesPublications().add(c);
 		c.setProfil(ep);
+		if (groupe != null) {
+			System.out.println("passe dans groupe != null");
+			Groupe g = getGroupeById(groupe.getId());
+			System.out.println("groupe id"+g.getId());
+			c.setGroupe(g);
+			System.out.println("avant de faire appel a publication");
+			publications = g.getPublications();
+			if(publications == null){
+				System.out.println("publication null ");
+			}
+			System.out.println("nbr de publications avant une nouvelle publi"+publications.size());
+			publications.add(c);
+			System.out.println("nbr de publications apres une nouvelle publi"+publications.size());
+			g.setPublications(publications);
+			em.merge(g);
+		}
 		em.persist(c);
 		em.merge(ep);
 		em.merge(e);
 
 	}
-
+	
+	
 	@Override
 	public List<PublicationDTO> getAllGroupPublications(int idGroupe) {
 		// TODO Possiblement a modifier selon les regles de publication
@@ -147,5 +166,7 @@ public class PublicationImpl implements PublicationRemote {
 		}
 		return mesPublicationsDTO;
 	}
+
+	
 
 }

@@ -19,6 +19,8 @@ public interface GroupeRemote {
 	public void editGroupe(int id, String newName, String description);
 
 	public boolean removeGroupe(int id);
+	
+	public boolean removeGroupeNonInstit(int id , int idMembre);
 
 	public List<GroupeDTO> getAllGroupe();
 	
