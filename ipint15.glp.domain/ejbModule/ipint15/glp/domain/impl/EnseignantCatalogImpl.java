@@ -143,18 +143,24 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 		List<Groupe> lesGroupes = ens.getGroupes();
 		lesGroupes.add(grp); 
 		ens.setGroupes(lesGroupes);
-		grp.getEnseignant().add(ens);			
+		grp.getEnseignant().add(ens);
+		System.out.println("Nom de l'animateur aaa"+grp.getAnimateurEnsGNonInstit().getNom());
 		em.persist(grp);
 		em.persist(ens);
+		System.out.println("Nom de l'animateur aaa 2"+grp.getAnimateurEnsGNonInstit().getNom());
 		
 	}
 
 	@Override
 	public void addAnimateurToGroupeNonInstitProf(EnseignantDTO eDTO, GroupeDTO gDTO) {
+		
 		Enseignant ens = getEnseignantByMail2(eDTO.getMail());
 		Groupe g = getGroupeById(gDTO.getId());
 		g.setAnimateurEnsGNonInstit(ens);
+		System.out.println("Nom de l'animateur aaa 000"+g.getAnimateurEnsGNonInstit().getNom());
 		em.persist(g);
+		Groupe g1 = getGroupeById(gDTO.getId());
+		System.out.println("Nom de l'animateur aaa 1111"+g1.getAnimateurEnsGNonInstit().getNom());
 		
 	}
 

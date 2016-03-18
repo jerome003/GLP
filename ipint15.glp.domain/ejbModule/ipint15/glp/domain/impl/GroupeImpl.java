@@ -321,7 +321,8 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public List<GroupeDTO> getAllMesGroupeNonInstitProf(EnseignantDTO enseignant) {
-		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnelsProf", Groupe.class).setParameter("id", enseignant.getId()).getResultList();
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnelsProf", Groupe.class)
+				.setParameter("id", enseignant.getId()).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		for (Groupe g : gList) {
 			gDTOList.add(g.toGroupeDTO());
@@ -329,16 +330,16 @@ public class GroupeImpl implements GroupeRemote {
 
 		return gDTOList;
 	}
-	
-	
+
 	@Override
 	public List<GroupeDTO> getAllMesGroupesNonInstitutionnel(AncienEtudiantDTO ancien) {
 
-		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).setParameter("id", ancien.getId()).getResultList();
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class)
+				.setParameter("id", ancien.getId()).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		for (Groupe g : gList) {
-			if(g.getAnimateurGroupeNonInstit() != null){
-				if(g.getAnimateurGroupeNonInstit().getId() == ancien.getId()){
+			if (g.getAnimateurGroupeNonInstit() != null) {
+				if (g.getAnimateurGroupeNonInstit().getId() == ancien.getId()) {
 
 					gDTOList.add(g.toGroupeDTO());
 				}
@@ -370,8 +371,8 @@ public class GroupeImpl implements GroupeRemote {
 
 					else {
 						boolean peurej = true;
-						for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
-							if(ancien.getId() == eDTO.getId()){
+						for (AncienEtudiantDTO ancien : ancienEtdiantDTO) {
+							if (ancien.getId() == eDTO.getId()) {
 								peurej = false;
 							}
 						}
@@ -401,8 +402,8 @@ public class GroupeImpl implements GroupeRemote {
 
 			else {
 				boolean peurej = true;
-				for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
-					if(ancien.getId() == idMembre){
+				for (AncienEtudiantDTO ancien : ancienEtdiantDTO) {
+					if (ancien.getId() == idMembre) {
 
 						peurej = false;
 					}
@@ -438,6 +439,21 @@ public class GroupeImpl implements GroupeRemote {
 
 		return a;
 	}
+	
+	
+	public boolean membreProfExistInListGroupe(int idGroupe, int idMembre) {
+		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
+		List<EnseignantDTO> ensDTO = groupeAvecListeDesMembre.getEnseignants();
+		boolean a = false;
+		for (EnseignantDTO ens : ensDTO) {
+			if (ens.getId() == idMembre) {
+				a = true;
+			}
+		}
+
+		return a;
+	}
+	
 
 	@Override
 	public boolean membreEtudiantExistInListGroupe(int idGroupe, int idMembre) {
@@ -473,38 +489,39 @@ public class GroupeImpl implements GroupeRemote {
 		boolean a = false;
 		// if(groupeAvecListeDesMembre.isInstitutionnel() == false){
 
-		if(g.getAnimateurGroupeNonInstit() != null){
-			if(g.getAnimateurGroupeNonInstit().getId() == eDTO.getId()) { //l'animateur c moi
+		if (g.getAnimateurGroupeNonInstit() != null) {
+			if (g.getAnimateurGroupeNonInstit().getId() == eDTO.getId()) { // l'animateur
+																			// c
+																			// moi
 				a = false;
 			} else { // l'animateur c pas moi
 
-				if(membreExistInListGroupe(idGroupe, eDTO.getId()) == true){
+				if (membreExistInListGroupe(idGroupe, eDTO.getId()) == true) {
 
 					a = true;
 
-				}else{
+				} else {
 					a = false;
 				}
 			}
 
 		} else { // pas d'annimateur donc c un grouope institutionnel
 
-			if(membreExistInListGroupe(idGroupe, eDTO.getId()) == true){
-				if(idGroupe == eDTO.getGroupe().getId()){
+			if (membreExistInListGroupe(idGroupe, eDTO.getId()) == true) {
+				if (idGroupe == eDTO.getGroupe().getId()) {
 					a = false;
-				}else{
+				} else {
 
 					a = true;
 				}
-			}else{
+			} else {
 				a = false;
 			}
 
 		}
-		/*}
-		else{
-			a = false;
-		}*/
+		/*
+		 * } else{ a = false; }
+		 */
 		/*
 		 * } else{ a = false; }
 		 */
@@ -530,18 +547,25 @@ public class GroupeImpl implements GroupeRemote {
 
 	@Override
 	public boolean peutRejoindreGroupeEnseignant(int idGroupe, EnseignantDTO eDTO) {
-		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
-		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getAncienEtudiants();
 		boolean a = true;
 		Groupe g = getGroupeById(idGroupe);
 		if (membreEnseignantExistInListGroupe(idGroupe, eDTO.getId())) {
 			return false;
 		} else {
-			if (g.getAnimateur() != null) {
-				for (Enseignant enseignant : g.getAnimateur()) {
-					if (enseignant.getId() == eDTO.getId()) {
+			if (g.getAnimateur() != null)
+				if (g.getAnimateurEnsGNonInstit() != null) {
+					if (g.getAnimateurEnsGNonInstit().getId() == eDTO.getId()) {
 						return false;
 					}
+				}
+			for (Enseignant enseignant : g.getAnimateur()) {
+				if (enseignant.getId() == eDTO.getId()) {
+					return false;
+				}
+			}
+			for (Enseignant enseignant : g.getEnseignant()) {
+				if (enseignant.getId() == eDTO.getId()) {
+					return false;
 				}
 			}
 		}
@@ -559,17 +583,37 @@ public class GroupeImpl implements GroupeRemote {
 		return g.getId() != e.getGroupe().getId();
 	}
 
-	@Override
-	public boolean peutQuitterGroupeEnseignant(int idGroupe, EnseignantDTO eDTO) {
-		Groupe g = em.find(Groupe.class, idGroupe);
-		Enseignant e = em.find(Enseignant.class, eDTO.getId());
-		for (Groupe groupe : e.getGroupesAnimes()) {
-			System.out.println(groupe.toString() + " : " + idGroupe);
-			if (groupe.getId() == idGroupe) {
-				return false;
+	
+	
+	public boolean peutQuitterGroupeProf(int idGroupe, EnseignantDTO eDTO) {
+		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
+		Groupe g = getGroupeById(idGroupe);
+		boolean a = false;
+		// if(groupeAvecListeDesMembre.isInstitutionnel() == false){
+
+		if (g.getAnimateurEnsGNonInstit() != null) {
+			if (g.getAnimateurEnsGNonInstit().getId() == eDTO.getId()) { // l'animateur
+																			// c
+																			// moi
+				a = false;
+			} else { // l'animateur c pas moi
+
+				if (membreProfExistInListGroupe(idGroupe, eDTO.getId()) == true) {
+
+					a = true;
+
+				} else {
+					a = false;
+				}
 			}
-		}
-		return true;
+
+		} 
+		
+		return a;
 	}
 
+	
+	
+	
+	
 }

@@ -63,7 +63,9 @@ public interface GroupeRemote {
 	
 	public boolean peutQuitterGroupeEtudiant(int idGroupe, EtudiantDTO eDTO);
 	
-	public boolean peutQuitterGroupeEnseignant(int idGroupe, EnseignantDTO eDTO);
+	public boolean peutQuitterGroupeProf(int idGroupe, EnseignantDTO eDTO);
+	
+
 
 	/**
 	 * Permet l'ajout d'un animateur à un groupe non institutionnel

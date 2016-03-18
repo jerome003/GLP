@@ -121,6 +121,10 @@
 				<a class="row"
 					href="${pageContext.request.contextPath}/profil/${groupe.animateurGroupeNonInstit.id}">${groupe.animateurGroupeNonInstit.prenom}
 					${groupe.animateurGroupeNonInstit.nom}</a>
+					
+					<a class="row"
+					href="${pageContext.request.contextPath}/profil/${groupe.animateurEnsGNonInstit.id}">${groupe.animateurEnsGNonInstit.prenom}
+					${groupe.animateurEnsGNonInstit.nom}</a>
 			</div>
 			<div class="well">
 				<h4>Anciens Etudiants</h4>

@@ -173,7 +173,7 @@ public class GroupeController {
 				EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
 				int idMembre = eDTO.getId();
 				// TODO gerer animateur
-				if (groupeBean.peutRejoindreGroupeEnseignant(id, eDTO) == true) {
+				if (groupeBean.peutRejoindreGroupeEnseignant(id, eDTO)) {
 					sessionObj.setAttribute("peutRejoindreGroupe", true);
 					// si on peut rejoindre le groupe, on ne peut pas le quitter
 					sessionObj.setAttribute("peutQuitterGroupe", false);
@@ -181,7 +181,7 @@ public class GroupeController {
 
 					sessionObj.setAttribute("peutRejoindreGroupe", false);
 					// si on ne peut pas rejoindre le groupe, on peut le quitter a moins d'etre animateur
-					sessionObj.setAttribute("peutQuitterGroupe", groupeBean.peutQuitterGroupeEnseignant(id, eDTO));
+					sessionObj.setAttribute("peutQuitterGroupe", groupeBean.peutQuitterGroupeProf(id, eDTO)); //--------------------
 				}
 
 				if (groupeBean.membreEnseignantExistInListGroupe(id, idMembre)) {
@@ -318,14 +318,17 @@ public class GroupeController {
 	
 	@RequestMapping(value = "/saveGroupeNonInstitProf", method = RequestMethod.POST)
 	public ModelAndView saveGroupeNonInstitforProf(HttpServletRequest request,String nameGroupe, String descriptionGroupe) {	
-		System.out.println("passe dans le save prof  ");		
+				
 		ModelAndView modelView;	
 		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe, false);
-		System.out.println("le groupe a été créé");
+	
 		HttpSession sessionObj = request.getSession();
 		EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");		
-		enseignantBean.addAnimateurToGroupeNonInstitProf(eDTO, gDTO);	
 		enseignantBean.addAnimateurToGroupeNonInstitProf(eDTO, gDTO);
+	
+		enseignantBean.addGroupeInLesGroupesNonInstitProf(eDTO, gDTO);
+		
+
 		List<GroupeDTO> listeResultat = groupeBean.getAllMesGroupeNonInstitProf(eDTO);
 		modelView = new ModelAndView("redirect:/nonInstitGroupe", "command", new GroupeDTO());
 		modelView.addObject("liste", listeResultat);
