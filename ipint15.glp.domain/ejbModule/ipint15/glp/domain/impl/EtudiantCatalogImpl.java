@@ -106,4 +106,24 @@ public class EtudiantCatalogImpl implements EtudiantCatalogRemote {
 		}
 		return true;
 	}
+
+	@Override
+	public void addGroupeInLesGroupesNonInstitEtudiant(EtudiantDTO eDTO, GroupeDTO groupeDTO) {
+		Etudiant e = em.find(Etudiant.class, eDTO.getId());
+		Groupe grp = em.find(Groupe.class, groupeDTO.getId());
+		e.getGroupes().add(grp);
+		grp.getEtudiants().add(e);
+		em.persist(e);
+		em.persist(grp);
+	}
+
+	@Override
+	public void removeGroupeInLesGroupes(EtudiantDTO eDTO, GroupeDTO groupeDTO) {
+		Etudiant e = em.find(Etudiant.class, eDTO.getId());
+		Groupe grp = em.find(Groupe.class, groupeDTO.getId());
+		e.getGroupes().remove(grp);
+		grp.getEtudiants().remove(e);
+		em.persist(e);
+		em.persist(grp);
+	}
 }
