@@ -266,19 +266,17 @@
 					<p class="">
 
 						<span class="bold-font">${publication.titre}</span> <span
-							class="pull-right"> <span
-							class="glyphicon
-								glyphicon-share-alt"></span> <c:if
+							class="pull-right"> <c:if
 								test="${publication.profil != null}">
-								<a class="${colorUser}"
+								<a class="${colorUser} glyphicon glyphicon-share-alt"
 									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
 									${publication.profil.etudiant.nom}</a>
 							</c:if> <c:if test="${publication.etudiant != null}">
-								<a class="${colorUser}"
+								<a class="${colorUser} glyphicon glyphicon-share-alt"
 									href="${pageContext.request.contextPath}/profilEtudiant/${publication.etudiant.id}">${publication.etudiant.prenom}
 									${publication.etudiant.nom}</a>
 							</c:if> <c:if test="${publication.enseignant != null}">
-								<a class="${colorUser}"
+								<a class="${colorUser} glyphicon glyphicon-share-alt"
 									href="${pageContext.request.contextPath}/profilEnseignant/${publication.enseignant.id}">${publication.enseignant.prenom}
 									${publication.enseignant.nom}</a>
 							</c:if> <c:if test="${publication.groupeDTO != null}">
@@ -301,7 +299,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<p>${publication.message}</p>
+							<pre>${publication.message}</pre>
 						</div>
 					</div>
 				</div>
@@ -333,15 +331,15 @@
 						<span class="bold-font">${publication.titre}</span> <span
 							class="pull-right"> <c:if
 								test="${publication.profil != null}">
-								<a class="${colorUser}"
+								<a class="${colorUser} glyphicon glyphicon-share-alt"
 									href="${pageContext.request.contextPath}/profil/${publication.profil.etudiant.id}">${publication.profil.etudiant.prenom}
 									${publication.profil.etudiant.nom}</a>
 							</c:if> <c:if test="${publication.etudiant != null}">
-								<a class="${colorUser}"
+								<a class="${colorUser} glyphicon glyphicon-share-alt"
 									href="${pageContext.request.contextPath}/profilEtudiant/${publication.etudiant.id}">${publication.etudiant.prenom}
 									${publication.etudiant.nom}</a>
 							</c:if> <c:if test="${publication.enseignant != null}">
-								<a class="${colorUser}"
+								<a class="${colorUser} glyphicon glyphicon-share-alt"
 									href="${pageContext.request.contextPath}/profilEnseignant/${publication.enseignant.id}">${publication.enseignant.prenom}
 									${publication.enseignant.nom}</a>
 							</c:if> <c:if test="${publication.groupeDTO != null}">
@@ -364,7 +362,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<p>${publication.message}</p>
+							<pre>${publication.message}</pre>
 						</div>
 					</div>
 				</div>

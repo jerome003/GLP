@@ -25,12 +25,12 @@ textarea.fixe {
 	padding-right: 20px;
 }
 
-.linkUserNonAnim{
+.linkUserNonAnim {
 	color: #31708f;
 	padding-right: 20px;
 }
 
-.linkGroupNonAnim{
+.linkGroupNonAnim {
 	olor: #31708f;
 	padding-right: 20px;
 }
@@ -65,15 +65,22 @@ div.navbar-brand {
 .navbar-fixed-bottom {
 	padding-right: 10px;
 }
-body{
-	margin-bottom : 40px;
-}]
 
+body {
+	margin-bottom: 40px;
+}
+
+]
 footer {
 	display: block;
 	position: relative;
-	margin-top :10px;
+	margin-top: 10px;
 	bottom: 0;
 	width: 100%;
 	/* Set the fixed height of the footer here */
+}
+
+pre {
+	background-color: transparent;
+	border: none;
 }
