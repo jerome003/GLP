@@ -109,6 +109,7 @@ public class ProfilController {
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("etudiant")
 					|| sessionObj.getAttribute("type").equals("prof")) {
+				sessionObj.setAttribute("section", "profil");
 				int id = Integer.parseInt(pathVariables.get("id"));
 				AncienEtudiantDTO etu = ancienEtudiantBean.getEtudiant(id);
 				etu.getProfil().setMesCompetences(ancienEtudiantBean.getCompetences(etu));
