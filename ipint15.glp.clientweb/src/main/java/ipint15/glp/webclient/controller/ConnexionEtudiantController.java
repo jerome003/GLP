@@ -53,12 +53,9 @@ public class ConnexionEtudiantController {
 			Map attributes = principal.getAttributes();
 			Iterator attributeNames = attributes.keySet().iterator();
 			if ((String) attributes.get("nip") == null) {
-				System.out.println("nip null");
 				request.getSession().setAttribute(ATTR_CAS, null);
 				return new ModelAndView("redirect:" + request.getServletContext().getInitParameter("urlCasLogout")
 						+ request.getServletContext().getInitParameter("urlSite") + "/WrongConnexionPageEtudiant");
-			} else {
-				System.out.println("nip OK");
 			}
 			String mail = (String) attributes.get("mail");
 			String nom = (String) attributes.get("name");
@@ -70,12 +67,9 @@ public class ConnexionEtudiantController {
 			request.getSession().setAttribute("type", "etudiant");
 			EtudiantDTO etu = etudiantBean.getEtudiantByMail(mail);
 			if (etudiantBean.getEtudiantByMail(mail) != null) {
-				System.out.println("etudiant trouvé !!!");
 				request.getSession().setAttribute("type","etudiant");
 				sessionObj.setAttribute("etudiant", etu);
 				return new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
-			} else {
-				System.out.println("Etudiant pas inscrit !!!!");
 			}
 		}
 		sessionObj.setAttribute("section", "inscription");

@@ -213,7 +213,6 @@ public class AdministrationImplTest {
 	public void testValidationInscription () {
 		adminBean.validationInscription(etu);
 		etu = etuBean.getEtudiant(etu.getId());
-		System.out.println(etu.getValidation());
 		// a voir
 		//assertTrue(etu.getValidation());
 	}

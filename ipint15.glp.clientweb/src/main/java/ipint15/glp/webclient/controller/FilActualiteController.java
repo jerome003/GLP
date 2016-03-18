@@ -220,7 +220,6 @@ public class FilActualiteController {
 
 	@RequestMapping(value = "/getPublication", method = RequestMethod.GET)
 	public ModelAndView getPublication(HttpServletRequest request, int idGroupe, boolean myPublications) {
-		System.out.println("idGrp : " + idGroupe + " bool : " + myPublications);
 		HttpSession sessionObj = request.getSession();
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien")) {
