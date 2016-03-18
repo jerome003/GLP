@@ -195,7 +195,7 @@ public class SuggestionImpl implements SuggestionRemote {
 		}
 		return result;
 	}
-	
+
 	private List<AncienEtudiantDTO> randomEtuOther() {
 
 		List<AncienEtudiant> ps = em.createQuery("select o from AncienEtudiant o").getResultList();
@@ -206,7 +206,7 @@ public class SuggestionImpl implements SuggestionRemote {
 			EtudiantProfil ep = e.getProfil();
 			AncienEtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
 			psDTO.add(eDTO);
-		
+
 		}
 		while(result.size()!= 3) {
 			int tirage;
@@ -330,31 +330,39 @@ public class SuggestionImpl implements SuggestionRemote {
 	@Override
 	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu, boolean ancien) {
 		if (ancien) {
-			Random r = new Random();
-			int tirage = r.nextInt(3);
-			if (tirage == 0) {
+			if (randomEtu(idEtu).size() < 3) {
 				return randomEtu(idEtu);
-			}else if (tirage == 1){
-				return etuByGroupeInstitu(idEtu);
-			}else if (tirage == 2){
-				return etuByGroupeNonInstitu(idEtu);
 			}else {
-				return etuByEntreprise(idEtu);
+				Random r = new Random();
+				int tirage = r.nextInt(3);
+				if (tirage == 0) {
+					return randomEtu(idEtu);
+				}else if (tirage == 1){
+					return etuByGroupeInstitu(idEtu);
+				}else if (tirage == 2){
+					return etuByGroupeNonInstitu(idEtu);
+				}else {
+					return etuByEntreprise(idEtu);
+				}
 			}
 		}else {
 			return randomEtuOther();
 		}
 	}
-	
+
 	@Override
 	public List<GroupeDTO> genereSuggestionGroupe(int idEtu, boolean ancien) {
 		if (ancien) {
-			Random r = new Random();
-			int tirage = r.nextInt(2);
-			if (tirage == 0) {
-				return groupeByGroupeInstitu(idEtu);
-			}else {
+			if (randomGroupe(idEtu).size() < 3) {
 				return randomGroupe(idEtu);
+			}else {
+				Random r = new Random();
+				int tirage = r.nextInt(2);
+				if (tirage == 0) {
+					return groupeByGroupeInstitu(idEtu);
+				}else {
+					return randomGroupe(idEtu);
+				}
 			}
 		}else {
 			return randomGroupeOther();
