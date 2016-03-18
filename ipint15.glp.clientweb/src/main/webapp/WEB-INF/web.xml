@@ -16,7 +16,7 @@
 	<context-param>
 		<param-name>urlSite</param-name>
 
-		<param-value>http://b12p3.fil.univ-lille1.fr:8080/ipint15.glp.clientweb/</param-value>
+		<param-value>http://b12p10.fil.univ-lille1.fr:8080/ipint15.glp.clientweb/</param-value>
 
 	</context-param>
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -67,7 +67,7 @@
 		<init-param>
 			<param-name>serverName</param-name>
 
-			<param-value>b12p3.fil.univ-lille1.fr:8080/</param-value>
+			<param-value>b12p10.fil.univ-lille1.fr:8080/</param-value>
 
 		</init-param>
 	</filter>
@@ -82,7 +82,7 @@
 		<init-param>
 			<param-name>serverName</param-name>
 
-			<param-value>b12p3.fil.univ-lille1.fr:8080/</param-value>
+			<param-value>b12p10.fil.univ-lille1.fr:8080/</param-value>
 
 		</init-param>
 		<init-param>

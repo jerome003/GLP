@@ -11,6 +11,7 @@
         <put-attribute name="footer" value="/WEB-INF/views/conteneur/footer.jsp" />
     </definition>
 
+
    <definition name="home"
         template="/WEB-INF/views/layout/layout.jsp">
         <put-attribute name="title" value="" />

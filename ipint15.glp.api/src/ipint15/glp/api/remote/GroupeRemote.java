@@ -31,6 +31,9 @@ public interface GroupeRemote {
 	public List<GroupeDTO> getAllGroupeNonInstitutionnel();
 
 	public List<GroupeDTO> getAllMesGroupesNonInstitutionnel(AncienEtudiantDTO ancien);
+	
+	public List<GroupeDTO> getAllMesGroupeNonInstitProf(EnseignantDTO enseignant);
+	
 
 	public GroupeDTO getGroupeDTOById(int id);
 

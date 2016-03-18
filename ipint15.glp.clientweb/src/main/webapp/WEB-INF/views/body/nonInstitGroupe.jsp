@@ -2,6 +2,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <%
+	String type = (String) session.getAttribute("type");
 	if (request.getParameter("creation") != null && request.getParameter("creation").equals("ok")) {
 %>
 <script>
@@ -44,9 +45,12 @@
 			</div>
 		</div>
 		<div class="row">
+			<%
+			if ("prof".equals(type)) {
+			%>
 			<form name='form1' class="form-horizontal" role="form" method="post"
-				action="${pageContext.request.contextPath}/saveGroupeNonInstit">
-				<div class="form-group">
+				action="${pageContext.request.contextPath}/saveGroupeNonInstitProf">
+					<div class="form-group">
 					<div class="col-sm-2">
 						<label class="control-label">Nom du groupe :</label>
 					</div>
@@ -61,7 +65,8 @@
 						<label class="control-label">Description du groupe :</label>
 					</div>
 					<div class="col-sm-6">
-						<textarea class="form-control" id="descriptionGroupe" name="descriptionGroupe" required="required"></textarea>
+						<textarea class="form-control" id="descriptionGroupe"
+							name="descriptionGroupe" required="required"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -72,6 +77,45 @@
 				</div>
 
 			</form>
+			<%
+			}
+			else if ("ancien".equals(type)) {
+				
+			%>	
+			
+			<form name='form1' class="form-horizontal" role="form" method="post"
+				action="${pageContext.request.contextPath}/saveGroupeNonInstit">
+					<div class="form-group">
+					<div class="col-sm-2">
+						<label class="control-label">Nom du groupe :</label>
+					</div>
+					<div class="col-sm-6">
+						<input id="nameGroupe" name="nameGroupe" type="text"
+							class="form-control" required="required" />
+
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2">
+						<label class="control-label">Description du groupe :</label>
+					</div>
+					<div class="col-sm-6">
+						<textarea class="form-control" id="descriptionGroupe"
+							name="descriptionGroupe" required="required"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-3">
+						<input id="valider" type="submit" value="Enregistrer" />
+					</div>
+				</div>
+
+			</form>
+			
+		
+			
+			<%} %>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
@@ -100,7 +144,7 @@
 							<td></td>
 							<td class="col-md-4"><a class="btn mini blue-stripe"
 								href="${pageContext.request.contextPath}/groupe/${results.id}"
-								 role="button"><span class="glyphicon glyphicon-eye-open"></span>
+								role="button"><span class="glyphicon glyphicon-eye-open"></span>
 									Voir</a></td>
 						</tr>
 					</c:forEach>
