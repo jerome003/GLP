@@ -100,12 +100,14 @@ public class GroupeController {
 				 if (groupeBean.peutRejoindreGroupeEtudiant(id, eDTO) == true) {
 				
 				 sessionObj.setAttribute("peutRejoindreGroupe", true);
+				 //si on peut rejoindre le groupe, on ne peut pas le quitter
 				 sessionObj.setAttribute("peutQuitterGroupe", false);
 				
 				 } else {
 				
 				 sessionObj.setAttribute("peutRejoindreGroupe", false);
-				 sessionObj.setAttribute("peutQuitterGroupe", true);
+				 //si on ne peut pas rejoindre le groupe, on peut le quitter sauf si c'est le groupe institutionnel
+				 sessionObj.setAttribute("peutQuitterGroupe", groupeBean.peutQuitterGroupeEtudiant(id, eDTO));
 				 }
 				
 				if (groupeBean.membreEtudiantExistInListGroupe(id, idMembre)) {

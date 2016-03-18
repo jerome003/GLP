@@ -577,4 +577,15 @@ public class GroupeImpl implements GroupeRemote {
 		return a;
 	}
 
+	@Override
+	public boolean peutQuitterGroupeEtudiant(int idGroupe, EtudiantDTO eDTO) {
+		
+		if(eDTO.getGroupe() != null){
+			return eDTO.getGroupe().getId() != idGroupe;
+		}
+		Groupe g = em.find(Groupe.class, idGroupe);
+		Etudiant e = em.find(Etudiant.class, eDTO.getId());
+		return g.getId() != e.getGroupe().getId();
+	}
+
 }
