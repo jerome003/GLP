@@ -85,7 +85,8 @@ public class ProfilController {
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof")
 					|| sessionObj.getAttribute("type").equals("etudiant")) {
-				ModelAndView model = new ModelAndView("errorAccesRole");
+				ModelAndView model = new ModelAndView();
+				sessionObj.setAttribute("section", "profil");
 				int id = Integer.parseInt(pathVariables.get("id"));
 				EnseignantDTO enseignantConsultation = enseignantBean.getEnseignantById(id);
 				sessionObj.setAttribute("enseignantConsultation", enseignantConsultation);
@@ -118,11 +119,15 @@ public class ProfilController {
 				listeGroupes = ancienEtudiantBean.getLesGroupes(etu);
 				listeGroupes.add(etu.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
-				AncienEtudiantDTO etudiant = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 				ModelAndView modelAndView = new ModelAndView();
-				if (etudiant.getId() == id) {
-					sessionObj.setAttribute("consultation", false);
-				} else {
+				if("ancien".equals(sessionObj.getAttribute("type"))){
+					AncienEtudiantDTO etudiant = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+					if (etudiant.getId() == id) {
+						sessionObj.setAttribute("consultation", false);
+					} else {
+						sessionObj.setAttribute("consultation", true);
+					}
+				}else{
 					sessionObj.setAttribute("consultation", true);
 				}
 				sessionObj.setAttribute("profil", etu);

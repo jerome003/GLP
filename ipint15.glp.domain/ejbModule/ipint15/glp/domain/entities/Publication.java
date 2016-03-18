@@ -28,6 +28,8 @@ import ipint15.glp.api.dto.PublicationDTO;
 		// select o from Publication o left join o.groupe.ancienEtudiants a
 		// WHERE o.groupe = null OR a.id = :idetu order by o.date desc
 		@NamedQuery(name = "selectAllPublicationForAncienEtudiant", query = "select o from Publication o WHERE o.groupe = null OR EXISTS (SELECT a FROM o.groupe.ancienEtudiants a WHERE a.id = :idetu) order by o.date desc"),
+		//select o from Publication o WHERE o.groupe = null OR EXISTS (SELECT a FROM o.groupe.ancienEtudiants a WHERE a.id = :idetu) order by o.date desc
+		//select o from Publication o WHERE o.groupe = null OR o.groupe IN (select g from Groupe g join g.ancienEtudiants a where a.id = :idetu) order by o.date desc
 		@NamedQuery(name = "selectAllPublicationForEtudiant", query = "select o from Publication o WHERE o.groupe = null OR EXISTS (SELECT a FROM o.groupe.etudiants a WHERE a.id = :idetu) order by o.date desc"),
 		@NamedQuery(name = "selectAllPublicationForEnseignant", query = "select o from Publication o WHERE o.groupe = null OR EXISTS (SELECT a FROM o.groupe.enseignant a WHERE a.id = :idenseignant) order by o.date desc"),
 		@NamedQuery(name = "selectAllPublicationPublic", query = "select o from Publication o WHERE o.groupe = null order by o.date desc"),
@@ -138,7 +140,7 @@ public class Publication {
 
 	@Override
 	public String toString() {
-		return "Competence [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + ", libelle=" + titre
+		return "Publication [id=" + id + ", profil=" + ((profil != null) ? "oui" : "non") + ", groupe = " + groupe + ", libelle=" + titre
 				+ ", message =" + message + "]";
 	}
 
@@ -164,5 +166,6 @@ public class Publication {
 	public void setPostByAnim(boolean postByAnim) {
 		this.postByAnim = postByAnim;
 	}
+	
 	
 }

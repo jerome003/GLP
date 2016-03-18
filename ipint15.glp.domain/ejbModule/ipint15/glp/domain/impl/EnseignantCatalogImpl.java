@@ -42,7 +42,8 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 		e.setMail(mail);
 		e.setPrenom(prenom);
 		em.persist(e);
-		return e.toEnseignantDTO();
+		EnseignantDTO dto = e.toEnseignantDTO();
+		return dto;
 	}
 
 	@Override
@@ -58,11 +59,11 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 	@Override
 	public EnseignantDTO getEnseignantByMail(String mail) {
 		try {
-		Query q = em.createQuery("select o from Enseignant o WHERE o.mail = :mail");
-		q.setParameter("mail", mail);
-		Enseignant e = (Enseignant) q.getSingleResult();
-		EnseignantDTO dto = e.toEnseignantDTO();
-		return dto;
+			Query q = em.createQuery("select o from Enseignant o WHERE o.mail = :mail");
+			q.setParameter("mail", mail);
+			Enseignant e = (Enseignant) q.getSingleResult();
+			EnseignantDTO dto = e.toEnseignantDTO();
+			return dto;
 		} catch (NoResultException e){
 			return null;
 		}
@@ -86,11 +87,12 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 
 	@Override
 	public List<GroupeDTO> getLesGroupes(EnseignantDTO eDTO) {
+		System.out.println(eDTO == null);
 		Enseignant e = getEnseignantByMail2(eDTO.getMail());
 		// TODO gérer le cas si e = null
 		List<Groupe> mesGroupes = e.getGroupes();
 		
-		List<GroupeDTO> mesGroupesDTO = new ArrayList<>();
+		List<GroupeDTO> mesGroupesDTO = new ArrayList<GroupeDTO>();
 		mesGroupesDTO = ce.MappingEnseignantLesGroupes(e, mesGroupes);
 		
 		return mesGroupesDTO;

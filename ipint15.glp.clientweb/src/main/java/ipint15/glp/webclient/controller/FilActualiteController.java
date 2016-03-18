@@ -91,10 +91,11 @@ public class FilActualiteController {
 				sessionObj.setAttribute("section", "actualite");
 				model.addAttribute("myInjectedBean", publicationBean);
 				EnseignantDTO en = (EnseignantDTO) sessionObj.getAttribute("etudiant");
-
+				
 				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
+				
 				listeGroupes = enseignantBean.getLesGroupes(en);
-				// listeGroupes.add(etu.getGroupe());
+			
 				model.addAttribute("listeGroupes", listeGroupes);
 				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			}
@@ -108,34 +109,6 @@ public class FilActualiteController {
 		}
 	}
 
-//	@RequestMapping(value = "/fil-actualite-etudiant", method = RequestMethod.GET)
-//	public ModelAndView homeEtudiant(Locale locale, Model model, HttpServletRequest request) {
-//		// TODO impacter les roles
-//		HttpSession sessionObj = request.getSession();
-//		try {
-//
-//			if (sessionObj.getAttribute("type").equals("etudiant")) {
-//				sessionObj.setAttribute("section", "actualite");
-//				model.addAttribute("myInjectedBean", publicationBean);
-//				EtudiantDTO etudiant = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-//
-//				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
-//
-//				listeGroupes = etuBean.getLesGroupes(etudiant);
-//				listeGroupes.add(etudiant.getGroupe());
-//				model.addAttribute("listeGroupes", listeGroupes);
-//
-//				return new ModelAndView("fil-actualite-etudiant", "command", new PublicationDTO());
-//			}
-//
-//			ModelAndView modele = new ModelAndView("errorAccesRole");
-//			return modele;
-//
-//		} catch (NullPointerException e) {
-//			ModelAndView modele = new ModelAndView("errorAccesRole");
-//			return modele;
-//		}
-//	}
 
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result,
@@ -186,15 +159,7 @@ public class FilActualiteController {
 			//List<PublicationDTO> myPublications = publicationBean.getAllPublicationsEnseignant(null, -1);
 			modelView = new ModelAndView("redirect:fil-actualite", "command", new PublicationDTO());
 		}
-		/*
-		 * //Ajout d'une compétence pour notre étudiant
-		 * etudiantBean.addCompetence(eDTO, "Football");
-		 * 
-		 * // Affichage de la liste des Compétences List<CompetenceDTO>
-		 * mesCompetences = etudiantBean.getCompetences(eDTO); it =
-		 * mesCompetences.iterator(); while(it.hasNext()) { System.out.println(
-		 * "Mes compétences :" +it.next().toString()); }
-		 */
+		
 		return modelView;
 	}
 

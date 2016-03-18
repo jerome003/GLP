@@ -48,7 +48,7 @@ public class AncienEtudiantDTO implements Serializable {
 	private String diplome;
 	@NotNull(message = "Veuillez saisir une année") 
 	private int anneeDiplome;
-	private GroupeDTO groupe ;
+	private GroupeDTO groupe ; // le groupe institutionelle a ne jamais supprimer 
 	private List<GroupeDTO> lesGroupes;
 	//private List<GroupeDTO> groupesPerso; // la liste des groupes qu'un ancien peu créer !
 	private String facebook;
