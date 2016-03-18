@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import ipint15.glp.api.dto.AncienEtudiantDTO;
+import ipint15.glp.api.dto.EnseignantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 
 
@@ -29,6 +30,8 @@ public interface GroupeRemote {
 	public List<GroupeDTO> getAllGroupeNonInstitutionnel();
 
 	public List<GroupeDTO> getAllMesGroupesNonInstitutionnel(AncienEtudiantDTO ancien);
+	
+	public List<GroupeDTO> getAllMesGroupeNonInstitProf(EnseignantDTO enseignant);
 	
 	public GroupeDTO getGroupeDTOById(int id);
 

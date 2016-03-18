@@ -235,6 +235,19 @@ public class GroupeController {
 				model.addAttribute("myInjectedBean", groupeBean);
 				return modelView;
 			}
+			else if(sessionObj.getAttribute("type").equals("prof")){			
+				System.out.println("cccccccccccccccccccccccccccccccccccc");
+				EnseignantDTO ensDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
+				System.out.println("id   "+ensDTO.getId());
+				List<GroupeDTO> listeResultat = groupeBean.getAllMesGroupeNonInstitProf(ensDTO);
+				ModelAndView modelView = new ModelAndView("nonInstitGroupe", "command", new GroupeDTO());
+				modelView.addObject("liste", listeResultat);
+				model.addAttribute("myInjectedBean", groupeBean);
+				return modelView;
+				
+				
+				
+			}
 			else{
 				ModelAndView modelView = new ModelAndView("errorAccesRole");
 				return modelView;
@@ -250,11 +263,16 @@ public class GroupeController {
 
 	@RequestMapping(value = "/saveGroupeNonInstit", method = RequestMethod.POST)
 	public ModelAndView saveGroupeNonInstit(HttpServletRequest request,String nameGroupe, String descriptionGroupe) {	
+		
+		System.out.println("passe dans save groupe ancien !");
+		
+		HttpSession sessionObj = request.getSession();
 		System.out.println("passe dans le save ");		
 		ModelAndView modelView;	
+		
 		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe, false);
 		System.out.println("le groupe a été créé");
-		HttpSession sessionObj = request.getSession();
+		
 		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");		
 		ancienEtudiantBean.addAnimateurToGroupe(eDTO, gDTO);	
 		ancienEtudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO, gDTO);		
@@ -265,6 +283,30 @@ public class GroupeController {
 		return modelView;
 
 	}
+	
+	
+	@RequestMapping(value = "/saveGroupeNonInstitProf", method = RequestMethod.POST)
+	public ModelAndView saveGroupeNonInstitforProf(HttpServletRequest request,String nameGroupe, String descriptionGroupe) {	
+		System.out.println("passe dans le save prof  ");		
+		ModelAndView modelView;	
+		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe, false);
+		System.out.println("le groupe a été créé");
+		HttpSession sessionObj = request.getSession();
+		EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");		
+		enseignantBean.addAnimateurToGroupeNonInstitProf(eDTO, gDTO);	
+		enseignantBean.addAnimateurToGroupeNonInstitProf(eDTO, gDTO);
+		List<GroupeDTO> listeResultat = groupeBean.getAllMesGroupeNonInstitProf(eDTO);
+		modelView = new ModelAndView("redirect:/nonInstitGroupe", "command", new GroupeDTO());
+		modelView.addObject("liste", listeResultat);
+		modelView.addObject("creation", "ok");
+		return modelView;
+
+	}
+	
+	
+	
+	
+	
 
 
 	@RequestMapping(value = "/removeGroupe/{id}", method = RequestMethod.GET)

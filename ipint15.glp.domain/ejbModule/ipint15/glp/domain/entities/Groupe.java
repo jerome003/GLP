@@ -23,7 +23,8 @@ import ipint15.glp.api.dto.GroupeDTO;
 		@NamedQuery(name = "getGroupesOfAncienByIdAncien", query = "select g from Groupe g join g.ancienEtudiants a where a.id = :id"),
 		@NamedQuery(name="getGroupeById", query="select o from Groupe o WHERE o.id = :id"),
 		@NamedQuery(name="getGroupesInstitutionnels", query="select g from Groupe g where g.institutionnel = true"),
-		@NamedQuery(name="getGroupesNonInstitutionnels", query="select g from Groupe g where g.institutionnel = false")})
+		@NamedQuery(name="getGroupesNonInstitutionnels", query="select g from Groupe g where g.institutionnel = false and g.animateurGroupeNonInstit.id = :id"),
+		@NamedQuery(name="getGroupesNonInstitutionnelsProf", query="select g from Groupe g where g.institutionnel = false and g.animateurEnsGNonInstit.id = :id")})
 public class Groupe {
 
 	@Id

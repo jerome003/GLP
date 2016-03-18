@@ -346,9 +346,21 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
+	public List<GroupeDTO> getAllMesGroupeNonInstitProf(EnseignantDTO enseignant) {
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnelsProf", Groupe.class).setParameter("id", enseignant.getId()).getResultList();
+		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
+		for (Groupe g : gList) {
+			gDTOList.add(g.toGroupeDTO());
+		}
+
+		return gDTOList;
+	}
+	
+	
+	@Override
 	public List<GroupeDTO> getAllMesGroupesNonInstitutionnel(AncienEtudiantDTO ancien) {
 
-		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).getResultList();
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).setParameter("id", ancien.getId()).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		System.out.println("Taille de la liste"+gList.size());
 		for (Groupe g : gList) {
@@ -549,6 +561,8 @@ public class GroupeImpl implements GroupeRemote {
 		System.out.println("peut quitter le groupe" +a);
 		return a;
 	}
+
+	
 
 
 
