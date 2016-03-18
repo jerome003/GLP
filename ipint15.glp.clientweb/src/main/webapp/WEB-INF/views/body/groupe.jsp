@@ -113,18 +113,24 @@
 			</div>
 			<div class="well">
 				<h4>Animateurs</h4>
-				<c:forEach items="${groupe.animateurs}" var="anim">
+				
+				<c:if test="${groupe.animateurs != null}">
+					<c:forEach items="${groupe.animateurs}" var="anim">
+						<a class="row"
+							href="${pageContext.request.contextPath}/profilEnseignant/${anim.id}">${anim.prenom}
+							${anim.nom}</a>
+					</c:forEach>
+				</c:if>
+				<c:if test="${groupe.animateurGroupeNonInstit != null}">
 					<a class="row"
-						href="${pageContext.request.contextPath}/profilEnseignant/${anim.id}">${anim.prenom}
-						${anim.nom}</a>
-				</c:forEach>
-				<a class="row"
-					href="${pageContext.request.contextPath}/profil/${groupe.animateurGroupeNonInstit.id}">${groupe.animateurGroupeNonInstit.prenom}
-					${groupe.animateurGroupeNonInstit.nom}</a>
-					
+						href="${pageContext.request.contextPath}/profil/${groupe.animateurGroupeNonInstit.id}">${groupe.animateurGroupeNonInstit.prenom}
+						${groupe.animateurGroupeNonInstit.nom}</a>
+				</c:if>
+				<c:if test="${groupe.animateurEnsGNonInstit != null}">
 					<a class="row"
 					href="${pageContext.request.contextPath}/profil/${groupe.animateurEnsGNonInstit.id}">${groupe.animateurEnsGNonInstit.prenom}
 					${groupe.animateurEnsGNonInstit.nom}</a>
+				</c:if>
 			</div>
 			<div class="well">
 				<h4>Anciens Etudiants</h4>
