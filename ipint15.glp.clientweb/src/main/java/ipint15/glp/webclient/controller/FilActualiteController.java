@@ -65,9 +65,9 @@ public class FilActualiteController {
 				model.addAttribute("listeGroupes", listeGroupes);
 
 				// Partie sur la suggestion
-				List<AncienEtudiantDTO> listeAnciensSug = suggestionBean.genereSuggestionEtu(etu.getId());
+				List<AncienEtudiantDTO> listeAnciensSug = suggestionBean.genereSuggestionEtu(etu.getId(),true);
 				model.addAttribute("listeAnciensSug", listeAnciensSug);
-				List<GroupeDTO> listeGroupesSug = suggestionBean.genereSuggestionGroupe(etu.getId());
+				List<GroupeDTO> listeGroupesSug = suggestionBean.genereSuggestionGroupe(etu.getId(),true);
 				model.addAttribute("listeGroupesSug", listeGroupesSug);
 
 				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
@@ -83,6 +83,12 @@ public class FilActualiteController {
 				listeGroupes = etuBean.getLesGroupes(etudiant);
 				listeGroupes.add(etudiant.getGroupe());
 				model.addAttribute("listeGroupes", listeGroupes);
+				
+				// Partie sur la suggestion
+				List<AncienEtudiantDTO> listeAnciensSug = suggestionBean.genereSuggestionEtu(etudiant.getId(),false);
+				model.addAttribute("listeAnciensSug", listeAnciensSug);
+				List<GroupeDTO> listeGroupesSug = suggestionBean.genereSuggestionGroupe(etudiant.getId(),false);
+				model.addAttribute("listeGroupesSug", listeGroupesSug);
 
 				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			}
@@ -97,6 +103,13 @@ public class FilActualiteController {
 				listeGroupes = enseignantBean.getLesGroupes(en);
 			
 				model.addAttribute("listeGroupes", listeGroupes);
+				
+				// Partie sur la suggestion
+				List<AncienEtudiantDTO> listeAnciensSug = suggestionBean.genereSuggestionEtu(en.getId(),false);
+				model.addAttribute("listeAnciensSug", listeAnciensSug);
+				List<GroupeDTO> listeGroupesSug = suggestionBean.genereSuggestionGroupe(en.getId(),false);
+				model.addAttribute("listeGroupesSug", listeGroupesSug);
+				
 				return new ModelAndView("fil-actualite", "command", new PublicationDTO());
 			}
 
