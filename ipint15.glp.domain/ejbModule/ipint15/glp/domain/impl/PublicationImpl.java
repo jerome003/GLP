@@ -576,18 +576,24 @@ public class PublicationImpl implements PublicationRemote {
 		c.setDate(date);
 		c.setPublic(isPublic);
 		if (groupe != null && isAnimateurGroupeEnseignant(groupe.getId(), e.getId())) {
-			c.setPostByAnim(true);
-		} else {
-			c.setPostByAnim(false);
-		}
-
-		if (groupe != null && !groupe.isInstitutionnel()) {
-			if (isAnimateurGroupeEnseignant(groupe.getId(), e.getId())) {
-				c.setPostByAnim(true);
-			} else {
+			c.setPostByAnim(true); 
+		}else if(g.getAnimateurEnsGNonInstit() != null){
+			if(g.getAnimateurEnsGNonInstit().getId() == e.getId()){
+				c.setPostByAnim(true); 
+			}else{
 				c.setPostByAnim(false);
 			}
+		}else {
+			c.setPostByAnim(false);
 		}
+		
+//		if (groupe != null && !groupe.isInstitutionnel()) {
+//			if (isAnimateurGroupeEnseignant(groupe.getId(), e.getId())) {
+//				c.setPostByAnim(true);
+//			} else {
+//				c.setPostByAnim(false);
+//			}
+//		}
 		e.getMesPublications().add(c);
 		c.setEnseignant(e);
 		if (groupe != null) {
