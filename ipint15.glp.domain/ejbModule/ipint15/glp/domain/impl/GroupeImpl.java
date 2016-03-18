@@ -586,30 +586,25 @@ public class GroupeImpl implements GroupeRemote {
 	
 	
 	public boolean peutQuitterGroupeProf(int idGroupe, EnseignantDTO eDTO) {
-		GroupeDTO groupeAvecListeDesMembre = getGroupeDTOByIdWithMemberList(idGroupe);
-		Groupe g = getGroupeById(idGroupe);
-		boolean a = false;
-		// if(groupeAvecListeDesMembre.isInstitutionnel() == false){
-
-		if (g.getAnimateurEnsGNonInstit() != null) {
-			if (g.getAnimateurEnsGNonInstit().getId() == eDTO.getId()) { // l'animateur
-																			// c
-																			// moi
-				a = false;
-			} else { // l'animateur c pas moi
-
-				if (membreProfExistInListGroupe(idGroupe, eDTO.getId()) == true) {
-
-					a = true;
-
-				} else {
-					a = false;
+		Groupe g = em.find(Groupe.class, idGroupe);
+		Enseignant e = em.find(Enseignant.class, eDTO.getId());
+		if(g.getAnimateurEnsGNonInstit() != null){
+			//on ne quitte pas si on est l'animateur d'un groupe non institutionnel
+			if(g.getAnimateurEnsGNonInstit().getId() == e.getId()){
+				System.out.println("animateur g non inst");
+				return false;
+			}
+		}
+		if(g.getAnimateur() != null){
+			//on ne quitte pas si on est l'animateur d'un groupe institutionnel
+			for(Enseignant ens : g.getAnimateur()){
+				if(ens.getId() == e.getId()){
+					System.out.println("animateur g inst");
+					return false;
 				}
 			}
-
-		} 
-		
-		return a;
+		}
+		return true;
 	}
 
 	
