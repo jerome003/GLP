@@ -30,7 +30,6 @@ import ipint15.glp.api.remote.EtudiantCatalogRemote;
 import ipint15.glp.api.remote.GroupeRemote;
 import ipint15.glp.api.remote.PublicationRemote;
 
-
 @Controller
 @SessionAttributes
 public class GroupeController {
@@ -46,13 +45,12 @@ public class GroupeController {
 	@Inject
 	protected EnseignantCatalogRemote enseignantBean;
 
-
 	@RequestMapping(value = "/groupe/{id}", method = RequestMethod.GET)
 	public ModelAndView groupeConsult(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		try {
-			//Cas ancienEtudiant
-			if (sessionObj.getAttribute("type").equals("ancien") ) {
+			// Cas ancienEtudiant
+			if (sessionObj.getAttribute("type").equals("ancien")) {
 				int id = Integer.parseInt(pathVariables.get("id"));
 
 				AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
@@ -83,66 +81,69 @@ public class GroupeController {
 				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
 
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
-				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id ,idMembre, "ancien");
-				groupeDTO.setListPublications(listPublications);
-				// TODO
-				// model.setViewName("groupe");
-				sessionObj.setAttribute("groupe", groupeDTO);
-				return model;
-			} 
-			//Cas etudiant
-			if (sessionObj.getAttribute("type").equals("etudiant") ) {
-				int id = Integer.parseInt(pathVariables.get("id"));
-
-				EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-				System.out.println("etudiant : "+eDTO.getId());
-				int idMembre = eDTO.getId();
-				 if (groupeBean.peutRejoindreGroupeEtudiant(id, eDTO) == true) {
-				
-				 sessionObj.setAttribute("peutRejoindreGroupe", true);
-				 //si on peut rejoindre le groupe, on ne peut pas le quitter
-				 sessionObj.setAttribute("peutQuitterGroupe", false);
-				
-				 } else {
-				
-				 sessionObj.setAttribute("peutRejoindreGroupe", false);
-				 //si on ne peut pas rejoindre le groupe, on peut le quitter sauf si c'est le groupe institutionnel
-				 sessionObj.setAttribute("peutQuitterGroupe", groupeBean.peutQuitterGroupeEtudiant(id, eDTO));
-				 }
-				
-				if (groupeBean.membreEtudiantExistInListGroupe(id, idMembre)) {
-
-					sessionObj.setAttribute("peutPublier", true);
-
-				} else {
-					System.out.println("id etudiant member :"+idMembre);
-					sessionObj.setAttribute("peutPublier", false);
-
-				}
-				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
-
-				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
-				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id, idMembre, "etudiant");
+				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id, idMembre, "ancien");
 				groupeDTO.setListPublications(listPublications);
 				// TODO
 				// model.setViewName("groupe");
 				sessionObj.setAttribute("groupe", groupeDTO);
 				return model;
 			}
-			//Cas enseignant
-			if (sessionObj.getAttribute("type").equals("prof") ) {
+			// Cas etudiant
+			if (sessionObj.getAttribute("type").equals("etudiant")) {
+				int id = Integer.parseInt(pathVariables.get("id"));
+
+				EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+				System.out.println("etudiant : " + eDTO.getId());
+				int idMembre = eDTO.getId();
+				if (groupeBean.peutRejoindreGroupeEtudiant(id, eDTO) == true) {
+
+					sessionObj.setAttribute("peutRejoindreGroupe", true);
+					// si on peut rejoindre le groupe, on ne peut pas le quitter
+					sessionObj.setAttribute("peutQuitterGroupe", false);
+
+				} else {
+
+					sessionObj.setAttribute("peutRejoindreGroupe", false);
+					// si on ne peut pas rejoindre le groupe, on peut le quitter
+					// sauf si c'est le groupe institutionnel
+					sessionObj.setAttribute("peutQuitterGroupe", groupeBean.peutQuitterGroupeEtudiant(id, eDTO));
+				}
+
+				if (groupeBean.membreEtudiantExistInListGroupe(id, idMembre)) {
+
+					sessionObj.setAttribute("peutPublier", true);
+
+				} else {
+					System.out.println("id etudiant member :" + idMembre);
+					sessionObj.setAttribute("peutPublier", false);
+
+				}
+				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
+
+				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
+				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id, idMembre,
+						"etudiant");
+				groupeDTO.setListPublications(listPublications);
+				// TODO
+				// model.setViewName("groupe");
+				sessionObj.setAttribute("groupe", groupeDTO);
+				return model;
+			}
+			// Cas enseignant
+			if (sessionObj.getAttribute("type").equals("prof")) {
 				int id = Integer.parseInt(pathVariables.get("id"));
 
 				EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
 				int idMembre = eDTO.getId();
-				//TODO gerer animateur
+				// TODO gerer animateur
 				if (groupeBean.peutRejoindreGroupeEnseignant(id, eDTO) == true) {
-
 					sessionObj.setAttribute("peutRejoindreGroupe", true);
+					// si on peut rejoindre le groupe, on ne peut pas le quitter
 					sessionObj.setAttribute("peutQuitterGroupe", false);
 				} else {
 
 					sessionObj.setAttribute("peutRejoindreGroupe", false);
+					// si on ne peut pas rejoindre le groupe, on peut le quitter a moins d'etre animateur
 					sessionObj.setAttribute("peutQuitterGroupe", true);
 				}
 
@@ -152,20 +153,12 @@ public class GroupeController {
 				} else {
 					sessionObj.setAttribute("peutPublier", false);
 				}
-//				if (groupeBean.peutQuitterGroupe(id, idMembre) == true) {
-//					System.out.println("passe dans peut quitter groupe");
-//					sessionObj.setAttribute("peutQuitterGroupe", true);
-//				} else {
-//					System.out.println("peut quitter groupe passe pas ");
-//					sessionObj.setAttribute("peutQuitterGroupe", false);
-//				}
+
 				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
 
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
-				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id, idMembre,"prof");
+				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id, idMembre, "prof");
 				groupeDTO.setListPublications(listPublications);
-				// TODO
-				// model.setViewName("groupe");
 				sessionObj.setAttribute("groupe", groupeDTO);
 				return model;
 			}
@@ -192,22 +185,25 @@ public class GroupeController {
 
 				return new ModelAndView("redirect:/groupe/" + id);
 			}
-						if (sessionObj.getAttribute("type").equals("etudiant") ) {
-							int idp = Integer.parseInt(id);
-							GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(idp);
-							EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
-							etudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO, groupeDTO);
-			
-							return new ModelAndView("redirect:/groupe/" + id);
-						}
-			//			if (sessionObj.getAttribute("type").equals("prof")) {
-			//				int idp = Integer.parseInt(id);
-			//				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(idp);
-			//				AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
-			//				ancienEtudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO, groupeDTO);
+			if (sessionObj.getAttribute("type").equals("etudiant")) {
+				int idp = Integer.parseInt(id);
+				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(idp);
+				EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+				etudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO, groupeDTO);
+
+				return new ModelAndView("redirect:/groupe/" + id);
+			}
+			// if (sessionObj.getAttribute("type").equals("prof")) {
+			// int idp = Integer.parseInt(id);
+			// GroupeDTO groupeDTO =
+			// groupeBean.getGroupeDTOByIdWithMemberList(idp);
+			// AncienEtudiantDTO eDTO = (AncienEtudiantDTO)
+			// sessionObj.getAttribute("etudiant");
+			// ancienEtudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO,
+			// groupeDTO);
 			//
-			//				return new ModelAndView("redirect:/groupe/" + id);
-			//			}
+			// return new ModelAndView("redirect:/groupe/" + id);
+			// }
 			ModelAndView model = new ModelAndView("errorAccesRole");
 			return model;
 
@@ -217,9 +213,6 @@ public class GroupeController {
 		}
 
 	}
-
-
-
 
 	@RequestMapping(value = "/nonInstitGroupe", method = RequestMethod.GET)
 	public ModelAndView homeNonInstitGroupes(Locale locale, Model model, HttpServletRequest request) {
@@ -233,8 +226,7 @@ public class GroupeController {
 				modelView.addObject("liste", listeResultat);
 				model.addAttribute("myInjectedBean", groupeBean);
 				return modelView;
-			}
-			else{
+			} else {
 				ModelAndView modelView = new ModelAndView("errorAccesRole");
 				return modelView;
 			}
@@ -244,19 +236,16 @@ public class GroupeController {
 		}
 	}
 
-
-
-
 	@RequestMapping(value = "/saveGroupeNonInstit", method = RequestMethod.POST)
-	public ModelAndView saveGroupeNonInstit(HttpServletRequest request,String nameGroupe, String descriptionGroupe) {	
-		System.out.println("passe dans le save ");		
-		ModelAndView modelView;	
+	public ModelAndView saveGroupeNonInstit(HttpServletRequest request, String nameGroupe, String descriptionGroupe) {
+		System.out.println("passe dans le save ");
+		ModelAndView modelView;
 		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe, false);
 		System.out.println("le groupe a été créé");
 		HttpSession sessionObj = request.getSession();
-		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");		
-		ancienEtudiantBean.addAnimateurToGroupe(eDTO, gDTO);	
-		ancienEtudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO, gDTO);		
+		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
+		ancienEtudiantBean.addAnimateurToGroupe(eDTO, gDTO);
+		ancienEtudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO, gDTO);
 		List<GroupeDTO> listeResultat = groupeBean.getAllMesGroupesNonInstitutionnel(eDTO);
 		modelView = new ModelAndView("redirect:/nonInstitGroupe", "command", new GroupeDTO());
 		modelView.addObject("liste", listeResultat);
@@ -265,14 +254,13 @@ public class GroupeController {
 
 	}
 
-
 	@RequestMapping(value = "/removeGroupe/{id}", method = RequestMethod.GET)
 	public ModelAndView removeGroup(Locale locale, Model model, HttpServletRequest request,
 			@PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 		System.out.println("cc1");
-		ModelAndView modelView ;
+		ModelAndView modelView;
 		modelView = new ModelAndView("redirect:/nonInstitGroupe");
 
 		System.out.println("cc2");
@@ -292,9 +280,6 @@ public class GroupeController {
 		return modelView;
 	}
 
-
-
-
 	@RequestMapping(value = "/quitterGroupe/{id}", method = RequestMethod.GET)
 	public ModelAndView quitterGroupe(HttpServletRequest request, @PathVariable String id) {
 		HttpSession sessionObj = request.getSession();
@@ -306,7 +291,7 @@ public class GroupeController {
 				ancienEtudiantBean.removeGroupeInLesGroupes(eDTO, groupeDTO);
 
 				return new ModelAndView("redirect:/groupe/" + id);
-			} 
+			}
 			if (sessionObj.getAttribute("type").equals("etudiant")) {
 				int idp = Integer.parseInt(id);
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(idp);
@@ -315,14 +300,16 @@ public class GroupeController {
 
 				return new ModelAndView("redirect:/groupe/" + id);
 			}
-			//			if (sessionObj.getAttribute("type").equals("prof") ) {
-			//				int idp = Integer.parseInt(id);
-			//				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(idp);
-			//				EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
-			//				enseignantBean.removeGroupeInLesGroupes(eDTO, groupeDTO);
+			// if (sessionObj.getAttribute("type").equals("prof") ) {
+			// int idp = Integer.parseInt(id);
+			// GroupeDTO groupeDTO =
+			// groupeBean.getGroupeDTOByIdWithMemberList(idp);
+			// EnseignantDTO eDTO = (EnseignantDTO)
+			// sessionObj.getAttribute("etudiant");
+			// enseignantBean.removeGroupeInLesGroupes(eDTO, groupeDTO);
 			//
-			//				return new ModelAndView("redirect:/groupe/" + id);
-			//			} 
+			// return new ModelAndView("redirect:/groupe/" + id);
+			// }
 			ModelAndView model = new ModelAndView("errorAccesRole");
 			return model;
 
@@ -333,13 +320,13 @@ public class GroupeController {
 
 	}
 
-
-	/*En cours de modification*/
+	/* En cours de modification */
 
 	@RequestMapping(value = "*/addPublicationGroupe", method = RequestMethod.POST)
 	public ModelAndView addPublication(@ModelAttribute("command") PublicationDTO publication, BindingResult result,
 			HttpServletRequest request) {
-		//Ajouter le lien dans groupe --> grp.setPublication(getPublication.add(publication))
+		// Ajouter le lien dans groupe -->
+		// grp.setPublication(getPublication.add(publication))
 		HttpSession sessionObj = request.getSession();
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien")) {
@@ -358,33 +345,31 @@ public class GroupeController {
 				EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
 
 				if (publication.getGroupeDTO().getId() == -1) {
-					publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-							null);
+					publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(),
+							new Date(), true, null);
 				} else {
-					publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-							publication.getGroupeDTO());
+					publicationBean.addPublicationEtudiant(eDTO, publication.getTitre(), publication.getMessage(),
+							new Date(), true, publication.getGroupeDTO());
 				}
 				List<PublicationDTO> myPublications = publicationBean.getAllPublicationsEtudiant(null, -1);
 			}
 			if (sessionObj.getAttribute("type").equals("prof")) {
 				EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
 				if (publication.getGroupeDTO().getId() == -1) {
-					publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-							null);
+					publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(),
+							new Date(), true, null);
 				} else {
-					publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(), new Date(), true,
-							publication.getGroupeDTO());
+					publicationBean.addPublicationEnseignant(eDTO, publication.getTitre(), publication.getMessage(),
+							new Date(), true, publication.getGroupeDTO());
 				}
 				List<PublicationDTO> myPublications = publicationBean.getAllPublicationsEnseignant(null, -1);
 			}
-			return new ModelAndView("redirect:" + publication.getGroupeDTO().getId(), "command",
-					new PublicationDTO());
+			return new ModelAndView("redirect:" + publication.getGroupeDTO().getId(), "command", new PublicationDTO());
 
 		} catch (NullPointerException e) {
 			ModelAndView model = new ModelAndView("errorAccesRole");
 			return model;
 		}
-
 
 	}
 }

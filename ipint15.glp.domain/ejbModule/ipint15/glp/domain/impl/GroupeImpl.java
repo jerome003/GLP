@@ -554,7 +554,6 @@ public class GroupeImpl implements GroupeRemote {
 		if (membreExistInListGroupe(idGroupe, eDTO.getId())) {
 			a = false;
 		} else {
-			/// if(idGroupe != eDTO.getGroupe().getId()){
 			if (g.getAnimateurGroupeNonInstit() != null) {
 				if (g.getAnimateurGroupeNonInstit().getId() == eDTO.getId()) {
 					a = false;
@@ -569,23 +568,31 @@ public class GroupeImpl implements GroupeRemote {
 					a = peurej;
 				}
 			}
-			// }
-			// else{
-			// a = false;
-			// }
 		}
 		return a;
 	}
 
 	@Override
 	public boolean peutQuitterGroupeEtudiant(int idGroupe, EtudiantDTO eDTO) {
-		
-		if(eDTO.getGroupe() != null){
+
+		if (eDTO.getGroupe() != null) {
 			return eDTO.getGroupe().getId() != idGroupe;
 		}
 		Groupe g = em.find(Groupe.class, idGroupe);
 		Etudiant e = em.find(Etudiant.class, eDTO.getId());
 		return g.getId() != e.getGroupe().getId();
+	}
+
+	@Override
+	public boolean peutQuitterGroupeEnseignant(int idGroupe, EnseignantDTO eDTO) {
+		Groupe g = em.find(Groupe.class, idGroupe);
+		Enseignant e = em.find(Enseignant.class, eDTO.getId());
+		for (Groupe groupe : e.getGroupesAnimes()) {
+			if (groupe.getId() == idGroupe) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
