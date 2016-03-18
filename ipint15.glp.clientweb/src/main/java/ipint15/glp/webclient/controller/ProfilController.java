@@ -57,48 +57,55 @@ public class ProfilController {
 
 
 	@RequestMapping(value = "/profilEtudiant/{id}", method = RequestMethod.GET)
-	public ModelAndView profilEtudiant(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
+	public ModelAndView profilEtudiant(HttpServletRequest request, Model model, @PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof")
 					|| sessionObj.getAttribute("type").equals("etudiant")) {
-				ModelAndView model = new ModelAndView();
+				ModelAndView modelAndView = new ModelAndView();
 				sessionObj.setAttribute("section", "profil");
 				int id = Integer.parseInt(pathVariables.get("id"));
 				EtudiantDTO etudiantConsultation = etudiantBean.getEtudiantById(id);
 				sessionObj.setAttribute("etudiantConsultation", etudiantConsultation);
-				model.setViewName("profilEtudiant");
-				return model;
+				modelAndView.setViewName("profilEtudiant");
+				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
+				listeGroupes = etudiantBean.getLesGroupes(etudiantConsultation);
+				listeGroupes.add(etudiantConsultation.getGroupe());
+				model.addAttribute("listeGroupes", listeGroupes);
+				return modelAndView;
 			}
 		} catch (NullPointerException e) {
-			ModelAndView model = new ModelAndView("errorAccesRole");
-			return model;
+			ModelAndView modelAndView = new ModelAndView("errorAccesRole");
+			return modelAndView;
 		}
-		ModelAndView model = new ModelAndView("errorAccesRole");
-		return model;
+		ModelAndView modelAndView = new ModelAndView("errorAccesRole");
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "/profilEnseignant/{id}", method = RequestMethod.GET)
-	public ModelAndView profilEnseignant(HttpServletRequest request, @PathVariable Map<String, String> pathVariables) {
+	public ModelAndView profilEnseignant(HttpServletRequest request,Model model, @PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		try {
 			if (sessionObj.getAttribute("type").equals("ancien") || sessionObj.getAttribute("type").equals("prof")
 					|| sessionObj.getAttribute("type").equals("etudiant")) {
-				ModelAndView model = new ModelAndView();
+				ModelAndView modelAndView = new ModelAndView();
 				sessionObj.setAttribute("section", "profil");
 				int id = Integer.parseInt(pathVariables.get("id"));
 				EnseignantDTO enseignantConsultation = enseignantBean.getEnseignantById(id);
 				sessionObj.setAttribute("enseignantConsultation", enseignantConsultation);
-				model.setViewName("profilEnseignant");
-				return model;
+				modelAndView.setViewName("profilEnseignant");
+				List<GroupeDTO> listeGroupes = new ArrayList<GroupeDTO>();
+				listeGroupes = enseignantBean.getLesGroupes(enseignantConsultation);
+				model.addAttribute("listeGroupes", listeGroupes);
+				return modelAndView;
 			}
 		} catch (NullPointerException e) {
-			ModelAndView model = new ModelAndView("errorAccesRole");
-			return model;
+			ModelAndView modelAndView = new ModelAndView("errorAccesRole");
+			return modelAndView;
 		}
-		ModelAndView model = new ModelAndView("errorAccesRole");
-		return model;
+		ModelAndView modelAndView = new ModelAndView("errorAccesRole");
+		return modelAndView;
 	}
 
 	// permet de renvoyer la page de profil de la personne ayant l'id choisi

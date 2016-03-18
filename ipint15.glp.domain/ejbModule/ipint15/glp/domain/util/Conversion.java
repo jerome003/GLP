@@ -78,15 +78,12 @@ public class Conversion {
 		// Conversion de l'étudiant en EtudiantProfilDTO et de la Competence
 		// CompetenceDTO
 		EtudiantProfilDTO epDto = ep.toEtudiantProfilDTO();
-		System.out.println(epDto);
 		epDto.setEtudiant(MappingEtudiantProfil(ep.getEtudiant(), ep));
 		PublicationDTO cDTO = p.toPublicationDTO();
 		if (p.getGroupe() == null) {
 			cDTO.setGroupeDTO(null);
-			System.out.println("No group");
 		} else {
 			cDTO.setGroupeDTO(p.getGroupe().toGroupeDTO());
-			System.out.println("Group");
 		}
 		cDTO.setPublicationPublic(p.isPublic());
 		cDTO.setPostByAnim(p.isPostByAnim());
@@ -104,10 +101,8 @@ public class Conversion {
 		PublicationDTO pDTO = p.toPublicationDTO();
 		if (p.getGroupe() == null) {
 			pDTO.setGroupeDTO(null);
-			System.out.println("No group");
 		} else {
 			pDTO.setGroupeDTO(p.getGroupe().toGroupeDTO());
-			System.out.println("Group");
 		}
 		pDTO.setPublicationPublic(p.isPublic());
 		// Mapping de l'etudiant avec sa publication
@@ -122,13 +117,10 @@ public class Conversion {
 		
 		EnseignantDTO eDto = e.toEnseignantDTO();
 		PublicationDTO pDTO = p.toPublicationDTO();
-		System.out.println(p);
 		if (p.getGroupe() == null) {
 			pDTO.setGroupeDTO(null);
-			System.out.println("No group");
 		} else {
 			pDTO.setGroupeDTO(p.getGroupe().toGroupeDTO());
-			System.out.println("Group");
 		}
 		pDTO.setPublicationPublic(p.isPublic());
 		// Mapping de l'enseignant avec sa publication

@@ -96,7 +96,6 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 
 	@Override
 	public List<GroupeDTO> getLesGroupes(EnseignantDTO eDTO) {
-		System.out.println(eDTO == null);
 		Enseignant e = getEnseignantByMail2(eDTO.getMail());
 		// TODO gérer le cas si e = null
 		List<Groupe> mesGroupes = e.getGroupes();

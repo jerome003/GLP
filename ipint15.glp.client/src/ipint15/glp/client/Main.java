@@ -29,6 +29,8 @@ public class Main {
 	private static AncienEtudiantDTO etudiant2;
 	private static AncienEtudiantDTO etudiant3;
 	private static AncienEtudiantDTO etudiant4;
+	private static AncienEtudiantDTO etudiant5;
+	private static AncienEtudiantDTO etudiant6;
 	private static GroupeDTO groupe;
 	private static GroupeDTO groupe2;
 	private static GroupeDTO groupe3;
@@ -46,6 +48,7 @@ public class Main {
 	private static EnseignantDTO prof2;
 	private static EnseignantDTO prof3;
 	private static EnseignantDTO prof4;
+	
 
 	public static void main(String[] args) {
 		try {
@@ -55,7 +58,9 @@ public class Main {
 			groupBean = (GroupeRemote)ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/GroupeImpl");
 			adminBean = (AdministrationRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/AdministrationImpl");
 			enseignBean = (EnseignantCatalogRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/EnseignantCatalogImpl");
-
+			pubBean = (PublicationRemote) ctx.lookup("java:global/ipint15.glp.ear/ipint15.glp.domain/PublicationImpl");
+			
+			
 
 			moderateur = adminBean.createModerateur("Sarra", "Bahbah", "sara@googleNON.bla", adminBean.generatePassword(8));
 			moderateur2 = adminBean.createModerateur("Maxime", "Gidon", "maxime@googleNON.bla", adminBean.generatePassword(8));
@@ -86,11 +91,16 @@ public class Main {
 			etudiant =etuBean.createEtudiant("Sarra", "Bahbah", Civilite.Mme, "sara@googleNON.bla","000000",adminBean.generatePassword(8), 
 					new Date(),"Sans emploi","Dev", "Paris", "CGI","miage", 2015, groupe);
 			etudiant2 =etuBean.createEtudiant("Roberto", "Sanchez", Civilite.M, "roberto@googleNON.bla","000000", 
-					adminBean.generatePassword(8), new Date(),"Sans emploi","Dev", "Lille", "CGI","miage", 2015, groupe);
+					adminBean.generatePassword(8), new Date(),"Sans emploi","Dev", "Lille", "GFI","miage", 2015, groupe);
 			etudiant3 =etuBean.createEtudiant("Maxime", "Gidon", Civilite.M, "maxime@googleNON.bla","000000", 
 					adminBean.generatePassword(8), new Date(),"Sans emploi","Dev", "Lyon", "Worldline","miage", 2015, groupe2);
 			etudiant4 =etuBean.createEtudiant("Paolo", "Delpiro", Civilite.M, "paolo@googleNON.bla","000000",
-					adminBean.generatePassword(8), new Date(),"Sans emploi","Dev", "Lille", "CGI","miage", 2015, groupe2);
+					adminBean.generatePassword(8), new Date(),"Sans emploi","Dev", "Lille", "GFI","miage", 2015, groupe2);
+			
+			etudiant5 =etuBean.createEtudiant("Sa", "Ba", Civilite.Mme, "sara@gooNON.bla","000000",adminBean.generatePassword(8), 
+					new Date(),"Sans emploi","Dev", "Paris", "CGI","miage", 2015, groupe2);
+			etudiant6 =etuBean.createEtudiant("Sarraaaa", "Bahbahaaaa", Civilite.Mme, "sara@goaaaaaogleNON.bla","000000",adminBean.generatePassword(8), 
+					new Date(),"Sans emploi","Dev", "Paris", "CGI","miage", 2015, groupe2);
 			
 			System.out.println("etudiant 1 est : "+ etudiant.getPrenom()+" "+etudiant.getNom()+" son adresse mail : "+etudiant.getEmail()+" et son mot de passe : "+etudiant.getPassword());
 			System.out.println("etudiant 2 est : "+ etudiant2.getPrenom()+" "+etudiant2.getNom()+" son adresse mail : "+etudiant2.getEmail()+" et son mot de passe : "+etudiant2.getPassword());
@@ -109,7 +119,7 @@ public class Main {
 			
 
 
-			etuBean.addGroupeInLesGroupesNonInstitEtudiant(etudiant, groupe5);
+			etuBean.addGroupeInLesGroupesNonInstitEtudiant(etudiant2, groupe5);
 			etuBean.addGroupeInLesGroupesNonInstitEtudiant(etudiant3, groupe5);
 			
 			System.out.println(" Etudiant 1 et etudiant 3 ont rejoins le groupe non institutionnel : "+groupe5.getName());
@@ -125,6 +135,10 @@ public class Main {
 			System.out.println("Prof 3 est : "+prof3.getNom()+" "+prof3.getPrenom()+" son adresse mail est : "+prof3.getMail());
 			System.out.println("Prof 4 est : "+prof4.getNom()+" "+prof4.getPrenom()+" son adresse mail est : "+prof4.getMail());
 			System.out.println("------------------------------------------------------------------------------------------------");
+			
+			for (int i = 0; i<30; i++) {
+				pubBean.addPublication(etudiant, "wesh alors", "wesh aloooooors", new Date(), true, groupe);
+			}
 
 
 		} catch (NamingException e) {

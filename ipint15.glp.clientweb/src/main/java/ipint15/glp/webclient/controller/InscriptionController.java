@@ -85,12 +85,6 @@ public class InscriptionController {
 		 //Ajout d'une compétence pour notre étudiant
 		etudiantBean.addCompetence(eDTO, "Football");
 		
-		// Affichage de la liste des Compétences
-		List<CompetenceDTO> mesCompetences = etudiantBean.getCompetences(eDTO);
-		it = mesCompetences.iterator();
-		while(it.hasNext()) {
-			System.out.println("Mes compétences :" +it.next().toString());
-		}
 		*/
 		
 		return "inscriptionOK";
