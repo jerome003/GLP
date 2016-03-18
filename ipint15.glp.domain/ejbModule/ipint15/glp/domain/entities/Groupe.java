@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import ipint15.glp.api.dto.EnseignantDTO;
 import ipint15.glp.api.dto.GroupeDTO;
 
 @Entity
@@ -43,7 +44,7 @@ public class Groupe {
 	private List<Publication> publications;
 	
 	private AncienEtudiant animateurGroupeNonInstit;
-	
+	private Enseignant animateurEnsGNonInstit;
 	private boolean institutionnel;
 
 	private String name;
@@ -191,6 +192,14 @@ public class Groupe {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public Enseignant getAnimateurEnsGNonInstit() {
+		return animateurEnsGNonInstit;
+	}
+
+	public void setAnimateurEnsGNonInstit(Enseignant animateurEnsGNonInstit) {
+		this.animateurEnsGNonInstit = animateurEnsGNonInstit;
 	}
 	
 	

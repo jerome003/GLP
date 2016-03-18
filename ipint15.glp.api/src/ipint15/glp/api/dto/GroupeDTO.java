@@ -18,6 +18,7 @@ public class GroupeDTO implements Serializable {
 	private List<EnseignantDTO> animateurs;
 
 	private AncienEtudiantDTO animateurGroupeNonInstit;
+	private EnseignantDTO animateurEnsGNonInstit;
 
 	private List<EnseignantDTO> enseignants;
 
@@ -186,6 +187,14 @@ public class GroupeDTO implements Serializable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public EnseignantDTO getAnimateurEnsGNonInstit() {
+		return animateurEnsGNonInstit;
+	}
+
+	public void setAnimateurEnsGNonInstit(EnseignantDTO animateurEnsGNonInstit) {
+		this.animateurEnsGNonInstit = animateurEnsGNonInstit;
 	}
 	
 
