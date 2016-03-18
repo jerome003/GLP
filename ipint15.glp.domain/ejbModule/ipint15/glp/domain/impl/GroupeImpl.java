@@ -320,9 +320,21 @@ public class GroupeImpl implements GroupeRemote {
 	}
 
 	@Override
+	public List<GroupeDTO> getAllMesGroupeNonInstitProf(EnseignantDTO enseignant) {
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnelsProf", Groupe.class).setParameter("id", enseignant.getId()).getResultList();
+		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
+		for (Groupe g : gList) {
+			gDTOList.add(g.toGroupeDTO());
+		}
+
+		return gDTOList;
+	}
+	
+	
+	@Override
 	public List<GroupeDTO> getAllMesGroupesNonInstitutionnel(AncienEtudiantDTO ancien) {
 
-		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).getResultList();
+		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).setParameter("id", ancien.getId()).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
 		for (Groupe g : gList) {
 			if(g.getAnimateurGroupeNonInstit() != null){
