@@ -137,18 +137,6 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 
 	@Override
 	public void addGroupeInLesGroupesNonInstitProf(EnseignantDTO eDTO, GroupeDTO gDTO) {
-		// Enseignant ens = getEnseignantByMail2(eDTO.getMail());
-		// Groupe grp = getGroupeById(gDTO.getId());
-		// List<Groupe> lesGroupes = ens.getGroupes();
-		// lesGroupes.add(grp);
-		// ens.setGroupes(lesGroupes);
-		// grp.getEnseignant().add(ens);
-		// System.out.println("Nom de l'animateur
-		// aaa"+grp.getAnimateurEnsGNonInstit().getNom());
-		// em.persist(grp);
-		// em.persist(ens);
-		// System.out.println("Nom de l'animateur aaa
-		// 2"+grp.getAnimateurEnsGNonInstit().getNom());
 		Enseignant ens = em.find(Enseignant.class, eDTO.getId());
 		Groupe g = em.find(Groupe.class, gDTO.getId());
 		ens.getGroupes().add(g);
@@ -159,18 +147,12 @@ public class EnseignantCatalogImpl implements EnseignantCatalogRemote {
 
 	@Override
 	public void addAnimateurToGroupeNonInstitProf(EnseignantDTO eDTO, GroupeDTO gDTO) {
-
 		Enseignant ens = em.find(Enseignant.class, eDTO.getId());
 		Groupe g = em.find(Groupe.class, gDTO.getId());
 		g.setAnimateurEnsGNonInstit(ens);
-		// System.out.println("Nom de l'animateur aaa
-		// 000"+g.getAnimateurEnsGNonInstit().getNom());
+		ens.getGroupesAnimes().add(g);
 		em.persist(g);
 		em.persist(ens);
-		// Groupe g1 = getGroupeById(gDTO.getId());
-		// System.out.println("Nom de l'animateur aaa
-		// 1111"+g1.getAnimateurEnsGNonInstit().getNom());
-
 	}
 
 }
