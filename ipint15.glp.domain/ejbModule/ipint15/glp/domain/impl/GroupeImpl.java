@@ -230,14 +230,10 @@ public class GroupeImpl implements GroupeRemote {
 		GroupeDTO gDTO = g.toGroupeDTO();
 		List<AncienEtudiantDTO> listAe = new ArrayList<>();
 		List<AncienEtudiant> list = g.getAncienEtudiants();
-		System.out.println("List : " + list);
-		System.out.println("Size List : " + list.size());
 		for (AncienEtudiant ae : list) {
 			listAe.add(ae.toEtudiantDTO());
 		}
 		gDTO.setAncienEtudiants(listAe);
-		System.out.println("List DTO : " + gDTO.getAncienEtudiants());
-		System.out.println("Size List DTO : " + gDTO.getAncienEtudiants().size());
 
 		List<EnseignantDTO> listEnseignDTO = new ArrayList<>();
 		List<Enseignant> listEnseign = g.getEnseignant();
@@ -328,12 +324,10 @@ public class GroupeImpl implements GroupeRemote {
 
 		List<Groupe> gList = em.createNamedQuery("getGroupesNonInstitutionnels", Groupe.class).getResultList();
 		List<GroupeDTO> gDTOList = new ArrayList<GroupeDTO>();
-		System.out.println("Taille de la liste" + gList.size());
 		for (Groupe g : gList) {
-			if (g.getAnimateurGroupeNonInstit() != null) {
-				System.out.println(
-						"id de l'animateur du groupe quand il existe est :" + g.getAnimateurGroupeNonInstit().getId());
-				if (g.getAnimateurGroupeNonInstit().getId() == ancien.getId()) {
+			if(g.getAnimateurGroupeNonInstit() != null){
+				if(g.getAnimateurGroupeNonInstit().getId() == ancien.getId()){
+
 					gDTOList.add(g.toGroupeDTO());
 				}
 			}
@@ -364,9 +358,8 @@ public class GroupeImpl implements GroupeRemote {
 
 					else {
 						boolean peurej = true;
-						for (AncienEtudiantDTO ancien : ancienEtdiantDTO) {
-							if (ancien.getId() == eDTO.getId()) {
-								System.out.println("je fais deja partie du groupe donc je peux publier dans le groupe");
+						for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
+							if(ancien.getId() == eDTO.getId()){
 								peurej = false;
 							}
 						}
@@ -396,9 +389,9 @@ public class GroupeImpl implements GroupeRemote {
 
 			else {
 				boolean peurej = true;
-				for (AncienEtudiantDTO ancien : ancienEtdiantDTO) {
-					if (ancien.getId() == idMembre) {
-						System.out.println("je fais deja partie du groupe donc je peux publier dans le groupe");
+				for (AncienEtudiantDTO ancien : ancienEtdiantDTO ){
+					if(ancien.getId() == idMembre){
+
 						peurej = false;
 					}
 				}
@@ -468,49 +461,41 @@ public class GroupeImpl implements GroupeRemote {
 		boolean a = false;
 		// if(groupeAvecListeDesMembre.isInstitutionnel() == false){
 
-		if (g.getAnimateurGroupeNonInstit() != null) {
-			System.out.println("l'animateur n'est pas vide");
-			if (g.getAnimateurGroupeNonInstit().getId() == eDTO.getId()) { // l'animateur
-																			// c
-																			// moi
-				System.out.println("L'animateur c moi " + g.getAnimateurGroupeNonInstit().getId() + " == "
-						+ eDTO.getId() + "je ne peux pas quitter le groupe");
+		if(g.getAnimateurGroupeNonInstit() != null){
+			if(g.getAnimateurGroupeNonInstit().getId() == eDTO.getId()) { //l'animateur c moi
 				a = false;
 			} else { // l'animateur c pas moi
 
-				if (membreExistInListGroupe(idGroupe, eDTO.getId()) == true) {
-					System.out.println(
-							"l'animateur c pas moi donc je peix et je fais partie du groupe quitter le groupe");
+				if(membreExistInListGroupe(idGroupe, eDTO.getId()) == true){
+
 					a = true;
-				} else {
-					System.out.println(
-							"l'animateur c pas moi, je ne fais pas partie du groupe je ne peux pas le quitter");
+
+				}else{
 					a = false;
 				}
 			}
 
 		} else { // pas d'annimateur donc c un grouope institutionnel
 
-			if (membreExistInListGroupe(idGroupe, eDTO.getId()) == true) {
-
-				if (idGroupe == eDTO.getGroupe().getId()) {
+			if(membreExistInListGroupe(idGroupe, eDTO.getId()) == true){
+				if(idGroupe == eDTO.getGroupe().getId()){
 					a = false;
-				} else {
+				}else{
 
-					System.out.println(
-							"l'animateur c pas moi donc je peix et je fais partie du groupe quitter le groupe");
 					a = true;
 				}
-			} else {
-				System.out.println("l'animateur c pas moi, je ne fais pas partie du groupe je ne peux pas le quitter");
+			}else{
 				a = false;
 			}
 
 		}
+		/*}
+		else{
+			a = false;
+		}*/
 		/*
 		 * } else{ a = false; }
 		 */
-		System.out.println("peut quitter le groupe" + a);
 		return a;
 	}
 

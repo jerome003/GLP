@@ -72,16 +72,53 @@ public class GroupeController {
 					sessionObj.setAttribute("peutPublier", false);
 				}
 				if (groupeBean.peutQuitterGroupeAncien(id, eDTO) == true) {
-					System.out.println("passe dans peut quitter groupe");
 					sessionObj.setAttribute("peutQuitterGroupe", true);
 				} else {
-					System.out.println("peut quitter groupe passe pas ");
 					sessionObj.setAttribute("peutQuitterGroupe", false);
 				}
 				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
 
 				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
-				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id, idMembre, "ancien");
+				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id ,idMembre, "ancien");
+				groupeDTO.setListPublications(listPublications);
+				// TODO
+				// model.setViewName("groupe");
+				sessionObj.setAttribute("groupe", groupeDTO);
+				return model;
+			} 
+			if (sessionObj.getAttribute("type").equals("etudiant") ) {
+				int id = Integer.parseInt(pathVariables.get("id"));
+
+				EtudiantDTO eDTO = (EtudiantDTO) sessionObj.getAttribute("etudiant");
+				int idMembre = eDTO.getId();
+
+//
+//				if (groupeBean.peutRejoindreGroupe(id, idMembre) == true) {
+//
+//					sessionObj.setAttribute("peutRejoindreGroupe", true);
+//
+//				} else {
+//
+//					sessionObj.setAttribute("peutRejoindreGroupe", false);
+//				}
+//
+				if (groupeBean.membreEtudiantExistInListGroupe(id, idMembre)) {
+
+					sessionObj.setAttribute("peutPublier", true);
+
+				} else {
+					sessionObj.setAttribute("peutPublier", false);
+
+				}
+//				if (groupeBean.peutQuitterGroupe(id, idMembre) == true) {
+//					sessionObj.setAttribute("peutQuitterGroupe", true);
+//				} else {
+//					sessionObj.setAttribute("peutQuitterGroupe", false);
+//				}
+				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
+
+				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(id);
+				List<PublicationDTO> listPublications = publicationBean.getAllGroupPublications(id, idMembre, "etudiant");
 				groupeDTO.setListPublications(listPublications);
 				// TODO
 				// model.setViewName("groupe");
@@ -153,6 +190,11 @@ public class GroupeController {
 				} else {
 					sessionObj.setAttribute("peutPublier", false);
 				}
+//				if (groupeBean.peutQuitterGroupe(id, idMembre) == true) {
+//					sessionObj.setAttribute("peutQuitterGroupe", true);
+//				} else {
+//					sessionObj.setAttribute("peutQuitterGroupe", false);
+//				}
 
 				ModelAndView model = new ModelAndView("groupe", "command", new PublicationDTO());
 
@@ -234,11 +276,9 @@ public class GroupeController {
 	}
 
 	@RequestMapping(value = "/saveGroupeNonInstit", method = RequestMethod.POST)
-	public ModelAndView saveGroupeNonInstit(HttpServletRequest request, String nameGroupe, String descriptionGroupe) {
-		System.out.println("passe dans le save ");
-		ModelAndView modelView;
+	public ModelAndView saveGroupeNonInstit(HttpServletRequest request,String nameGroupe, String descriptionGroupe) {		
+		ModelAndView modelView;	
 		GroupeDTO gDTO = groupeBean.createGroupe(nameGroupe, descriptionGroupe, false);
-		System.out.println("le groupe a été créé");
 		HttpSession sessionObj = request.getSession();
 		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
 		ancienEtudiantBean.addAnimateurToGroupe(eDTO, gDTO);
@@ -256,14 +296,13 @@ public class GroupeController {
 			@PathVariable Map<String, String> pathVariables) {
 		HttpSession sessionObj = request.getSession();
 		AncienEtudiantDTO eDTO = (AncienEtudiantDTO) sessionObj.getAttribute("etudiant");
-		System.out.println("cc1");
+
 		ModelAndView modelView;
+
 		modelView = new ModelAndView("redirect:/nonInstitGroupe");
 
-		System.out.println("cc2");
 		int idgroupe = Integer.parseInt(pathVariables.get("id"));
 		if (groupeBean.removeGroupeNonInstit(idgroupe, eDTO.getId())) {
-			System.out.println("suppression reussi :)");
 
 			List<GroupeDTO> listeResultat = groupeBean.getAllGroupe();
 			modelView = new ModelAndView("redirect:/nonInstitGroupe", "command", new GroupeDTO());

@@ -101,12 +101,9 @@ public class ConnexionController {
 			Iterator attributeNames = attributes.keySet().iterator();
 			// pour tester, supprimer la condition
 //			if ((String) attributes.get("matricule") == null) {
-//				System.out.println("matricule null");
 //				request.getSession().setAttribute(ATTR_CAS, null);
 //				return "redirect:" + request.getServletContext().getInitParameter("urlCasLogout")
 //						+  request.getServletContext().getInitParameter("urlSite")+"/WrongConnexionPageProf";
-//			} else {
-//				System.out.println("matricule OK");
 //			}
 			String mail = (String) attributes.get("mail");
 			String nom = (String) attributes.get("name");
@@ -169,8 +166,6 @@ public class ConnexionController {
 		request.logout();
 		if (assertion != null) {
 			request.getSession().setAttribute(ATTR_CAS, null);
-			// System.out.println(request.getServletContext().getInitParameter("urlCasLogout")+
-			// request.getServletContext().getInitParameter("urlSite"));
 			return "redirect:" + request.getServletContext().getInitParameter("urlCasLogout")
 					+ request.getServletContext().getInitParameter("urlSite");
 		}

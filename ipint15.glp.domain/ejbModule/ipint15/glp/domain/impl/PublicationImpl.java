@@ -66,12 +66,10 @@ public class PublicationImpl implements PublicationRemote {
 	}
 
 	private Groupe getGroupeById(int id) {
-		System.out.println("passe dans getGroupe" + id);
 //		Query q = em.createQuery("select o from Groupe o WHERE o.id = :id");
 //		q.setParameter("id", id);
 //		Groupe g = (Groupe) q.getSingleResult();
 		Groupe g = em.find(Groupe.class, id);
-		System.out.println("passe apres le single result");
 		return g;
 	}
 
@@ -111,7 +109,6 @@ public class PublicationImpl implements PublicationRemote {
 	}
 	@Override
 	public List<PublicationDTO> getMyPublications(int idGroupe, int idUtilisateur, String typeCompte) {
-		System.out.println("Mes pub : "+idUtilisateur);
 		List<Publication> mesPublications = new ArrayList<Publication>();
 		if (idGroupe == -2) {
 			// Recherche de mes publications pour tout le monde + groupes
@@ -120,7 +117,6 @@ public class PublicationImpl implements PublicationRemote {
 				mesPublications = e.getProfil().getMesPublications();
 			} else if ("prof".equals(typeCompte)) {
 				Enseignant e = em.find(Enseignant.class, idUtilisateur);
-				System.out.println("verification e : "+e.getId());
 				mesPublications = e.getMesPublications();
 			} else if ("etudiant".equals(typeCompte)) {
 				Etudiant e = em.find(Etudiant.class, idUtilisateur);
@@ -212,8 +208,6 @@ public class PublicationImpl implements PublicationRemote {
 		// by p.date desc").getResultList();
 		List<PublicationDTO> mesPublicationsDTO = new ArrayList<PublicationDTO>();
 		for (Publication c : mesPublications) {
-			System.out.println("Test isAnim " + c.isPostByAnim());
-			System.out.println("GROUPE : " + c.getGroupe());
 			PublicationDTO cDTO = c.toPublicationDTO();
 			if (c.getProfil() != null) {
 				EtudiantProfilDTO epDTO = c.getProfil().toEtudiantProfilDTO();
@@ -270,10 +264,8 @@ public class PublicationImpl implements PublicationRemote {
 
 		if (groupe != null && !groupe.isInstitutionnel()) {
 			if (isAnimateurGroupeAncienEtudiant(groupe.getId(), e.getId())) {
-				System.out.println("je passe ici");
 				c.setPostByAnim(true);
 			} else {
-				System.out.println("je passe la");
 				c.setPostByAnim(false);
 			}
 		}
@@ -282,18 +274,12 @@ public class PublicationImpl implements PublicationRemote {
 		ep.getMesPublications().add(c);
 		c.setProfil(ep);
 		if (groupe != null) {
-			System.out.println("passe dans groupe != null");
 			g = getGroupeById(groupe.getId());
-			System.out.println("groupe id"+g.getId());
 			c.setGroupe(g);
-			System.out.println("avant de faire appel a publication");
 			publications = g.getPublications();
 			if(publications == null){
-				System.out.println("publication null ");
 			}
-			System.out.println("nbr de publications avant une nouvelle publi"+publications.size());
 			publications.add(c);
-			System.out.println("nbr de publications apres une nouvelle publi"+publications.size());
 			g.setPublications(publications);
 			em.merge(g);
 		}
@@ -311,7 +297,6 @@ public class PublicationImpl implements PublicationRemote {
 	@Override
 	public List<PublicationDTO> getAllGroupPublications(int idGroupe, int idUtilisateur, String typeCompte) {
 		// TODO Possiblement a modifier selon les regles de publication
-		System.out.println(" Toute pub : "+ idUtilisateur);
 		List<Publication> mesPublications;
 		Groupe groupe = em.find(Groupe.class, idGroupe);
 		GroupeDTO groupeDTO = null;
@@ -598,10 +583,8 @@ public class PublicationImpl implements PublicationRemote {
 
 		if (groupe != null && !groupe.isInstitutionnel()) {
 			if (isAnimateurGroupeEnseignant(groupe.getId(), e.getId())) {
-				System.out.println("je passe ici");
 				c.setPostByAnim(true);
 			} else {
-				System.out.println("je passe la");
 				c.setPostByAnim(false);
 			}
 		}
