@@ -75,7 +75,7 @@ public class SuggestionImpl implements SuggestionRemote {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -85,7 +85,7 @@ public class SuggestionImpl implements SuggestionRemote {
 		AncienEtudiant e = (AncienEtudiant) q.getSingleResult();
 
 		String entreprise = e.getNomEntreprise().toLowerCase();
-		
+
 		List<AncienEtudiant> ps = em.createQuery("select o from AncienEtudiant o").getResultList();
 		List<AncienEtudiantDTO> psDTO = new ArrayList<AncienEtudiantDTO>();
 		List<AncienEtudiantDTO> result = new ArrayList<AncienEtudiantDTO>();
@@ -98,7 +98,7 @@ public class SuggestionImpl implements SuggestionRemote {
 					psDTO.add(eDTO);
 				}
 			}
-			
+
 		}
 		while(result.size()!= 3) {
 			int tirage;
@@ -119,7 +119,7 @@ public class SuggestionImpl implements SuggestionRemote {
 		}
 		return result;
 	}
-	
+
 	private List<AncienEtudiantDTO> etuByGroupeNonInstitu(int idEtu) {
 		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.id = :id");
 		q.setParameter("id", idEtu);
@@ -165,11 +165,11 @@ public class SuggestionImpl implements SuggestionRemote {
 	}
 
 	private List<AncienEtudiantDTO> randomEtu(int idEtu) {
-		
+
 		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.id = :id");
 		q.setParameter("id", idEtu);
 		AncienEtudiant etu = (AncienEtudiant) q.getSingleResult();
-		
+
 		List<AncienEtudiant> ps = em.createQuery("select o from AncienEtudiant o").getResultList();
 		List<AncienEtudiantDTO> psDTO = new ArrayList<AncienEtudiantDTO>();
 		List<AncienEtudiantDTO> result = new ArrayList<AncienEtudiantDTO>();
@@ -196,6 +196,33 @@ public class SuggestionImpl implements SuggestionRemote {
 		return result;
 	}
 	
+	private List<AncienEtudiantDTO> randomEtuOther() {
+
+		List<AncienEtudiant> ps = em.createQuery("select o from AncienEtudiant o").getResultList();
+		List<AncienEtudiantDTO> psDTO = new ArrayList<AncienEtudiantDTO>();
+		List<AncienEtudiantDTO> result = new ArrayList<AncienEtudiantDTO>();
+
+		for (AncienEtudiant e : ps) {
+			EtudiantProfil ep = e.getProfil();
+			AncienEtudiantDTO eDTO = ce.MappingEtudiantProfil(e, ep);
+			psDTO.add(eDTO);
+		
+		}
+		while(result.size()!= 3) {
+			int tirage;
+			int size = psDTO.size();
+			if (size>0) {
+				Random r = new Random();
+				tirage = r.nextInt(size);
+				result.add(psDTO.get(tirage));
+				psDTO.remove(tirage);
+			}else {
+				break;
+			}
+		}
+		return result;
+	}
+
 	private List<GroupeDTO> groupeByGroupeInstitu(int idEtu) {
 		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.id = :id");
 		q.setParameter("id", idEtu);
@@ -207,19 +234,19 @@ public class SuggestionImpl implements SuggestionRemote {
 		List<Groupe> groupes = new ArrayList<Groupe>();
 		List<GroupeDTO> groupesDTO = new ArrayList<GroupeDTO>();
 		List<GroupeDTO> result = new ArrayList<GroupeDTO>();
-		
+
 
 		for (AncienEtudiant etu : etus) {
 			for (Groupe groupe : etu.getLesGroupes())
-			if (!groupes.contains(groupe)) {
-				groupes.add(groupe);
-			}
+				if (!groupes.contains(groupe)) {
+					groupes.add(groupe);
+				}
 		}
-		
+
 		for (Groupe groupe : groupes) {
 			groupesDTO.add(groupe.toGroupeDTO());
 		}
-		
+
 		while(result.size()!= 3) {
 			int tirage;
 			int size = groupesDTO.size();
@@ -237,19 +264,19 @@ public class SuggestionImpl implements SuggestionRemote {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
 	private List<GroupeDTO> randomGroupe(int idEtu) {
-		
+
 		Query q = em.createQuery("select o from AncienEtudiant o WHERE o.id = :id");
 		q.setParameter("id", idEtu);
 		AncienEtudiant etu = (AncienEtudiant) q.getSingleResult();
 		Groupe groupeEtu = etu.getGroupe();
 		List<Groupe> groupesEtu = etu.getLesGroupes();
-		
-		
+
+
 		List<Groupe> ps = em.createQuery("select o from Groupe o").getResultList();
 		List<GroupeDTO> psDTO = new ArrayList<GroupeDTO>();
 		List<GroupeDTO> result = new ArrayList<GroupeDTO>();
@@ -275,28 +302,62 @@ public class SuggestionImpl implements SuggestionRemote {
 		return result;
 	}
 
+	private List<GroupeDTO> randomGroupeOther() {
+
+		List<Groupe> ps = em.createQuery("select o from Groupe o").getResultList();
+		List<GroupeDTO> psDTO = new ArrayList<GroupeDTO>();
+		List<GroupeDTO> result = new ArrayList<GroupeDTO>();
+
+		for (Groupe g : ps) {
+			psDTO.add(g.toGroupeDTO());
+		}
+
+		while(result.size()!= 3) {
+			int tirage;
+			int size = psDTO.size();
+			if (size>0) {
+				Random r = new Random();
+				tirage = r.nextInt(size);
+				result.add(psDTO.get(tirage));
+				psDTO.remove(tirage);
+			}else {
+				break;
+			}
+		}
+		return result;
+	}
+
 	@Override
-	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu) {
-		Random r = new Random();
-		int tirage = r.nextInt(3);
-		if (tirage == 0) {
-			return randomEtu(idEtu);
-		}else if (tirage == 1){
-			return etuByGroupeInstitu(idEtu);
-		}else if (tirage == 2){
-			return etuByGroupeNonInstitu(idEtu);
+	public List<AncienEtudiantDTO> genereSuggestionEtu(int idEtu, boolean ancien) {
+		if (ancien) {
+			Random r = new Random();
+			int tirage = r.nextInt(3);
+			if (tirage == 0) {
+				return randomEtu(idEtu);
+			}else if (tirage == 1){
+				return etuByGroupeInstitu(idEtu);
+			}else if (tirage == 2){
+				return etuByGroupeNonInstitu(idEtu);
+			}else {
+				return etuByEntreprise(idEtu);
+			}
 		}else {
-			return etuByEntreprise(idEtu);
+			return randomEtuOther();
 		}
 	}
+	
 	@Override
-	public List<GroupeDTO> genereSuggestionGroupe(int idEtu) {
-		Random r = new Random();
-		int tirage = r.nextInt(2);
-		if (tirage == 0) {
-			return groupeByGroupeInstitu(idEtu);
+	public List<GroupeDTO> genereSuggestionGroupe(int idEtu, boolean ancien) {
+		if (ancien) {
+			Random r = new Random();
+			int tirage = r.nextInt(2);
+			if (tirage == 0) {
+				return groupeByGroupeInstitu(idEtu);
+			}else {
+				return randomGroupe(idEtu);
+			}
 		}else {
-			return randomGroupe(idEtu);
+			return randomGroupeOther();
 		}
 	}
 
