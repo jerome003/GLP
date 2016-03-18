@@ -520,24 +520,10 @@ public class GroupeImpl implements GroupeRemote {
 		List<EtudiantDTO> etudiants = groupeAvecListeDesMembre.getEtudiants();
 		boolean a = true;
 		Groupe g = getGroupeById(idGroupe);
-		if (membreExistInListGroupe(idGroupe, eDTO.getId())) {
+		if (membreEtudiantExistInListGroupe(idGroupe, eDTO.getId())) {
 			a = false;
 		} else {
 			if (idGroupe != eDTO.getGroupe().getId()) {
-				if (g.getAnimateurGroupeNonInstit() != null) {
-					if (g.getAnimateurGroupeNonInstit().getId() == eDTO.getId()) {
-						a = false;
-					} else {
-						boolean peurej = true;
-						for (EtudiantDTO etu : etudiants) {
-							if (etu.getId() == eDTO.getId()) {
-								System.out.println("je fais deja partie du groupe donc je peux publier dans le groupe");
-								peurej = false;
-							}
-						}
-						a = peurej;
-					}
-				}
 			} else {
 				a = false;
 			}
@@ -551,21 +537,14 @@ public class GroupeImpl implements GroupeRemote {
 		List<AncienEtudiantDTO> ancienEtdiantDTO = groupeAvecListeDesMembre.getAncienEtudiants();
 		boolean a = true;
 		Groupe g = getGroupeById(idGroupe);
-		if (membreExistInListGroupe(idGroupe, eDTO.getId())) {
-			a = false;
+		if (membreEnseignantExistInListGroupe(idGroupe, eDTO.getId())) {
+			return false;
 		} else {
-			if (g.getAnimateurGroupeNonInstit() != null) {
-				if (g.getAnimateurGroupeNonInstit().getId() == eDTO.getId()) {
-					a = false;
-				} else {
-					boolean peurej = true;
-					for (AncienEtudiantDTO ancien : ancienEtdiantDTO) {
-						if (ancien.getId() == eDTO.getId()) {
-							System.out.println("je fais deja partie du groupe donc je peux publier dans le groupe");
-							peurej = false;
-						}
+			if (g.getAnimateur() != null) {
+				for (Enseignant enseignant : g.getAnimateur()) {
+					if (enseignant.getId() == eDTO.getId()) {
+						return false;
 					}
-					a = peurej;
 				}
 			}
 		}
@@ -588,6 +567,7 @@ public class GroupeImpl implements GroupeRemote {
 		Groupe g = em.find(Groupe.class, idGroupe);
 		Enseignant e = em.find(Enseignant.class, eDTO.getId());
 		for (Groupe groupe : e.getGroupesAnimes()) {
+			System.out.println(groupe.toString() + " : " + idGroupe);
 			if (groupe.getId() == idGroupe) {
 				return false;
 			}

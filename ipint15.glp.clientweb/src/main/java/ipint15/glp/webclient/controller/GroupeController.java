@@ -144,7 +144,7 @@ public class GroupeController {
 
 					sessionObj.setAttribute("peutRejoindreGroupe", false);
 					// si on ne peut pas rejoindre le groupe, on peut le quitter a moins d'etre animateur
-					sessionObj.setAttribute("peutQuitterGroupe", true);
+					sessionObj.setAttribute("peutQuitterGroupe", groupeBean.peutQuitterGroupeEnseignant(id, eDTO));
 				}
 
 				if (groupeBean.membreEnseignantExistInListGroupe(id, idMembre)) {
@@ -193,17 +193,14 @@ public class GroupeController {
 
 				return new ModelAndView("redirect:/groupe/" + id);
 			}
-			// if (sessionObj.getAttribute("type").equals("prof")) {
-			// int idp = Integer.parseInt(id);
-			// GroupeDTO groupeDTO =
-			// groupeBean.getGroupeDTOByIdWithMemberList(idp);
-			// AncienEtudiantDTO eDTO = (AncienEtudiantDTO)
-			// sessionObj.getAttribute("etudiant");
-			// ancienEtudiantBean.addGroupeInLesGroupesNonInstitEtudiant(eDTO,
-			// groupeDTO);
-			//
-			// return new ModelAndView("redirect:/groupe/" + id);
-			// }
+			if (sessionObj.getAttribute("type").equals("prof")) {
+				int idp = Integer.parseInt(id);
+				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(idp);
+				EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
+				enseignantBean.addGroupeInLesGroupesNonInstitProf(eDTO, groupeDTO);
+
+				return new ModelAndView("redirect:/groupe/" + id);
+			}
 			ModelAndView model = new ModelAndView("errorAccesRole");
 			return model;
 
@@ -300,16 +297,14 @@ public class GroupeController {
 
 				return new ModelAndView("redirect:/groupe/" + id);
 			}
-			// if (sessionObj.getAttribute("type").equals("prof") ) {
-			// int idp = Integer.parseInt(id);
-			// GroupeDTO groupeDTO =
-			// groupeBean.getGroupeDTOByIdWithMemberList(idp);
-			// EnseignantDTO eDTO = (EnseignantDTO)
-			// sessionObj.getAttribute("etudiant");
-			// enseignantBean.removeGroupeInLesGroupes(eDTO, groupeDTO);
-			//
-			// return new ModelAndView("redirect:/groupe/" + id);
-			// }
+			if (sessionObj.getAttribute("type").equals("prof")) {
+				int idp = Integer.parseInt(id);
+				GroupeDTO groupeDTO = groupeBean.getGroupeDTOByIdWithMemberList(idp);
+				EnseignantDTO eDTO = (EnseignantDTO) sessionObj.getAttribute("etudiant");
+				enseignantBean.removeGroupeInLesGroupes(eDTO, groupeDTO);
+
+				return new ModelAndView("redirect:/groupe/" + id);
+			}
 			ModelAndView model = new ModelAndView("errorAccesRole");
 			return model;
 
