@@ -577,7 +577,7 @@ public class PublicationImpl implements PublicationRemote {
 		c.setPublic(isPublic);
 		if (groupe != null && isAnimateurGroupeEnseignant(groupe.getId(), e.getId())) {
 			c.setPostByAnim(true); 
-		}else if(g.getAnimateurEnsGNonInstit() != null){
+		}else if(groupe != null && g.getAnimateurEnsGNonInstit() != null){
 			if(g.getAnimateurEnsGNonInstit().getId() == e.getId()){
 				c.setPostByAnim(true); 
 			}else{
