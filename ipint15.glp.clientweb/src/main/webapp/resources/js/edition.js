@@ -344,7 +344,7 @@ function AddExpPro() {
 	divDebut.appendChild(divInputDebut);
 	var labelDebut = document.createElement("label");
 	labelDebut.htmlFor = "debut";
-	labelDebut.innerHTML = "Date début";
+	labelDebut.innerHTML = "Date d&eacute;but";
 	divLabelDebut.appendChild(labelDebut);
 	var inputDebut = document.createElement("input");
 	inputDebut.id = "expProDebut" + taille;
@@ -435,7 +435,7 @@ function AddFormation() {
 	divNom.appendChild(divInputNom);
 	var labelNom = document.createElement("label");
 	labelNom.htmlFor = "intitule";
-	labelNom.innerHTML = "Intitule";
+	labelNom.innerHTML = "Intitul&eacute;";
 	divLabelNom.appendChild(labelNom);
 	var inputNom = document.createElement("input");
 	inputNom.id = "formationIntitule" + taille;
@@ -477,7 +477,7 @@ function AddFormation() {
 	divDebut.appendChild(divInputDebut);
 	var labelDebut = document.createElement("label");
 	labelDebut.htmlFor = "dateDebut";
-	labelDebut.innerHTML = "Date debut";
+	labelDebut.innerHTML = "Date d&eacute;but";
 	divLabelDebut.appendChild(labelDebut);
 	var inputDebut = document.createElement("input");
 	inputDebut.id = "formationDebut" + taille;
