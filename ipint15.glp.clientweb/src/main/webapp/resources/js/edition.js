@@ -601,7 +601,7 @@ function AddLoisir(){
 }
 
 function suprrimerExp(id) {
-	alertify.confirm('Voulez-vous réellement supprimer ce champ ?',
+	alertify.confirm('Voulez-vous r&eacute;ellement supprimer ce champ ?',
 			function(e) {
 				if (e) {
 					document.getElementById("MonExperience" + id).remove();
@@ -613,7 +613,7 @@ function suprrimerExp(id) {
 }
 
 function suprrimerComp(id) {
-	alertify.confirm('Voulez-vous réellement supprimer ce champ ?',
+	alertify.confirm('Voulez-vous r&eacute;ellement supprimer ce champ ?',
 			function(e) {
 				if (e) {
 					document.getElementById("MaComp" + id).remove();
@@ -625,7 +625,7 @@ function suprrimerComp(id) {
 }
 
 function suprrimerLoisir(id) {
-	alertify.confirm('Voulez-vous réellement supprimer ce champ ?',
+	alertify.confirm('Voulez-vous r&eacute;ellement supprimer ce champ ?',
 			function(e) {
 				if (e) {
 					document.getElementById("MonLoisir" + id).remove();
@@ -637,7 +637,7 @@ function suprrimerLoisir(id) {
 }
 
 function suprrimerFormation(id) {
-	alertify.confirm('Voulez-vous réellement supprimer ce champ ?',
+	alertify.confirm('Voulez-vous r&eacute;ellement supprimer ce champ ?',
 			function(e) {
 				if (e) {
 					document.getElementById("MaFormation" + id).remove();
