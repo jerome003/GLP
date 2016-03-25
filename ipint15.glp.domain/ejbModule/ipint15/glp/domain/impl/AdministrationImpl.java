@@ -100,7 +100,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	@Override
 	public void sendMailModoAssign(ModerateurDTO modo, GroupeDTO groupe) {
 		final String username = "maxime.gidon";
-		final String password = "Miage2016";
+		final String password = "Mettre le bon password";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtps.univ-lille1.fr");
@@ -324,7 +324,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	@Override
 	public void sendMailEtudiantOK(AncienEtudiantDTO etu) {
 		final String username = "maxime.gidon";
-		final String password = "Miage2016";
+		final String password = "Mettre le bon password";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtps.univ-lille1.fr");
@@ -367,7 +367,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	@Override
 	public void sendMailEtudiantKO(AncienEtudiantDTO etu, String motif) {
 		final String username = "maxime.gidon";
-		final String password = "Miage2016";
+		final String password = "Mettre le bon password";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtps.univ-lille1.fr");
@@ -438,7 +438,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	@Override
 	public void sendMailNewEtudiant(AncienEtudiantDTO etu) {
 		final String username = "maxime.gidon";
-		final String password = "Miage2016";
+		final String password = "Mettre le bon password";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtps.univ-lille1.fr");
@@ -598,7 +598,7 @@ public class AdministrationImpl implements AdministrationRemote {
 	@Override
 	public void sendMailModoUnassign(ModerateurDTO modo, GroupeDTO groupe) {
 		final String username = "maxime.gidon";
-		final String password = "Miage2016";
+		final String password = "Mettre le bon password";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtps.univ-lille1.fr");
